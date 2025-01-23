@@ -1,5 +1,5 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar class="ion-text-center">
     <ion-title>
       Mi Perfil
     </ion-title>
@@ -12,6 +12,58 @@
       <ion-title size="large">Tab 1</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-content color="light">
+    <ion-list [inset]="true">
+      <ion-item>
+        <ion-input label="Nombre"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Apellidos"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Teléfono"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="dirección"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Empresa"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Empresa"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Empresa"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Empresa"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Empresa"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Empresa"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-toggle>
+          <ion-label>Activar Notifications</ion-label>
+          <ion-note color="medium">Desactívelo cuando quiera.</ion-note>
+        </ion-toggle>
+      </ion-item>
+    </ion-list>
 
-  <h1>Configuración del Perfil</h1>
+    <ion-list [inset]="true">
+      <ion-item>
+        <ion-textarea label="Comments" labelPlacement="floating" rows="5"></ion-textarea>
+      </ion-item>
+    </ion-list>
+
+    <ion-note color="medium" class="ion-margin-horizontal" style="display: flex;">
+      Gracias a sus comentarios hacen que sigamos mejorando nuestra apliación.
+    </ion-note>
+
+  </ion-content>
 </ion-content>

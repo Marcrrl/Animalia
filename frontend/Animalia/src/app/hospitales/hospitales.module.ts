@@ -3,8 +3,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HospitalesPage } from './hospitales.page';
-import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
-
 import { HospitalesPageRoutingModule } from './hospitales-routing.module';
 
 @NgModule({
@@ -12,7 +10,6 @@ import { HospitalesPageRoutingModule } from './hospitales-routing.module';
     IonicModule,
     CommonModule,
     FormsModule,
-    ExploreContainerComponentModule,
     HospitalesPageRoutingModule
   ],
   declarations: [HospitalesPage]

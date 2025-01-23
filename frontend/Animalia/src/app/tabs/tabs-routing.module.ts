@@ -24,6 +24,10 @@ const routes: Routes = [
         loadChildren: () => import('../hospitales/hospitales.module').then(m => m.HospitalesPageModule)
       },
       {
+        path: 'animales',
+        loadChildren: () => import('../animales/animales.module').then(m => m.AnimalesPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/tab1',
         pathMatch: 'full'
