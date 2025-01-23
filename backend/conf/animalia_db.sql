@@ -18,7 +18,7 @@ CREATE TABLE Usuarios (
     apellido VARCHAR(100) NOT NULL,
     fecha_nacimiento DATE,
     email VARCHAR(150) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL,+
+    password VARCHAR(255) NOT NULL,
     telefono VARCHAR(15),
     direccion TEXT,
     tipo_usuario ENUM('admin', 'usuario','empresa') DEFAULT 'usuario',
@@ -69,7 +69,6 @@ CREATE TABLE Rescates (
 CREATE TABLE Fotos (
     id_foto INT AUTO_INCREMENT PRIMARY KEY,
     id_usuario INT NOT NULL,
-    id_animal INT,
     id_rescate INT,
     url_foto TEXT NOT NULL,
     ubicacion TEXT NOT NULL,
@@ -77,6 +76,5 @@ CREATE TABLE Fotos (
     descripcion TEXT,
     foto_revisada BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE,
-    FOREIGN KEY (id_animal) REFERENCES Animales(id_animal) ON DELETE SET NULL,
     FOREIGN KEY (id_rescate) REFERENCES Rescates(id_rescate) ON DELETE CASCADE
 );
