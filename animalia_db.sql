@@ -15,26 +15,35 @@ SET FOREIGN_KEY_CHECKS = 1;
 CREATE TABLE Usuarios (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    fecha_nacimiento DATE,
     email VARCHAR(150) UNIQUE NOT NULL,
-    contraseña VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,+
+    telefono VARCHAR(15),
+    direccion TEXT,
+    tipo_usuario ENUM('admin', 'usuario','empresa') DEFAULT 'usuario',
+    url_foto_perfil TEXT,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fiabilidad INT DEFAULT 0,
     cantidad_rescates INT DEFAULT 0 
 );
 
 -- Tabla de Animales
 CREATE TABLE Animales (
     id_animal INT AUTO_INCREMENT PRIMARY KEY,
-    especie VARCHAR(100) NOT NULL,
+    especie TEXT,
     nombre_comun VARCHAR(100),
     descripcion TEXT,
-    ultima_ubicacion TEXT,
-    ultima_fecha_visto DATE,
     estado_conservacion VARCHAR(50),
-    UNIQUE (especie, nombre_comun, descripcion)
+    UNIQUE (especie)
 );
 
 -- Tabla de Empresas
 CREATE TABLE Empresas (
     id_empresa INT AUTO_INCREMENT PRIMARY KEY,
+    tipo_empresa ENUM('Refugio', 'Veterinaria', 'Rescatista') NOT NULL,
+    ubicacion TEXT NOT NULL,
+    url_web TEXT,
     nombre_empresa VARCHAR(150) NOT NULL,
     email_contacto VARCHAR(150) UNIQUE NOT NULL,
     telefono VARCHAR(15),
@@ -44,12 +53,16 @@ CREATE TABLE Empresas (
 -- Tabla de Rescates
 CREATE TABLE Rescates (
     id_rescate INT AUTO_INCREMENT PRIMARY KEY,
-    id_empresa INT NOT NULL,
+    id_empresa INT,
+    id_usuario INT NOT NULL,
     id_animal INT NOT NULL,
     fecha_rescate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     estado TEXT,
+    ubicacion_rescate TEXT,
+    estado_gravedad ENUM('Leve', 'Moderado', 'Grave') DEFAULT 'Leve',
     FOREIGN KEY (id_empresa) REFERENCES Empresas(id_empresa) ON DELETE CASCADE,
-    FOREIGN KEY (id_animal) REFERENCES Animales(id_animal) ON DELETE CASCADE
+    FOREIGN KEY (id_animal) REFERENCES Animales(id_animal) ON DELETE CASCADE,
+    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE
 );
 
 -- Tabla de Fotos
@@ -62,6 +75,7 @@ CREATE TABLE Fotos (
     ubicacion TEXT NOT NULL,
     fecha_captura DATE NOT NULL,
     descripcion TEXT,
+    foto_revisada BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE,
     FOREIGN KEY (id_animal) REFERENCES Animales(id_animal) ON DELETE SET NULL,
     FOREIGN KEY (id_rescate) REFERENCES Rescates(id_rescate) ON DELETE CASCADE
