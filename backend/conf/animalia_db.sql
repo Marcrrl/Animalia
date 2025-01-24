@@ -24,7 +24,6 @@ CREATE TABLE Usuarios (
     tipo_usuario ENUM('admin', 'usuario','empresa') DEFAULT 'usuario',
     url_foto_perfil TEXT,
     fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    fiabilidad INT DEFAULT 0,
     cantidad_rescates INT DEFAULT 0 
 );
 
@@ -41,7 +40,7 @@ CREATE TABLE Animales (
 -- Tabla de Empresas
 CREATE TABLE Empresas (
     id_empresa INT AUTO_INCREMENT PRIMARY KEY,
-    tipo_empresa ENUM('Refugio', 'Veterinaria', 'Rescatista') NOT NULL,
+    tipo_empresa ENUM('Refugio', 'Hospital', 'Reserva', 'Clinica') NOT NULL,
     ubicacion TEXT NOT NULL,
     url_web TEXT,
     nombre_empresa VARCHAR(150) NOT NULL,
@@ -68,13 +67,10 @@ CREATE TABLE Rescates (
 -- Tabla de Fotos
 CREATE TABLE Fotos (
     id_foto INT AUTO_INCREMENT PRIMARY KEY,
-    id_usuario INT NOT NULL,
-    id_rescate INT,
+    id_rescate INT NOT NULL,
     url_foto TEXT NOT NULL,
     ubicacion TEXT NOT NULL,
     fecha_captura DATE NOT NULL,
     descripcion TEXT,
-    foto_revisada BOOLEAN DEFAULT FALSE,
-    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE,
     FOREIGN KEY (id_rescate) REFERENCES Rescates(id_rescate) ON DELETE CASCADE
 );
