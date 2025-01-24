@@ -1,8 +1,10 @@
 package com.animalia.spring.entidades;
 
 import jakarta.persistence.Entity;
+import lombok.Data;
 
-@Entity
+
+@Entity @Data
 public class Usuarios {
     
 }
