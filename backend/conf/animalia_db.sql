@@ -21,7 +21,7 @@ CREATE TABLE Usuarios (
     password VARCHAR(255) NOT NULL,
     telefono VARCHAR(15),
     direccion TEXT,
-    tipo_usuario ENUM('admin', 'usuario','empresa') DEFAULT 'usuario',
+    tipo_usuario ENUM('admin','usuario') DEFAULT 'usuario',
     url_foto_perfil TEXT,
     fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     cantidad_rescates INT DEFAULT 0 
