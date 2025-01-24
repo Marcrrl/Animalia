@@ -1,6 +1,6 @@
 [
     {
-      "id_usuario": 1,
+      "id": 1,
       "nombre": "Carlos",
       "apellido": "Gómez",
       "fecha_nacimiento": "1990-03-15",
@@ -14,7 +14,7 @@
       "cantidad_rescates": 2
     },
     {
-      "id_usuario": 2,
+      "id": 2,
       "nombre": "Laura",
       "apellido": "Martínez",
       "fecha_nacimiento": "1985-07-22",
@@ -28,7 +28,7 @@
       "cantidad_rescates": 15
     },
     {
-      "id_usuario": 3,
+      "id": 3,
       "nombre": "Ana",
       "apellido": "López",
       "fecha_nacimiento": "1998-10-12",
@@ -42,7 +42,7 @@
       "cantidad_rescates": 0
     },
     {
-      "id_usuario": 4,
+      "id": 4,
       "nombre": "David",
       "apellido": "Fernández",
       "fecha_nacimiento": "1995-05-18",
@@ -56,7 +56,7 @@
       "cantidad_rescates": 1
     },
     {
-      "id_usuario": 5,
+      "id": 5,
       "nombre": "María",
       "apellido": "Ruiz",
       "fecha_nacimiento": "1993-08-30",
@@ -70,7 +70,7 @@
       "cantidad_rescates": 3
     },
     {
-      "id_usuario": 6,
+      "id": 6,
       "nombre": "Jorge",
       "apellido": "Sánchez",
       "fecha_nacimiento": "1997-11-11",
@@ -84,7 +84,7 @@
       "cantidad_rescates": 0
     },
     {
-      "id_usuario": 7,
+      "id": 7,
       "nombre": "Elena",
       "apellido": "Torres",
       "fecha_nacimiento": "2000-06-14",
@@ -98,7 +98,7 @@
       "cantidad_rescates": 22
     },
     {
-      "id_usuario": 8,
+      "id": 8,
       "nombre": "Lucas",
       "apellido": "Castro",
       "fecha_nacimiento": "1992-01-20",
@@ -112,7 +112,7 @@
       "cantidad_rescates": 8
     },
     {
-      "id_usuario": 9,
+      "id": 9,
       "nombre": "Marta",
       "apellido": "Jiménez",
       "fecha_nacimiento": "1988-04-27",
@@ -126,7 +126,7 @@
       "cantidad_rescates": 6
     },
     {
-      "id_usuario": 10,
+      "id": 10,
       "nombre": "Pablo",
       "apellido": "Morales",
       "fecha_nacimiento": "1994-12-05",
