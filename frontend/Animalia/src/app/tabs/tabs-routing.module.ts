@@ -4,39 +4,35 @@ import { TabsPage } from './tabs.page';
 
 const routes: Routes = [
   {
-    path: 'tabs',
+    path: '',
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
-        loadChildren: () => import('../tab1/tab1.module').then(m => m.Tab1PageModule)
+        path: 'Camara',
+        loadChildren: () => import('../Camara/Camara.module').then(m => m.CamaraPageModule)
       },
       {
-        path: 'tab2',
-        loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+        path: 'Mapa',
+        loadChildren: () => import('../Mapa/Mapa.module').then(m => m.MapaPageModule)
       },
       {
-        path: 'tab3',
-        loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
-      },
-      {
-        path: 'hospitales',
-        loadChildren: () => import('../hospitales/hospitales.module').then(m => m.HospitalesPageModule)
-      },
-      {
-        path: 'animales',
+        path: 'Animales',
         loadChildren: () => import('../animales/animales.module').then(m => m.AnimalesPageModule)
       },
       {
+        path: 'Perfil',
+        loadChildren: () => import('../perfil/perfil.module').then(m => m.PerfilPageModule)
+      },
+      {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/Perfil',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/Perfil',
     pathMatch: 'full'
   }
 ];
