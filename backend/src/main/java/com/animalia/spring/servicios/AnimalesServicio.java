@@ -25,12 +25,12 @@ public class AnimalesServicio {
         return animalesRepositorio.save(animal);
     }
 
-    public void eliminarAnimal(int id) {
-        animalesRepositorio.deleteById((long) id);
+    public void eliminarAnimal(long id) {
+        animalesRepositorio.deleteById(id);
     }
 
-    public void actualizarAnimal(Animales animal) {
-        animalesRepositorio.save(animal);
+    public Animales actualizarAnimal(Animales animal) {
+        return animalesRepositorio.save(animal);
     }
 
     public List<Animales> buscarAnimales(String busqueda) {
