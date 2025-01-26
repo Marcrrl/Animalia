@@ -16,4 +16,25 @@ public class AnimalesServicio {
     public List<Animales> obtenerAnimales() {
         return animalesRepositorio.findAll();
     }
+
+    public Animales obtenerAnimalPorId(long id) {
+        return animalesRepositorio.findById(id).get();
+    }
+
+    public Animales guardarAnimal(Animales animal) {
+        return animalesRepositorio.save(animal);
+    }
+
+    public void eliminarAnimal(int id) {
+        animalesRepositorio.deleteById((long) id);
+    }
+
+    public void actualizarAnimal(Animales animal) {
+        animalesRepositorio.save(animal);
+    }
+
+    public List<Animales> buscarAnimales(String busqueda) {
+        return animalesRepositorio.findEspecieContainsIgnoreCaseOrNombre_comun(busqueda, busqueda);
+    }
+
 }

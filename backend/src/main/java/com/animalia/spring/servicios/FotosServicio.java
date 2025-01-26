@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.animalia.spring.entidades.Fotos;
+import com.animalia.spring.entidades.Rescates;
+import com.animalia.spring.entidades.Usuarios;
 import com.animalia.spring.repositorio.FotosRepositorio;
 
 @Service
@@ -16,6 +18,30 @@ public class FotosServicio {
 
     public List<Fotos> obtenerFotos() {
         return fotosRepositorio.findAll();
+    }
+
+    public Fotos obtenerFotoPorId(long id) {
+        return fotosRepositorio.findById(id).get();
+    }
+
+    public Fotos guardarFoto(Fotos foto) {
+        return fotosRepositorio.save(foto);
+    }
+
+    public void eliminarFoto(int id) {
+        fotosRepositorio.deleteById((long) id);
+    }
+
+    public void actualizarFoto(Fotos foto) {
+        fotosRepositorio.save(foto);
+    }
+
+    public List<Fotos> obtenerFotosPorUsuario(Usuarios usuario) {
+        return fotosRepositorio.findByUsuarios(usuario);
+    }
+
+    public List<Fotos> obtenerFotosDeRescate(Rescates rescate){
+        return fotosRepositorio.findByRescates(rescate);
     }
     
 }
