@@ -48,7 +48,7 @@ public class Empresas {
     private Date fecha_creacion;
 
     public enum TipoEmpresa {
-        VETERINARIA, REFUGIO, HOSPITAL, CLINICA, PROTECTORA, ASOCIACION, PERRERA, ACUARIO, RESIDENCIA, CRIADERO, OTRO
+        CLINICA, REFUGIO, HOSPITAL, PROTECTORA, RESERVA, ACUARIO, OTRO
     }
 
 }
