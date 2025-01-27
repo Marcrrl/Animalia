@@ -24,6 +24,8 @@ public class Animales {
     @Column(nullable = true)
     private String descripcion;
 
+    
+    
     /*Estan los tres campos con posibilidad 
     de ser nulos porque peude que el usuario sepa 
     el nombre comun, o el nombre de la especie o simplemente 

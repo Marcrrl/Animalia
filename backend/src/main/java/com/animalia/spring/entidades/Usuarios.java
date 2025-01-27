@@ -58,7 +58,7 @@ public class Usuarios {
     private String url_foto_perfil;
 
     //Los tipos pueden ser ADMIN o USER
-    @Column(nullable = false)
+    @Column(columnDefinition = "ENUM('ADMIN','USER')",nullable = false)
     @Enumerated(EnumType.STRING)
     private TipoUsuario tipo_usuario;
 
@@ -72,5 +72,7 @@ public class Usuarios {
     @Column(nullable = true)
     private long cantidad_rescates;
 
-
+    public enum TipoUsuario {
+        ADMIN, USER
+    }
 }

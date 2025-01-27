@@ -36,5 +36,4 @@ public class AnimalesServicio {
     public List<Animales> buscarAnimales(String busqueda) {
         return animalesRepositorio.findEspecieContainsIgnoreCaseOrNombre_comun(busqueda, busqueda);
     }
-
 }

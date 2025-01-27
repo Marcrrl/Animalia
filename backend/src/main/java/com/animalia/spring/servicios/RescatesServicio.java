@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.animalia.spring.entidades.Animales;
 import com.animalia.spring.entidades.Empresas;
 import com.animalia.spring.entidades.Estado;
-import com.animalia.spring.entidades.EstadoAnimal;
 import com.animalia.spring.entidades.Rescates;
 import com.animalia.spring.entidades.Usuarios;
 import com.animalia.spring.repositorio.RescatesRepositorio;
@@ -53,10 +52,6 @@ public class RescatesServicio {
 
     public List<Rescates> obtenerRescatesPorEstadoRescate(Estado estado){
         return rescatesRepositorio.findByEstado_rescate(estado);
-    }
-
-    public List<Rescates> obtenerRescatesPorEstadoAnimal(EstadoAnimal estado){
-        return rescatesRepositorio.findByEstado_animal(estado);
     }
 
     public List<Rescates> obtenerRescatesPorAnimal(String especie, String nombre_comun){

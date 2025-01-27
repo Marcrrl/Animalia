@@ -1,5 +1,0 @@
-package com.animalia.spring.entidades;
-
-public enum EstadoAnimal {
-    LEVE, MODERADO, GRAVE, CRITICO, FALLECIDO, DESCONOCIDO, NO_APLICA, CAPTURADO, LIBERADO, EN_PROCESO, HOSPITALIZADO, EN_ADOPCION, ENFERMO, SANO
-}
