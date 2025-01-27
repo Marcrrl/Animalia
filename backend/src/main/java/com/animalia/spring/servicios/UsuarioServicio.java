@@ -34,16 +34,16 @@ public class UsuarioServicio {
         usuarioRepositorio.save(usuario);
     }
 
-    public Usuarios obtenerUsuarioPorCorreo(String correo) {
-        return usuarioRepositorio.findByCorreo(correo);
-    }
+    // public Usuarios obtenerUsuarioPorCorreo(String correo) {
+    //     return usuarioRepositorio.findByCorreo(correo);
+    // }
 
-    public Usuarios obtenerUsuarioPorNombre(String nombre) {
-        return usuarioRepositorio.findByNombre(nombre);
-    }
+    // public Usuarios obtenerUsuarioPorNombre(String nombre) {
+    //     return usuarioRepositorio.findByNombre(nombre);
+    // }
 
-    public List<Usuarios> search(String consulta) {
-        return usuarioRepositorio.findByNombreContainsIgnoreCaseOrCorreoContainsIgnoreCaseOrTelefonoContainsIgnoreCase(consulta, consulta, consulta);
-    }
+    // public List<Usuarios> search(String consulta) {
+    //     return usuarioRepositorio.findByNombreContainsIgnoreCaseOrCorreoContainsIgnoreCaseOrTelefonoContainsIgnoreCase(consulta, consulta, consulta);
+    // }
 
 }

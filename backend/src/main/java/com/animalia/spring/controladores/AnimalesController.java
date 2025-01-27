@@ -23,23 +23,23 @@ public class AnimalesController {
     @Autowired
     private AnimalesServicio animalesServicio;
 
-    // @GetMapping
+    
     @GetMapping
     public ResponseEntity<List<Animales>> obtenerAnimales() {
         return ResponseEntity.ok(animalesServicio.obtenerAnimales());
     }
 
-    // @GetMapping("/{id}")
+    
     @GetMapping("/{id}")
     public ResponseEntity<Animales> obtenerAnimalPorId(@PathVariable long id) {
         return ResponseEntity.ok(animalesServicio.obtenerAnimalPorId(id));
     }
 
+    
     // @GetMapping("/buscar/{busqueda}")
-    @GetMapping("/buscar/{busqueda}")
-    public ResponseEntity<List<Animales>> buscarAnimales(@PathVariable String busqueda) {
-        return ResponseEntity.ok(animalesServicio.buscarAnimales(busqueda));
-    }
+    // public ResponseEntity<List<Animales>> buscarAnimales(@PathVariable String busqueda) {
+    //     return ResponseEntity.ok(animalesServicio.buscarAnimales(busqueda));
+    // }
 
     @PostMapping
     public ResponseEntity<Animales> guardarAnimal(@RequestBody Animales animal) {

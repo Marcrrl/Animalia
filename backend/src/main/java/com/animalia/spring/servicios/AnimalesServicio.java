@@ -33,7 +33,7 @@ public class AnimalesServicio {
         return animalesRepositorio.save(animal);
     }
 
-    public List<Animales> buscarAnimales(String busqueda) {
-        return animalesRepositorio.findEspecieContainsIgnoreCaseOrNombre_comun(busqueda, busqueda);
-    }
+    // public List<Animales> buscarAnimales(String busqueda) {
+    //     return animalesRepositorio.findEspecieContainsIgnoreCaseOrNombre_comun(busqueda, busqueda);
+    // }
 }
