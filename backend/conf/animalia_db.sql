@@ -40,7 +40,7 @@ CREATE TABLE Animales (
 -- Tabla de Empresas
 CREATE TABLE Empresas (
     id_empresa INT AUTO_INCREMENT PRIMARY KEY,
-    tipo_empresa ENUM('Refugio', 'Hospital', 'Reserva', 'Clinica') NOT NULL,
+    tipo_empresa ENUM('Refugio', 'Hospital', 'Reserva', 'Clinica', 'Protectora', 'Acuario', 'Otro') NOT NULL,
     ubicacion TEXT NOT NULL,
     url_web TEXT,
     nombre_empresa VARCHAR(150) NOT NULL,
