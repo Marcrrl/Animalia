@@ -1,60 +1,37 @@
 <ion-header [translucent]="true">
   <ion-toolbar class="ion-text-center">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>
       Perfil
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="create"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Perfil</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content color="light">
+  <ion-content color="light" class="ion-text-center">
+    <div style="position: relative; display: inline-block; margin-top: 5%;">
+      <ion-avatar style="width: 150px; height: 150px; margin: 0 auto;">
+        <img alt="Avatar" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+      </ion-avatar>
+      <ion-badge color="success" style="position: absolute; top: 0; right: 0; border-radius: 50%; padding: 7px 10px;">3</ion-badge>
+    </div>
+    
     <ion-list [inset]="true">
       <ion-item>
-        <ion-avatar aria-hidden="true" slot="start">
-          <img alt="avatar" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-        </ion-avatar>
-        <ion-label>Huey</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-input label="Nombre"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input label="Apellidos"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input label="Email"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input label="Teléfono"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input label="Dirección"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input label="Fecha de Nacimiento"></ion-input>
-      </ion-item>
-      <!-- <ion-item>
-        <ion-toggle>
-          <ion-label>Activar Notifications</ion-label>
-          <ion-note color="medium">Desactívelo cuando quiera.</ion-note>
-        </ion-toggle>
-      </ion-item> -->
-    </ion-list>
-
-    <ion-list [inset]="true">
-      <ion-item>
-        <ion-textarea label="Comments" labelPlacement="floating" rows="5"></ion-textarea>
+        <ion-label labelPlacement="stacked" label="Email" placeholder="email@domain.com"></ion-label>
+        <span>Hola</span>
       </ion-item>
     </ion-list>
 
-    <ion-note color="medium" class="ion-margin-horizontal" style="display: flex;">
-      Gracias a sus comentarios hacen que sigamos mejorando nuestra aplicación.
-    </ion-note>
 
   </ion-content>
 </ion-content>
