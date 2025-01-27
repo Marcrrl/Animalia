@@ -37,7 +37,7 @@ public class Empresas {
     @NotEmpty(message = "El campo no puede estar vacío")
     private String email;
 
-    @Column(columnDefinition = "ENUM('VETERINARIA', 'REFUGIO', 'HOSPITAL', 'CLINICA', 'PROTECTORA', 'ASOCIACION', 'PERRERA', 'ACUARIO', 'RESIDENCIA', 'CRIADERO', 'OTRO')",nullable = false)
+    @Column(columnDefinition = "ENUM('CLINICA', 'REFUGIO', 'HOSPITAL', 'PROTECTORA', 'RESERVA', 'ACUARIO' 'OTRO')",nullable = false)
     @Enumerated(EnumType.STRING)
     private TipoEmpresa tipo;
 
