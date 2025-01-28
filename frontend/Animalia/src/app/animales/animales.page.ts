@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AnimalesService } from '../services/animales.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-animales',
@@ -12,7 +13,7 @@ export class AnimalesPage implements OnInit {
   public results: any[] = [];
   public showList = false;
 
-  constructor(private animalesService: AnimalesService) {}
+  constructor(private animalesService: AnimalesService,private router:Router) {}
 
   ngOnInit() {
     this.animalesService.getAnimales().subscribe(
@@ -50,9 +51,11 @@ export class AnimalesPage implements OnInit {
     this.ngOnInit();
   }
 
-  handleItemClick(nombre_comun: string) {
+  haciaDatosAnimal(id_animal: number) {
 
-    console.log('Animal clicked:', nombre_comun);
+    this.router.navigate(['/detalles-animal', id_animal]);
+
+    console.log('ID del animal:', id_animal);
 
   }
 

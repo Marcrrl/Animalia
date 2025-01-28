@@ -33,7 +33,7 @@
   </ion-item>
 
   <ion-list id="lista" *ngIf="animales.length > 0">
-    <ion-item *ngFor="let animal of results" button (click)="handleItemClick(animal.nombre_comun)">
+    <ion-item *ngFor="let animal of results" button details="false" (click)="haciaDatosAnimal(animal.id)">
       <ion-thumbnail slot="start">
         <ion-img [src]="animal.foto" [alt]="animal.nombre_comun"></ion-img>
       </ion-thumbnail>

@@ -15,4 +15,7 @@ export class AnimalesService {
     return this.http.get<any>(`${this.apiUrl}/animales`);
 
   }
+  getById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/animales/${id}`);
+  }
 }
