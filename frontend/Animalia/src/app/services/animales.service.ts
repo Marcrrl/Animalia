@@ -7,7 +7,7 @@ export interface Animal {
   especie: string;
   nombre_comun: string;
   descripcion: string;
-  estado_animal: string;
+  estado_conservacion: string;
   foto: string; // Nueva propiedad para la foto
 }
 
