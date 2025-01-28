@@ -2,14 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-export interface Animal {
-  id_animal: number;
-  especie: string;
-  nombre_comun: string;
-  descripcion: string;
-  estado_conservacion: string;
-  foto: string; // Nueva propiedad para la foto
-}
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +11,7 @@ export class AnimalesService {
 
   constructor(private http: HttpClient) { }
 
-  getAnimales(): Observable<Animal> {
+  getAnimales(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/animales`);
 
   }

@@ -1,4 +1,3 @@
-import { Animal } from './../services/animales.service';
 import { Component, OnInit } from '@angular/core';
 import { AnimalesService } from '../services/animales.service';
 
@@ -9,8 +8,8 @@ import { AnimalesService } from '../services/animales.service';
   standalone: false
 })
 export class AnimalesPage implements OnInit {
-  public animales :Animal[]=[];
-  public results :Animal[]= [];
+  public animales :any[]=[];
+  public results :any[]= [];
   public showList = false;
 
   constructor(private animalesService: AnimalesService) { }
@@ -18,7 +17,7 @@ export class AnimalesPage implements OnInit {
   ngOnInit() {
     this.animalesService.getAnimales().subscribe(
       data => {
-        this.animales = data as unknown as Animal[];
+        this.animales = data ;
         this.results = [...this.animales];
       },
       error => {
@@ -30,7 +29,7 @@ export class AnimalesPage implements OnInit {
   handleInput(event: Event) {
     const target = event.target as HTMLIonSearchbarElement;
     const query = target.value?.toLowerCase() || '';
-    this.results = this.animales.filter((d: Animal) => d.nombre_comun.toLowerCase().includes(query));
+    this.results = this.animales.filter((d: any) => d.nombre_comun.toLowerCase().includes(query));
   }
 
   handleItemClick(result: string) {
