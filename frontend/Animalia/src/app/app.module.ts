@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { UsuarioService } from './services/usuario.service';
+import { UsuarioService } from './Servicios/usuario.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { UsuarioService } from '../services/usuario.service';
+import { UsuarioService } from '../Servicios/usuario.service';
 
 @Component({
   selector: 'app-perfil',
@@ -13,7 +13,7 @@ export class PerfilPage implements OnInit {
   constructor(@Inject(UsuarioService) private usuarioService: UsuarioService) {}
 
   ngOnInit() {
-    this.usuarioService.getUsuarios().subscribe(data => {
+    this.usuarioService.getUsuarios().subscribe((data: any) => {
       this.usuario = data[0];
     });
   }
