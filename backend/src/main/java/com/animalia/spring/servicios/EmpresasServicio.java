@@ -21,12 +21,12 @@ public class EmpresasServicio {
         return empresasRepositorio.save(empresa);
     }
 
-    public void eliminarEmpresa(int id) {
-        empresasRepositorio.deleteById((long) id);
+    public void eliminarEmpresa(long id) {
+        empresasRepositorio.deleteById( id);
     }
 
-    public void actualizarEmpresa(Empresas empresa) {
-        empresasRepositorio.save(empresa);
+    public Empresas actualizarEmpresa(Empresas empresa) {
+        return empresasRepositorio.save(empresa);
     }
 
     public List<Empresas> obtenerEmpresaPorNombre(String nombre) {

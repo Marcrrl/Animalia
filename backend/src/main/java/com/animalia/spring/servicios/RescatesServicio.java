@@ -26,12 +26,12 @@ public class RescatesServicio {
         return rescatesRepositorio.save(rescate);
     }
 
-    public void eliminarRescate(int id) {
-        rescatesRepositorio.deleteById((long) id);
+    public void eliminarRescate(long id) {
+        rescatesRepositorio.deleteById(id);
     }
 
-    public void actualizarRescate(Rescates rescate) {
-        rescatesRepositorio.save(rescate);
+    public Rescates actualizarRescate(Rescates rescate) {
+        return rescatesRepositorio.save(rescate);
     }
 
     // public List<Rescates> obtenerRescatesPorEmpresa(Empresas empresa){

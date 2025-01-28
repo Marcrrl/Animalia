@@ -28,12 +28,12 @@ public class FotosServicio {
         return fotosRepositorio.save(foto);
     }
 
-    public void eliminarFoto(int id) {
-        fotosRepositorio.deleteById((long) id);
+    public void eliminarFoto(long id) {
+        fotosRepositorio.deleteById(id);
     }
 
-    public void actualizarFoto(Fotos foto) {
-        fotosRepositorio.save(foto);
+    public Fotos actualizarFoto(Fotos foto) {
+        return fotosRepositorio.save(foto);
     }
 
     public List<Fotos> obtenerFotosPorUsuario(Usuarios usuario) {
