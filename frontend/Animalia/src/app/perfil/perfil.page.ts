@@ -13,7 +13,7 @@ export class PerfilPage implements OnInit {
   constructor(@Inject(UsuarioService) private usuarioService: UsuarioService) {}
 
   ngOnInit() {
-    this.usuarioService.getUsuarios().subscribe(data => {
+    this.usuarioService.getUsuarios().subscribe((data: any) => {
       this.usuario = data[0];
     });
   }
