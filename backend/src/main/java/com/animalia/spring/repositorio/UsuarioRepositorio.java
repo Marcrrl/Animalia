@@ -1,6 +1,5 @@
 package com.animalia.spring.repositorio;
 
-import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

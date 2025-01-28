@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { UsuarioService } from '../services/usuario.service';
 
 @Component({
   selector: 'app-perfil',
@@ -6,8 +7,15 @@ import { Component } from '@angular/core';
   styleUrls: ['perfil.page.scss'],
   standalone: false,
 })
-export class PerfilPage {
+export class PerfilPage implements OnInit {
+  usuario: any;
 
-  constructor() {}
+  constructor(@Inject(UsuarioService) private usuarioService: UsuarioService) {}
+
+  ngOnInit() {
+    this.usuarioService.getUsuarios().subscribe(data => {
+      this.usuario = data[0];
+    });
+  }
 
 }

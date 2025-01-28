@@ -22,16 +22,68 @@
       <ion-avatar style="width: 150px; height: 150px; margin: 0 auto;">
         <img alt="Avatar" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
       </ion-avatar>
-      <ion-badge color="success" style="position: absolute; top: 0; right: 0; border-radius: 50%; padding: 7px 10px;">3</ion-badge>
+      <ion-badge color="success"
+        style="position: absolute; top: 0; right: 0; border-radius: 50%; padding: 7px 10px;">3</ion-badge>
     </div>
-    
+
     <ion-list [inset]="true">
       <ion-item>
-        <ion-label labelPlacement="stacked" label="Email" placeholder="email@domain.com"></ion-label>
-        <span>Hola</span>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6">
+              <ion-input labelPlacement="stacked" label="Nombre" [value]="usuario?.nombre" disabled="true"></ion-input>
+            </ion-col>
+            <ion-col size="6">
+              <ion-input labelPlacement="stacked" label="Apellidos" [value]="usuario?.apellido" disabled="true"></ion-input>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <ion-item>
+        <ion-input labelPlacement="stacked" label="Email" [value]="usuario?.email" disabled="true"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input labelPlacement="stacked" label="Teléfono" [value]="usuario?.telefono" disabled="true"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input labelPlacement="stacked" label="Dirección" [value]="usuario?.direccion" disabled="true"></ion-input>
       </ion-item>
     </ion-list>
 
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6" style="padding: 2px;">
+          <ion-card style="margin: 0;">
+            <ion-img src="https://cdn.pixabay.com/photo/2023/02/09/16/43/cat-7779237_1280.jpg" alt="Imagen 1"></ion-img>
+          </ion-card>
+        </ion-col>
+        <ion-col size="6" style="padding: 2px;">
+          <ion-card style="margin: 0;">
+            <ion-img src="https://cdn.pixabay.com/photo/2023/02/09/16/43/cat-7779237_1280.jpg" alt="Imagen 2"></ion-img>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6" style="padding: 2px;">
+          <ion-card style="margin: 0;">
+            <ion-img src="https://cdn.pixabay.com/photo/2023/02/09/16/43/cat-7779237_1280.jpg" alt="Imagen 3"></ion-img>
+          </ion-card>
+        </ion-col>
+        <ion-col size="6" style="padding: 2px;">
+          <ion-card style="margin: 0;">
+            <ion-img src="https://cdn.pixabay.com/photo/2023/02/09/16/43/cat-7779237_1280.jpg" alt="Imagen 4"></ion-img>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-button expand="block" shape="round" style="margin-top: 20px;">
+      Ver más
+    </ion-button>
+
+    <ion-button expand="full" color="danger" style="margin-top: 20px;">
+      Cerrar sesión
+    </ion-button>
 
   </ion-content>
 </ion-content>
