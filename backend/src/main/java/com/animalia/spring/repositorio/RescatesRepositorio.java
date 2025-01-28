@@ -2,14 +2,7 @@ package com.animalia.spring.repositorio;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.animalia.spring.entidades.Animales;
-import com.animalia.spring.entidades.Empresas;
 import com.animalia.spring.entidades.Rescates;
-import com.animalia.spring.entidades.Rescates.Estado;
-
-import com.animalia.spring.entidades.Usuarios;
-
-import java.util.List;
 
 
 public interface RescatesRepositorio extends JpaRepository<Rescates, Long> {
