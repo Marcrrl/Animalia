@@ -1,7 +1,6 @@
 package com.animalia.spring.entidades;
 
-import java.sql.Date;
-
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -56,7 +55,7 @@ public class Usuarios {
 
     @Column(nullable = false)
     @NotNull
-    private Date fecha_nacimiento;
+    private LocalDate fecha_nacimiento;
 
     // Puede el usuario si quiere ponerse foto de perfil
     @Column(nullable = true)
@@ -70,7 +69,7 @@ public class Usuarios {
     // Hay que poner por codigo la fecha en la que se registra el usuario
     @Column(nullable = false)
     @NotNull
-    private Date fecha_registro;
+    private LocalDate fecha_registro;
 
     /*
      * La cantidad de rescates que ha hecho el usuario no
