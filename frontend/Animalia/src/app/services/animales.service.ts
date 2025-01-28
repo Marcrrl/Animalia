@@ -13,5 +13,4 @@ export class AnimalesService {
   getAnimales(): Observable<any> {
     return this.http.get<any>(this.apiUrl);
   }
-
 }
