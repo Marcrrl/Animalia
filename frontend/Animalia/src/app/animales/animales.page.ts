@@ -39,4 +39,5 @@ export class AnimalesPage implements OnInit {
   handleSearchbarClick() {
     this.showList = true;
   }
+  
 }
