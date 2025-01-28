@@ -1,0 +1,37 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="ion-text-center">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Perfil
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="create"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-content color="light" class="ion-text-center">
+    <div style="position: relative; display: inline-block; margin-top: 5%;">
+      <ion-avatar style="width: 150px; height: 150px; margin: 0 auto;">
+        <img alt="Avatar" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+      </ion-avatar>
+      <ion-badge color="success" style="position: absolute; top: 0; right: 0; border-radius: 50%; padding: 7px 10px;">3</ion-badge>
+    </div>
+    
+    <ion-list [inset]="true">
+      <ion-item>
+        <ion-label labelPlacement="stacked" label="Email" placeholder="email@domain.com"></ion-label>
+        <span>Hola</span>
+      </ion-item>
+    </ion-list>
+
+
+  </ion-content>
+</ion-content>
