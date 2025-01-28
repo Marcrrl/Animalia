@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.animalia.spring.entidades.Animales;
 import com.animalia.spring.entidades.Usuarios;
 import com.animalia.spring.servicios.UsuarioServicio;
 
