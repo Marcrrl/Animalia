@@ -5,7 +5,7 @@ import { AnimalesService } from '../services/animales.service';
   selector: 'app-animales',
   templateUrl: './animales.page.html',
   styleUrls: ['./animales.page.scss'],
-  standalone:false
+  standalone: false
 })
 export class AnimalesPage implements OnInit {
   public animales = [];
@@ -21,7 +21,7 @@ export class AnimalesPage implements OnInit {
         this.results = [...this.animales];
       },
       error => {
-        console.error('Error fetching animales:', error, this.results);
+        console.error('Error fetching animales:', error);
       }
     );
   }
@@ -39,6 +39,4 @@ export class AnimalesPage implements OnInit {
   handleSearchbarClick() {
     this.showList = true;
   }
-
-  
 }
