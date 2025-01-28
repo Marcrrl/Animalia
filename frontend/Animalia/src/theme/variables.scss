@@ -55,14 +55,21 @@ ion-tabs {
         }
       }
 
-      ion-button {
-        background: $color-selected;
-        color: $tabs-color;
+    .animal_button {
+      color: $color-hover;
         --border-color:#006417;
+        --background-activated:#28a745;
     
         &:hover {
-          background: $color-hover;
+          --background-hover: #006417 ;
           --border-color: #28a745;
+        }
+
+        &:focus {
+          --background-activated: #28a745;
+          --border-color: #006417;
+          --background: #28a745;
+          color: white;
         }
       }
   }

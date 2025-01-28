@@ -14,12 +14,20 @@
   <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" (click)="handleSearchbarClick()"></ion-searchbar>
 
   <ion-item id="elementos">
-    <ion-list>
-      <ion-button style="width: 100%;" fill="outline">Mamíferos</ion-button>
-      <ion-button style="width: 100%;" fill="outline">Ovíparos</ion-button>
-      <ion-button style="width: 100%;" fill="outline">Ejemplo1</ion-button>
-      <ion-button style="width: 100%;" fill="outline">Ejemplo2</ion-button>
-      <ion-button style="width: 100%;" fill="outline">Ejemplo3</ion-button>
+    <ion-list class="d-flex flex-column row w-100">
+      <ion-item class="w-100 m-0 p-0" lines="none">
+        <ion-button shape="round" class="col w-100 h-75 animal_button fs-6 fw-bold" fill="outline">Mamíferos</ion-button>
+        <ion-button shape="round" class="col w-100 h-75 animal_button  fs-6 fw-bold" fill="outline">Ovíparos</ion-button>
+      </ion-item>
+      
+      <ion-item class="w-100 m-0 p-0" lines="none">
+        <ion-button shape="round" class="col w-100 h-75 animal_button  fs-6 fw-bold" fill="outline">Ejemplo1</ion-button>
+        <ion-button shape="round" class="col w-100 h-75 animal_button  fs-6 fw-bold" fill="outline">Ejemplo2</ion-button>
+      </ion-item>
+      
+      <ion-item class="w-100 m-0 p-0" lines="none">
+        <ion-button shape="round" class="col w-100 h-75 animal_button  fs-6 fw-bold" fill="outline">Ejemplo3</ion-button>
+      </ion-item>
       <ion-select aria-label="Reino" placeholder="" label="Reino Animal" [multiple]="true">
         <ion-select-option value="apples">Felinos</ion-select-option>
         <ion-select-option value="oranges">Caninos</ion-select-option>
