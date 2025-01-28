@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { UsuarioService } from '../Servicios/usuario.service';
+import { UsuarioService } from '../services/usuario.service';
 
 @Component({
   selector: 'app-perfil',
