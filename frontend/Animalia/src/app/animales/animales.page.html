@@ -16,27 +16,23 @@
   <ion-item id="elementos">
     <ion-list class="d-flex flex-column row w-100">
       <ion-item class="w-100 m-0 p-0" lines="none">
-        <ion-button shape="round" class="col w-100 h-75 animal_button fs-6 fw-bold" fill="outline">Mamíferos</ion-button>
-        <ion-button shape="round" class="col w-100 h-75 animal_button  fs-6 fw-bold" fill="outline">Aves</ion-button>
+        <ion-button (click)="cambioFamilia('MAMIFERO')" shape="round" class="col w-100 h-75 animal_button fs-6 fw-bold" fill="outline">Mamíferos</ion-button>
+        <ion-button (click)="cambioFamilia('AVES')" shape="round" class="col w-100 h-75 animal_button  fs-6 fw-bold" fill="outline">Aves</ion-button>
       </ion-item>
-      
+
       <ion-item class="w-100 m-0 p-0" lines="none">
-        <ion-button shape="round" class="col w-100 h-75 animal_button  fs-6 fw-bold" fill="outline">Anfíbios</ion-button>
-        <ion-button shape="round" class="col w-100 h-75 animal_button  fs-6 fw-bold" fill="outline">Reptiles</ion-button>
+        <ion-button (click)="cambioFamilia('ANFIBIO')" shape="round" class="col w-100 h-75 animal_button  fs-6 fw-bold" fill="outline">Anfíbios</ion-button>
+        <ion-button (click)="cambioFamilia('REPTIL')" shape="round" class="col w-100 h-75 animal_button  fs-6 fw-bold" fill="outline">Reptiles</ion-button>
       </ion-item>
-      
+
       <ion-item class="w-100 m-0 p-0" lines="none">
-        <ion-button shape="round" class="col w-100 h-75 animal_button  fs-6 fw-bold" fill="outline">Peces</ion-button>
+        <ion-button (click)="cambioFamilia('PECES')" shape="round" class="col w-100 h-75 animal_button  fs-6 fw-bold" fill="outline">Marinos</ion-button>
       </ion-item>
-      <ion-select aria-label="Reino" placeholder="" label="Reino Animal" [multiple]="true">
-        <ion-select-option value="apples">Felinos</ion-select-option>
-        <ion-select-option value="oranges">Caninos</ion-select-option>
-        <ion-select-option value="bananas">Equinos</ion-select-option>
-      </ion-select>
+
     </ion-list>
   </ion-item>
 
-  <ion-list id="lista" *ngIf="showList && animales.length > 0">
+  <ion-list id="lista" *ngIf="animales.length > 0">
     <ion-item *ngFor="let animal of results" button (click)="handleItemClick(animal.nombre_comun)">
       <ion-thumbnail slot="start">
         <ion-img [src]="animal.foto" [alt]="animal.nombre_comun"></ion-img>
