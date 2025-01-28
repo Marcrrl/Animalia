@@ -40,6 +40,14 @@ public class Animales {
         EXTINTO, VULNERABLE, BAJO_RIESGO, PELIGRO_EXTINCION, AMENAZADO, SIN_RIESGO, PLAGA, DESCONOCIDO
     }
 
+    @Column(nullable = true)
+    @Enumerated(EnumType.STRING)
+    private Familia familia;
+
+    public enum Familia {
+        MAMIFERO, REPTIL, ANFIBIO, AVES, PECES
+    }
+
     /*
      * Estan los tres campos con posibilidad
      * de ser nulos porque peude que el usuario sepa
