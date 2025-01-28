@@ -64,10 +64,6 @@ export class AnimalesPage implements OnInit {
   }
 
   cambioFamilia(familia: string) {
-    if (familia === 'Todos') {
-      this.results = [...this.animales];
-    } else {
       this.results = this.animales.filter((d: any) => d.familia === familia);
-    }
   }
 }
