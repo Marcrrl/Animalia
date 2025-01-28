@@ -29,11 +29,15 @@
   </ion-item>
 
   <ion-list id="lista" *ngIf="showList && animales.length > 0">
-    <ion-item *ngFor="let animal of animales" button (click)="handleItemClick(animal)">
-      <ion-avatar aria-hidden="true" slot="start">
-        <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-      </ion-avatar>
-      <ion-label>{{ animal }}</ion-label>
+    <ion-item *ngFor="let animal of animales" button (click)="handleItemClick(animal.nombre_comun)">
+      <ion-thumbnail slot="start">
+        <ion-img [src]="animal.foto" [alt]="animal.nombre_comun"></ion-img>
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{ animal.nombre_comun }}</h2>
+        <p><strong>Especie:</strong> {{ animal.especie }}</p>
+        <p><strong>Estado del animal:</strong> {{ animal.estado_animal }}</p>
+      </ion-label>
     </ion-item>
   </ion-list>
 </ion-content>
