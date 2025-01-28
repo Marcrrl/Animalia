@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AnimalesService {
-
   private apiUrl = 'http://localhost:9000/api';
 
   constructor(private http: HttpClient) { }
