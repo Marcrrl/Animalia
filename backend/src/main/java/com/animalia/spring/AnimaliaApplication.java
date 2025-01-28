@@ -11,7 +11,8 @@ import org.springframework.context.annotation.Bean;
 
 import com.animalia.spring.entidades.Animales;
 import com.animalia.spring.entidades.Usuarios;
-import com.animalia.spring.entidades.Animales.EstadoAnimal;
+import com.animalia.spring.entidades.Animales.EstadoConservacion;
+import com.animalia.spring.entidades.Rescates.Estado;
 import com.animalia.spring.repositorio.AnimalesRepositorio;
 import com.animalia.spring.repositorio.UsuarioRepositorio;
 
@@ -29,15 +30,15 @@ public class AnimaliaApplication {
 
 				List<Animales> animales = Arrays.asList(
 						new Animales(null, "Canis lupus familiaris", "Perro",
-								"Animal domesticado y compañero del ser humano", EstadoAnimal.EN_PROCESO),
+								"Animal domesticado y compañero del ser humano", EstadoConservacion.SIN_RIESGO),
 						new Animales(null, "Felis catus", "Gato", "Animal doméstico, conocido por su agilidad",
-								EstadoAnimal.HOSPITALIZADO),
+								EstadoConservacion.SIN_RIESGO),
 						new Animales(null, "Equus ferus caballus", "Caballo",
-								"Animal de granja, usado en transporte y trabajo", EstadoAnimal.SANO),
+								"Animal de granja, usado en transporte y trabajo", EstadoConservacion.DESCONOCIDO),
 						new Animales(null, "Panthera leo", "León", "Gran felino conocido como el rey de la selva",
-								EstadoAnimal.FALLECIDO),
+								EstadoConservacion.EXTINTO),
 						new Animales(null, "Ailuropoda melanoleuca", "Panda",
-								"Oso de China, famoso por su color blanco y negro", EstadoAnimal.CAPTURADO));
+								"Oso de China, famoso por su color blanco y negro", EstadoConservacion.AMENAZADO));
 
 				animales.forEach(animal -> {
 					animalesRepositorio.save(animal);

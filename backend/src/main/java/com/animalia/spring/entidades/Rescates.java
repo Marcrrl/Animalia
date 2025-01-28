@@ -51,6 +51,15 @@ public class Rescates {
         NO_RECIBIDO, RECIBIDO, EN_PROCESO, FINALIZADO, CANCELADO, NO_APLICA, DESCONOCIDO
     }
 
+    @Column(columnDefinition = "ENUM( 'LEVE', 'MODERADO', 'GRAVE', 'CRITICO', 'FALLECIDO', 'DESCONOCIDO', 'NO_APLICA', 'CAPTURADO', 'LIBERADO', 'EN_PROCESO', 'HOSPITALIZADO', 'EN_ADOPCION', 'ENFERMO', 'SANO' )", nullable = true)
+    @Enumerated(EnumType.STRING)
+    private EstadoAnimal estado_animal;
+
+    public enum EstadoAnimal {
+        LEVE, MODERADO, GRAVE, CRITICO, FALLECIDO, DESCONOCIDO, NO_APLICA, CAPTURADO, LIBERADO, EN_PROCESO,
+        HOSPITALIZADO, EN_ADOPCION, ENFERMO, SANO
+    }
+
     @Column(nullable = true)
     private LocalDateTime fecha_rescate;
 }
