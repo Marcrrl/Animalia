@@ -26,12 +26,12 @@ public class UsuarioServicio {
         return usuarioRepositorio.save(usuario);
     }
 
-    public void eliminarUsuario(int id) {
-        usuarioRepositorio.deleteById((long) id);
+    public void eliminarUsuario(long id) {
+        usuarioRepositorio.deleteById( id);
     }
 
-    public void actualizarUsuario(Usuarios usuario) {
-        usuarioRepositorio.save(usuario);
+    public Usuarios actualizarUsuario(Usuarios usuario) {
+        return usuarioRepositorio.save(usuario);
     }
 
     // public Usuarios obtenerUsuarioPorCorreo(String correo) {
