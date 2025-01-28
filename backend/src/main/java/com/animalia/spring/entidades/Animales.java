@@ -32,13 +32,12 @@ public class Animales {
     @Column(nullable = true)
     private String descripcion;
 
-    @Column(columnDefinition = "ENUM( 'LEVE', 'MODERADO', 'GRAVE', 'CRITICO', 'FALLECIDO', 'DESCONOCIDO', 'NO_APLICA', 'CAPTURADO', 'LIBERADO', 'EN_PROCESO', 'HOSPITALIZADO', 'EN_ADOPCION', 'ENFERMO', 'SANO' )", nullable = true)
+    @Column(nullable = true)
     @Enumerated(EnumType.STRING)
-    private EstadoAnimal estado_animal;
+    private EstadoConservacion estado_conservacion;
 
-    public enum EstadoAnimal {
-        LEVE, MODERADO, GRAVE, CRITICO, FALLECIDO, DESCONOCIDO, NO_APLICA, CAPTURADO, LIBERADO, EN_PROCESO,
-        HOSPITALIZADO, EN_ADOPCION, ENFERMO, SANO
+    public enum EstadoConservacion {
+        EXTINTO, VULNERABLE, BAJO_RIESGO, PELIGRO_EXTINCION, AMENAZADO, SIN_RIESGO, PLAGA, DESCONOCIDO
     }
 
     /*
