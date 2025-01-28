@@ -4,6 +4,9 @@
   </ion-toolbar>
 </ion-header>
 
+
+<ion-content [fullscreen]="true" color="light">
+
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
@@ -11,147 +14,42 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-content color="light">
-    <ion-list [inset]="true">
-      <ion-item-sliding>
-        <ion-item [button]="true">
-          <ion-avatar aria-hidden="true" slot="start">
-            <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-          </ion-avatar>
-          <ion-label>Rick Astley</ion-label>
-        </ion-item>
-        <ion-item-options slot="end">
-          <ion-item-option color="warning">
-            <ion-icon slot="icon-only" name="pin"></ion-icon>
-          </ion-item-option>
-          <ion-item-option color="tertiary">
-            
-          </ion-item-option>
-          <ion-item-option color="danger" expandable="true">
-            <ion-icon slot="icon-only" name="trash"></ion-icon>
-          </ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
-  
-      <ion-item-sliding>
-        <ion-item [button]="true">
-          <ion-avatar aria-hidden="true" slot="start">
-            <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-          </ion-avatar>
-          <ion-label>Leeroy Jenkins</ion-label>
-        </ion-item>
-        <ion-item-options slot="end">
-          <ion-item-option color="warning">
-            <ion-icon slot="icon-only" name="pin"></ion-icon>
-          </ion-item-option>
-          <ion-item-option color="tertiary">
-            
-          </ion-item-option>
-          <ion-item-option color="danger" expandable="true">
-            <ion-icon slot="icon-only" name="trash"></ion-icon>
-          </ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
-  
-      <ion-item-sliding>
-        <ion-item [button]="true">
-          <ion-avatar aria-hidden="true" slot="start">
-            <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-          </ion-avatar>
-          <ion-label>Ionitron</ion-label>
-        </ion-item>
-        <ion-item-options slot="end">
-          <ion-item-option color="warning">
-            <ion-icon slot="icon-only" name="pin"></ion-icon>
-          </ion-item-option>
-          <ion-item-option color="tertiary">
-            
-          </ion-item-option>
-          <ion-item-option color="danger" expandable="true">
-            <ion-icon slot="icon-only" name="trash"></ion-icon>
-          </ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
-  
-      <ion-item-sliding>
-        <ion-item [button]="true">
-          <ion-avatar aria-hidden="true" slot="start">
-            <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-          </ion-avatar>
-          <ion-label>Wall-E</ion-label>
-        </ion-item>
-        <ion-item-options slot="end">
-          <ion-item-option color="warning">
-            <ion-icon slot="icon-only" name="pin"></ion-icon>
-          </ion-item-option>
-          <ion-item-option color="tertiary">
-            
-          </ion-item-option>
-          <ion-item-option color="danger" expandable="true">
-            <ion-icon slot="icon-only" name="trash"></ion-icon>
-          </ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
-  
-      <ion-item-sliding>
-        <ion-item [button]="true">
-          <ion-avatar aria-hidden="true" slot="start">
-            <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-          </ion-avatar>
-          <ion-label>Cortana</ion-label>
-        </ion-item>
-        <ion-item-options slot="end">
-          <ion-item-option color="warning">
-            <ion-icon slot="icon-only" name="pin"></ion-icon>
-          </ion-item-option>
-          <ion-item-option color="tertiary">
-            
-          </ion-item-option>
-          <ion-item-option color="danger" expandable="true">
-            <ion-icon slot="icon-only" name="trash"></ion-icon>
-          </ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
-  
-      <ion-item-sliding>
-        <ion-item [button]="true">
-          <ion-avatar aria-hidden="true" slot="start">
-            <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-          </ion-avatar>
-          <ion-label>Bender</ion-label>
-        </ion-item>
-        <ion-item-options slot="end">
-          <ion-item-option color="warning">
-            <ion-icon slot="icon-only" name="pin"></ion-icon>
-          </ion-item-option>
-          <ion-item-option color="tertiary">
-            
-          </ion-item-option>
-          <ion-item-option color="danger" expandable="true">
-            <ion-icon slot="icon-only" name="trash"></ion-icon>
-          </ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
-  
-      <ion-item-sliding>
-        <ion-item [button]="true">
-          <ion-avatar aria-hidden="true" slot="start">
-            <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-          </ion-avatar>
-          <ion-label>BB-8</ion-label>
-        </ion-item>
-        <ion-item-options slot="end">
-          <ion-item-option color="warning">
-            <ion-icon slot="icon-only" name="pin"></ion-icon>
-          </ion-item-option>
-          <ion-item-option color="tertiary">
-            
-          </ion-item-option>
-          <ion-item-option color="danger" expandable="true">
-            <ion-icon slot="icon-only" name="trash"></ion-icon>
-          </ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
+
+  <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" (click)="handleSearchbarClick()"></ion-searchbar>
+
+  <ion-item id="elementos">
+    <ion-list>
+      <ion-button style="width: 100%;" fill="outline">Mamíferos</ion-button>
+      <ion-button style="width: 100%;" fill="outline">Ovíparos</ion-button>
+      <ion-button style="width: 100%;" fill="outline">Ejemplo1</ion-button>
+      <ion-button style="width: 100%;" fill="outline">Ejemplo2</ion-button>
+      <ion-button style="width: 100%;" fill="outline">Ejemplo3</ion-button>
+      <ion-select aria-label="Reino" placeholder="" label="Reino Animal" [multiple]="true">
+        <ion-select-option value="apples">Felinos</ion-select-option>
+        <ion-select-option value="oranges">Caninos</ion-select-option>
+        <ion-select-option value="bananas">Equinos</ion-select-option>
+      </ion-select>
     </ion-list>
-  </ion-content>
+  </ion-item>
+
+  <!--<ion-list id="lista">
+    @for (result of results; track result) {
+    <ion-item button>
+      <ion-avatar aria-hidden="true" slot="start">
+        <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+      </ion-avatar>
+      <ion-label>{{ result }}</ion-label>
+    </ion-item>
+    }
+  </ion-list>-->
+
+  <ion-list id="lista" *ngIf="showList && results.length > 0">
+    <ion-item *ngFor="let result of results" button (click)="handleItemClick(result)">
+      <ion-avatar aria-hidden="true" slot="start">
+        <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+      </ion-avatar>
+      <ion-label>{{ result }}</ion-label>
+    </ion-item>
+  </ion-list>
+
 </ion-content>
