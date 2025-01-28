@@ -13,6 +13,7 @@ import com.animalia.spring.entidades.Animales;
 import com.animalia.spring.entidades.Usuarios;
 import com.animalia.spring.entidades.Animales.EstadoConservacion;
 import com.animalia.spring.repositorio.AnimalesRepositorio;
+import com.animalia.spring.entidades.Animales.Familia;
 import com.animalia.spring.repositorio.UsuarioRepositorio;
 
 @SpringBootApplication
