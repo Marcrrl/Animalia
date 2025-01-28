@@ -8,10 +8,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
 import com.animalia.spring.entidades.Animales;
 import com.animalia.spring.entidades.Usuarios;
 import com.animalia.spring.entidades.Animales.EstadoConservacion;
+import com.animalia.spring.entidades.Animales.Familia;
 import com.animalia.spring.repositorio.AnimalesRepositorio;
 import com.animalia.spring.repositorio.UsuarioRepositorio;
 
