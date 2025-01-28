@@ -53,10 +53,6 @@ public class Usuarios {
     @NotEmpty(message = "El campo no puede estar vacío")
     private String direccion;
 
-    @Column(nullable = false)
-    @NotNull
-    private LocalDate fecha_nacimiento;
-
     // Puede el usuario si quiere ponerse foto de perfil
     @Column(nullable = true)
     private String url_foto_perfil;
