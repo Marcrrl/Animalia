@@ -38,7 +38,7 @@ public class UsuariosControlador {
 
     @PostMapping
     public ResponseEntity<Usuarios> guardarUsuario(@RequestBody Usuarios usuario) {
-       return ResponseEntity.ok(usuariosServicio.guardarUsuario(usuario));
+        return ResponseEntity.ok(usuariosServicio.guardarUsuario(usuario));
     }
 
     @DeleteMapping("/{id}")
