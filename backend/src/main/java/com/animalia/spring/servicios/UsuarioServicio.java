@@ -22,6 +22,10 @@ public class UsuarioServicio {
         return usuarioRepositorio.findById(id).get();
     }
 
+    public Usuarios obtenerFotoUsuarioPorId(long id) {
+        return usuarioRepositorio.findById(id).get();
+    }
+
     public Usuarios guardarUsuario(Usuarios usuario) {
         return usuarioRepositorio.save(usuario);
     }

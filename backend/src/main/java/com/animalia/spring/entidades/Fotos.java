@@ -24,7 +24,8 @@ public class Fotos {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String url_foto;
+
+    private String nombreArchivo;
 
     @OneToOne
     @JoinColumn(name = "id_rescate", referencedColumnName = "id", nullable = true)
