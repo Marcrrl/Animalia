@@ -12,6 +12,7 @@ export class AnimalesPage implements OnInit {
   public animales: any[] = [];
   public results: any[] = [];
   public showList = false;
+  public selectedFamilia: string | null = null;
 
   constructor(private animalesService: AnimalesService,private router:Router) {}
 
@@ -67,6 +68,17 @@ export class AnimalesPage implements OnInit {
   }
 
   cambioFamilia(familia: string) {
-      this.results = this.animales.filter((d: any) => d.familia === familia);
+      /*this.results = this.animales.filter((d: any) => d.familia === familia);*/
+      if (this.selectedFamilia === familia) {
+        this.selectedFamilia = null;
+        this.showAllAnimals();
+      } else {
+        this.selectedFamilia = familia;
+        this.results = this.animales.filter((d: any) => d.familia === familia);
+      }
+  }
+
+  isFamiliaSelected(familia: string): boolean {
+    return this.selectedFamilia === familia;
   }
 }
