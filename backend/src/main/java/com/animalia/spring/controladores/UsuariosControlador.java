@@ -46,7 +46,7 @@ public class UsuariosControlador {
     public ResponseEntity<Resource> obtenerImagen(@PathVariable String nombreImagen) {
         try {
             // Ruta donde se almacenan las imágenes
-            Path imagePath = Paths.get("/img").resolve(nombreImagen);
+            Path imagePath = Paths.get("/img/").resolve(nombreImagen);
             Resource resource = new UrlResource(imagePath.toUri());
 
             if (resource.exists() || resource.isReadable()) {
