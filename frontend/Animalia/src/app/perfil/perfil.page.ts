@@ -29,19 +29,19 @@ export class PerfilPage implements OnInit {
   guardarDatos() {
     const datosUsuario = {
       id: this.usuario?.id,
-      nombre: this.usuario?.nombre,
-      apellido: this.usuario?.apellido,
-      email: this.usuario?.email,
+      nombre: (document.querySelector('ion-input[label="Nombre"]') as HTMLInputElement).value,
+      apellido: (document.querySelector('ion-input[label="Apellidos"]') as HTMLInputElement).value,
+      email: (document.querySelector('ion-input[label="Email"]') as HTMLInputElement).value,
+      telefono: (document.querySelector('ion-input[label="Teléfono"]') as HTMLInputElement).value,
+      direccion: (document.querySelector('ion-input[label="Dirección"]') as HTMLInputElement).value,
       password: this.usuario?.password,
-      telefono: this.usuario?.telefono,
-      direccion: this.usuario?.direccion,
       url_foto_perfil: this.usuario?.url_foto_perfil,
       tipo_usuario: this.usuario?.tipo_usuario,
       fecha_registro: this.usuario?.fecha_registro,
       cantidad_rescates: this.usuario?.cantidad_rescates
     };
 
-    this.http.post('http://localhost:9000/api/usuarios', JSON.stringify(datosUsuario), {
+    this.http.put('http://localhost:9000/api/usuarios', JSON.stringify(datosUsuario), {
       headers: { 'Content-Type': 'application/json' }
     }).subscribe(response => {
       this.camposActivos = false;

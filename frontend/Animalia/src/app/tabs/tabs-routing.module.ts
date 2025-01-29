@@ -12,10 +12,6 @@ const routes: Routes = [
         loadChildren: () => import('../Camara/Camara.module').then(m => m.CamaraPageModule)
       },
       {
-        path: 'Mapa',
-        loadChildren: () => import('../Mapa/Mapa.module').then(m => m.MapaPageModule)
-      },
-      {
         path: 'Animales',
         loadChildren: () => import('../animales/animales.module').then(m => m.AnimalesPageModule)
       },
