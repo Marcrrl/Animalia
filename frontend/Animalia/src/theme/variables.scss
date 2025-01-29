@@ -66,6 +66,10 @@ ion-tabs {
         }
 
         &:focus {
+        }
+
+        &.selected {
+          
           --background-activated: #28a745;
           --border-color: #006417;
           --background: #28a745;
