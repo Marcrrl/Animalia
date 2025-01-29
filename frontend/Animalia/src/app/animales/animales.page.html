@@ -1,15 +1,14 @@
 <ion-header [translucent]="true">
   <ion-toolbar class="ion-text-center">
+    <ion-buttons slot="start">
+      <ion-icon name="paw" slot="start" size="large"></ion-icon>
+    </ion-buttons>
     <ion-title>Animales</ion-title>
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content [fullscreen]="true" color="light">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Animales</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
   <ion-searchbar class="sticky-top" [debounce]="1000" (ionInput)="handleInput($event)" (click)="handleSearchbarClick()"></ion-searchbar>
 
