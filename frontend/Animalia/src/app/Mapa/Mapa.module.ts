@@ -1,16 +1,18 @@
-import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MapaPage } from './Mapa.page';
 
-import { MapaPageRoutingModule } from './Mapa-routing.module';
+import { IonicModule } from '@ionic/angular';
+
+import { MapaPageRoutingModule } from './mapa-routing.module';
+
+import { MapaPage } from './mapa.page';
 
 @NgModule({
   imports: [
-    IonicModule,
     CommonModule,
     FormsModule,
+    IonicModule,
     MapaPageRoutingModule
   ],
   declarations: [MapaPage]

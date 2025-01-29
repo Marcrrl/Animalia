@@ -1,17 +1,13 @@
-<ion-header [translucent]="true">
-  <ion-toolbar class="ion-text-center">
-    <ion-title>
-      Mapa
-    </ion-title>
+<ion-header>
+  <ion-toolbar >
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" style=" position: absolute;"></ion-back-button>
+    </ion-buttons>
+    <ion-title  class="ion-text-center" style="margin-left: 0px; margin-right: 20px;">Mapa</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Mapa</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <h1>Mapa</h1>
+<!-- Contenedor del mapa -->
+<ion-content>
+  <div id="map"></div>
 </ion-content>

@@ -13,6 +13,10 @@ const routes: Routes = [
   {
     path: 'detalles-animal/:id',
     loadChildren: () => import('./detalles-animal/detalles-animal.module').then( m => m.DetallesAnimalPageModule)
+  },
+  {
+    path: 'mapa',
+    loadChildren: () => import('./mapa/mapa.module').then( m => m.MapaPageModule)
   }
 ];
 @NgModule({

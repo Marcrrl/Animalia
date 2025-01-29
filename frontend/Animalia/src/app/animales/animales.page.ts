@@ -14,7 +14,10 @@ export class AnimalesPage implements OnInit {
   public showList = false;
   public selectedFamilia: string | null = null;
 
-  constructor(private animalesService: AnimalesService,private router:Router) {}
+  constructor(
+    private animalesService: AnimalesService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.animalesService.getAnimales().subscribe(
@@ -53,11 +56,14 @@ export class AnimalesPage implements OnInit {
   }
 
   haciaDatosAnimal(id_animal: number) {
-
     this.router.navigate(['/detalles-animal', id_animal]);
 
     console.log('ID del animal:', id_animal);
+  }
 
+  haciaMapa() {
+
+    this.router.navigate(['/mapa']);
   }
 
   searchAnimals(query: string) {
@@ -68,14 +74,14 @@ export class AnimalesPage implements OnInit {
   }
 
   cambioFamilia(familia: string) {
-      /*this.results = this.animales.filter((d: any) => d.familia === familia);*/
-      if (this.selectedFamilia === familia) {
-        this.selectedFamilia = null;
-        this.showAllAnimals();
-      } else {
-        this.selectedFamilia = familia;
-        this.results = this.animales.filter((d: any) => d.familia === familia);
-      }
+    /*this.results = this.animales.filter((d: any) => d.familia === familia);*/
+    if (this.selectedFamilia === familia) {
+      this.selectedFamilia = null;
+      this.showAllAnimals();
+    } else {
+      this.selectedFamilia = familia;
+      this.results = this.animales.filter((d: any) => d.familia === familia);
+    }
   }
 
   isFamiliaSelected(familia: string): boolean {

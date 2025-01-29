@@ -1,31 +1,31 @@
 <ion-header [translucent]="true">
-  <ion-toolbar class="ion-text-center">
+  <ion-toolbar >
     <ion-buttons slot="start">
-      <ion-icon name="paw" slot="start" size="large"></ion-icon>
+      <ion-icon name="map" (click)="haciaMapa()" style=" position: absolute; font-size: 32px; margin-left: 10px;"></ion-icon>
     </ion-buttons>
-    <ion-title>Animales</ion-title>
+    <ion-title class="ion-text-center" style="margin-left: 0px; margin-right: 20px;">Animales</ion-title>
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content [fullscreen]="true" color="light">
+
 
   <ion-searchbar class="sticky-top" [debounce]="1000" (ionInput)="handleInput($event)" (click)="handleSearchbarClick()"></ion-searchbar>
 
   <ion-item id="elementos">
     <ion-list class="d-flex flex-column row w-100">
       <ion-item class="w-100 m-0 p-0" lines="none">
-        <ion-button (click)="cambioFamilia('MAMIFERO')" shape="round" class="col w-100 h-75 animal_button fs-6 fw-bold" fill="outline" [ngClass]="{'selected': isFamiliaSelected('MAMIFERO')}">Mamíferos</ion-button>
-        <ion-button (click)="cambioFamilia('AVES')" shape="round" class="col w-100 h-75 animal_button  fs-6 fw-bold" fill="outline" [ngClass]="{'selected': isFamiliaSelected('AVES')}">Aves</ion-button>
+        <ion-button (click)="cambioFamilia('MAMIFERO')" shape="round" class="col w-100 h-75 animal_button fs-6 fw-bold" fill="outline">Mamíferos</ion-button>
+        <ion-button (click)="cambioFamilia('AVES')" shape="round" class="col w-100 h-75 animal_button  fs-6 fw-bold" fill="outline">Aves</ion-button>
       </ion-item>
 
       <ion-item class="w-100 m-0 p-0" lines="none">
-        <ion-button (click)="cambioFamilia('ANFIBIO')" shape="round" class="col w-100 h-75 animal_button  fs-6 fw-bold" fill="outline" [ngClass]="{'selected': isFamiliaSelected('ANFIBIO')}">Anfíbios</ion-button>
-        <ion-button (click)="cambioFamilia('REPTIL')" shape="round" class="col w-100 h-75 animal_button  fs-6 fw-bold" fill="outline" [ngClass]="{'selected': isFamiliaSelected('REPTIL')}">Reptiles</ion-button>
+        <ion-button (click)="cambioFamilia('ANFIBIO')" shape="round" class="col w-100 h-75 animal_button  fs-6 fw-bold" fill="outline">Anfíbios</ion-button>
+        <ion-button (click)="cambioFamilia('REPTIL')" shape="round" class="col w-100 h-75 animal_button  fs-6 fw-bold" fill="outline">Reptiles</ion-button>
       </ion-item>
 
       <ion-item class="w-100 m-0 p-0" lines="none">
-        <ion-button (click)="cambioFamilia('PECES')" shape="round" class="col w-100 h-75 animal_button  fs-6 fw-bold" fill="outline" [ngClass]="{'selected': isFamiliaSelected('PECES')}">Marinos</ion-button>
+        <ion-button (click)="cambioFamilia('PECES')" shape="round" class="col w-100 h-75 animal_button  fs-6 fw-bold" fill="outline">Marinos</ion-button>
       </ion-item>
 
     </ion-list>
