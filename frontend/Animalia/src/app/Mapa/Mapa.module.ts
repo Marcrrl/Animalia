@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { MapaPageRoutingModule } from './mapa-routing.module';
+import { MapaPageRoutingModule } from './Mapa-routing.module';
 
 import { MapaPage } from './mapa.page';
 
