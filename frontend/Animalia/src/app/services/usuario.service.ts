@@ -6,11 +6,17 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UsuarioService {
-  private apiUrl = 'http://localhost:9000/api';
 
-  constructor(private http: HttpClient) {}
+  private apiUrl = 'http://localhost:9000/api/usuarios';
+
+  constructor(private http: HttpClient) { }
 
   getUsuarios(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/usuarios/1`);
+    return this.http.get<any>(this.apiUrl);
+  }
+
+  getImagen(nombre: string): Observable<Blob> {
+    const url = `${this.apiUrl}/imagen/${nombre}`;
+    return this.http.get(url, { responseType: 'blob' });
   }
 }

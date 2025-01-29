@@ -11,12 +11,14 @@ import { HttpClient } from '@angular/common/http';
 export class PerfilPage implements OnInit {
   usuario: any;
   camposActivos: boolean = false;
+  imagenPerfil: any;
 
   constructor(@Inject(UsuarioService) private usuarioService: UsuarioService, private http: HttpClient) {}
 
   ngOnInit() {
     this.usuarioService.getUsuarios().subscribe((data: any) => {
       this.usuario = data[0];
+      this.cargarImagenPerfil(this.usuario.url_foto_perfil);
     });
   }
 
@@ -47,6 +49,16 @@ export class PerfilPage implements OnInit {
       this.camposActivos = false;
     }, error => {
       console.error('Error al guardar los datos:', error);
+    });
+  }
+
+  cargarImagenPerfil(nombreImagen: string) {
+    this.usuarioService.getImagen(nombreImagen).subscribe((imagen: Blob) => {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.imagenPerfil = e.target.result;
+      };
+      reader.readAsDataURL(imagen);
     });
   }
 }
