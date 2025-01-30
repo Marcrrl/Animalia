@@ -65,11 +65,20 @@ public class UsuariosControlador {
     }
 
     @PostMapping("/subir-imagen")
-    public ResponseEntity<String> subirImagen(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<String> subirImagen(@RequestBody MultipartFile file) {
+        if (file == null || file.isEmpty()) {
+            return ResponseEntity.badRequest().body("El archivo está vacío o no se ha enviado.");
+        }
         try {
-            
-            String uploadDir = "static/img/"; 
-            Path path = Paths.get(uploadDir + file.getOriginalFilename());
+            String uploadDir = "backend/src/main/resources/static/img"; 
+            Path uploadPath = Paths.get(uploadDir);
+
+            // Crear el directorio si no existe
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+            }
+
+            Path path = uploadPath.resolve(file.getOriginalFilename());
 
             // Guarda la imagen en la carpeta
             Files.write(path, file.getBytes());
