@@ -1,11 +1,9 @@
 package com.animalia.spring.controladores;
 
-import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.http.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.animalia.spring.entidades.Usuarios;
 import com.animalia.spring.servicios.UsuarioServicio;
 
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import java.nio.file.Path;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,17 +43,16 @@ public class UsuariosControlador {
     @GetMapping("/imagen/{nombreImagen}")
     public ResponseEntity<Resource> obtenerImagen(@PathVariable String nombreImagen) {
         try {
-            // Ruta donde se almacenan las imágenes
-            Path imagePath = Paths.get("/img/").resolve(nombreImagen);
-            Resource resource = new UrlResource(imagePath.toUri());
+            // Cargar la imagen desde resources/static/
+            Resource resource = new ClassPathResource("static/img/" + nombreImagen);
 
-            if (resource.exists() || resource.isReadable()) {
-                return ResponseEntity.ok()
-                        .contentType(MediaType.IMAGE_JPEG) // Ajusta según el tipo de imagen
-                        .body(resource);
-            } else {
+            if (!resource.exists()) {
                 return ResponseEntity.notFound().build();
             }
+
+            return ResponseEntity.ok()
+                    .contentType(MediaType.IMAGE_JPEG) // Ajusta el tipo según la imagen
+                    .body(resource);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

@@ -24,7 +24,7 @@ public class Fotos {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
+    @Column(nullable = false)
     private String nombreArchivo;
 
     @OneToOne
