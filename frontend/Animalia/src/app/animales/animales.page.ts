@@ -74,7 +74,7 @@ export class AnimalesPage implements OnInit {
   }
 
   cambioFamilia(familia: string) {
-    /*this.results = this.animales.filter((d: any) => d.familia === familia);*/
+    
     if (this.selectedFamilia === familia) {
       this.selectedFamilia = null;
       this.showAllAnimals();
