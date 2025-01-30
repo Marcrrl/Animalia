@@ -33,4 +33,4 @@ build/
 .vscode/
 
 ### BD ### 
-/backend/data/
+/data/
