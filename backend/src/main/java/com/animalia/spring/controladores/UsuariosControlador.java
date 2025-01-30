@@ -1,5 +1,9 @@
 package com.animalia.spring.controladores;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.http.MediaType;
@@ -7,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.animalia.spring.entidades.Usuarios;
 import com.animalia.spring.servicios.UsuarioServicio;
@@ -55,6 +61,23 @@ public class UsuariosControlador {
                     .body(resource);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PostMapping("/subir-imagen")
+    public ResponseEntity<String> subirImagen(@RequestParam("file") MultipartFile file) {
+        try {
+            
+            String uploadDir = "static/img/"; 
+            Path path = Paths.get(uploadDir + file.getOriginalFilename());
+
+            // Guarda la imagen en la carpeta
+            Files.write(path, file.getBytes());
+
+            return ResponseEntity.ok("Imagen subida exitosamente: " + file.getOriginalFilename());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al subir la imagen");
         }
     }
 
