@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AnimalesService } from '../services/animales.service';
 import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-animales',
@@ -9,14 +10,20 @@ import { Router } from '@angular/router';
   standalone: false,
 })
 export class AnimalesPage implements OnInit {
+isCaracteristicasSelected(): any {
+throw new Error('Method not implemented.');
+}
   public animales: any[] = [];
   public results: any[] = [];
   public showList = false;
   public selectedFamilia: string | null = null;
+  menuType: string = 'overlay';
+  public isMenuOpen: boolean = false;
 
   constructor(
     private animalesService: AnimalesService,
-    private router: Router
+    private router: Router,
+    private menuCtrl: MenuController
   ) {}
 
   ngOnInit() {
@@ -86,5 +93,29 @@ export class AnimalesPage implements OnInit {
 
   isFamiliaSelected(familia: string): boolean {
     return this.selectedFamilia === familia;
+  }
+
+  openEndMenu() {
+    this.menuCtrl.enable(true, 'end');
+    this.menuCtrl.open('end');
+    this.toggleStickySearchbar(false);
+    this.isMenuOpen = true;
+  }
+
+  closeEndMenu() {
+    this.menuCtrl.close('end');
+    this.toggleStickySearchbar(true);
+    this.isMenuOpen = false;
+  }
+
+  toggleStickySearchbar(isSticky: boolean) {
+    const searchbar = document.querySelector('ion-searchbar');
+    if (searchbar) {
+      if (isSticky) {
+        searchbar.classList.add('sticky-top');
+      } else {
+        searchbar.classList.remove('sticky-top');
+      }
+    }
   }
 }
