@@ -1,48 +1,85 @@
 <ion-header [translucent]="true">
-  <ion-toolbar >
-    <ion-buttons slot="start">
-      <ion-icon name="map" (click)="haciaMapa()" style=" position: absolute; font-size: 32px; margin-left: 10px;"></ion-icon>
-    </ion-buttons>
+  <ion-toolbar>
+    <ion-button slot="start" fill="clear" shape="round" color="medium" (click)="haciaMapa()">
+      <ion-icon name="map" style=" position: absolute; font-size: 32px;"></ion-icon>
+    </ion-button>
     <ion-title class="ion-text-center" style="margin-left: 0px; margin-right: 20px;">Animales</ion-title>
+    <ion-button slot="end" fill="clear" shape="round" color="medium" expand="block" (click)="isMenuOpen ? closeEndMenu() : openEndMenu()">
+      <ion-icon [name]="isMenuOpen ? 'close' : 'call'" style="position: absolute; font-size: 32px;"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
-
-<ion-content [fullscreen]="true" color="light">
-
+<ion-content [fullscreen]="true" color="light" id="main-content">
+  <ion-menu side="end" contentId="main-content" (ionDidOpen)="openEndMenu()" (ionDidClose)="closeEndMenu()" swipeGesture="true" menuId="end">
+    <ion-backdrop (click)="closeEndMenu()"></ion-backdrop>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>End Menu</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeEndMenu()">
+            <ion-icon name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <ion-button (click)="closeEndMenu()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-content>
+  </ion-menu>
 
   <ion-searchbar class="sticky-top" [debounce]="1000" (ionInput)="handleInput($event)" (click)="handleSearchbarClick()"></ion-searchbar>
 
-  <ion-item id="elementos">
-    <ion-list class="d-flex flex-column row w-100">
-      <ion-item class="w-100 m-0 p-0" lines="none">
-        <ion-button (click)="cambioFamilia('MAMIFERO')" shape="round" class="col w-100 h-75 animal_button fs-6 fw-bold" fill="outline" [ngClass]="{'selected': isFamiliaSelected('MAMIFERO')}">Mamíferos</ion-button>
-        <ion-button (click)="cambioFamilia('AVES')" shape="round" class="col w-100 h-75 animal_button  fs-6 fw-bold" fill="outline" [ngClass]="{'selected': isFamiliaSelected('AVES')}">Aves</ion-button>
+  <ion-accordion-group expand="inset" class="m-2">
+    <ion-accordion value="first" class="m-1">
+      <ion-item slot="header" class="caracteristicas" [ngClass]="'selected'">
+        <ion-label>Categorías</ion-label>
       </ion-item>
+      <div class="ion-padding p-0 m-0" slot="content">
 
-      <ion-item class="w-100 m-0 p-0" lines="none">
-        <ion-button (click)="cambioFamilia('ANFIBIO')" shape="round" class="col w-100 h-75 animal_button  fs-6 fw-bold" fill="outline" [ngClass]="{'selected': isFamiliaSelected('ANFIBIO')}">Anfíbios</ion-button>
-        <ion-button (click)="cambioFamilia('REPTIL')" shape="round" class="col w-100 h-75 animal_button  fs-6 fw-bold" fill="outline" [ngClass]="{'selected': isFamiliaSelected('REPTIL')}">Reptiles</ion-button>
-      </ion-item>
+        <ion-item id="elementos">
+          <ion-list class="d-flex flex-column row w-100">
+            <ion-item class="w-100 m-0 p-0" lines="none">
+              <ion-button (click)="cambioFamilia('MAMIFERO')" shape="round" class="col w-100 h-75 animal_button fs-6 fw-bold"
+                fill="outline" [ngClass]="{'selected': isFamiliaSelected('MAMIFERO')}">Mamíferos</ion-button>
+              <ion-button (click)="cambioFamilia('AVES')" shape="round" class="col w-100 h-75 animal_button  fs-6 fw-bold"
+                fill="outline" [ngClass]="{'selected': isFamiliaSelected('AVES')}">Aves</ion-button>
+            </ion-item>
+      
+            <ion-item class="w-100 m-0 p-0" lines="none">
+              <ion-button (click)="cambioFamilia('ANFIBIO')" shape="round" class="col w-100 h-75 animal_button  fs-6 fw-bold"
+                fill="outline" [ngClass]="{'selected': isFamiliaSelected('ANFIBIO')}">Anfíbios</ion-button>
+              <ion-button (click)="cambioFamilia('REPTIL')" shape="round" class="col w-100 h-75 animal_button  fs-6 fw-bold"
+                fill="outline" [ngClass]="{'selected': isFamiliaSelected('REPTIL')}">Reptiles</ion-button>
+            </ion-item>
+      
+            <ion-item class="w-100 m-0 p-0" lines="none">
+              <ion-button (click)="cambioFamilia('PECES')" shape="round" class="col w-100 h-75 animal_button  fs-6 fw-bold"
+                fill="outline" [ngClass]="{'selected': isFamiliaSelected('PECES')}">Marinos</ion-button>
+            </ion-item>
+      
+          </ion-list>
+        </ion-item>
 
-      <ion-item class="w-100 m-0 p-0" lines="none">
-        <ion-button (click)="cambioFamilia('PECES')" shape="round" class="col w-100 h-75 animal_button  fs-6 fw-bold" fill="outline" [ngClass]="{'selected': isFamiliaSelected('PECES')}">Marinos</ion-button>
-      </ion-item>
+      </div>
+    </ion-accordion>
+    </ion-accordion-group>
 
-    </ion-list>
-  </ion-item>
+  
 
   <ion-list id="lista" *ngIf="animales.length > 0">
-    <ion-item *ngFor="let animal of results" button details="false" (click)="haciaDatosAnimal(animal.id)">
+    <ion-item *ngFor="let animal of results" button details="false" (click)="haciaDatosAnimal(animal.id)"
+      class="w-100 h-75">
       <ion-thumbnail slot="start">
         <ion-img [src]="animal.foto" [alt]="animal.nombre_comun"></ion-img>
       </ion-thumbnail>
-      <ion-label>
-        <h2>{{ animal.nombre_comun }}</h2>
-        <p><strong>Especie:</strong> {{ animal.especie }}</p>
-        <p><strong>Estado de Conservación:</strong> {{ animal.estado_conservacion }}</p>
+      <ion-label class="m-0">
+        <p class="fs-3 fw-bold mt-2 mb-1">{{ animal.nombre_comun }}</p>
+        <!--<p><strong>Especie:</strong> {{ animal.especie }}</p>-->
+        <p class="">Estado de Conservación:<strong> {{ animal.estado_conservacion }}</strong></p>
       </ion-label>
     </ion-item>
   </ion-list>
 </ion-content>
-
