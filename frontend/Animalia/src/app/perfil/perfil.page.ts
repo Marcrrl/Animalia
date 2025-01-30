@@ -66,8 +66,15 @@ export class PerfilPage implements OnInit {
     const file = event.target.files[0];
     if (file) {
       this.usuarioService.subirImagenPerfil(file).subscribe(response => {
-        this.usuario.url_foto_perfil = response.url_foto_perfil;
-        this.cargarImagenPerfil(this.usuario.url_foto_perfil);
+        if (response.status === 200) {
+          const url_foto_perfil = response.body.url_foto_perfil;
+          this.usuario.url_foto_perfil = url_foto_perfil.replace('/api/usuarios/imagen/', '');
+          setTimeout(() => {
+            this.cargarImagenPerfil(this.usuario.url_foto_perfil);
+          }, 500);
+        } else {
+          console.error('Error al subir la imagen:', response.statusText);
+        }
       }, error => {
         console.error('Error al subir la imagen:', error);
       });

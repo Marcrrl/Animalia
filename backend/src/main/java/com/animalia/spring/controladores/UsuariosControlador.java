@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,13 +50,10 @@ public class UsuariosControlador {
     @GetMapping("/imagen/{nombreImagen}")
     public ResponseEntity<Resource> obtenerImagen(@PathVariable String nombreImagen) {
         try {
-            // Cargar la imagen desde resources/static/
             Resource resource = new ClassPathResource("static/img/" + nombreImagen);
-
             if (!resource.exists()) {
                 return ResponseEntity.notFound().build();
             }
-
             return ResponseEntity.ok()
                     .contentType(MediaType.IMAGE_JPEG)
                     .body(resource);
@@ -65,28 +63,26 @@ public class UsuariosControlador {
     }
 
     @PostMapping("/subir-imagen")
-    public ResponseEntity<String> subirImagen(@RequestBody MultipartFile file) {
+    public ResponseEntity<Map<String, String>> subirImagen(@RequestBody MultipartFile file) {
         if (file == null || file.isEmpty()) {
-            return ResponseEntity.badRequest().body("El archivo está vacío o no se ha enviado.");
+            return ResponseEntity.badRequest().body(Map.of("error", "El archivo está vacío o no se ha enviado."));
         }
         try {
             String uploadDir = "backend/src/main/resources/static/img"; 
             Path uploadPath = Paths.get(uploadDir);
 
-            // Crear el directorio si no existe
             if (!Files.exists(uploadPath)) {
                 Files.createDirectories(uploadPath);
             }
 
             Path path = uploadPath.resolve(file.getOriginalFilename());
-
-            // Guarda la imagen en la carpeta
             Files.write(path, file.getBytes());
 
-            return ResponseEntity.ok("Imagen subida exitosamente: " + file.getOriginalFilename());
+            String imageUrl = "/api/usuarios/imagen/" + file.getOriginalFilename();
+            return ResponseEntity.ok(Map.of("url_foto_perfil", imageUrl));
         } catch (IOException e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al subir la imagen");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", "Error al subir la imagen"));
         }
     }
 

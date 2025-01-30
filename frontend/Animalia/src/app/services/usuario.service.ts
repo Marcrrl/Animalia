@@ -23,6 +23,8 @@ export class UsuarioService {
   subirImagenPerfil(file: File): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);
-    return this.http.post(`${this.apiUrl}/subir-imagen`, formData);
+    return this.http.post(`${this.apiUrl}/subir-imagen`, formData, {
+      observe: 'response'
+    });
   }
 }
