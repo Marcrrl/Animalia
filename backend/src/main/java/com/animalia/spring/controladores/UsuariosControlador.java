@@ -18,6 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.animalia.spring.entidades.Usuarios;
 import com.animalia.spring.servicios.UsuarioServicio;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
@@ -30,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("api/usuarios")
+@Tag(name = "Usuarios", description = "Operaciones relacionadas con usuarios")
 public class UsuariosControlador {
 
     @Autowired
@@ -91,6 +95,7 @@ public class UsuariosControlador {
     }
 
     @PostMapping
+     @Operation(summary = "Crear un usuario", description = "Crea un nuevo usuario en el sistema.")
     public ResponseEntity<Usuarios> guardarUsuario(@RequestBody Usuarios usuario) {
         return ResponseEntity.ok(usuariosServicio.guardarUsuario(usuario));
     }
