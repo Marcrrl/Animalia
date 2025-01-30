@@ -40,17 +40,20 @@ public class UsuariosControlador {
     private UsuarioServicio usuariosServicio;
 
     @GetMapping
+    @Operation(summary = "Mostrar todos los usuarios del sistema", description = "Devuelve una lista con todos los usuarios del sistema")
     public ResponseEntity<List<Usuarios>> obtenerUsuarios() {
         return usuariosServicio.obtenerUsuarios().isEmpty() ? ResponseEntity.noContent().build()
                 : ResponseEntity.ok(usuariosServicio.obtenerUsuarios());
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Buscar usuario", description = "Buscar un usuario a partir de su id")
     public ResponseEntity<Usuarios> obtenerUsuarioPorId(@PathVariable long id) {
         return ResponseEntity.ok(usuariosServicio.obtenerUsuarioPorId(id));
     }
 
     @GetMapping("/imagen/{nombreImagen}")
+    @Operation(summary = "Buscar una imagen", description = "Buscar una imagen de usuario a partir de su nombre")
     public ResponseEntity<Resource> obtenerImagen(@PathVariable String nombreImagen) {
         try {
             // Cargar la imagen desde resources/static/
@@ -69,6 +72,7 @@ public class UsuariosControlador {
     }
 
     @PostMapping("/subir-imagen")
+    @Operation(summary = "Subir una imagen", description = "Subir una imagen desde los archivos del sistema.")
     public ResponseEntity<String> subirImagen(@RequestBody MultipartFile file) {
         if (file == null || file.isEmpty()) {
             return ResponseEntity.badRequest().body("El archivo está vacío o no se ha enviado.");
@@ -100,12 +104,14 @@ public class UsuariosControlador {
         return ResponseEntity.ok(usuariosServicio.guardarUsuario(usuario));
     }
 
+    @Operation(summary = "Eliminar usuario", description = "Elimina un usuario del sistema poniendo el id.")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarUsuario(@PathVariable long id) {
         usuariosServicio.eliminarUsuario(id);
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(summary = "Editar usuario", description = "Editar usuario en el sistema.")
     @PutMapping
     public ResponseEntity<Usuarios> actualizarUsuario(@RequestBody Usuarios usuario) {
         return ResponseEntity.ok(usuariosServicio.actualizarUsuario(usuario));
