@@ -15,8 +15,14 @@ export class UsuarioService {
     return this.http.get<any>(this.apiUrl);
   }
 
-  getImagen(nombre: string): Observable<Blob> {
-    const url = `${this.apiUrl}/imagen/${nombre}`;
+  getImagen(url_foto_perfil: string): Observable<Blob> {
+    const url = `${this.apiUrl}/imagen/${url_foto_perfil}`;
     return this.http.get(url, { responseType: 'blob' });
+  }
+
+  subirImagenPerfil(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post(`${this.apiUrl}/subir-imagen`, formData);
   }
 }
