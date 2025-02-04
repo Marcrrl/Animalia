@@ -35,9 +35,12 @@ public class Animales {
     @Column(nullable = true)
     private String foto;
     
+<<<<<<< HEAD
     @Column(nullable = true)
     private String foto;
 
+=======
+>>>>>>> 4995fd12f635c007c8343fa9c80748a4b598a228
     @Column(nullable = true)
     @Enumerated(EnumType.STRING)
     private EstadoConservacion estado_conservacion;
