@@ -20,6 +20,9 @@ throw new Error('Method not implemented.');
   menuType: string = 'overlay';
   public isMenuOpen: boolean = false;
 
+  private clickListener!: () => void;
+  public imagenes: string[] = [];
+
   constructor(
     private animalesService: AnimalesService,
     private router: Router,
@@ -31,6 +34,7 @@ throw new Error('Method not implemented.');
       (data) => {
         this.animales = data;
         this.results = [...this.animales];
+        this.imagenes = this.animales.map(animal => this.animalesService.obtenerImagenUrl(animal.foto)); // Añadir imágenes al array
       },
       (error) => {
         console.error('Error fetching animales:', error);
@@ -64,7 +68,6 @@ throw new Error('Method not implemented.');
 
   haciaDatosAnimal(id_animal: number) {
     this.router.navigate(['/detalles-animal', id_animal]);
-
     console.log('ID del animal:', id_animal);
   }
 
@@ -81,7 +84,7 @@ throw new Error('Method not implemented.');
   }
 
   cambioFamilia(familia: string) {
-    
+
     if (this.selectedFamilia === familia) {
       this.selectedFamilia = null;
       this.showAllAnimals();
