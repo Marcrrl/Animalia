@@ -58,7 +58,6 @@ throw new Error('Method not implemented.');
   }
 
   showAllAnimals() {
-    // Lógica para mostrar toda la lista de animales
     this.ngOnInit();
   }
 
@@ -118,4 +117,6 @@ throw new Error('Method not implemented.');
       }
     }
   }
+
+  
 }
