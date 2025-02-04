@@ -12,12 +12,14 @@ export class PerfilPage implements OnInit {
   usuario: any;
   camposActivos: boolean = false;
   imagenPerfil: any;
+  usuarioOriginal: any;
 
   constructor(@Inject(UsuarioService) private usuarioService: UsuarioService, private http: HttpClient) {}
 
   ngOnInit() {
     this.usuarioService.getUsuarios().subscribe((data: any) => {
       this.usuario = data[0];
+      this.usuarioOriginal = { ...this.usuario };
       this.cargarImagenPerfil(this.usuario.url_foto_perfil);
     });
   }
@@ -25,7 +27,18 @@ export class PerfilPage implements OnInit {
   activarCampos() {
     this.camposActivos = !this.camposActivos;
     if (!this.camposActivos) {
+      this.usuario = { ...this.usuarioOriginal };
     }
+  }
+
+  cancelarCambios() {
+    this.camposActivos = false;
+    this.usuario = { ...this.usuarioOriginal };
+    (document.querySelector('ion-input[label="Nombre"]') as HTMLInputElement).value = this.usuarioOriginal.nombre;
+    (document.querySelector('ion-input[label="Apellidos"]') as HTMLInputElement).value = this.usuarioOriginal.apellido;
+    (document.querySelector('ion-input[label="Email"]') as HTMLInputElement).value = this.usuarioOriginal.email;
+    (document.querySelector('ion-input[label="Teléfono"]') as HTMLInputElement).value = this.usuarioOriginal.telefono;
+    (document.querySelector('ion-input[label="Dirección"]') as HTMLInputElement).value = this.usuarioOriginal.direccion;
   }
 
   guardarDatos() {
@@ -47,6 +60,7 @@ export class PerfilPage implements OnInit {
       headers: { 'Content-Type': 'application/json' }
     }).subscribe(response => {
       this.camposActivos = false;
+      this.usuarioOriginal = { ...this.usuario };
     }, error => {
       console.error('Error al guardar los datos:', error);
     });

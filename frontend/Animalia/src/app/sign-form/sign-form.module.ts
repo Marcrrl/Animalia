@@ -2,16 +2,16 @@ import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PerfilPage } from './perfil.page';
-import { PerfilPageRoutingModule } from './perfil-routing.module';
+import { SignFormPageRoutingModule } from './sign-form-routing.module';
+import { SignFormPage } from './sign-form.page';
 
 @NgModule({
   imports: [
-    IonicModule,
     CommonModule,
     FormsModule,
-    PerfilPageRoutingModule
+    IonicModule,
+    SignFormPageRoutingModule
   ],
-  declarations: [PerfilPage]
+  declarations: [SignFormPage]
 })
-export class PerfilPageModule {}
+export class SignFormPageModule {}

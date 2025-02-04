@@ -39,8 +39,7 @@ public class JwtProvider {
 				.header().add("typ", TOKEN_TYPE).and()
 				.subject(Long.toString(user.getId()))
 				.issuedAt(new Date())
-				.expiration(tokenExpirationDate)
-				.claim("name", user.getNombre())
+				.expiration(tokenExpirationDate)			
 				// Esto develve los roles en String. Ejemplo [ADMIN, USER] --> "ADMIN, USER"
 				.claim("roles", user.getTipo_usuario().name())
 				//Crea la clave secreta utilizando el algoritmo HMAC-SHA que se utilizará para firmar el token JWT

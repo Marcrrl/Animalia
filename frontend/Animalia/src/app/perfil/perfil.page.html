@@ -9,8 +9,14 @@
       Perfil
     </ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="camposActivos ? guardarDatos() : activarCampos()">
-        <ion-icon slot="icon-only" [name]="camposActivos ? 'checkmark-outline' : 'create'"></ion-icon>
+      <ion-button *ngIf="camposActivos" (click)="guardarDatos()">
+        <ion-icon slot="icon-only" name="checkmark-outline"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="camposActivos" (click)="cancelarCambios()">
+        <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="!camposActivos" (click)="activarCampos()">
+        <ion-icon slot="icon-only" name="create"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

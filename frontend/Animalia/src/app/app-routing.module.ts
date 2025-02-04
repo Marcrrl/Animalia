@@ -16,8 +16,13 @@ const routes: Routes = [
   },
   {
     path: 'mapa',
-    loadChildren: () => import('./mapa/Mapa.module').then( m => m.MapaPageModule)
+    loadChildren: () => import('./mapa/mapa.module').then( m => m.MapaPageModule)
+  },
+  {
+    path: 'sign-form',
+    loadChildren: () => import('./sign-form/sign-form.module').then( m => m.SignFormPageModule)
   }
+
 ];
 @NgModule({
   imports: [
