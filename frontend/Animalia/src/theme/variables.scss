@@ -65,6 +65,9 @@ ion-tabs {
           --border-color: #28a745;
         }
 
+        &:focus {
+        }
+
         &.selected {
           
           --background-activated: #28a745;
@@ -73,27 +76,6 @@ ion-tabs {
           color: white;
         }
       }
-      .caracteristicas{
-          color: white;
-          --background: #28a745;
-          --border-color: #006417;
-
-          &selected{
-            --background: #ffffff;
-          }
-
-          &:focus{
-            color: white;
-          }
-      }
-
-      .menu-item {
-        pointer-events: auto;
-      }      
-
-      
-
-
   }
 
  

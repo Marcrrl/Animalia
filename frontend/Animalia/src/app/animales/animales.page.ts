@@ -1,7 +1,6 @@
-import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AnimalesService } from '../services/animales.service';
 import { Router } from '@angular/router';
-import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-animales',
@@ -9,20 +8,15 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['./animales.page.scss'],
   standalone: false,
 })
-export class AnimalesPage implements OnInit, OnDestroy {
+export class AnimalesPage implements OnInit {
   public animales: any[] = [];
   public results: any[] = [];
   public showList = false;
   public selectedFamilia: string | null = null;
-  menuType: string = 'overlay';
-  public isMenuOpen: boolean = false;
-  private clickListener!: () => void;
 
   constructor(
     private animalesService: AnimalesService,
-    private router: Router,
-    private menuCtrl: MenuController,
-    private renderer: Renderer2
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -35,18 +29,6 @@ export class AnimalesPage implements OnInit, OnDestroy {
         console.error('Error fetching animales:', error);
       }
     );
-
-    this.clickListener = this.renderer.listen('document', 'click', (event) => {
-      if (this.isMenuOpen && !event.target.closest('ion-menu')) {
-        this.closeEndMenu();
-      }
-    });
-  }
-
-  ngOnDestroy() {
-    if (this.clickListener) {
-      this.clickListener();
-    }
   }
 
   handleInput(event: Event) {
@@ -69,6 +51,7 @@ export class AnimalesPage implements OnInit, OnDestroy {
   }
 
   showAllAnimals() {
+    // Lógica para mostrar toda la lista de animales
     this.ngOnInit();
   }
 
@@ -79,16 +62,19 @@ export class AnimalesPage implements OnInit, OnDestroy {
   }
 
   haciaMapa() {
+
     this.router.navigate(['/mapa']);
   }
 
   searchAnimals(query: string) {
+    // Lógica para buscar animales según el query
     this.results = this.animales.filter((d: any) =>
       d.nombre_comun.toLowerCase().includes(query)
     );
   }
 
   cambioFamilia(familia: string) {
+    
     if (this.selectedFamilia === familia) {
       this.selectedFamilia = null;
       this.showAllAnimals();
@@ -100,29 +86,5 @@ export class AnimalesPage implements OnInit, OnDestroy {
 
   isFamiliaSelected(familia: string): boolean {
     return this.selectedFamilia === familia;
-  }
-
-  openEndMenu() {
-    this.toggleStickySearchbar(false);
-    this.menuCtrl.enable(true, 'end');
-    this.menuCtrl.open('end');
-    this.isMenuOpen = true;
-  }
-
-  closeEndMenu() {
-    this.menuCtrl.close('end');
-    this.toggleStickySearchbar(true);
-    this.isMenuOpen = false;
-  }
-
-  toggleStickySearchbar(isSticky: boolean) {
-    const searchbar = document.querySelector('ion-searchbar');
-    if (searchbar) {
-      if (isSticky) {
-        searchbar.classList.add('sticky-top');
-      } else {
-        searchbar.classList.remove('sticky-top');
-      }
-    }
   }
 }

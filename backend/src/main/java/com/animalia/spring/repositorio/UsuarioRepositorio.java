@@ -9,7 +9,7 @@ public interface UsuarioRepositorio  extends JpaRepository<Usuarios, Long> {
 
     // public Usuarios findByNombre(String nombre);
 
-    // public Usuarios findByCorreo(String correo);
+    public Usuarios findByEmail(String email);
 
     // List<Usuarios> findByNombreContainsIgnoreCaseOrCorreoContainsIgnoreCaseOrTelefonoContainsIgnoreCase(String nombre,String correo,String telefono);
 
