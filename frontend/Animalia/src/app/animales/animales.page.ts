@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { AnimalesService } from '../services/animales.service';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
@@ -9,21 +9,20 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['./animales.page.scss'],
   standalone: false,
 })
-export class AnimalesPage implements OnInit {
-isCaracteristicasSelected(): any {
-throw new Error('Method not implemented.');
-}
+export class AnimalesPage implements OnInit, OnDestroy {
   public animales: any[] = [];
   public results: any[] = [];
   public showList = false;
   public selectedFamilia: string | null = null;
   menuType: string = 'overlay';
   public isMenuOpen: boolean = false;
+  private clickListener!: () => void;
 
   constructor(
     private animalesService: AnimalesService,
     private router: Router,
-    private menuCtrl: MenuController
+    private menuCtrl: MenuController,
+    private renderer: Renderer2
   ) {}
 
   ngOnInit() {
@@ -36,6 +35,18 @@ throw new Error('Method not implemented.');
         console.error('Error fetching animales:', error);
       }
     );
+
+    this.clickListener = this.renderer.listen('document', 'click', (event) => {
+      if (this.isMenuOpen && !event.target.closest('ion-menu')) {
+        this.closeEndMenu();
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.clickListener) {
+      this.clickListener();
+    }
   }
 
   handleInput(event: Event) {
@@ -68,19 +79,16 @@ throw new Error('Method not implemented.');
   }
 
   haciaMapa() {
-
     this.router.navigate(['/mapa']);
   }
 
   searchAnimals(query: string) {
-    // Lógica para buscar animales según el query
     this.results = this.animales.filter((d: any) =>
       d.nombre_comun.toLowerCase().includes(query)
     );
   }
 
   cambioFamilia(familia: string) {
-    
     if (this.selectedFamilia === familia) {
       this.selectedFamilia = null;
       this.showAllAnimals();
@@ -95,9 +103,9 @@ throw new Error('Method not implemented.');
   }
 
   openEndMenu() {
+    this.toggleStickySearchbar(false);
     this.menuCtrl.enable(true, 'end');
     this.menuCtrl.open('end');
-    this.toggleStickySearchbar(false);
     this.isMenuOpen = true;
   }
 
@@ -117,6 +125,4 @@ throw new Error('Method not implemented.');
       }
     }
   }
-
-  
 }
