@@ -35,8 +35,7 @@ public class Animales {
     @Column(nullable = true)
     private String foto;
     
-    @Column(nullable = true)
-    private String foto;
+    
 
     @Column(nullable = true)
     @Enumerated(EnumType.STRING)
