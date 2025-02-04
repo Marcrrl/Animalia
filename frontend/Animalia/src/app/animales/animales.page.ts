@@ -17,6 +17,7 @@ export class AnimalesPage implements OnInit, OnDestroy {
   menuType: string = 'overlay';
   public isMenuOpen: boolean = false;
   private clickListener!: () => void;
+  public imagenes: string[] = [];
 
   constructor(
     private animalesService: AnimalesService,
@@ -30,6 +31,7 @@ export class AnimalesPage implements OnInit, OnDestroy {
       (data) => {
         this.animales = data;
         this.results = [...this.animales];
+        this.imagenes = this.animales.map(animal => this.animalesService.obtenerImagenUrl(animal.foto)); // Añadir imágenes al array
       },
       (error) => {
         console.error('Error fetching animales:', error);
@@ -74,7 +76,6 @@ export class AnimalesPage implements OnInit, OnDestroy {
 
   haciaDatosAnimal(id_animal: number) {
     this.router.navigate(['/detalles-animal', id_animal]);
-
     console.log('ID del animal:', id_animal);
   }
 
