@@ -10,7 +10,7 @@ public class UserDtoConverter {
 
 	public UsuarioDTO convertUserEntityToGetUserDto(Usuarios user) {
 		UsuarioDTO newUser = new UsuarioDTO();
-		newUser.setEmail(user.getEmail());
+		newUser.setId(user.getId());
 		newUser.setTipo_usuario(user.getTipo_usuario());
 		return newUser;
 	}

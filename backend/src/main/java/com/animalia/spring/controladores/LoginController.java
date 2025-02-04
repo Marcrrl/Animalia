@@ -51,8 +51,6 @@ public class LoginController {
 
     private JwtUserResponse convertUserEntityAndTokenToJwtUserResponse(Usuarios user, String jwtToken) {
         return JwtUserResponse.jwtUserResponseBuilder()
-                .username(user.getEmail())
-                .roles(user.getTipo_usuario())
                 .token(jwtToken)
                 .build();
     }

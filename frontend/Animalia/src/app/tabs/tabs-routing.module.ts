@@ -17,18 +17,18 @@ const routes: Routes = [
       },
       {
         path: 'Perfil',
-        loadChildren: () => import('../perfil/perfil.module').then(m => m.PerfilPageModule)
+        loadChildren: () => import('../sign-form/sign-form.module').then(m => m.SignFormPageModule)
       },
       {
         path: '',
-        redirectTo: '/Perfil',
+        redirectTo: '/Animales',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/Perfil',
+    redirectTo: '/Animales',
     pathMatch: 'full'
   }
 ];
