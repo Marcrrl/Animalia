@@ -17,6 +17,9 @@ export class AnimalesPage implements OnInit {
   menuType: string = 'overlay';
   public isMenuOpen: boolean = false;
 
+  private clickListener!: () => void;
+  public imagenes: string[] = [];
+
   constructor(
     private animalesService: AnimalesService,
     private router: Router,
@@ -29,6 +32,7 @@ export class AnimalesPage implements OnInit {
       (data) => {
         this.animales = data;
         this.results = [...this.animales];
+        this.imagenes = this.animales.map(animal => this.animalesService.obtenerImagenUrl(animal.foto)); // Añadir imágenes al array
       },
       (error) => {
         console.error('Error fetching animales:', error);
@@ -61,7 +65,6 @@ export class AnimalesPage implements OnInit {
 
   haciaDatosAnimal(id_animal: number) {
     this.router.navigate(['/detalles-animal', id_animal]);
-
     console.log('ID del animal:', id_animal);
   }
 
@@ -76,6 +79,7 @@ export class AnimalesPage implements OnInit {
   }
 
   cambioFamilia(familia: string) {
+
     if (this.selectedFamilia === familia) {
       this.selectedFamilia = null;
       this.showAllAnimals();

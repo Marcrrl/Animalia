@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.animalia.spring.entidades.Animales;
 import com.animalia.spring.servicios.AnimalesServicio;
 
+import org.springframework.core.io.Resource;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -42,7 +42,6 @@ public class AnimalesController {
     public ResponseEntity<Animales> obtenerAnimalPorId(@PathVariable long id) {
         return ResponseEntity.ok(animalesServicio.obtenerAnimalPorId(id));
     }
-
     @GetMapping("/imagen/{nombreImagen}")
     @Operation(summary = "Buscar una imagen", description = "Buscar una imagen de usuario a partir de su nombre")
     public ResponseEntity<Resource> obtenerImagen(@PathVariable String nombreImagen) {
@@ -62,6 +61,7 @@ public class AnimalesController {
         }
     }
 
+    
     // @GetMapping("/buscar/{busqueda}")
     // public ResponseEntity<List<Animales>> buscarAnimales(@PathVariable String busqueda) {
     //     return ResponseEntity.ok(animalesServicio.buscarAnimales(busqueda));
