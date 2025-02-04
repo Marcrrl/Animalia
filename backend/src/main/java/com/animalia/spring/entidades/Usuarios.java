@@ -1,6 +1,12 @@
 package com.animalia.spring.entidades;
 
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Collections;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,7 +27,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "usuarios")
-public class Usuarios {
+public class Usuarios implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,7 +64,7 @@ public class Usuarios {
     private String url_foto_perfil;
 
     // Los tipos pueden ser ADMIN o USER
-    @Column(columnDefinition = "ENUM('ADMIN','USER')", nullable = false)
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private TipoUsuario tipo_usuario;
 
@@ -75,6 +81,36 @@ public class Usuarios {
     private long cantidad_rescates;
 
     public enum TipoUsuario {
-        ADMIN, USER
+        ADMIN, USER, EMPRESA
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singletonList(new SimpleGrantedAuthority(tipo_usuario.name()));
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

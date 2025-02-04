@@ -46,13 +46,19 @@ public class UsuariosControlador {
                 : ResponseEntity.ok(usuariosServicio.obtenerUsuarios());
     }
 
+    // @GetMapping("/{id}")
+    // @Operation(summary = "Buscar usuario", description = "Buscar un usuario a partir de su id")
+    // public ResponseEntity<Usuarios> obtenerUsuarioPorId(@PathVariable long id) {
+    //     return ResponseEntity.ok(usuariosServicio.obtenerUsuarioPorId(id));
+    // }
+
     @GetMapping("/{id}")
     @Operation(summary = "Buscar usuario", description = "Buscar un usuario a partir de su id")
     public ResponseEntity<Usuarios> obtenerUsuarioPorId(@PathVariable long id) {
         return ResponseEntity.ok(usuariosServicio.obtenerUsuarioPorId(id));
     }
 
-    @GetMapping("/imagen/{nombreImagen}")
+    @GetMapping("/imagen/")
     @Operation(summary = "Buscar una imagen", description = "Buscar una imagen de usuario a partir de su nombre")
     public ResponseEntity<Resource> obtenerImagen(@PathVariable String nombreImagen) {
         try {

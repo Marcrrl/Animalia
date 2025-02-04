@@ -38,9 +38,9 @@ public class UsuarioServicio {
         return usuarioRepositorio.save(usuario);
     }
 
-    // public Usuarios obtenerUsuarioPorCorreo(String correo) {
-    //     return usuarioRepositorio.findByCorreo(correo);
-    // }
+    public Usuarios obtenerUsuarioPorCorreo(String correo) {
+        return usuarioRepositorio.findByEmail(correo);
+    }
 
     // public Usuarios obtenerUsuarioPorNombre(String nombre) {
     //     return usuarioRepositorio.findByNombre(nombre);
