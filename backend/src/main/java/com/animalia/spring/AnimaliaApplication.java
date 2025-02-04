@@ -27,12 +27,8 @@ public class AnimaliaApplication {
 	}
 
 	@Bean
-<<<<<<< HEAD
 	CommandLineRunner initData(AnimalesRepositorio animalesRepositorio, UsuarioRepositorio usuariosRepositorio,
 			BCryptPasswordEncoder passwordEncoder) {
-=======
-	CommandLineRunner initData(AnimalesRepositorio animalesRepositorio, UsuarioRepositorio usuariosRepositorio) {
->>>>>>> 4995fd12f635c007c8343fa9c80748a4b598a228
 		return (args) -> {
 			if (animalesRepositorio.count() == 0 && usuariosRepositorio.count() == 0) {
 
