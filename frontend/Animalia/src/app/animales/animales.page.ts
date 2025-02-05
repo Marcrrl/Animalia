@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { AnimalesService } from '../services/animales.service';
 import { Router } from '@angular/router';
-import { MenuController } from '@ionic/angular';
+import { MenuController, IonButtons, IonContent, IonHeader, IonMenu, IonMenuButton, IonTitle, IonToolbar } from '@ionic/angular';
 
 @Component({
   selector: 'app-animales',
@@ -10,9 +10,6 @@ import { MenuController } from '@ionic/angular';
   standalone: false,
 })
 export class AnimalesPage implements OnInit {
-isCaracteristicasSelected(): any {
-throw new Error('Method not implemented.');
-}
   public animales: any[] = [];
   public results: any[] = [];
   public showList = false;
@@ -23,7 +20,8 @@ throw new Error('Method not implemented.');
   constructor(
     private animalesService: AnimalesService,
     private router: Router,
-    private menuCtrl: MenuController
+    private menuCtrl: MenuController,
+    private renderer: Renderer2
   ) {}
 
   ngOnInit() {
@@ -58,7 +56,6 @@ throw new Error('Method not implemented.');
   }
 
   showAllAnimals() {
-    // Lógica para mostrar toda la lista de animales
     this.ngOnInit();
   }
 
@@ -69,19 +66,16 @@ throw new Error('Method not implemented.');
   }
 
   haciaMapa() {
-
     this.router.navigate(['/mapa']);
   }
 
   searchAnimals(query: string) {
-    // Lógica para buscar animales según el query
     this.results = this.animales.filter((d: any) =>
       d.nombre_comun.toLowerCase().includes(query)
     );
   }
 
   cambioFamilia(familia: string) {
-    
     if (this.selectedFamilia === familia) {
       this.selectedFamilia = null;
       this.showAllAnimals();
@@ -106,6 +100,7 @@ throw new Error('Method not implemented.');
     this.menuCtrl.close('end');
     this.toggleStickySearchbar(true);
     this.isMenuOpen = false;
+    console.log('Menu cerrado');
   }
 
   toggleStickySearchbar(isSticky: boolean) {
