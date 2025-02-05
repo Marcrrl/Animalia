@@ -5,7 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-
 import org.springframework.http.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,16 +12,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.animalia.spring.entidades.Usuarios;
 import com.animalia.spring.servicios.UsuarioServicio;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -101,12 +96,6 @@ public class UsuariosControlador {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al subir la imagen");
         }
-    }
-
-    @PostMapping
-     @Operation(summary = "Crear un usuario", description = "Crea un nuevo usuario en el sistema.")
-    public ResponseEntity<Usuarios> guardarUsuario(@RequestBody Usuarios usuario) {
-        return ResponseEntity.ok(usuariosServicio.guardarUsuario(usuario));
     }
 
     @Operation(summary = "Eliminar usuario", description = "Elimina un usuario del sistema poniendo el id.")
