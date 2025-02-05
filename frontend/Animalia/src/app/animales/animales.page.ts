@@ -17,7 +17,6 @@ export class AnimalesPage implements OnInit {
   menuType: string = 'overlay';
   public isMenuOpen: boolean = false;
 
-  private clickListener!: () => void;
   public imagenes: string[] = [];
 
   constructor(
