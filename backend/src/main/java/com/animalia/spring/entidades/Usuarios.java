@@ -15,6 +15,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -41,7 +42,6 @@ public class Usuarios implements UserDetails {
     @NotEmpty(message = "El campo no puede estar vacío")
     private String apellido;
 
-    // El correo es unico para cada usuario
     @Column(nullable = false, unique = true)
     @NotEmpty(message = "El campo no puede estar vacío")
     private String email;
@@ -50,7 +50,6 @@ public class Usuarios implements UserDetails {
     @NotEmpty(message = "El campo no puede estar vacío")
     private String password;
 
-    // No puede hacer dos cuentas de usuario con el mismo telefono
     @Column(nullable = false, unique = true)
     @NotEmpty(message = "El campo no puede estar vacío")
     private String telefono;
@@ -59,26 +58,38 @@ public class Usuarios implements UserDetails {
     @NotEmpty(message = "El campo no puede estar vacío")
     private String direccion;
 
-    // Puede el usuario si quiere ponerse foto de perfil
     @Column(nullable = true)
     private String url_foto_perfil;
 
-    // Los tipos pueden ser ADMIN o USER
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private TipoUsuario tipo_usuario;
 
-    // Hay que poner por codigo la fecha en la que se registra el usuario
     @Column(nullable = false)
     @NotNull
     private LocalDate fecha_registro;
 
-    /*
-     * La cantidad de rescates que ha hecho el usuario no
-     * es necesario que se ponga para crearlo
-     */
     @Column(nullable = true)
     private long cantidad_rescates;
+
+    @Column(nullable = true)
+    @OneToMany(mappedBy = "usuario")
+    private Empresas empresa;
+
+    public Usuarios(String nombre, String apellido, String email, String password, String telefono, String direccion,
+            String url_foto_perfil, TipoUsuario tipo_usuario, LocalDate fecha_registro, long cantidad_rescates) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.email = email;
+        this.password = password;
+        this.telefono = telefono;
+        this.direccion = direccion;
+        this.url_foto_perfil = url_foto_perfil;
+        this.tipo_usuario = tipo_usuario;
+        this.fecha_registro = fecha_registro;
+        this.cantidad_rescates = cantidad_rescates;
+
+    }
 
     public enum TipoUsuario {
         ADMIN, USER, EMPRESA
