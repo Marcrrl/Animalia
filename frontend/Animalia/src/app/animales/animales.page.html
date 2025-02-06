@@ -122,7 +122,7 @@
     <ion-item *ngFor="let animal of results; let i=index" button details="false" (click)="haciaDatosAnimal(animal.id)"
       class="w-100 h-75">
       <ion-thumbnail slot="start">
-        <ion-img [src]="imagenes[i]" [alt]="animal.nombre_comun"></ion-img>
+        <ion-img [src]="getImagen(animal)" [alt]="animal.nombre_comun"></ion-img>
       </ion-thumbnail>
       <ion-label class="m-0">
         <p class="fs-3 fw-bold mt-2 mb-1">{{ animal.nombre_comun }}</p>
