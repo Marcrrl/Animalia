@@ -9,7 +9,7 @@ import com.animalia.spring.entidades.Rescates;
 import com.animalia.spring.entidades.Usuarios;
 
 public interface FotosRepositorio extends JpaRepository<Fotos, Long> {
-    List<Fotos> findByUsuarios(Usuarios usuarios);
+    // List<Fotos> findByUsuarios(Usuarios usuarios);
 
-    List<Fotos> findByRescates(Rescates rescates);
+    // List<Fotos> findByRescate(Rescates rescate);
 }

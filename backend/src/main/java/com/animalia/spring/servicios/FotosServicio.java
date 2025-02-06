@@ -36,12 +36,12 @@ public class FotosServicio {
         return fotosRepositorio.save(foto);
     }
 
-    public List<Fotos> obtenerFotosPorUsuario(Usuarios usuario) {
-        return fotosRepositorio.findByUsuarios(usuario);
-    }
+    // public List<Fotos> obtenerFotosPorUsuario(Usuarios usuario) {
+    //     return fotosRepositorio.findByUsuarios(usuario);
+    // }
 
-    public List<Fotos> obtenerFotosDeRescate(Rescates rescate){
-        return fotosRepositorio.findByRescates(rescate);
-    }
+    // public List<Fotos> obtenerFotosDeRescate(Rescates rescate){
+    //     return fotosRepositorio.findByRescates(rescate);
+    // }
     
 }

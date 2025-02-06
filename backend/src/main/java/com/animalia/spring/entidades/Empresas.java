@@ -11,8 +11,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
@@ -47,7 +45,7 @@ public class Empresas {
     @NotEmpty(message = "El campo no puede estar vacío")
     private String email;
 
-    @Column(columnDefinition = "ENUM('CLINICA', 'REFUGIO', 'HOSPITAL', 'PROTECTORA', 'RESERVA', 'ACUARIO' 'OTRO')", nullable = false)
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private TipoEmpresa tipo;
 
@@ -57,12 +55,7 @@ public class Empresas {
     @Column(nullable = false)
     private LocalDate fecha_creacion;
 
-    @OneToMany
-    @JoinTable(
-        name = "empresa_usuarios",
-        joinColumns = @JoinColumn(name = "empresa_id"),
-        inverseJoinColumns = @JoinColumn(name = "usuario_id")
-    )
+    @OneToMany(mappedBy = "empresa")
     private Set<Usuarios> usuarios = new HashSet<>();
 
     public enum TipoEmpresa {

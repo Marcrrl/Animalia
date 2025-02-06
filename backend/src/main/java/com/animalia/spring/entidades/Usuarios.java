@@ -15,7 +15,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -72,8 +73,8 @@ public class Usuarios implements UserDetails {
     @Column(nullable = true)
     private long cantidad_rescates;
 
-    @Column(nullable = true)
-    @OneToMany(mappedBy = "usuario")
+    @ManyToOne
+    @JoinColumn(name = "empresa_id", nullable = true)
     private Empresas empresa;
 
     public Usuarios(String nombre, String apellido, String email, String password, String telefono, String direccion,

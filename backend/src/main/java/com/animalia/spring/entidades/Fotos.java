@@ -27,8 +27,8 @@ public class Fotos {
     private String nombreArchivo;
 
     @ManyToOne
-    @JoinColumn(name = "id_rescate", referencedColumnName = "id", nullable = true)
-    private Rescates rescates;
+    @JoinColumn(name = "rescate_id", nullable = false)
+    private Rescates rescate;
 
     @ManyToOne
     @JoinColumn(name = "id_usuario", referencedColumnName = "id", nullable = false)

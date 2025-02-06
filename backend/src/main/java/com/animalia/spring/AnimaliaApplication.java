@@ -60,25 +60,31 @@ public class AnimaliaApplication {
 						"clinica@example.com", TipoEmpresa.CLINICA, "url_empresa_1.es",
 						LocalDate.of(1999, 12, 6), new HashSet<>());
 
-				Empresas e2 = new Empresas(null, "Acuario", "Calle del Acuario 2", "12345678",
+				Empresas e2 = new Empresas(null, "Acuario", "Calle del Acuario 2", "87654321",
 						"acuario@example.com", TipoEmpresa.ACUARIO, "url_empresa_2.es",
 						LocalDate.of(1999, 12, 6), new HashSet<>());
 
-				Empresas e3 = new Empresas(null, "Hospital veterinario", "Calle Hospital 3", "12345678",
+				Empresas e3 = new Empresas(null, "Hospital veterinario", "Calle Hospital 3", "23456789",
 						"hospital@example.com", TipoEmpresa.HOSPITAL, "url_empresa_3.es",
 						LocalDate.of(1999, 12, 6), new HashSet<>());
 
-				Empresas e4 = new Empresas(null, "Protectora Animales", "Avenida Protectora", "12345678",
+				Empresas e4 = new Empresas(null, "Protectora Animales", "Avenida Protectora", "34567890",
 						"protectora@example.com", TipoEmpresa.PROTECTORA, "url_empresa_4.es",
 						LocalDate.of(1999, 12, 6), new HashSet<>());
 
-				Empresas e5 = new Empresas(null, "Refugio Don Fabro", "Calle fabro234", "12345678",
+				Empresas e5 = new Empresas(null, "Refugio Don Fabro", "Calle fabro234", "45678901",
 						"fabro234@example.com", TipoEmpresa.REFUGIO, "https://www.youtube.com/channel/UCe_vi8ZY603vDSYEVMayV0A",
 						LocalDate.of(1999, 12, 6), new HashSet<>());
 
-				Empresas e6 = new Empresas(null, "Reserva de Animales", "Calle de la Clínica 1", "12345678",
+				Empresas e6 = new Empresas(null, "Reserva de Animales", "Calle de la Clínica 1", "56789012",
 						"reserva@example.com", TipoEmpresa.RESERVA, "url_empresa_6.es",
 						LocalDate.of(1999, 12, 6), new HashSet<>());
+
+				List<Empresas> empresas = Arrays.asList(e1, e2, e3, e4, e5, e6);
+
+				empresas.forEach(empresa -> {
+					empresasRepositorio.save(empresa);
+				});
 
 				Usuarios u1 = new Usuarios(null, "Juan", "Pérez", "juan.perez@example.com",
 						passwordEncoder.encode("123"),
@@ -106,14 +112,8 @@ public class AnimaliaApplication {
 
 				List<Usuarios> usuarios = Arrays.asList(u1, u2, u3, u4, u5);
 
-				List<Empresas> empresas = Arrays.asList(e1, e2, e3, e4, e5, e6);
-
 				usuarios.forEach(usuario -> {
 					usuariosRepositorio.save(usuario);
-				});
-
-				empresas.forEach(empresa -> {
-					empresasRepositorio.save(empresa);
 				});
 			}
 
