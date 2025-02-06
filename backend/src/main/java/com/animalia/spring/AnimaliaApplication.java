@@ -9,9 +9,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import com.animalia.spring.entidades.Animales;
 import com.animalia.spring.entidades.Usuarios;
 import com.animalia.spring.entidades.Animales.EstadoConservacion;
@@ -55,15 +52,15 @@ public class AnimaliaApplication {
 				});
 
 				List<Usuarios> usuarios = Arrays.asList(
-						new Usuarios(null, "Juan", "Pérez", "juan.perez@example.com", "123", "123456789",
+						new Usuarios(null, "Juan", "Pérez", "juan.perez@example.com", passwordEncoder.encode("123"), "123456789",
 								"Calle Falsa 123", "bardockNegro+.jpg", Usuarios.TipoUsuario.USER, LocalDate.now(), 0),
-						new Usuarios(null, "Ana", "García", "ana.garcia@example.com", "123", "987654321",
+						new Usuarios(null, "Ana", "García", "ana.garcia@example.com", passwordEncoder.encode("123"), "987654321",
 								"Avenida Siempre Viva 456", "", Usuarios.TipoUsuario.ADMIN, LocalDate.now(), 10),
-						new Usuarios(null, "Carlos", "Hernández", "carlos.hernandez@example.com", "123", "1122334455",
+						new Usuarios(null, "Carlos", "Hernández", "carlos.hernandez@example.com", passwordEncoder.encode("123"), "1122334455",
 								"Calle Luna 789", null, Usuarios.TipoUsuario.USER, LocalDate.now(), 5),
-						new Usuarios(null, "Lucía", "Martínez", "lucia.martinez@example.com", "123", "5566778899",
+						new Usuarios(null, "Lucía", "Martínez", "lucia.martinez@example.com", passwordEncoder.encode("123"), "5566778899",
 								"Avenida Sol 321", "", Usuarios.TipoUsuario.USER, LocalDate.now(), 8),
-						new Usuarios(null, "Pedro", "Gómez", "pedro.gomez@example.com", "123", "9988776655",
+						new Usuarios(null, "Pedro", "Gómez", "pedro.gomez@example.com", passwordEncoder.encode("123"), "9988776655",
 								"Calle Estrella 654", null, Usuarios.TipoUsuario.ADMIN, LocalDate.now(), 15));
 
 				usuarios.forEach(usuario -> {
