@@ -1,6 +1,5 @@
 package com.animalia.spring.entidades;
 
-
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
@@ -12,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -62,4 +62,9 @@ public class Rescates {
 
     @Column(nullable = true)
     private LocalDateTime fecha_rescate;
+
+    @Column(nullable = true)
+    @OneToMany(mappedBy = "rescates")
+    private Fotos fotos;
+    
 }

@@ -1,7 +1,9 @@
 package com.animalia.spring.entidades;
 
-import java.sql.Date;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -53,7 +55,7 @@ public class Empresas {
     private String url_web;
 
     @Column(nullable = false)
-    private Date fecha_creacion;
+    private LocalDate fecha_creacion;
 
     @OneToMany
     @JoinTable(
@@ -61,7 +63,7 @@ public class Empresas {
         joinColumns = @JoinColumn(name = "empresa_id"),
         inverseJoinColumns = @JoinColumn(name = "usuario_id")
     )
-    private List<Usuarios> usuarios;
+    private Set<Usuarios> usuarios = new HashSet<>();
 
     public enum TipoEmpresa {
         CLINICA, REFUGIO, HOSPITAL, PROTECTORA, RESERVA, ACUARIO, OTRO
