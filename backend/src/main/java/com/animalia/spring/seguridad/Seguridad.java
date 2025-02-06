@@ -18,9 +18,8 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.animalia.spring.seguridad.JWT.JwtAuthorizationFilter;
-
-import org.springframework.http.HttpMethod;
 import lombok.RequiredArgsConstructor;
+
 
 @Configuration
 @EnableWebSecurity
