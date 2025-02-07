@@ -3,10 +3,14 @@ package com.animalia.spring.entidades;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Objects;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -74,7 +78,8 @@ public class Usuarios implements UserDetails {
     private long cantidad_rescates;
 
     @ManyToOne
-    @JoinColumn(name = "empresa_id", nullable = true)
+    @JoinColumn(name = "id_empresas", nullable = true)
+    @JsonBackReference
     private Empresas empresa;
 
     public Usuarios(String nombre, String apellido, String email, String password, String telefono, String direccion,
@@ -124,5 +129,18 @@ public class Usuarios implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Usuarios usuarios = (Usuarios) o;
+        return Objects.equals(id, usuarios.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
