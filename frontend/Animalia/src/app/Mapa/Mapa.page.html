@@ -10,5 +10,8 @@
 
 <!-- Contenedor del mapa -->
 <ion-content>
-  <div id="map"></div>
+  <div  id="map"></div>
+  <div *ngIf="!mapInitialized" style="display: flex; justify-content: center; align-items: center; height: 100%;">
+    <p>El mapa se está cargando, por favor espere...</p>
+  </div>
 </ion-content>
