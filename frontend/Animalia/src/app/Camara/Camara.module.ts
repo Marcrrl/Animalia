@@ -1,7 +1,7 @@
 import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CamaraPage } from './Camara.page';
 
 import { CamaraPageRoutingModule } from './Camara-routing.module';
@@ -11,6 +11,7 @@ import { CamaraPageRoutingModule } from './Camara-routing.module';
     IonicModule,
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     CamaraPageRoutingModule
   ],
   declarations: [CamaraPage]
