@@ -47,7 +47,7 @@ public class AnimaliaApplication {
                                                                 EstadoConservacion.SIN_RIESGO,
                                                                 Animales.Familia.MAMIFERO),
                                                 new Animales(null, "Equus ferus caballus", "Juan",
-                                                                "Animal de granja atrapado en una",
+                                                                "Animal de granja atrapado en una terraza",
                                                                 "caballo.webp", EstadoConservacion.DESCONOCIDO,
                                                                 Familia.AVES),
                                                 new Animales(null, "Panthera leo", "León",
