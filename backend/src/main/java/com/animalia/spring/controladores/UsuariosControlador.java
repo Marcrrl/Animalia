@@ -12,12 +12,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import com.animalia.spring.Excepciones.UsuarioNoEncontrado;
 import com.animalia.spring.entidades.Usuarios;
 import com.animalia.spring.servicios.UsuarioServicio;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,30 +37,40 @@ public class UsuariosControlador {
     @Autowired
     private UsuarioServicio usuariosServicio;
 
-    @GetMapping
+    @GetMapping("/todos")
     @Operation(summary = "Mostrar todos los usuarios del sistema", description = "Devuelve una lista con todos los usuarios del sistema")
     public ResponseEntity<List<Usuarios>> obtenerUsuarios() {
         return usuariosServicio.obtenerUsuarios().isEmpty() ? ResponseEntity.noContent().build()
                 : ResponseEntity.ok(usuariosServicio.obtenerUsuarios());
     }
 
-    // @GetMapping("/{id}")
-    // @Operation(summary = "Buscar usuario", description = "Buscar un usuario a partir de su id")
-    // public ResponseEntity<Usuarios> obtenerUsuarioPorId(@PathVariable long id) {
-    //     return ResponseEntity.ok(usuariosServicio.obtenerUsuarioPorId(id));
-    // }
+    @GetMapping
+    @Operation(summary = "Mostrar todos los usuarios del sistema", description = "Devuelve una lista con todos los usuarios del sistema")
+    public ResponseEntity<List<Usuarios>> obtenerUsuariosPagebale(@PageableDefault(size = 5, page = 0) Pageable pageable) {
+
+        Page<Usuarios> usuarios = usuariosServicio.obtenerUsuariosPaginacion(pageable);
+
+        if (usuarios.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(usuarios.getContent());
+        }
+    }
 
     @GetMapping("/{id}")
     @Operation(summary = "Buscar usuario", description = "Buscar un usuario a partir de su id")
     public ResponseEntity<Usuarios> obtenerUsuarioPorId(@PathVariable long id) {
-        return ResponseEntity.ok(usuariosServicio.obtenerUsuarioPorId(id));
+        Usuarios u = usuariosServicio.obtenerUsuarioPorId(id);
+        if (u == null) {
+            throw new UsuarioNoEncontrado(id);
+        }
+        return ResponseEntity.ok(u);
     }
 
     @GetMapping("/imagen/{nombreImagen}")
     @Operation(summary = "Buscar una imagen", description = "Buscar una imagen de usuario a partir de su nombre")
     public ResponseEntity<Resource> obtenerImagen(@PathVariable String nombreImagen) {
         try {
-            // Cargar la imagen desde resources/static/
             Resource resource = new ClassPathResource("static/img/" + nombreImagen);
 
             if (!resource.exists()) {
@@ -64,7 +78,7 @@ public class UsuariosControlador {
             }
 
             return ResponseEntity.ok()
-                    .contentType(MediaType.IMAGE_JPEG) // Ajusta el tipo según la imagen
+                    .contentType(MediaType.IMAGE_JPEG)
                     .body(resource);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -78,17 +92,15 @@ public class UsuariosControlador {
             return ResponseEntity.badRequest().body("El archivo está vacío o no se ha enviado.");
         }
         try {
-            String uploadDir = "backend/src/main/resources/static/img"; 
+            String uploadDir = "backend/src/main/resources/static/img";
             Path uploadPath = Paths.get(uploadDir);
 
-            // Crear el directorio si no existe
             if (!Files.exists(uploadPath)) {
                 Files.createDirectories(uploadPath);
             }
 
             Path path = uploadPath.resolve(file.getOriginalFilename());
 
-            // Guarda la imagen en la carpeta
             Files.write(path, file.getBytes());
 
             return ResponseEntity.ok("Imagen subida exitosamente: " + file.getOriginalFilename());
@@ -110,5 +122,4 @@ public class UsuariosControlador {
     public ResponseEntity<Usuarios> actualizarUsuario(@RequestBody Usuarios usuario) {
         return ResponseEntity.ok(usuariosServicio.actualizarUsuario(usuario));
     }
-
 }

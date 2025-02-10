@@ -1,16 +1,15 @@
 package com.animalia.spring.repositorio;
 
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.animalia.spring.entidades.Usuarios;
 
-public interface UsuarioRepositorio  extends JpaRepository<Usuarios, Long> {
+public interface UsuarioRepositorio extends JpaRepository<Usuarios, Long> {
 
-    // public Usuarios findByNombre(String nombre);
+    Page<Usuarios> findAll(Pageable pageable);
 
-    public Usuarios findByEmail(String email);
-
-    // List<Usuarios> findByNombreContainsIgnoreCaseOrCorreoContainsIgnoreCaseOrTelefonoContainsIgnoreCase(String nombre,String correo,String telefono);
+    Usuarios findByEmail(String email);
 
 }

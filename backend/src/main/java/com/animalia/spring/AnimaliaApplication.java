@@ -63,26 +63,31 @@ public class AnimaliaApplication {
                                         animalesRepositorio.save(animal);
                                 });
 
-                                Empresas e1 = new Empresas(null, "Clínica veterinaria", "C. Venezuela, 12, 03010 Alicante (Alacant), Alicante",
+                                Empresas e1 = new Empresas(null, "Clínica veterinaria",
+                                                "C. Venezuela, 12, 03010 Alicante (Alacant), Alicante",
                                                 "12345678",
                                                 "clinica@example.com", TipoEmpresa.CLINICA, "url_empresa_1.es",
                                                 LocalDate.of(1999, 12, 6), new HashSet<>());
 
-                                Empresas e2 = new Empresas(null, "Acuario", "Gran Vía, 1, 03010 Alicante (Alacant), Alicante", "87654321",
+                                Empresas e2 = new Empresas(null, "Acuario",
+                                                "Gran Vía, 1, 03010 Alicante (Alacant), Alicante", "87654321",
                                                 "acuario@example.com", TipoEmpresa.ACUARIO, "url_empresa_2.es",
                                                 LocalDate.of(1999, 12, 6), new HashSet<>());
 
-                                Empresas e3 = new Empresas(null, "Hospital veterinario", "Av. Pintor Baeza, 12, 03010 Alicante (Alacant), Alicante", "23456789",
-                                                "hospital@example.com", TipoEmpresa.HOSPITAL 
-                                                , "url_empresa_3.es",
+                                Empresas e3 = new Empresas(null, "Hospital veterinario",
+                                                "Av. Pintor Baeza, 12, 03010 Alicante (Alacant), Alicante", "23456789",
+                                                "hospital@example.com", TipoEmpresa.HOSPITAL, "url_empresa_3.es",
                                                 LocalDate.of(1999, 12, 6), new HashSet<>());
 
-                                Empresas e4 = new Empresas(null, "Protectora Animales", "C. Pablo Neruda, 03011 Alicante (Alacant), Alicante",
+                                Empresas e4 = new Empresas(null, "Protectora Animales",
+                                                "C. Pablo Neruda, 03011 Alicante (Alacant), Alicante",
                                                 "34567890",
                                                 "protectora@example.com", TipoEmpresa.PROTECTORA, "url_empresa_4.es",
                                                 LocalDate.of(1999, 12, 6), new HashSet<>());
 
-                                Empresas e5 = new Empresas(null, "Refugio Don Fabro", "C. Escritor Dámaso Alonso, 03011 Alicante (Alacant), Alicante", "45678901",
+                                Empresas e5 = new Empresas(null, "Refugio Don Fabro",
+                                                "C. Escritor Dámaso Alonso, 03011 Alicante (Alacant), Alicante",
+                                                "45678901",
                                                 "fabro234@example.com", TipoEmpresa.REFUGIO,
                                                 "https://www.youtube.com/channel/UCe_vi8ZY603vDSYEVMayV0A",
                                                 LocalDate.of(1999, 12, 6), new HashSet<>());
@@ -117,8 +122,15 @@ public class AnimaliaApplication {
                                                 passwordEncoder.encode("123"), "9988776655", "Calle Estrella 654",
                                                 null, Usuarios.TipoUsuario.ADMIN, LocalDate.now(), 15, null);
 
+                                Usuarios u6 = new Usuarios(null, "Usuario", "6", "u6@example.com",
+                                                passwordEncoder.encode("123"), "telefono6", "Calle Estrella 654",
+                                                null, Usuarios.TipoUsuario.ADMIN, LocalDate.now(), 15, null);
+                                                
+                                Usuarios u7 = new Usuarios(null, "Usuaio", "7", "u7@example.com",
+                                                passwordEncoder.encode("123"), "telefono7", "Calle Estrella 654",
+                                                null, Usuarios.TipoUsuario.ADMIN, LocalDate.now(), 15, null);
                                 // Lista de usuarios
-                                List<Usuarios> usuarios = Arrays.asList(u1, u2, u3, u4, u5);
+                                List<Usuarios> usuarios = Arrays.asList(u1, u2, u3, u4, u5, u6, u7);
 
                                 e5.getUsuarios().add(u3);
 

@@ -1,8 +1,12 @@
 package com.animalia.spring.servicios;
 
+
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.animalia.spring.entidades.Usuarios;
@@ -14,10 +18,12 @@ public class UsuarioServicio {
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
 
+    public Page<Usuarios> obtenerUsuariosPaginacion(Pageable pageable) {
+        return usuarioRepositorio.findAll(pageable);
+    }
     public List<Usuarios> obtenerUsuarios() {
         return usuarioRepositorio.findAll();
     }
-
     public Usuarios obtenerUsuarioPorId(long id) {
         return usuarioRepositorio.findById(id).get();
     }
