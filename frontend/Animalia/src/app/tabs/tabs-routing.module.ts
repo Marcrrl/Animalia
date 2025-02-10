@@ -16,6 +16,10 @@ const routes: Routes = [
         loadChildren: () => import('../animales/animales.module').then(m => m.AnimalesPageModule)
       },
       {
+        path: 'Empresas',
+        loadChildren: () => import('../empresas/empresas.module').then(m => m.EmpresasPageModule)
+      },
+      {
         path: 'Perfil',
         loadChildren: () => import('../sign-form/sign-form.module').then(m => m.SignFormPageModule)
       },
@@ -24,13 +28,7 @@ const routes: Routes = [
         redirectTo: '/Animales',
         pathMatch: 'full'
       }
-    ]
-  },
-  {
-    path: '',
-    redirectTo: '/Animales',
-    pathMatch: 'full'
-  }
+    ]}
 ];
 
 @NgModule({
