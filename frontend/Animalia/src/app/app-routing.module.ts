@@ -15,7 +15,7 @@ const routes: Routes = [
     loadChildren: () => import('./detalles-animal/detalles-animal.module').then(m => m.DetallesAnimalPageModule)
   },
   {
-    path: 'Mapa',
+    path: 'mapa',
     loadChildren: () => import('./Mapa/Mapa.module').then( m => m.MapaPageModule)
   },
   {

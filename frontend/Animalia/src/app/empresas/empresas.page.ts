@@ -73,15 +73,15 @@ export class EmpresasPage implements OnInit {
     this.router.navigate(['/mapa']);
   }
 
-  openEndMenu() {
-    this.menuCtrl.enable(true, 'end');
-    this.menuCtrl.open('end');
+  openEndMenu2() {
+    this.menuCtrl.enable(true, 'end-empresas');
+    this.menuCtrl.open('end-empresas');
     this.toggleStickySearchbar(false);
     this.isMenuOpen = true;
   }
 
-  closeEndMenu() {
-    this.menuCtrl.close('end');
+  closeEndMenu2() {
+    this.menuCtrl.close('end-empresas');
     this.toggleStickySearchbar(true);
     this.isMenuOpen = false;
     console.log('Menu cerrado');
