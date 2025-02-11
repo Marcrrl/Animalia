@@ -105,27 +105,27 @@ public class AnimaliaApplication {
 
                                 Usuarios u2 = new Usuarios(null, "Ana", "García", "ana.garcia@example.com",
                                                 passwordEncoder.encode("123"), "987654321", "Avenida Siempre Viva 456",
-                                                "", Usuarios.TipoUsuario.ADMIN, LocalDate.now(), 10, null);
+                                                "iconoBase.png", Usuarios.TipoUsuario.ADMIN, LocalDate.now(), 10, null);
 
                                 Usuarios u3 = new Usuarios(null, "Carlos", "Hernández", "carlos.hernandez@example.com",
                                                 passwordEncoder.encode("123"), "1122334455", "Calle Luna 789",
-                                                "", Usuarios.TipoUsuario.EMPRESA, LocalDate.now(), 5, e5);
+                                                "iconoBase.png", Usuarios.TipoUsuario.EMPRESA, LocalDate.now(), 5, e5);
 
                                 Usuarios u4 = new Usuarios(null, "Lucía", "Martínez", "lucia.martinez@example.com",
                                                 passwordEncoder.encode("123"), "5566778899", "Avenida Sol 321",
-                                                "", Usuarios.TipoUsuario.USER, LocalDate.now(), 8, null);
+                                                "iconoBase.png", Usuarios.TipoUsuario.USER, LocalDate.now(), 8, null);
 
                                 Usuarios u5 = new Usuarios(null, "Pedro", "Gómez", "pedro.gomez@example.com",
                                                 passwordEncoder.encode("123"), "9988776655", "Calle Estrella 654",
-                                                null, Usuarios.TipoUsuario.ADMIN, LocalDate.now(), 15, null);
+                                                "iconoBase.png", Usuarios.TipoUsuario.ADMIN, LocalDate.now(), 15, null);
 
                                 Usuarios u6 = new Usuarios(null, "Usuario", "6", "u6@example.com",
                                                 passwordEncoder.encode("123"), "telefono6", "Calle Estrella 654",
-                                                null, Usuarios.TipoUsuario.ADMIN, LocalDate.now(), 15, null);
+                                                "iconoBase.png", Usuarios.TipoUsuario.ADMIN, LocalDate.now(), 15, null);
 
                                 Usuarios u7 = new Usuarios(null, "Usuaio", "7", "u7@example.com",
                                                 passwordEncoder.encode("123"), "telefono7", "Calle Estrella 654",
-                                                null, Usuarios.TipoUsuario.ADMIN, LocalDate.now(), 15, null);
+                                                "iconoBase.png", Usuarios.TipoUsuario.ADMIN, LocalDate.now(), 15, null);
                                 // Lista de usuarios
                                 List<Usuarios> usuarios = Arrays.asList(u1, u2, u3, u4, u5, u6, u7);
 

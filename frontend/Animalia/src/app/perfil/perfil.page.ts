@@ -91,7 +91,7 @@ export class PerfilPage implements OnInit {
     const file = event.target.files[0];
     if (file) {
       this.usuarioService.subirImagenPerfil(file).subscribe(response => {
-        if (response.status === 200) {
+        if (response.status === 200 && response.body) {
           const url_foto_perfil = response.body.url_foto_perfil;
           this.usuario.url_foto_perfil = url_foto_perfil.replace('/api/usuarios/imagen/', '');
           setTimeout(() => {
