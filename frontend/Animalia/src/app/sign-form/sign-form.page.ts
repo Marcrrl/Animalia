@@ -119,9 +119,10 @@ export class SignFormPage implements OnInit, AfterViewInit {
         sessionStorage.setItem('id', userId);
 
         // Redirigimos a la página principal
-        this.router.navigateByUrl('/Perfil');
+        this.router.navigateByUrl('/Perfil').then(() => {window.location.reload();});
         console.log(document.cookie = `id=${userId}; path=/; HttpOnly`);
         console.log(document.cookie = `rol=${userRol}; path=/; HttpOnly`);
+        
       },
       error => {
         console.error('Error durante el incio de sesión', error);
