@@ -16,15 +16,11 @@ const routes: Routes = [
         loadChildren: () => import('../animales/animales.module').then(m => m.AnimalesPageModule)
       },
       {
-<<<<<<< Updated upstream
         path: 'Empresas',
         loadChildren: () => import('../empresas/empresas.module').then(m => m.EmpresasPageModule)
       },
       {
-        path: 'Perfil',
-=======
         path: 'Sign',
->>>>>>> Stashed changes
         loadChildren: () => import('../sign-form/sign-form.module').then(m => m.SignFormPageModule)
       },
       {

@@ -7,20 +7,14 @@ const routes: Routes = [
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
-<<<<<<< Updated upstream
     path: 'Animales',
     loadChildren: () => import('./animales/animales.module').then( m => m.AnimalesPageModule)
-=======
-    path: 'animales',
-    loadChildren: () => import('./animales/animales.module').then(m => m.AnimalesPageModule)
->>>>>>> Stashed changes
   },
   {
     path: 'detalles-animal/:id',
     loadChildren: () => import('./detalles-animal/detalles-animal.module').then(m => m.DetallesAnimalPageModule)
   },
   {
-<<<<<<< Updated upstream
     path: 'Mapa',
     loadChildren: () => import('./Mapa/Mapa.module').then( m => m.MapaPageModule)
   },
@@ -31,25 +25,11 @@ const routes: Routes = [
   {
     path: 'Empresas',
     loadChildren: () => import('./empresas/empresas.module').then( m => m.EmpresasPageModule)
-=======
-    path: 'mapa',
-    loadChildren: () => import('./Mapa/Mapa.module').then(m => m.MapaPageModule)
-  },
-  {
-    path: 'sign',
-    loadChildren: () => import('./sign-form/sign-form.module').then(m => m.SignFormPageModule)
   },
   {
     path: 'register',
     loadChildren: () => import('./register/register.module').then(m => m.RegisterPageModule)
   },
-  {
-    path: 'register',
-    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
->>>>>>> Stashed changes
-  }
-
-
 ];
 @NgModule({
   imports: [
