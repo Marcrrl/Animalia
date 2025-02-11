@@ -20,13 +20,18 @@ const routes: Routes = [
         loadChildren: () => import('../empresas/empresas.module').then(m => m.EmpresasPageModule)
       },
       {
-        path: 'Sign',
+        path: 'IniciarSesion',
         loadChildren: () => import('../sign-form/sign-form.module').then(m => m.SignFormPageModule)
       },
       {
         path: 'Perfil',
         loadChildren: () => import('../perfil/perfil.module').then(m => m.PerfilPageModule)
       },
+      {
+        path: 'Registrarse',
+        loadChildren: () => import('../register/register.module').then(m => m.RegisterPageModule)
+      },
+      
       
       {
         path: '',

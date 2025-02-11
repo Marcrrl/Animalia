@@ -19,7 +19,7 @@ const routes: Routes = [
     loadChildren: () => import('./Mapa/Mapa.module').then( m => m.MapaPageModule)
   },
   {
-    path: 'sign-form',
+    path: 'IniciarSesion',
     loadChildren: () => import('./sign-form/sign-form.module').then( m => m.SignFormPageModule)
   },
   {
@@ -27,7 +27,7 @@ const routes: Routes = [
     loadChildren: () => import('./empresas/empresas.module').then( m => m.EmpresasPageModule)
   },
   {
-    path: 'register',
+    path: 'Registrarse',
     loadChildren: () => import('./register/register.module').then(m => m.RegisterPageModule)
   },
 ];

@@ -86,6 +86,10 @@ export class SignFormPage implements OnInit, AfterViewInit {
     }
   }
 
+  openRegisterPage() {
+    this.router.navigateByUrl('/Registrarse');
+  }
+
   login() {
     const loginRequest = {
       email: this.email,
@@ -113,7 +117,7 @@ export class SignFormPage implements OnInit, AfterViewInit {
         sessionStorage.setItem('id', userId);
 
         // Redirigimos a la página principal
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/perfil');
         console.log(document.cookie = `id=${userId}; path=/; HttpOnly`);
         console.log(document.cookie = `rol=${userRol}; path=/; HttpOnly`);
       },
@@ -121,26 +125,5 @@ export class SignFormPage implements OnInit, AfterViewInit {
         console.error('Error durante el incio de sesión', error);
       }
     );
-
-/*
-    this.http.post<any>('http://localhost:9000/auth/login', loginRequest).subscribe(
-      response => {
-        /*localStorage.setItem('token', response.token);
-        localStorage.setItem('email', response.email);
-        localStorage.setItem('userType', response.tipo_usuario);*//*
-        document.cookie = `token=${response.token}; path=/; HttpOnly`;
-        const tokenPayload = JSON.parse(atob(response.token.split('.')[1]));
-        const userId = tokenPayload.sub;
-        const userRol = tokenPayload.roles;
-
-        document.cookie = `rol=${userRol}; path=/; HttpOnly`;
-        document.cookie = `id=${userId}; path=/; HttpOnly`;
-        this.router.navigate(['/']);
-        console.log(document.cookie = `id=${userRol}; path=/; HttpOnly`);
-      },
-      error => {
-        console.error('Error during login', error);
-      }
-    );*/
   }
 }
