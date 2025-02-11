@@ -94,20 +94,53 @@ export class SignFormPage implements OnInit, AfterViewInit {
 
     this.http.post<any>('http://localhost:9000/auth/login', loginRequest).subscribe(
       response => {
-        localStorage.setItem('token', response.token);
+        /*sessionStorage.setItem('token', response.token);
+        sessionStorage.setItem('rol', response.roles);*/
+
+        // Guardamos el token en las cookies HttpOnly
+        document.cookie = `token=${response.token}; path=/; HttpOnly`;
+        
+        // Decodificamos el token para obtener el rol y el id
+        const tokenPayload = JSON.parse(atob(response.token.split('.')[1]));
+        const userId = tokenPayload.sub;
+        const userRol = tokenPayload.roles;
+
+        // Guardamos el rol y el id en cookies HttpOnly
+        /*document.cookie = `rol=${userRol}; path=/; HttpOnly`;
+        document.cookie = `id=${userId}; path=/; HttpOnly`;*/        
+        sessionStorage.setItem('token', response.token);
+        sessionStorage.setItem('rol', userRol);
+        sessionStorage.setItem('id', userId);
+
+        // Redirigimos a la página principal
+        this.router.navigateByUrl('/');
+        console.log(document.cookie = `id=${userId}; path=/; HttpOnly`);
+        console.log(document.cookie = `rol=${userRol}; path=/; HttpOnly`);
+      },
+      error => {
+        console.error('Error durante el incio de sesión', error);
+      }
+    );
+
+/*
+    this.http.post<any>('http://localhost:9000/auth/login', loginRequest).subscribe(
+      response => {
+        /*localStorage.setItem('token', response.token);
         localStorage.setItem('email', response.email);
-        localStorage.setItem('userType', response.tipo_usuario);
+        localStorage.setItem('userType', response.tipo_usuario);*//*
         document.cookie = `token=${response.token}; path=/; HttpOnly`;
         const tokenPayload = JSON.parse(atob(response.token.split('.')[1]));
         const userId = tokenPayload.sub;
         const userRol = tokenPayload.roles;
+
         document.cookie = `rol=${userRol}; path=/; HttpOnly`;
         document.cookie = `id=${userId}; path=/; HttpOnly`;
         this.router.navigate(['/']);
+        console.log(document.cookie = `id=${userRol}; path=/; HttpOnly`);
       },
       error => {
         console.error('Error during login', error);
       }
-    );
+    );*/
   }
 }

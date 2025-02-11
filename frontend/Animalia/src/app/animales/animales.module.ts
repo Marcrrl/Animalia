@@ -11,7 +11,7 @@ import { AnimalesPage } from './animales.page';
     FormsModule,
     IonicModule,
     AnimalesPageRoutingModule,
-    
+
   ],
   declarations: [AnimalesPage]
 })

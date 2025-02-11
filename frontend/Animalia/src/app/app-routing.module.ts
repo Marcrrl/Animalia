@@ -7,20 +7,20 @@ const routes: Routes = [
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
-    path: 'animales',
-    loadChildren: () => import('./animales/animales.module').then( m => m.AnimalesPageModule)
-  },
-  {
     path: 'detalles-animal/:id',
     loadChildren: () => import('./detalles-animal/detalles-animal.module').then( m => m.DetallesAnimalPageModule)
   },
   {
     path: 'mapa',
-    loadChildren: () => import('./mapa/mapa.module').then( m => m.MapaPageModule)
+    loadChildren: () => import('./Mapa/Mapa.module').then( m => m.MapaPageModule)
   },
   {
     path: 'sign-form',
     loadChildren: () => import('./sign-form/sign-form.module').then( m => m.SignFormPageModule)
+  },
+  {
+    path: 'perfil',
+    loadChildren: () => import('./perfil/perfil.module').then( m => m.PerfilPageModule)
   }
 
 ];

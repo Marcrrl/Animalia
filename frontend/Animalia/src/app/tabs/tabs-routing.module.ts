@@ -16,20 +16,20 @@ const routes: Routes = [
         loadChildren: () => import('../animales/animales.module').then(m => m.AnimalesPageModule)
       },
       {
-        path: 'Perfil',
+        path: 'IniciarSesion',
         loadChildren: () => import('../sign-form/sign-form.module').then(m => m.SignFormPageModule)
       },
+      {
+        path: 'Perfil',
+        loadChildren: () => import('../perfil/perfil.module').then(m => m.PerfilPageModule)
+      },
+      
       {
         path: '',
         redirectTo: '/Animales',
         pathMatch: 'full'
       }
     ]
-  },
-  {
-    path: '',
-    redirectTo: '/Animales',
-    pathMatch: 'full'
   }
 ];
 
