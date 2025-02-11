@@ -1,29 +1,65 @@
-import { Router } from '@angular/router';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { get } from 'lodash';
 
 @Component({
   selector: 'app-tabs',
-  templateUrl: 'tabs.page.html',
-  styleUrls: ['tabs.page.scss'],
+  templateUrl: './tabs.page.html',
+  styleUrls: ['./tabs.page.scss'],
   standalone: false,
 })
-export class TabsPage {
-  currentRoute = '/Animales';
-  currentLabel = 'Empresas';
-  currentIcon = 'business';  // El ícono inicial es "paw"
+export class TabsPage implements OnInit {
+  public tabs: any[] = [];
+  public token: string | null = null;
+  public userRol: string | null = null;
 
-  constructor(private router: Router) {}
-  toggleTab() {
-    if (this.currentRoute === '/Animales') {
-      this.currentRoute = '/Empresas';
-      this.currentLabel = 'Animales';
-      this.currentIcon = 'paw';  // Cambia el ícono a "business" para Empresas
-    } else {
-      this.currentRoute = '/Animales';
-      this.currentLabel = 'Empresas';
-      this.currentIcon = 'business';  // Vuelve al ícono "paw" para Animales
+  constructor() { }
+
+  ngOnInit() {
+    this.userRol = sessionStorage.getItem('rol'); // Retrieve user role from sessionStorage
+    this.setTabsBasedOnRol(this.userRol);
+    console.log(this.userRol);
+  }
+
+  ionViewDidEnter() {
+    this.ngOnInit();
+    this.getCookie('token');
+  }
+  
+  getCookie(rol: string): string | null {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${rol}=`);
+    if (parts.length === 2) return parts.pop()?.split(';').shift() || null;
+    console.log(parts + value)
+    return null;
+  }
+
+  getUserRolFromToken(): string | null {
+    const token = this.getCookie('token');
+    if (token) {
+      const tokenPayload = JSON.parse(atob(token.split('.')[1]));
+      return tokenPayload.roles || null;
     }
-    // Navega a la nueva ruta
-    this.router.navigateByUrl(this.currentRoute);
+    return null;
+  }
+
+  setTabsBasedOnRol(rol = sessionStorage.getItem('rol')) {
+    if (rol === 'ADMIN') {
+      this.tabs = [
+        { title: 'Animales', route: '/Animales' },
+        { title: 'Camara', route: '/Camara' },  
+      ];
+    } else if (rol === 'USER') {
+      this.tabs = [
+        { title: 'Animales', route: '/Animales' },
+      ];
+    } else if (rol === 'EMPRESA') {
+      this.tabs = [
+        { title: 'Camara', route: '/Camara' },
+      ];
+    } else {
+      this.tabs = [
+        { title: 'Animales', route: '/Animales' },
+      ];
+    }
   }
 }

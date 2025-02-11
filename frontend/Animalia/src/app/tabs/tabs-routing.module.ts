@@ -24,6 +24,11 @@ const routes: Routes = [
         loadChildren: () => import('../sign-form/sign-form.module').then(m => m.SignFormPageModule)
       },
       {
+        path: 'Perfil',
+        loadChildren: () => import('../perfil/perfil.module').then(m => m.PerfilPageModule)
+      },
+      
+      {
         path: '',
         redirectTo: '/Animales',
         pathMatch: 'full'

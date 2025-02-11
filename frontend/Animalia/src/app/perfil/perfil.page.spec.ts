@@ -8,7 +8,7 @@ import { PerfilPage } from './perfil.page';
 describe('PerfilPage', () => {
   let component: PerfilPage;
   let fixture: ComponentFixture<PerfilPage>;
-
+ 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [PerfilPage],

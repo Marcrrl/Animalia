@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { UsuarioService } from '../services/usuario.service';
 import { HttpClient } from '@angular/common/http';
+import { MenuController, IonButtons, IonContent, IonHeader, IonMenu, IonMenuButton, IonTitle, IonToolbar, IonTab } from '@ionic/angular';
 
 @Component({
   selector: 'app-perfil',
@@ -15,6 +16,11 @@ export class PerfilPage implements OnInit {
   usuarioOriginal: any;
 
   constructor(@Inject(UsuarioService) private usuarioService: UsuarioService, private http: HttpClient) {}
+
+  cerrarSesion() {
+    sessionStorage.clear();
+    window.location.href = '/Animales';
+  }
 
   ngOnInit() {
     this.usuarioService.getUsuarios().subscribe((data: any) => {
