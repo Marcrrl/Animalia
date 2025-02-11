@@ -15,6 +15,10 @@ export class UsuarioService {
     return this.http.get<any>(this.apiUrl);
   }
 
+  getUsuarioById(id: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  }
+
   getImagen(url_foto_perfil: string): Observable<Blob> {
     const url = `${this.apiUrl}/imagen/${url_foto_perfil}`;
     return this.http.get(url, { responseType: 'blob' });

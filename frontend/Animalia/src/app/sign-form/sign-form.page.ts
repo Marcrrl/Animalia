@@ -24,8 +24,8 @@ export class SignFormPage implements OnInit, AfterViewInit {
     const passwordInput = document.querySelector('.password') as HTMLInputElement;
     const showPasswordButton = document.querySelector('.password-button') as HTMLButtonElement;
     const face = document.querySelector('.face') as HTMLElement;
-
-    if (usernameInput && passwordInput && showPasswordButton && face) {
+    const iconoContraseña = document.querySelector('.iconoContraseña') as HTMLElement;
+    if (usernameInput && passwordInput && showPasswordButton && face && iconoContraseña) {
       usernameInput.addEventListener('input', (event: Event) => {
         this.email = (event.target as HTMLInputElement).value;
       });
@@ -71,12 +71,14 @@ export class SignFormPage implements OnInit, AfterViewInit {
       showPasswordButton.addEventListener('click', (event: MouseEvent) => {
         if (passwordInput.type === 'text') {
           passwordInput.type = 'password';
+          iconoContraseña.setAttribute('name', 'eye-outline');
           document.querySelectorAll('.hand').forEach(hand => {
             hand.classList.remove('peek');
             hand.classList.add('hide');
           });
         } else {
           passwordInput.type = 'text';
+          iconoContraseña.setAttribute('name', 'eye-off-outline');
           document.querySelectorAll('.hand').forEach(hand => {
             hand.classList.remove('hide');
             hand.classList.add('peek');
@@ -117,7 +119,7 @@ export class SignFormPage implements OnInit, AfterViewInit {
         sessionStorage.setItem('id', userId);
 
         // Redirigimos a la página principal
-        this.router.navigateByUrl('/perfil');
+        this.router.navigateByUrl('/Perfil');
         console.log(document.cookie = `id=${userId}; path=/; HttpOnly`);
         console.log(document.cookie = `rol=${userRol}; path=/; HttpOnly`);
       },

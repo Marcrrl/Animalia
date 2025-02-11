@@ -23,11 +23,16 @@ export class PerfilPage implements OnInit {
   }
 
   ngOnInit() {
-    this.usuarioService.getUsuarios().subscribe((data: any) => {
-      this.usuario = data[0];
-      this.usuarioOriginal = { ...this.usuario };
-      this.cargarImagenPerfil(this.usuario.url_foto_perfil);
-    });
+    const userId = sessionStorage.getItem("id");
+    if (userId) {
+      this.usuarioService.getUsuarioById(userId).subscribe((data: any) => {
+        this.usuario = data;
+        this.usuarioOriginal = { ...this.usuario };
+        this.cargarImagenPerfil(this.usuario.url_foto_perfil);
+      });
+    } else {
+      console.error('No se encontró el id del usuario');
+    }
   }
 
   activarCampos() {
