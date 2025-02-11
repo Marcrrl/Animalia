@@ -95,14 +95,14 @@ export class AnimalesPage implements OnInit {
   }
 
   openEndMenu() {
-    this.menuCtrl.enable(true, 'end');
-    this.menuCtrl.open('end');
+    this.menuCtrl.enable(true, 'end-animales');
+    this.menuCtrl.open('end-animales');
     this.toggleStickySearchbar(false);
     this.isMenuOpen = true;
   }
 
   closeEndMenu() {
-    this.menuCtrl.close('end');
+    this.menuCtrl.close('end-animales');
     this.toggleStickySearchbar(true);
     this.isMenuOpen = false;
     console.log('Menu cerrado');

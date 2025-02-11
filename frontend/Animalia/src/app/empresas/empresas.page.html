@@ -4,18 +4,18 @@
       <ion-icon name="map" style=" position: absolute; font-size: 32px;"></ion-icon>
     </ion-button>
     <ion-title class="ion-text-center" style="margin-left: 0px; margin-right: 20px;">Empresas</ion-title>
-    <ion-button slot="end" fill="clear" shape="round" color="medium" expand="block" (click)="isMenuOpen ? closeEndMenu() : openEndMenu()">
+    <ion-button slot="end" fill="clear" shape="round" color="medium" expand="block" (click)="isMenuOpen ? closeEndMenu2() : openEndMenu2()">
       <ion-icon [name]="isMenuOpen ? 'close' : 'call'" style="position: absolute; font-size: 32px;"></ion-icon>
     </ion-button>
   </ion-toolbar>
 </ion-header>
 
-<ion-menu side="end" contentId="main-content" (ionDidOpen)="openEndMenu()" (ionDidClose)="closeEndMenu()" swipeGesture="true" menuId="end">
+<ion-menu side="end" contentId="main-content" (ionDidOpen)="openEndMenu2()" (ionDidClose)="closeEndMenu2()" swipeGesture="true" menuId="end-empresas">
   <ion-header>
     <ion-toolbar>
       <p style="font-size: 20px;" slot="start" class="mb-0 ms-2">Teléfonos de Emergencia</p>
       <ion-buttons slot="end">
-        <ion-button (click)="closeEndMenu()">
+        <ion-button (click)="closeEndMenu2()">
           <ion-icon name="close"></ion-icon>
         </ion-button>
       </ion-buttons>
