@@ -1,12 +1,8 @@
 package com.animalia.spring.seguridad.JWT;
-
 import java.util.Date;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
-
 import com.animalia.spring.entidades.Usuarios;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;

@@ -1,5 +1,4 @@
 package com.animalia.spring.seguridad.JWT.model;
-
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 

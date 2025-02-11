@@ -46,6 +46,20 @@ body {
     }
 }
 
+@media screen and (max-width: 768px) {
+    .center {
+        position: absolute;
+        top: 56px;
+        left: 0;
+        width: 100%;
+        height: calc(100% - 56px - 56px);
+        border-radius: 0;
+        transform: none;
+        overflow: hidden;
+        background-image: linear-gradient(to top right, #f9a743, #f9db5f);
+    }
+}
+
 .center .ear {
     position: absolute;
     top: -110px;
@@ -193,14 +207,14 @@ body {
 
 .center .hands .hand {
     position: absolute;
-    top: -6px;
+    top: -3px;
     display: flex;
     transition: transform 0.5s ease-in-out;
     z-index: 1;
 }
 
 .center .hands .hand--left {
-    left: 50px;
+    left: 54px;
 }
 
 .center .hands .hand--left.hide {
@@ -212,7 +226,7 @@ body {
 }
 
 .center .hands .hand--right {
-    left: 170px;
+    left: 165px;
 }
 
 .center .hands .hand--right.hide {
@@ -362,6 +376,21 @@ body {
 }
 
 .center .login .login-button:active {
+    transform: scale(0.95);
+}
+
+.center .register-button {
+    width: calc(100% - 40px);
+    margin: 10px 20px 0;
+    outline: none;
+    background-color: #243946;
+    color: #fff;
+    transition: transform 0.1s;
+    border-radius: 30px;
+    height: 25px;
+}
+
+.center .register-button:active {
     transform: scale(0.95);
 }
 

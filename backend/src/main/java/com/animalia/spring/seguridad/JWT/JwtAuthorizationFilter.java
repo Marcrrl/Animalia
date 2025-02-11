@@ -5,12 +5,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
 import com.animalia.spring.entidades.Usuarios;
 import com.animalia.spring.servicios.CustomUserDetailsService;
 import com.animalia.spring.servicios.UsuarioServicio;
 import org.springframework.util.StringUtils;
-
 import java.io.IOException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

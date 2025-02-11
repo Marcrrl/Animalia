@@ -1,7 +1,4 @@
 package com.animalia.spring.seguridad.JWT.model;
-
-
-
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

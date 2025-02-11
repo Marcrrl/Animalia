@@ -103,11 +103,15 @@ export class SignFormPage implements OnInit, AfterViewInit {
         const userRol = tokenPayload.roles;
         document.cookie = `rol=${userRol}; path=/; HttpOnly`;
         document.cookie = `id=${userId}; path=/; HttpOnly`;
-        this.router.navigate(['/']);
+        this.router.navigate(['/perfil']);
       },
       error => {
         console.error('Error during login', error);
       }
     );
+  }
+
+  openRegisterPage() {
+    this.router.navigate(['/register']);
   }
 }
