@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,7 +38,8 @@ public class LoginController {
     @Autowired
     private UsuarioServicio usuariosServicio;
 
-    
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     private final AuthenticationManager authenticationManager;
     private final JwtProvider tokenProvider;
@@ -78,6 +80,8 @@ public class LoginController {
 
         
         Usuarios user = converter.convertUserRegistroDtoToUserEntity(entity);
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
         
         usuariosServicio.guardarUsuario(user);
         
