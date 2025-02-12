@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor @AllArgsConstructor @Builder
-public class UsuarioDTO {
+public class UsuarioJWTDTO {
 
     private Long id;
     private TipoUsuario tipo_usuario;

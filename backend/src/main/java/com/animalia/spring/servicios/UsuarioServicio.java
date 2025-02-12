@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.animalia.spring.entidades.Usuarios;
@@ -17,6 +18,9 @@ public class UsuarioServicio {
     
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     public Page<Usuarios> obtenerUsuariosPaginacion(Pageable pageable) {
         return usuarioRepositorio.findAll(pageable);
@@ -33,6 +37,8 @@ public class UsuarioServicio {
     }
 
     public Usuarios guardarUsuario(Usuarios usuario) {
+        String encodedPassword = passwordEncoder.encode(usuario.getPassword());
+        usuario.setPassword(encodedPassword);
         return usuarioRepositorio.save(usuario);
     }
 
