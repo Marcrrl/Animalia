@@ -4,18 +4,18 @@
       <ion-icon name="map" style=" position: absolute; font-size: 32px;"></ion-icon>
     </ion-button>
     <ion-title class="ion-text-center" style="margin-left: 0px; margin-right: 20px;">Empresas</ion-title>
-    <ion-button slot="end" fill="clear" shape="round" color="medium" expand="block" (click)="isMenuOpen ? closeEndMenu2() : openEndMenu2()">
+    <ion-button slot="end" fill="clear" shape="round" color="medium" expand="block" (click)="isMenuOpen ? closeEndMenu() : openEndMenu()">
       <ion-icon [name]="isMenuOpen ? 'close' : 'call'" style="position: absolute; font-size: 32px;"></ion-icon>
     </ion-button>
   </ion-toolbar>
 </ion-header>
 
-<ion-menu side="end" contentId="main-content" (ionDidOpen)="openEndMenu2()" (ionDidClose)="closeEndMenu2()" swipeGesture="true" menuId="end-empresas">
+<ion-menu side="end" contentId="main-content" (ionDidOpen)="openEndMenu()" (ionDidClose)="closeEndMenu()" swipeGesture="true" menuId="end-empresas">
   <ion-header>
     <ion-toolbar>
       <p style="font-size: 20px;" slot="start" class="mb-0 ms-2">Teléfonos de Emergencia</p>
       <ion-buttons slot="end">
-        <ion-button (click)="closeEndMenu2()">
+        <ion-button (click)="closeEndMenu()">
           <ion-icon name="close"></ion-icon>
         </ion-button>
       </ion-buttons>
@@ -23,7 +23,7 @@
   </ion-header>
   <ion-content>
 
-    <ion-item (click)="cambioTipo('MAMIFERO')" class="mt-2">
+    <ion-item (click)="makeCall('112')" button="true" class="mt-2">
       <ion-icon name="call" style="font-size: 28px;" slot="end" class="mt-0"></ion-icon>
       <ion-thumbnail slot="start" class="mt-0">
         <ion-img src="../../assets/img/emergencias.png"  alt="Emergencias"></ion-img>
@@ -36,7 +36,7 @@
       </div>
     </ion-item>
 
-    <ion-item (click)="cambioTipo('MAMIFERO')" class="mt-2">
+    <ion-item (click)="makeCall('062')" class="mt-2">
       <ion-icon name="call" style="font-size: 28px;" slot="end" class="mt-0"></ion-icon>
       <ion-thumbnail slot="start" class="mt-0">
         <ion-img src="../../assets/img/seprona.jpg"  alt="Seprona"></ion-img>
@@ -49,7 +49,7 @@
       </div>
     </ion-item>
 
-    <ion-item (click)="cambioTipo('MAMIFERO')" class="mt-2">
+    <ion-item (click)="makeCall('092')" class="mt-2">
       <ion-icon name="call" style="font-size: 28px;" slot="end" class="mt-0"></ion-icon>
       <ion-thumbnail slot="start" class="mt-0">
         <ion-img src="../../assets/img/policia_local.jpg"  alt="local"></ion-img>
@@ -62,7 +62,7 @@
       </div>
     </ion-item>
 
-    <ion-item (click)="cambioTipo('MAMIFERO')" class="mt-2">
+    <ion-item (click)="makeCall('936245538')" class="mt-2">
       <ion-icon name="call" style="font-size: 28px;" slot="end" class="mt-0"></ion-icon>
       <ion-thumbnail slot="start" class="mt-0">
         <ion-img src="../../assets/img/faada.png"  alt="FAADA"></ion-img>

@@ -10,7 +10,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-menu side="end" contentId="main-content" (ionDidOpen)="openEndMenu()" (ionDidClose)="closeEndMenu()" swipeGesture="true" menuId="end-animales">
+<ion-menu side="end" contentId="main-content" (ionDidOpen)="openEndMenu()" (ionDidClose)="closeEndMenu()" swipeGesture="true" menuId="end">
   <ion-header>
     <ion-toolbar>
       <p style="font-size: 20px;" slot="start" class="mb-0 ms-2">Teléfonos de Emergencia</p>
@@ -23,7 +23,7 @@
   </ion-header>
   <ion-content>
 
-    <ion-item (click)="cambioFamilia('MAMIFERO')" class="mt-2">
+    <ion-item (click)="makeCall('112')" button="true" class="mt-2">
       <ion-icon name="call" style="font-size: 28px;" slot="end" class="mt-0"></ion-icon>
       <ion-thumbnail slot="start" class="mt-0">
         <ion-img src="../../assets/img/emergencias.png"  alt="Emergencias"></ion-img>
@@ -36,7 +36,7 @@
       </div>
     </ion-item>
 
-    <ion-item (click)="cambioFamilia('MAMIFERO')" class="mt-2">
+    <ion-item (click)="makeCall('062')" class="mt-2">
       <ion-icon name="call" style="font-size: 28px;" slot="end" class="mt-0"></ion-icon>
       <ion-thumbnail slot="start" class="mt-0">
         <ion-img src="../../assets/img/seprona.jpg"  alt="Seprona"></ion-img>
@@ -49,7 +49,7 @@
       </div>
     </ion-item>
 
-    <ion-item (click)="cambioFamilia('MAMIFERO')" class="mt-2">
+    <ion-item (click)="makeCall('092')" class="mt-2">
       <ion-icon name="call" style="font-size: 28px;" slot="end" class="mt-0"></ion-icon>
       <ion-thumbnail slot="start" class="mt-0">
         <ion-img src="../../assets/img/policia_local.jpg"  alt="local"></ion-img>
@@ -62,7 +62,7 @@
       </div>
     </ion-item>
 
-    <ion-item (click)="cambioFamilia('MAMIFERO')" class="mt-2">
+    <ion-item (click)="makeCall('936245538')" class="mt-2">
       <ion-icon name="call" style="font-size: 28px;" slot="end" class="mt-0"></ion-icon>
       <ion-thumbnail slot="start" class="mt-0">
         <ion-img src="../../assets/img/faada.png"  alt="FAADA"></ion-img>
@@ -77,12 +77,12 @@
   </ion-content>
 </ion-menu>
 
-<ion-content [fullscreen]="true" color="light" id="main-content">
+<ion-content [fullscreen]="true" color="light" id="main-content" class="d-flex justify-content-center">
 
   <ion-searchbar class="sticky-top" [debounce]="1000" (ionInput)="handleInput($event)" (click)="handleSearchbarClick()"></ion-searchbar>
 
-  <ion-accordion-group expand="inset" class="m-2">
-    <ion-accordion value="first" class="m-1">
+  <ion-accordion-group expand="inset">
+    <ion-accordion value="first">
       <ion-item slot="header" class="caracteristicas" [ngClass]="'selected'">
         <ion-label>Categorías</ion-label>
       </ion-item>
@@ -115,8 +115,6 @@
       </div>
     </ion-accordion>
     </ion-accordion-group>
-
-
 
   <ion-list id="lista" *ngIf="animales.length > 0">
     <ion-item *ngFor="let animal of results; let i=index" button details="false" (click)="haciaDatosAnimal(animal.id)"

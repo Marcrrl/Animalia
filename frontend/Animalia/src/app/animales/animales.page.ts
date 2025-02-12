@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { AnimalesService } from '../services/animales.service';
 import { Router } from '@angular/router';
 import { MenuController, IonButtons, IonContent, IonHeader, IonMenu, IonMenuButton, IonTitle, IonToolbar } from '@ionic/angular';
+import { AppLauncher } from '@capacitor/app-launcher';
 
 @Component({
   selector: 'app-animales',
@@ -22,7 +23,7 @@ export class AnimalesPage implements OnInit {
     private animalesService: AnimalesService,
     private router: Router,
     private menuCtrl: MenuController,
-    private renderer: Renderer2
+    private renderer: Renderer2,
   ) {}
 
   ngOnInit() {
@@ -95,14 +96,14 @@ export class AnimalesPage implements OnInit {
   }
 
   openEndMenu() {
-    this.menuCtrl.enable(true, 'end-animales');
-    this.menuCtrl.open('end-animales');
+    this.menuCtrl.enable(true, 'end');
+    this.menuCtrl.open('end');
     this.toggleStickySearchbar(false);
     this.isMenuOpen = true;
   }
 
   closeEndMenu() {
-    this.menuCtrl.close('end-animales');
+    this.menuCtrl.close('end');
     this.toggleStickySearchbar(true);
     this.isMenuOpen = false;
     console.log('Menu cerrado');
@@ -117,5 +118,9 @@ export class AnimalesPage implements OnInit {
         searchbar.classList.remove('sticky-top');
       }
     }
+  }
+  
+   makeCall(number: string) {
+    window.open(`tel:${number}`, '_system');
   }
 }

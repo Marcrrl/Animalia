@@ -21,7 +21,7 @@ export class EmpresasPage implements OnInit {
   constructor(
     private empresasService: EmpresasService,
     private router: Router,
-    private menuCtrl: MenuController
+    private menuCtrl: MenuController,
   ) {}
 
   ngOnInit() {
@@ -73,14 +73,14 @@ export class EmpresasPage implements OnInit {
     this.router.navigate(['/mapa']);
   }
 
-  openEndMenu2() {
+  openEndMenu() {
     this.menuCtrl.enable(true, 'end-empresas');
     this.menuCtrl.open('end-empresas');
     this.toggleStickySearchbar(false);
     this.isMenuOpen = true;
   }
 
-  closeEndMenu2() {
+  closeEndMenu() {
     this.menuCtrl.close('end-empresas');
     this.toggleStickySearchbar(true);
     this.isMenuOpen = false;
@@ -113,4 +113,7 @@ export class EmpresasPage implements OnInit {
     }
   }
 
+  makeCall(number: string) {
+    window.open(`tel:${number}`, '_system');
+  }
 }
