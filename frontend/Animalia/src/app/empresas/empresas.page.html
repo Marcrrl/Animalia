@@ -78,14 +78,15 @@
 </ion-menu>
 
 
-<ion-content [fullscreen]="true" color="light" id="main-content">
+<ion-content [fullscreen]="true" color="light" id="main-content" class="d-flex justify-content-center">
 
   <ion-searchbar class="sticky-top" [debounce]="1000" (ionInput)="handleInput($event)" (click)="handleSearchbarClick()"></ion-searchbar>
-  <ion-accordion-group expand="inset" class="m-2">
-    <ion-accordion value="first" class="m-1">
+  <ion-accordion-group expand="inset">
+    <ion-accordion value="first">
       <ion-item slot="header" class="caracteristicas" [ngClass]="'selected'">
         <ion-label>Categorías</ion-label>
       </ion-item>
+
       <div class="ion-padding p-0 m-0" slot="content">
         <ion-item id="elementos">
           <ion-list class="d-flex flex-column row w-100">

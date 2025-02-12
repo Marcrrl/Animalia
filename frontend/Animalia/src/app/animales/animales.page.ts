@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { AnimalesService } from '../services/animales.service';
 import { Router } from '@angular/router';
 import { MenuController, IonButtons, IonContent, IonHeader, IonMenu, IonMenuButton, IonTitle, IonToolbar } from '@ionic/angular';
-import { AppLauncher } from '@capacitor/app-launcher';
 
 @Component({
   selector: 'app-animales',
@@ -119,7 +118,7 @@ export class AnimalesPage implements OnInit {
       }
     }
   }
-  
+
    makeCall(number: string) {
     window.open(`tel:${number}`, '_system');
   }
