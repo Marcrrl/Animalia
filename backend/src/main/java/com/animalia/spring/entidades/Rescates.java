@@ -16,12 +16,14 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "rescates")
 public class Rescates {
 
@@ -44,7 +46,7 @@ public class Rescates {
     @Column(nullable = true)
     private String ubicacion;
 
-    @Column(columnDefinition = "ENUM('NO_RECIBIDO', 'RECIBIDO', 'EN_PROCESO','FINALIZADO', 'CANCELADO', 'NO_APLICA', 'DESCONOCIDO')", nullable = true)
+    @Column(nullable = true)
     @Enumerated(EnumType.STRING)
     private Estado estado_rescate;
 
@@ -66,5 +68,5 @@ public class Rescates {
 
     @OneToMany(mappedBy = "rescate")
     private List<Fotos> fotos;
-    
+
 }

@@ -15,32 +15,55 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.animalia.spring.Excepciones.AnimalNoEcontrada;
+import com.animalia.spring.Excepciones.EmpresaNoEcontrada;
 import com.animalia.spring.entidades.Animales;
 import com.animalia.spring.servicios.AnimalesServicio;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
- 
 
 @RestController
 @RequestMapping("api/animales")
 @Tag(name = "Animales", description = "Operaciones relacionadas con animales")
 public class AnimalesController {
-    
+
     @Autowired
     private AnimalesServicio animalesServicio;
 
-    
-    @GetMapping
+    @GetMapping("/todos")
     public ResponseEntity<List<Animales>> obtenerAnimales() {
-        return ResponseEntity.ok(animalesServicio.obtenerAnimales());
+        if (animalesServicio.obtenerAnimales().isEmpty()) {
+            throw new AnimalNoEcontrada();
+        } else {
+            return ResponseEntity.ok(animalesServicio.obtenerAnimales());
+        }
     }
 
-    
+    @GetMapping
+    @Operation(summary = "Mostrar todos los Animales del sistema", description = "Devuelve una lista con todos los animales del sistema paginados")
+    public ResponseEntity<List<Animales>> obtenerUsuariosPagebale(
+            @PageableDefault(size = 5, page = 0) Pageable pageable) {
+
+        Page<Animales> Animales = animalesServicio.obtenerAnimalesPaginacion(pageable);
+
+        if (Animales.isEmpty()) {
+            throw new EmpresaNoEcontrada();
+        } else {
+            return ResponseEntity.ok(Animales.getContent());
+        }
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Animales> obtenerAnimalPorId(@PathVariable long id) {
         return ResponseEntity.ok(animalesServicio.obtenerAnimalPorId(id));
     }
+
     @GetMapping("/imagen/{nombreImagen}")
     @Operation(summary = "Buscar una imagen", description = "Buscar una imagen de usuario a partir de su nombre")
     public ResponseEntity<Resource> obtenerImagen(@PathVariable String nombreImagen) {
@@ -60,10 +83,10 @@ public class AnimalesController {
         }
     }
 
-    
     // @GetMapping("/buscar/{busqueda}")
-    // public ResponseEntity<List<Animales>> buscarAnimales(@PathVariable String busqueda) {
-    //     return ResponseEntity.ok(animalesServicio.buscarAnimales(busqueda));
+    // public ResponseEntity<List<Animales>> buscarAnimales(@PathVariable String
+    // busqueda) {
+    // return ResponseEntity.ok(animalesServicio.buscarAnimales(busqueda));
     // }
 
     @PostMapping
@@ -73,7 +96,8 @@ public class AnimalesController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarAnimal(@PathVariable long id) {
-        animalesServicio.eliminarAnimal(id);;
+        animalesServicio.eliminarAnimal(id);
+        ;
         return ResponseEntity.noContent().build();
     }
 

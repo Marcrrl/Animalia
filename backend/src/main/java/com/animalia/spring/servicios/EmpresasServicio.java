@@ -3,6 +3,8 @@ package com.animalia.spring.servicios;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.animalia.spring.entidades.Empresas;
@@ -35,6 +37,10 @@ public class EmpresasServicio {
 
     public List<Empresas> obtenerEmpresas() {
         return empresasRepositorio.findAll();
+    }
+
+    public Page<Empresas> obtenerEmpresasPaginacion(Pageable pageable) {
+        return empresasRepositorio.findAll(pageable);
     }
 
 }
