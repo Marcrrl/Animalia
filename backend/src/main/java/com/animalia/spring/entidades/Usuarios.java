@@ -25,9 +25,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Data
@@ -129,9 +127,4 @@ public class Usuarios implements UserDetails {
     public int hashCode() {
         return Objects.hash(id);
     }
-
-	@Override
-	public String getPassword() {
-		return null;
-	}
 }

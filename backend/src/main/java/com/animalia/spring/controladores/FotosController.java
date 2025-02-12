@@ -30,7 +30,7 @@ public class FotosController {
     @Autowired
     private FotosServicio fotosServicio;
 
-    @GetMapping
+    @GetMapping("/todos")
     @Operation(summary = "Mostrar todos los fotos del sistema", description = "Devuelve una lista con todos los fotos del sistema")
     public ResponseEntity<List<Fotos>> obtenerFotos() {
 
