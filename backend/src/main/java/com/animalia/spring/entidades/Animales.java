@@ -10,10 +10,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "animales")
@@ -35,8 +39,6 @@ public class Animales {
     @Column(nullable = true)
     private String foto;
     
-    
-
     @Column(nullable = true)
     @Enumerated(EnumType.STRING)
     private EstadoConservacion estado_conservacion;
@@ -52,11 +54,4 @@ public class Animales {
     public enum Familia {
         MAMIFERO, REPTIL, ANFIBIO, AVES, PECES
     }
-
-    /*
-     * Estan los tres campos con posibilidad
-     * de ser nulos porque peude que el usuario sepa
-     * el nombre comun, o el nombre de la especie o simplemente
-     * sepa hacer al descripcion de el animal.
-     */
 }

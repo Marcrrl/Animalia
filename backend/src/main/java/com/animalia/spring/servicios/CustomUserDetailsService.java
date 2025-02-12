@@ -15,18 +15,18 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-	private final UsuarioServicio userEntityService;
+	private final UsuarioServicio userEntityServicio = null;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-		return Optional.ofNullable(userEntityService.obtenerUsuarioPorCorreo(username))
+		return Optional.ofNullable(userEntityServicio.obtenerUsuarioPorCorreo(username))
 				.map(user -> (UserDetails) user)
 				.orElseThrow(() -> new UsernameNotFoundException(username + " no encontrado"));
 	}
 	
 	public UserDetails loadUserById(Long id) throws UsernameNotFoundException {
-		Usuarios user = userEntityService.obtenerUsuarioPorId(id);
+		Usuarios user = userEntityServicio.obtenerUsuarioPorId(id);
 		if (user == null) {
 			throw new UsernameNotFoundException("Usuario con ID: " + id + " no encontrado");
 		}

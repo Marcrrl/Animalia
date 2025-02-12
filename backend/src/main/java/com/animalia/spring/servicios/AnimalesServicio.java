@@ -3,6 +3,8 @@ package com.animalia.spring.servicios;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.animalia.spring.entidades.Animales;
@@ -31,6 +33,10 @@ public class AnimalesServicio {
 
     public Animales actualizarAnimal(Animales animal) {
         return animalesRepositorio.save(animal);
+    }
+
+    public Page<Animales> obtenerAnimalesPaginacion(Pageable pageable) {
+        return animalesRepositorio.findAll(pageable);
     }
 
     // public List<Animales> buscarAnimales(String busqueda) {

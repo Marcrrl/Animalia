@@ -47,12 +47,13 @@ public class UsuariosControlador {
 
     @GetMapping
     @Operation(summary = "Mostrar todos los usuarios del sistema", description = "Devuelve una lista con todos los usuarios del sistema")
-    public ResponseEntity<List<Usuarios>> obtenerUsuariosPagebale(@PageableDefault(size = 5, page = 0) Pageable pageable) {
+    public ResponseEntity<List<Usuarios>> obtenerUsuariosPagebale(
+            @PageableDefault(size = 5, page = 0) Pageable pageable) {
 
         Page<Usuarios> usuarios = usuariosServicio.obtenerUsuariosPaginacion(pageable);
 
         if (usuarios.isEmpty()) {
-            return ResponseEntity.noContent().build();
+            throw new UsuarioNoEncontrado();
         } else {
             return ResponseEntity.ok(usuarios.getContent());
         }
@@ -103,10 +104,12 @@ public class UsuariosControlador {
             Path path = uploadPath.resolve(file.getOriginalFilename());
             Files.write(path, file.getBytes());
 
-            return ResponseEntity.ok(Map.of("message", "Imagen subida exitosamente", "url_foto_perfil", file.getOriginalFilename()));
+            return ResponseEntity
+                    .ok(Map.of("message", "Imagen subida exitosamente", "url_foto_perfil", file.getOriginalFilename()));
         } catch (IOException e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", "Error al subir la imagen"));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "Error al subir la imagen"));
         }
     }
 

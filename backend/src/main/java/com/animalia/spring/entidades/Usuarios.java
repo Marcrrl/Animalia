@@ -10,7 +10,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,7 +25,9 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Data
@@ -82,21 +83,6 @@ public class Usuarios implements UserDetails {
     @JsonBackReference
     private Empresas empresa;
 
-    public Usuarios(String nombre, String apellido, String email, String password, String telefono, String direccion,
-            String url_foto_perfil, TipoUsuario tipo_usuario, LocalDate fecha_registro, long cantidad_rescates) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.email = email;
-        this.password = password;
-        this.telefono = telefono;
-        this.direccion = direccion;
-        this.url_foto_perfil = url_foto_perfil;
-        this.tipo_usuario = tipo_usuario;
-        this.fecha_registro = fecha_registro;
-        this.cantidad_rescates = cantidad_rescates;
-
-    }
-
     public enum TipoUsuario {
         ADMIN, USER, EMPRESA
     }
@@ -143,4 +129,9 @@ public class Usuarios implements UserDetails {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+	@Override
+	public String getPassword() {
+		return null;
+	}
 }

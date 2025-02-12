@@ -3,11 +3,11 @@ package com.animalia.spring.servicios;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.animalia.spring.entidades.Fotos;
-import com.animalia.spring.entidades.Rescates;
-import com.animalia.spring.entidades.Usuarios;
 import com.animalia.spring.repositorio.FotosRepositorio;
 
 @Service
@@ -34,6 +34,10 @@ public class FotosServicio {
 
     public Fotos actualizarFoto(Fotos foto) {
         return fotosRepositorio.save(foto);
+    }
+
+    public Page<Fotos> obtenerEmpresasPaginacion(Pageable pageable) {
+        return fotosRepositorio.findAll(pageable);
     }
 
     // public List<Fotos> obtenerFotosPorUsuario(Usuarios usuario) {
