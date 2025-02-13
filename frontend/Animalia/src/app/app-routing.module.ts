@@ -34,7 +34,10 @@ const routes: Routes = [
     path: 'detalles-empresa/:id',
     loadChildren: () => import('./detalles-empresa/detalles-empresa.module').then( m => m.DetallesEmpresaPageModule)
   },
-
+  {
+    path: 'Gestion',
+    loadChildren: () => import('./gestion/gestion.module').then(m => m.GestionPageModule)
+  }
 ];
 @NgModule({
   imports: [

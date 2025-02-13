@@ -26,55 +26,89 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-
   <div *ngIf="currentView === 'usuarios'">
+    <div style="text-align: center;">
+      <ion-button (click)="showAddUserForm()">Añadir Usuario</ion-button>
+    </div>
+    <div *ngIf="showForm">
+      <form (submit)="addUsuario()">
+        <ion-item>
+          <ion-label position="floating">Nombre</ion-label>
+          <ion-input [(ngModel)]="newUsuario.nombre" name="nombre" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Apellido</ion-label>
+          <ion-input [(ngModel)]="newUsuario.apellido" name="apellido" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input [(ngModel)]="newUsuario.email" name="email" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Contraseña</ion-label>
+          <ion-input [(ngModel)]="newUsuario.password" name="password" type="password" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Teléfono</ion-label>
+          <ion-input [(ngModel)]="newUsuario.telefono" name="telefono" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Dirección</ion-label>
+          <ion-input [(ngModel)]="newUsuario.direccion" name="direccion" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Tipo Usuario</ion-label>
+          <ion-select [(ngModel)]="newUsuario.tipo_usuario" name="tipo_usuario" required>
+            <ion-select-option value="USER">USER</ion-select-option>
+            <ion-select-option value="ADMIN">ADMIN</ion-select-option>
+            <ion-select-option value="EMPRESA">EMPRESA</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-button type="submit">Guardar</ion-button>
+        <ion-button color="danger" (click)="cancelAddUser()">Cancelar</ion-button>
+      </form>
+    </div>
+    <div *ngIf="showUpdateForm">
+      <form (submit)="updateUsuario()">
+        <ion-item>
+          <ion-label position="floating">Nombre</ion-label>
+          <ion-input [(ngModel)]="selectedUsuario.nombre" name="nombre" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Apellido</ion-label>
+          <ion-input [(ngModel)]="selectedUsuario.apellido" name="apellido" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input [(ngModel)]="selectedUsuario.email" name="email" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Teléfono</ion-label>
+          <ion-input [(ngModel)]="selectedUsuario.telefono" name="telefono" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Dirección</ion-label>
+          <ion-input [(ngModel)]="selectedUsuario.direccion" name="direccion" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Tipo Usuario</ion-label>
+          <ion-select [(ngModel)]="selectedUsuario.tipo_usuario" name="tipo_usuario" required>
+            <ion-select-option value="USER">USER</ion-select-option>
+            <ion-select-option value="ADMIN">ADMIN</ion-select-option>
+            <ion-select-option value="EMPRESA">EMPRESA</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-button type="submit">Guardar</ion-button>
+        <ion-button color="danger" (click)="cancelUpdateUser()">Cancelar</ion-button>
+      </form>
+    </div>
     <ion-list>
       <ion-item *ngFor="let usuario of usuarios">
-        <ion-label>{{ usuario.nombre }} ({{ usuario.email }})</ion-label>
-        <ion-button (click)="updateUsuario(usuario)">Modificar</ion-button>
+        <ion-label>{{ usuario.nombre }} {{ usuario.apellido }} - {{ usuario.email }} - {{ usuario.telefono }}</ion-label>
+        <ion-button (click)="showUpdateUserForm(usuario)">Modificar</ion-button>
         <ion-button color="danger" (click)="deleteUsuario(usuario.id)">Eliminar</ion-button>
       </ion-item>
     </ion-list>
-    <ion-button (click)="showAddUserForm()">Añadir Usuario</ion-button>
-  </div>
-
-  <div *ngIf="showForm">
-    <form (submit)="addUsuario()">
-      <ion-item>
-        <ion-label position="floating">Nombre</ion-label>
-        <ion-input [(ngModel)]="newUsuario.nombre" name="nombre" required></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Apellido</ion-label>
-        <ion-input [(ngModel)]="newUsuario.apellido" name="apellido" required></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Email</ion-label>
-        <ion-input [(ngModel)]="newUsuario.email" name="email" required></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Contraseña</ion-label>
-        <ion-input [(ngModel)]="newUsuario.password" name="password" type="password" required></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Teléfono</ion-label>
-        <ion-input [(ngModel)]="newUsuario.telefono" name="telefono" required></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Dirección</ion-label>
-        <ion-input [(ngModel)]="newUsuario.direccion" name="direccion" required></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Tipo Usuario</ion-label>
-        <ion-select [(ngModel)]="newUsuario.tipo_usuario" name="tipo_usuario" required>
-          <ion-select-option value="USER">USER</ion-select-option>
-          <ion-select-option value="ADMIN">ADMIN</ion-select-option>
-          <ion-select-option value="EMPRESA">EMPRESA</ion-select-option>
-        </ion-select>
-      </ion-item>
-      <ion-button type="submit">Guardar</ion-button>
-      <ion-button color="danger" (click)="cancelAddUser()">Cancelar</ion-button>
-    </form>
   </div>
 
   <div *ngIf="currentView === 'empresas'">

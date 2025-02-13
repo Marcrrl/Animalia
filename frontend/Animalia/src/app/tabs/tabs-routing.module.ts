@@ -31,8 +31,10 @@ const routes: Routes = [
         path: 'Registrarse',
         loadChildren: () => import('../register/register.module').then(m => m.RegisterPageModule)
       },
-      
-      
+      {
+        path: 'Gestion',
+        loadChildren: () => import('../gestion/gestion.module').then(m => m.GestionPageModule)
+      },
       {
         path: '',
         redirectTo: '/Animales',
@@ -43,5 +45,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
 export class TabsPageRoutingModule {}
