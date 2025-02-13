@@ -1,7 +1,9 @@
 package com.animalia.spring.entidades;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,14 +32,17 @@ public class Rescates {
     private Long id;
 
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "id_empresa", referencedColumnName = "id", nullable = false)
     private Empresas empresa;
 
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "id_usuario", referencedColumnName = "id", nullable = false)
     private Usuarios usuario;
 
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "id_animal", referencedColumnName = "id", nullable = false)
     private Animales animal;
 
@@ -52,7 +57,7 @@ public class Rescates {
         NO_RECIBIDO, RECIBIDO, EN_PROCESO, FINALIZADO, CANCELADO, NO_APLICA, DESCONOCIDO
     }
 
-    @Column(columnDefinition = "ENUM( 'LEVE', 'MODERADO', 'GRAVE', 'CRITICO', 'FALLECIDO', 'DESCONOCIDO', 'NO_APLICA', 'CAPTURADO', 'LIBERADO', 'EN_PROCESO', 'HOSPITALIZADO', 'EN_ADOPCION', 'ENFERMO', 'SANO' )", nullable = true)
+    @Column(nullable = true)
     @Enumerated(EnumType.STRING)
     private EstadoAnimal estado_animal;
 
@@ -62,9 +67,11 @@ public class Rescates {
     }
 
     @Column(nullable = true)
-    private LocalDateTime fecha_rescate;
+    private LocalDate fecha_rescate;
 
     @OneToMany(mappedBy = "rescate")
+    @Column(nullable = true)
+    @JsonManagedReference
     private List<Fotos> fotos;
 
 }
