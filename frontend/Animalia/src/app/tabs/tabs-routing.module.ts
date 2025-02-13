@@ -36,6 +36,10 @@ const routes: Routes = [
         loadChildren: () => import('../gestion/gestion.module').then(m => m.GestionPageModule)
       },
       {
+        path: 'Rescates',
+        loadChildren: () => import('../rescates/rescates.module').then(m => m.RescatesPageModule)
+      },
+      {
         path: '',
         redirectTo: '/Animales',
         pathMatch: 'full'

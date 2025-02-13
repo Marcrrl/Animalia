@@ -4,14 +4,20 @@
       <ion-icon name="paw"></ion-icon>
       <ion-label>Animales</ion-label>
     </ion-tab-button>
+
     <ion-tab-button tab="Empresas" href="/Empresas">
       <ion-icon name="business"></ion-icon>
       <ion-label>Empresas</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="Camara" href="/Camara">
+    <ion-tab-button *ngIf="userRol == 'USER'" tab="Camara" href="/Camara">
       <ion-icon name="camera"></ion-icon>
       <ion-label>Cámara</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button *ngIf="userRol == 'EMPRESA' || userRol == 'ADMIN'" tab="Rescates" href="/rescates">
+      <ion-icon name="medical"></ion-icon>
+      <ion-label>Rescates</ion-label>
     </ion-tab-button>
 
     <ion-tab-button *ngIf="userRol == 'ADMIN'" tab="Gestion" href="/Gestion">
@@ -25,12 +31,12 @@
     </ion-tab-button>
 
     <ion-tab-button
-      *ngIf="userRol == 'USER' ||  userRol == 'ADMIN'"
-      tab="Perfil"
-      href="/perfil"
-    >
+      *ngIf="userRol == 'USER' ||  userRol == 'ADMIN' || userRol == 'EMPRESA'" tab="Perfil"href="/perfil">
       <ion-icon name="person"></ion-icon>
       <ion-label>Perfil</ion-label>
     </ion-tab-button>
+
+    
+
   </ion-tab-bar>
 </ion-tabs>

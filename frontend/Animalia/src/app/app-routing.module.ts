@@ -37,7 +37,11 @@ const routes: Routes = [
   {
     path: 'Gestion',
     loadChildren: () => import('./gestion/gestion.module').then(m => m.GestionPageModule)
+  },  {
+    path: 'rescates',
+    loadChildren: () => import('./rescates/rescates.module').then( m => m.RescatesPageModule)
   }
+
 ];
 @NgModule({
   imports: [
