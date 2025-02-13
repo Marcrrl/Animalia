@@ -1,5 +1,9 @@
 package com.animalia.spring.entidades;
 
+import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,13 +32,16 @@ public class Fotos {
     private Long id;
 
     @Column(nullable = false)
-    private String nombreArchivo;
+    private String url_foto;
 
     @ManyToOne
     @JoinColumn(name = "rescate_id", nullable = false)
+    @JsonBackReference
+
     private Rescates rescate;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "id_usuario", referencedColumnName = "id", nullable = false)
     private Usuarios usuarios;
 
@@ -45,7 +52,7 @@ public class Fotos {
     private String descripcion;
 
     @Column(nullable = false)
-    private String fecha_captura;
+    private LocalDate fecha_captura;
 
     /*
      * La ubicacion y descripcion pueden ser nulables porque exite la

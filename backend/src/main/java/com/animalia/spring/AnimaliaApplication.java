@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import com.animalia.spring.entidades.Animales;
 import com.animalia.spring.entidades.Empresas;
+import com.animalia.spring.entidades.Fotos;
+import com.animalia.spring.entidades.Rescates;
 import com.animalia.spring.entidades.Usuarios;
 import com.animalia.spring.entidades.Animales.EstadoConservacion;
 import com.animalia.spring.entidades.Animales.Familia;
@@ -18,6 +20,8 @@ import com.animalia.spring.entidades.Empresas.TipoEmpresa;
 import com.animalia.spring.repositorio.AnimalesRepositorio;
 import com.animalia.spring.repositorio.EmpresasRepositorio;
 import com.animalia.spring.repositorio.UsuarioRepositorio;
+import com.animalia.spring.repositorio.RescatesRepositorio;
+import com.animalia.spring.repositorio.FotosRepositorio;
 
 @SpringBootApplication
 public class AnimaliaApplication {
@@ -28,32 +32,33 @@ public class AnimaliaApplication {
 
         @Bean
         CommandLineRunner initData(AnimalesRepositorio animalesRepositorio, UsuarioRepositorio usuariosRepositorio,
-                        EmpresasRepositorio empresasRepositorio,
-                        PasswordEncoder passwordEncoder) {
+                        EmpresasRepositorio empresasRepositorio, RescatesRepositorio rescatesRepositorio,
+                        FotosRepositorio fotosRepositorio, PasswordEncoder passwordEncoder) {
                 return (args) -> {
-                        if (animalesRepositorio.count() == 0 && usuariosRepositorio.count() == 0) {
-                                List<Animales> animales = Arrays.asList(
-                                                new Animales(null, "Canis lupus familiaris", "Perro",
-                                                                "Animal domesticado y compañero del ser humano",
-                                                                "perro.jpg",
-                                                                EstadoConservacion.SIN_RIESGO, Familia.ANFIBIO),
-                                                new Animales(null, "Felis catus", "Gato",
-                                                                "Animal doméstico, conocido por su agilidad",
-                                                                "gato.jpg",
-                                                                EstadoConservacion.SIN_RIESGO,
-                                                                Animales.Familia.MAMIFERO),
-                                                new Animales(null, "Equus ferus caballus", "Juan",
-                                                                "Animal de granja atrapado en una terraza",
-                                                                "caballo.webp", EstadoConservacion.DESCONOCIDO,
-                                                                Familia.AVES),
-                                                new Animales(null, "Panthera leo", "León",
-                                                                "Gran felino conocido como el rey de la selva",
-                                                                "leon.jpg",
-                                                                EstadoConservacion.EXTINTO, Animales.Familia.REPTIL),
-                                                new Animales(null, "Ailuropoda melanoleuca", "Panda",
-                                                                " Oso de China, famoso por su color blanco y negro",
-                                                                "panda.jpg", EstadoConservacion.AMENAZADO,
-                                                                Familia.PECES));
+                        if (animalesRepositorio.count() == 0 && usuariosRepositorio.count() == 0
+                                        && empresasRepositorio.count() == 0 && rescatesRepositorio.count() == 0) {
+                                Animales a1 = new Animales(null, "Canis lupus familiaris", "Perro",
+                                                "Animal domesticado y compañero del ser humano",
+                                                "perro.jpg",
+                                                EstadoConservacion.SIN_RIESGO, Familia.ANFIBIO);
+                                Animales a2 = new Animales(null, "Felis catus", "Gato",
+                                                "Animal doméstico, conocido por su agilidad",
+                                                "gato.jpg",
+                                                EstadoConservacion.SIN_RIESGO,
+                                                Animales.Familia.MAMIFERO);
+                                Animales a3 = new Animales(null, "Equus ferus caballus", "Juan",
+                                                "Animal de granja atrapado en una terraza",
+                                                "caballo.webp", EstadoConservacion.DESCONOCIDO,
+                                                Familia.AVES);
+                                Animales a4 = new Animales(null, "Panthera leo", "León",
+                                                "Gran felino conocido como el rey de la selva",
+                                                "leon.jpg",
+                                                EstadoConservacion.EXTINTO, Animales.Familia.REPTIL);
+                                Animales a5 = new Animales(null, "Ailuropoda melanoleuca", "Panda",
+                                                " Oso de China, famoso por su color blanco y negro",
+                                                "panda.jpg", EstadoConservacion.AMENAZADO,
+                                                Familia.PECES);
+                                List<Animales> animales = Arrays.asList(a1, a2, a3, a4, a5);
                                 animales.forEach(animal -> {
                                         animalesRepositorio.save(animal);
                                 });
@@ -132,6 +137,61 @@ public class AnimaliaApplication {
                                 empresasRepositorio.saveAll(empresas);
                                 usuariosRepositorio.saveAll(usuarios);
 
+                                Rescates r1 = new Rescates(null, e5, u3, a2, "Calle Falsa 123",
+                                                Rescates.Estado.CANCELADO, Rescates.EstadoAnimal.LIBERADO,
+                                                LocalDate.now(), null);
+
+                                Rescates r2 = new Rescates(null, e1, u1, a1, "Calle Verdadera 456",
+                                                Rescates.Estado.EN_PROCESO, Rescates.EstadoAnimal.ENFERMO,
+                                                LocalDate.now(), null);
+
+                                Rescates r3 = new Rescates(null, e2, u2, a3, "Avenida Siempre Viva 789",
+                                                Rescates.Estado.FINALIZADO, Rescates.EstadoAnimal.SANO,
+                                                LocalDate.now(), null);
+
+                                Rescates r4 = new Rescates(null, e3, u4, a4, "Calle Luna 321",
+                                                Rescates.Estado.RECIBIDO, Rescates.EstadoAnimal.GRAVE,
+                                                LocalDate.now(), null);
+
+                                Rescates r5 = new Rescates(null, e4, u5, a5, "Avenida Sol 654",
+                                                Rescates.Estado.NO_RECIBIDO, Rescates.EstadoAnimal.CAPTURADO,
+                                                LocalDate.now(), null);
+
+                                Rescates r6 = new Rescates(null, e6, u6, a1, "Calle Estrella 987",
+                                                Rescates.Estado.NO_APLICA, Rescates.EstadoAnimal.DESCONOCIDO,
+                                                LocalDate.now(), null);
+
+                                // Guardar rescates
+                                List<Rescates> rescates = Arrays.asList(r1, r2, r3, r4, r5, r6);
+                                rescatesRepositorio.saveAll(rescates);
+
+                                Fotos f1 = new Fotos(null, "perro.jpg", r1, u3, "Calle Falsa 123",
+                                                "Perro en la calle", LocalDate.now());
+                                Fotos f2 = new Fotos(null, "gato.jpg", r2, u1, "Calle Verdadera 456",
+                                                "Gato en la calle", LocalDate.now());
+                                Fotos f3 = new Fotos(null, "juan.jpg", r1, u2, "Avenida Siempre Viva 789",
+                                                "Caballo en la calle", LocalDate.now());
+                                Fotos f4 = new Fotos(null, "leon1.jpg", r4, u4, "Calle Luna 321",
+                                                "León en la calle", LocalDate.now());
+                                Fotos f5 = new Fotos(null, "panda.jpg", r5, u5, "Avenida Sol 654",
+                                                "Panda en la calle", LocalDate.now());
+                                Fotos f6 = new Fotos(null, "leon.jpg", r1, u6, "Calle Estrella 987",
+                                                "Perro en la calle", LocalDate.now());
+
+                                // Guardar fotos
+                                List<Fotos> fotos = Arrays.asList(f1, f2, f3, f4, f5, f6);
+                                fotosRepositorio.saveAll(fotos);
+
+                                // Enlazar fotos con rescates
+                                r1.setFotos(Arrays.asList(f1,f3,f6));
+                                r2.setFotos(Arrays.asList(f2));
+                                r3.setFotos(Arrays.asList(f3));
+                                r4.setFotos(Arrays.asList(f4));
+                                r5.setFotos(Arrays.asList(f5));
+                                r6.setFotos(Arrays.asList(f6));
+
+                                // Guardar rescates con fotos
+                                rescatesRepositorio.saveAll(Arrays.asList(r1, r2, r3, r4, r5, r6));
                         }
 
                 };

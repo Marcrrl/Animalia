@@ -47,7 +47,12 @@ public class Seguridad {
 				.exceptionHandling(ex -> ex.authenticationEntryPoint(jwtAuthenticationEntryPoint))
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests(auth -> auth
-						.requestMatchers("/**").permitAll()
+						.requestMatchers("/**").denyAll()
+						.requestMatchers("/api/animales/").permitAll()
+						.requestMatchers("/api/animales/").permitAll()
+						.requestMatchers("/auth/login").permitAll()
+						.requestMatchers("/auth/registro").permitAll()
+
 						.anyRequest().authenticated() // Cualquier otra ruta requerirá autenticación
 				)
 				// Añadimos un filtro encargado de coger el token y si es válido
