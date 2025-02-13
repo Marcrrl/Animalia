@@ -69,8 +69,8 @@ export class AnimalesPage implements OnInit {
     console.log('ID del animal:', id_animal);
   }
 
-  haciaMapa() {
-    this.router.navigate(['/mapa']);
+  haciaMapa(tipo:string) {
+    this.router.navigate(['/mapa',tipo]);
   }
 
   searchAnimals(query: string) {

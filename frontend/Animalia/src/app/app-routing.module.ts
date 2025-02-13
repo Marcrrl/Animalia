@@ -15,7 +15,7 @@ const routes: Routes = [
     loadChildren: () => import('./detalles-animal/detalles-animal.module').then(m => m.DetallesAnimalPageModule)
   },
   {
-    path: 'mapa',
+    path: 'mapa/:tipo',
     loadChildren: () => import('./Mapa/Mapa.module').then( m => m.MapaPageModule)
   },
   {
@@ -30,6 +30,11 @@ const routes: Routes = [
     path: 'Registrarse',
     loadChildren: () => import('./register/register.module').then(m => m.RegisterPageModule)
   },
+  {
+    path: 'detalles-empresa/:id',
+    loadChildren: () => import('./detalles-empresa/detalles-empresa.module').then( m => m.DetallesEmpresaPageModule)
+  },
+
 ];
 @NgModule({
   imports: [

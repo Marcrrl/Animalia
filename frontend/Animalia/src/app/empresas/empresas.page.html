@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-button slot="start" fill="clear" shape="round" color="medium" (click)="haciaMapa()">
+    <ion-button slot="start" fill="clear" shape="round" color="medium" (click)="haciaMapa('empresas')">
       <ion-icon name="map" style=" position: absolute; font-size: 32px;"></ion-icon>
     </ion-button>
     <ion-title class="ion-text-center" style="margin-left: 0px; margin-right: 20px;">Empresas</ion-title>
@@ -126,7 +126,7 @@
 
 
   <ion-list id="lista" *ngIf="empresas.length > 0">
-    <ion-item *ngFor="let empresa of results; let i=index" button details="false" (click)="haciaDatosAnimal(empresa.id)"
+    <ion-item *ngFor="let empresa of results; let i=index" button details="false" (click)="haciaDatosEmpresa(empresa.id)"
       class="w-100 h-75  mt-3">
 
       <ion-label class="m-0">

@@ -13,25 +13,12 @@ export class TabsPage implements OnInit {
   public token: string | null = null;
   public userRol: string | null = null;
 
-  currentRoute = '/Animales';
-  currentLabel = 'Empresas';
-  currentIcon = 'business';  // El ícono inicial es "paw"
 
 
-  constructor(private router: Router) {}
-  toggleTab() {
-    if (this.currentRoute === '/Animales') {
-      this.currentRoute = '/Empresas';
-      this.currentLabel = 'Animales';
-      this.currentIcon = 'paw';  // Cambia el ícono a "business" para Empresas
-    } else {
-      this.currentRoute = '/Animales';
-      this.currentLabel = 'Empresas';
-      this.currentIcon = 'business';  // Vuelve al ícono "paw" para Animales
-    }
-    // Navega a la nueva ruta
-    this.router.navigateByUrl(this.currentRoute);
-  }
+
+  constructor() {}
+
+
 
   ngOnInit() {
     this.userRol = sessionStorage.getItem('rol'); // Retrieve user role from sessionStorage
@@ -43,7 +30,7 @@ export class TabsPage implements OnInit {
     this.ngOnInit();
     this.getCookie('token');
   }
-  
+
   getCookie(rol: string): string | null {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${rol}=`);
@@ -65,7 +52,7 @@ export class TabsPage implements OnInit {
     if (rol === 'ADMIN') {
       this.tabs = [
         { title: 'Animales', route: '/Animales' },
-        { title: 'Camara', route: '/Camara' },  
+        { title: 'Camara', route: '/Camara' },
       ];
     } else if (rol === 'USER') {
       this.tabs = [

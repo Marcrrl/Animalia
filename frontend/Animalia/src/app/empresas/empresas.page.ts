@@ -54,9 +54,9 @@ export class EmpresasPage implements OnInit {
       this.searchEmpresas(query);
     }
   }
-  haciaDatosAnimal(id_animal: number) {
-    this.router.navigate(['/detalles-animal', id_animal]);
-    console.log('ID del animal:', id_animal);
+  haciaDatosEmpresa(id: number) {
+    this.router.navigate(['/detalles-empresa', id]);
+    console.log('ID de la empresa:', id);
   }
 
   searchEmpresas(query: string) {
@@ -69,10 +69,9 @@ export class EmpresasPage implements OnInit {
     return this.selectedTipo === tipo;
   }
 
-  haciaMapa() {
-    this.router.navigate(['/mapa']);
+  haciaMapa(tipo:string) {
+    this.router.navigate(['/mapa',tipo]);
   }
-
   openEndMenu() {
     this.menuCtrl.enable(true, 'end-empresas');
     this.menuCtrl.open('end-empresas');
