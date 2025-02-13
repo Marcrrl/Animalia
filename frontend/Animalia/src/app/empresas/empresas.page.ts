@@ -111,7 +111,7 @@ export class EmpresasPage implements OnInit {
       this.results = this.empresas.filter((d: any) => d.tipo === tipo);
     }
   }
-
+  
   makeCall(number: string) {
     window.open(`tel:${number}`, '_system');
   }

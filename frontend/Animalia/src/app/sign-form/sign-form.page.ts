@@ -25,6 +25,7 @@ export class SignFormPage implements OnInit, AfterViewInit {
     const showPasswordButton = document.querySelector('.password-button') as HTMLButtonElement;
     const face = document.querySelector('.face') as HTMLElement;
     const iconoContraseña = document.querySelector('.iconoContraseña') as HTMLElement;
+    const form = document.querySelector('form') as HTMLFormElement;
     if (usernameInput && passwordInput && showPasswordButton && face && iconoContraseña) {
       usernameInput.addEventListener('input', (event: Event) => {
         this.email = (event.target as HTMLInputElement).value;
@@ -83,6 +84,14 @@ export class SignFormPage implements OnInit, AfterViewInit {
             hand.classList.remove('hide');
             hand.classList.add('peek');
           });
+        }
+      });
+    }
+    if (form) {
+      form.addEventListener('keydown', (event: KeyboardEvent) => {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          this.login();
         }
       });
     }
