@@ -46,7 +46,7 @@ body {
     }
 }
 
-@media screen and (max-width: 768px) {
+@media (max-width: 768px) {
     .center {
         position: absolute;
         top: 56px;
@@ -214,27 +214,27 @@ body {
 }
 
 .center .hands .hand--left {
-    left: 54px;
+    left: calc(50% - 75px); /* Align with left eye */
 }
 
 .center .hands .hand--left.hide {
-    transform: translate(2px, -155px) rotate(-160deg);
+    transform: translate(-6px, -155px) rotate(-160deg);
 }
 
 .center .hands .hand--left.peek {
-    transform: translate(0px, -120px) rotate(-160deg);
+    transform: translate(-6px, -120px) rotate(-160deg);
 }
 
 .center .hands .hand--right {
-    left: 165px;
+    left: calc(50% + 10px); /* Align with right eye */
 }
 
 .center .hands .hand--right.hide {
-    transform: translate(-6px, -155px) rotate(160deg);
+    transform: translate(10px, -155px) rotate(160deg);
 }
 
 .center .hands .hand--right.peek {
-    transform: translate(-4px, -120px) rotate(160deg);
+    transform: translate(10px, -120px) rotate(160deg);
 }
 
 .center .hands .finger {
