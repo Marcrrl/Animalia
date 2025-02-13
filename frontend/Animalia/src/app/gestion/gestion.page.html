@@ -1,0 +1,89 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="ion-text-center">
+    <ion-title>Gestion Admin</ion-title>
+    <ion-buttons slot="start" *ngIf="currentView">
+      <ion-button (click)="goBack()"><ion-icon name="arrow-undo-outline"></ion-icon></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid *ngIf="!currentView">
+    <ion-row>
+      <ion-col size="6">
+        <ion-button expand="block" (click)="showList('empresas')" style="height: 40vh;">Gestionar Empresas</ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button expand="block" (click)="showList('animales')" style="height: 40vh;">Gestionar Animales</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button expand="block" (click)="showList('usuarios')" style="height: 40vh;">Gestionar Usuarios</ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button expand="block" (click)="showList('rescates')" style="height: 40vh;">Gestionar Rescates</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div *ngIf="currentView === 'usuarios'">
+    <ion-list>
+      <ion-item *ngFor="let usuario of usuarios">
+        <ion-label>{{ usuario.nombre }} ({{ usuario.email }})</ion-label>
+        <ion-button (click)="updateUsuario(usuario)">Modificar</ion-button>
+        <ion-button color="danger" (click)="deleteUsuario(usuario.id)">Eliminar</ion-button>
+      </ion-item>
+    </ion-list>
+    <ion-button (click)="showAddUserForm()">Añadir Usuario</ion-button>
+  </div>
+
+  <div *ngIf="showForm">
+    <form (submit)="addUsuario()">
+      <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input [(ngModel)]="newUsuario.nombre" name="nombre" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Apellido</ion-label>
+        <ion-input [(ngModel)]="newUsuario.apellido" name="apellido" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input [(ngModel)]="newUsuario.email" name="email" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input [(ngModel)]="newUsuario.password" name="password" type="password" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Teléfono</ion-label>
+        <ion-input [(ngModel)]="newUsuario.telefono" name="telefono" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Dirección</ion-label>
+        <ion-input [(ngModel)]="newUsuario.direccion" name="direccion" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Tipo Usuario</ion-label>
+        <ion-select [(ngModel)]="newUsuario.tipo_usuario" name="tipo_usuario" required>
+          <ion-select-option value="USER">USER</ion-select-option>
+          <ion-select-option value="ADMIN">ADMIN</ion-select-option>
+          <ion-select-option value="EMPRESA">EMPRESA</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-button type="submit">Guardar</ion-button>
+      <ion-button color="danger" (click)="cancelAddUser()">Cancelar</ion-button>
+    </form>
+  </div>
+
+  <div *ngIf="currentView === 'empresas'">
+    <!-- Lógica para mostrar la lista de empresas -->
+  </div>
+  <div *ngIf="currentView === 'animales'">
+    <!-- Lógica para mostrar la lista de animales -->
+  </div>
+  <div *ngIf="currentView === 'rescates'">
+    <!-- Lógica para mostrar la lista de rescates -->
+  </div>
+</ion-content>
