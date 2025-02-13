@@ -116,8 +116,8 @@
     </ion-accordion>
     </ion-accordion-group>
 
-  <ion-list id="lista" *ngIf="animales.length > 0">
-    <ion-item *ngFor="let animal of results; let i=index" button details="false" (click)="haciaDatosAnimal(animal.id)"
+  <ion-list id="lista">
+    <ion-item *ngFor="let animal of animales;" button details="false" (click)="haciaDatosAnimal(animal.id)"
       class="w-100 h-75">
       <ion-thumbnail slot="start">
         <ion-img [src]="getImagen(animal)" [alt]="animal.nombre_comun"></ion-img>
@@ -129,4 +129,8 @@
       </ion-label>
     </ion-item>
   </ion-list>
+  <ion-button (click)="prevPage()" [disabled]="currentPage === 0">Anterior</ion-button>
+  <ion-button (click)="nextPage()" [disabled]="currentPage+1 >= totalPages">Siguiente</ion-button>
+
+  <p>Página {{ currentPagehtml }} de {{ totalPages }}</p>
 </ion-content>

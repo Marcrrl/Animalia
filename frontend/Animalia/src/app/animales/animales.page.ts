@@ -1,7 +1,16 @@
 import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { AnimalesService } from '../services/animales.service';
 import { Router } from '@angular/router';
-import { MenuController, IonButtons, IonContent, IonHeader, IonMenu, IonMenuButton, IonTitle, IonToolbar } from '@ionic/angular';
+import {
+  MenuController,
+  IonButtons,
+  IonContent,
+  IonHeader,
+  IonMenu,
+  IonMenuButton,
+  IonTitle,
+  IonToolbar,
+} from '@ionic/angular';
 
 @Component({
   selector: 'app-animales',
@@ -17,24 +26,52 @@ export class AnimalesPage implements OnInit {
   menuType: string = 'overlay';
   public isMenuOpen: boolean = false;
 
+  totalAnimales: number = 0;
+  totalPages: number = 0;
+  currentPage: number = 0;  // Página para el backend
+  currentPagehtml: number = 1; // Página que se mostrará en el HTML (empieza desde 1)
+  itemsPerPage: number = 5;
 
   constructor(
     private animalesService: AnimalesService,
     private router: Router,
     private menuCtrl: MenuController,
-    private renderer: Renderer2,
+    private renderer: Renderer2
   ) {}
 
   ngOnInit() {
-    this.animalesService.getAnimales().subscribe(
-      (data) => {
-        this.animales = data;
-        this.results = [...this.animales];
-      },
-      (error) => {
-        console.error('Error fetching animales:', error);
+    // Obtener el total de animales al iniciar
+    this.animalesService.getTotalAnimales().subscribe((animales) => {
+      this.totalAnimales = animales.length;
+      this.totalPages = Math.ceil(this.totalAnimales / this.itemsPerPage); // Calcular total de páginas
+      this.loadAnimales();
+    });
+  }
+
+  loadAnimales(event?: any) {
+    this.animalesService.getAnimales(this.currentPage).subscribe((animales: any[]) => {
+      this.animales = animales;
+
+      if (event) {
+        event.target.complete(); // Finaliza el infinite scroll si se está usando
       }
-    );
+    });
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages - 1) {
+      this.currentPage++;
+      this.currentPagehtml++;  // Aumentamos la página para la vista
+      this.loadAnimales();
+    }
+  }
+
+  prevPage() {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+      this.currentPagehtml--;  // Disminuimos la página para la vista
+      this.loadAnimales();
+    }
   }
 
   getImagen(animal: any): string {
@@ -69,8 +106,8 @@ export class AnimalesPage implements OnInit {
     console.log('ID del animal:', id_animal);
   }
 
-  haciaMapa(tipo:string) {
-    this.router.navigate(['/mapa',tipo]);
+  haciaMapa(tipo: string) {
+    this.router.navigate(['/mapa', tipo]);
   }
 
   searchAnimals(query: string) {
@@ -80,7 +117,6 @@ export class AnimalesPage implements OnInit {
   }
 
   cambioFamilia(familia: string) {
-
     if (this.selectedFamilia === familia) {
       this.selectedFamilia = null;
       this.showAllAnimals();
@@ -119,7 +155,7 @@ export class AnimalesPage implements OnInit {
     }
   }
 
-   makeCall(number: string) {
+  makeCall(number: string) {
     window.open(`tel:${number}`, '_system');
   }
 }
