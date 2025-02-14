@@ -22,47 +22,39 @@ import lombok.extern.java.Log;
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
     private final JwtProvider tokenProvider;
-	private final CustomUserDetailsService userDetailsService;
+    private final CustomUserDetailsService userDetailsService;
 
     @Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-			throws ServletException, IOException {
-		try {
-			
-			String token = getJwtFromRequest(request);
-			
-			if(StringUtils.hasText(token) && tokenProvider.validateToken(token)) {
-				
-				Long userId = tokenProvider.getUserIdFromJWT(token);
-				Usuarios user = (Usuarios) userDetailsService.loadUserById(userId);
-				
-				UsernamePasswordAuthenticationToken authentication =
-						new UsernamePasswordAuthenticationToken(user, user.getTipo_usuario().name());
-				
-				// Establece detalles adicional de autenticación si los hubiera (no en nuestr caso)
-				authentication.setDetails(new WebAuthenticationDetails(request));	
-				
-				// Guardamos la autenticación en el contexto de seguridad
-				SecurityContextHolder.getContext().setAuthentication(authentication);
-			}
-			
-		} catch(Exception ex) {
-			log.info("No se ha podido establecer la autenticación en el contexto de seguridad");
-		}
-		
-		// Necesario para que la petición continua la cadena de filtros
-		filterChain.doFilter(request, response);
-	}
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
+        try {
+            String token = getJwtFromRequest(request);
+            log.info("JWT Token from request: " + token);
+
+            if (StringUtils.hasText(token) && tokenProvider.validateToken(token)) {
+                Long userId = tokenProvider.getUserIdFromJWT(token);
+                Usuarios user = (Usuarios) userDetailsService.loadUserById(userId);
+
+                UsernamePasswordAuthenticationToken authentication =
+                        new UsernamePasswordAuthenticationToken(user,null, user.getAuthorities());
+
+                authentication.setDetails(new WebAuthenticationDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                log.info("JWT Token is valid and authentication is set for user: " + user.getEmail());
+            }
+
+        } catch (Exception ex) {
+            log.info("No se ha podido establecer la autenticación en el contexto de seguridad: " + ex.getMessage());
+        }
+
+        filterChain.doFilter(request, response);
+    }
 
     private String getJwtFromRequest(HttpServletRequest request) {
-		//Obtenemos el atriburo Authorization de la cabecera HTTP
-		String bearerToken = request.getHeader(JwtProvider.TOKEN_HEADER);
-		
-		// Si la autenticacion es de tipo JWT
-		if(StringUtils.hasText(bearerToken) && bearerToken.startsWith(JwtProvider.TOKEN_PREFIX)) {
-			//Extraemos del encabezado el lo que necesitamos, quitamos el Bearer
-			return bearerToken.substring(JwtProvider.TOKEN_PREFIX.length(), bearerToken.length());
-		}
-		return null;
-	}
+        String bearerToken = request.getHeader(JwtProvider.TOKEN_HEADER);
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(JwtProvider.TOKEN_PREFIX)) {
+            return bearerToken.substring(JwtProvider.TOKEN_PREFIX.length());
+        }
+        return null;
+    }
 }

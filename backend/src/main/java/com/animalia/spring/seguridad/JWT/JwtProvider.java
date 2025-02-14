@@ -5,10 +5,10 @@ import org.springframework.stereotype.Component;
 import com.animalia.spring.entidades.Usuarios;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.Jwts;
 import lombok.extern.java.Log;
 
 @Log
@@ -31,7 +31,7 @@ public class JwtProvider {
 		
 		Date tokenExpirationDate = new Date(System.currentTimeMillis() + jwtDurationTokenEnSegundos * 1000);
 		
-		return Jwts.builder()
+		String token = Jwts.builder()
 				.header().add("typ", TOKEN_TYPE).and()
 				.subject(Long.toString(user.getId()))
 				.issuedAt(new Date())
@@ -41,6 +41,9 @@ public class JwtProvider {
 				//Crea la clave secreta utilizando el algoritmo HMAC-SHA que se utilizará para firmar el token JWT
 				.signWith(Keys.hmacShaKeyFor(jwtSecreto.getBytes())) 
 				.compact();
+		
+		log.info("Generated JWT Token: " + token);
+		return token;
 	}
 	
 	public Long getUserIdFromJWT(String token) {
@@ -50,6 +53,7 @@ public class JwtProvider {
 							.parseSignedClaims(token) //el parseador analizar el token pasado por parámetro
 							.getPayload(); //Obtiene el payload del JWT
 							
+		log.info("Extracted User ID from JWT: " + claims.getSubject());
 		return Long.parseLong(claims.getSubject());							
 	}
 	
@@ -58,6 +62,7 @@ public class JwtProvider {
 		try {
 			Jwts.parser().verifyWith(Keys.hmacShaKeyFor(jwtSecreto.getBytes()))
 					.build().parseSignedClaims(authToken);
+			log.info("JWT Token is valid: " + authToken);
 			return true;
 		} catch (SecurityException ex) {
 			log.info("Error en la firma del token JWT: " + ex.getMessage());

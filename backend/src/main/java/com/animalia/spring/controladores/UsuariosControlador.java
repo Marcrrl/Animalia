@@ -34,13 +34,17 @@ public class UsuariosControlador {
     @GetMapping("/todos")
     @Operation(summary = "Mostrar todos los usuarios del sistema", description = "Devuelve una lista con todos los usuarios del sistema")
     public ResponseEntity<List<Usuarios>> obtenerUsuarios() {
-        return usuariosServicio.obtenerUsuarios().isEmpty() ? ResponseEntity.noContent().build()
-                : ResponseEntity.ok(usuariosServicio.obtenerUsuarios());
+        List<Usuarios> usuarios = usuariosServicio.obtenerUsuarios();
+        if (usuarios.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(usuarios);
+        }
     }
 
     @GetMapping
     @Operation(summary = "Mostrar todos los usuarios del sistema", description = "Devuelve una lista con todos los usuarios del sistema")
-    public ResponseEntity<List<Usuarios>> obtenerUsuariosPagebale(
+    public ResponseEntity<Page<Usuarios>> obtenerUsuariosPagebale(
             @PageableDefault(size = 5, page = 0) Pageable pageable) {
 
         Page<Usuarios> usuarios = usuariosServicio.obtenerUsuariosPaginacion(pageable);
@@ -48,7 +52,7 @@ public class UsuariosControlador {
         if (usuarios.isEmpty()) {
             throw new UsuarioNoEncontrado();
         } else {
-            return ResponseEntity.ok(usuarios.getContent());
+            return ResponseEntity.ok(usuarios);
         }
     }
 
