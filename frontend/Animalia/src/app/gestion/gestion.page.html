@@ -1,5 +1,5 @@
 <ion-header [translucent]="true">
-  <ion-toolbar class="ion-text-center">
+  <ion-toolbar class="ion-text-center custom-toolbar">
     <ion-title>Gestion Admin</ion-title>
     <ion-buttons slot="start" *ngIf="currentView">
       <ion-button (click)="goBack()"><ion-icon name="arrow-undo-outline"></ion-icon></ion-button>
@@ -115,7 +115,82 @@
     <!-- Lógica para mostrar la lista de empresas -->
   </div>
   <div *ngIf="currentView === 'animales'">
-    <!-- Lógica para mostrar la lista de animales -->
+    <div style="text-align: center;">
+      <ion-button (click)="showAddAnimalForm()">Añadir Animal</ion-button>
+    </div>
+    <div *ngIf="showAnimalForm">
+      <form (submit)="addAnimal()">
+        <ion-item>
+          <ion-label position="floating">Nombre</ion-label>
+          <ion-input [(ngModel)]="newAnimal.nombre_comun" name="nombre_comun" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Especie</ion-label>
+          <ion-input [(ngModel)]="newAnimal.especie" name="especie" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Descripción</ion-label>
+          <ion-input [(ngModel)]="newAnimal.descripcion" name="descripcion" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Estado de Conservación</ion-label>
+          <ion-select [(ngModel)]="newAnimal.estado_conservacion" name="estado_conservacion" required>
+            <ion-select-option value="EXTINTO">EXTINTO</ion-select-option>
+            <ion-select-option value="BAJO_RIESGO">BAJO_RIESGO</ion-select-option>
+            <ion-select-option value="PELIGRO_EXTINCION">PELIGRO_EXTINCION</ion-select-option>
+            <ion-select-option value="SIN_RIESGO">SIN_RIESGO</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Familia</ion-label>
+          <ion-input [(ngModel)]="newAnimal.familia" name="familia" required></ion-input>
+        </ion-item>
+        <ion-button type="submit">Guardar</ion-button>
+        <ion-button color="danger" (click)="cancelAddAnimal()">Cancelar</ion-button>
+      </form>
+    </div>
+    <div *ngIf="showUpdateAnimalForm">
+      <form (submit)="updateAnimal()">
+        <ion-item>
+          <ion-label position="floating">Nombre</ion-label>
+          <ion-input [(ngModel)]="selectedAnimal.nombre" name="nombre" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Especie</ion-label>
+          <ion-input [(ngModel)]="selectedAnimal.especie" name="especie" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Edad</ion-label>
+          <ion-input [(ngModel)]="selectedAnimal.edad" name="edad" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Descripción</ion-label>
+          <ion-input [(ngModel)]="selectedAnimal.descripcion" name="descripcion" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Estado de Conservación</ion-label>
+          <ion-select [(ngModel)]="selectedAnimal.estado_conservacion" name="estado_conservacion" required>
+            <ion-select-option value="EXTINTO">Extinto</ion-select-option>
+            <ion-select-option value="BAJO_RIESGO">Bajo riesgo</ion-select-option>
+            <ion-select-option value="PELIGRO_EXTINCION">Peligro de extinción</ion-select-option>
+            <ion-select-option value="SIN_RIESGO">Sin riesgo</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Familia</ion-label>
+          <ion-input [(ngModel)]="selectedAnimal.familia" name="familia" required></ion-input>
+        </ion-item>
+        <ion-button type="submit">Guardar</ion-button>
+        <ion-button color="danger" (click)="cancelUpdateAnimal()">Cancelar</ion-button>
+      </form>
+    </div>
+    <ion-list>
+      <ion-item *ngFor="let animal of animales">
+        <ion-label>{{ animal.nombre_comun }} - {{ animal.especie }} - {{ animal.familia }}</ion-label>
+        <ion-button (click)="displayUpdateAnimalForm(animal)">Modificar</ion-button>
+        <ion-button color="danger" (click)="deleteAnimal(animal.id)">Eliminar</ion-button>
+      </ion-item>
+    </ion-list>
   </div>
   <div *ngIf="currentView === 'rescates'">
     <!-- Lógica para mostrar la lista de rescates -->

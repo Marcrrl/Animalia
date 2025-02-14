@@ -11,11 +11,16 @@ import { HttpClient } from '@angular/common/http';
 export class GestionPage implements OnInit {
   currentView: string = '';
   usuarios: any[] = [];
+  animales: any[] = [];
   loggedInUserId: number = Number(sessionStorage.getItem('id'));
   showForm: boolean = false;
   showUpdateForm: boolean = false;
+  showAnimalForm: boolean = false;
+  showUpdateAnimalForm: boolean = false;
   newUsuario: any = {};
   selectedUsuario: any = {};
+  newAnimal: any = {};
+  selectedAnimal: any = {};
   errorMessage: string = '';
 
   constructor(private router: Router, private http: HttpClient) { }
@@ -23,6 +28,7 @@ export class GestionPage implements OnInit {
   ngOnInit() {
     this.loggedInUserId = Number(sessionStorage.getItem('id'));
     this.getUsuarios();
+    this.getAnimales();
   }
 
   showList(view: string) {
@@ -51,15 +57,6 @@ export class GestionPage implements OnInit {
 
   cancelUpdateUser() {
     this.showUpdateForm = false;
-  }
-
-  // Métodos para gestionar cada tipo de entidad
-  getEmpresas() {
-    // Lógica para obtener la lista de empresas
-  }
-
-  getAnimales() {
-    // Lógica para obtener la lista de animales
   }
 
   getUsuarios() {
@@ -124,5 +121,99 @@ export class GestionPage implements OnInit {
 
   getRescates() {
     // Lógica para obtener la lista de rescates
+  }
+
+  // Métodos para gestionar cada tipo de entidad
+  getEmpresas() {
+    // Lógica para obtener la lista de empresas
+  }
+
+  getAnimales() {
+    this.http.get<any[]>('http://localhost:9000/api/animales/todos').subscribe(data => {
+      this.animales = data;
+    }, error => {
+      console.error('Error al obtener animales:', error);
+    });
+  }
+
+  showAddAnimalForm() {
+    this.showAnimalForm = true;
+    this.showUpdateAnimalForm = false;
+    this.newAnimal = {};
+  }
+
+  displayUpdateAnimalForm(animal: any) {
+    this.showUpdateAnimalForm = true;
+    this.showAnimalForm = false;
+    this.selectedAnimal = { ...animal };
+  }
+
+  cancelAddAnimal() {
+    this.showAnimalForm = false;
+  }
+
+  cancelUpdateAnimal() {
+    this.showUpdateAnimalForm = false;
+  }
+
+  addAnimal() {
+    console.log('Añadiendo animal:', this.newAnimal);
+    const nuevoAnimal = {
+      nombre_comun: this.newAnimal.nombre_comun,
+      especie: this.newAnimal.especie,
+      descripcion: this.newAnimal.descripcion,
+      familia: this.newAnimal.familia,
+      estado_conservacion: this.newAnimal.estado_conservacion
+    };
+    this.http.post('http://localhost:9000/api/animales', nuevoAnimal).subscribe(() => {
+      this.getAnimales();
+      this.showAnimalForm = false;
+      this.errorMessage = '';
+    }, error => {
+      console.error('Error al añadir animal:', error);
+      this.errorMessage = 'Error al añadir animal. Por favor, inténtelo de nuevo.';
+    });
+  }
+
+  updateAnimal() {
+    const animalActualizado = {
+      id: this.selectedAnimal.id,
+      nombre_comun: this.selectedAnimal.nombre_comun,
+      especie: this.selectedAnimal.especie,
+      descripcion: this.selectedAnimal.descripcion,
+      familia: this.selectedAnimal.familia,
+      estado_conservacion: this.selectedAnimal.estado_conservacion
+    };
+
+    console.log('Actualizando animal:', animalActualizado);
+    this.http.put(`http://localhost:9000/api/animales`, animalActualizado).subscribe(() => {
+      this.getAnimales();
+      this.showUpdateAnimalForm = false;
+      this.errorMessage = '';
+    }, error => {
+      console.error('Error al actualizar animal:', error);
+      this.errorMessage = 'Error al actualizar animal. Por favor, inténtelo de nuevo.';
+    });
+  }
+
+  deleteAnimal(id: number) {
+    this.http.delete(`http://localhost:9000/api/animales/${id}`).subscribe(() => {
+      this.getAnimales();
+    }, error => {
+      console.error('Error al eliminar animal:', error);
+    });
+  }
+
+  uploadImage(event: any) {
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append('imagen', file);
+
+    this.http.post<{ url: string }>('http://localhost:9000/api/subir-imagen', formData).subscribe(response => {
+      console.log('Imagen subida:', response);
+      this.newAnimal.foto = response.url;
+    }, error => {
+      console.error('Error al subir imagen:', error);
+    });
   }
 }
