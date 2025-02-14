@@ -13,17 +13,11 @@ export class TabsPage implements OnInit {
   public token: string | null = null;
   public userRol: string | null = null;
 
-
-
-
   constructor() {}
-
-
 
   ngOnInit() {
     this.userRol = sessionStorage.getItem('rol'); // Retrieve user role from sessionStorage
     this.setTabsBasedOnRol(this.userRol);
-    console.log(this.userRol);
   }
 
   ionViewDidEnter() {
@@ -35,7 +29,6 @@ export class TabsPage implements OnInit {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${rol}=`);
     if (parts.length === 2) return parts.pop()?.split(';').shift() || null;
-    console.log(parts + value)
     return null;
   }
 
