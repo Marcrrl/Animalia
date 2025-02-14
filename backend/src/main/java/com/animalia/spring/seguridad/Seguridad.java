@@ -1,7 +1,5 @@
 package com.animalia.spring.seguridad;
 
-import java.net.http.HttpRequest;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -51,16 +49,8 @@ public class Seguridad {
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests(auth -> auth
 						.requestMatchers("/").permitAll()
-						.requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-						.requestMatchers(HttpMethod.GET,"/api/animales").permitAll()
-						.requestMatchers(HttpMethod.GET,"/api/animales/todos").permitAll()
-						.requestMatchers(HttpMethod.GET,"/api/empresas").permitAll()
-						.requestMatchers(HttpMethod.POST,"/api/empresas").permitAll()
-						.requestMatchers(HttpMethod.GET,"/api/empresas/todos").permitAll()
-						.requestMatchers(HttpMethod.GET,"/api/recates").permitAll()
-						.requestMatchers(HttpMethod.GET,"/api/recates/todos").permitAll()
-						.requestMatchers(HttpMethod.GET,"/api/fotos").permitAll()
-						.requestMatchers(HttpMethod.GET,"/api/fotos/todos").permitAll()
+						.requestMatchers("/swagger-ui/**", "/v3/api-docs/**","/swagger-ui.html").permitAll()
+						.requestMatchers(HttpMethod.GET,"/api/**").permitAll()
 						.requestMatchers("/auth/login").permitAll()
 						.requestMatchers("/auth/registro").permitAll()
 					

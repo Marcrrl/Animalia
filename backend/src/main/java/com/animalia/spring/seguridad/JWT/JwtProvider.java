@@ -41,8 +41,6 @@ public class JwtProvider {
 				//Crea la clave secreta utilizando el algoritmo HMAC-SHA que se utilizará para firmar el token JWT
 				.signWith(Keys.hmacShaKeyFor(jwtSecreto.getBytes())) 
 				.compact();
-		
-		log.info("Generated JWT Token: " + token);
 		return token;
 	}
 	
@@ -53,7 +51,6 @@ public class JwtProvider {
 							.parseSignedClaims(token) //el parseador analizar el token pasado por parámetro
 							.getPayload(); //Obtiene el payload del JWT
 							
-		log.info("Extracted User ID from JWT: " + claims.getSubject());
 		return Long.parseLong(claims.getSubject());							
 	}
 	
