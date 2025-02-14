@@ -47,12 +47,16 @@ public class Seguridad {
 				.exceptionHandling(ex -> ex.authenticationEntryPoint(jwtAuthenticationEntryPoint))
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests(auth -> auth
-						.requestMatchers("/api/animales").permitAll()
 						.requestMatchers("/").permitAll()
 						.requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-						.requestMatchers("/api/empresas").permitAll()
+						.requestMatchers("/api/animales").permitAll()
 						.requestMatchers("/api/animales/todos").permitAll()
+						.requestMatchers("/api/empresas").permitAll()
 						.requestMatchers("/api/empresas/todos").permitAll()
+						.requestMatchers("/api/recates").permitAll()
+						.requestMatchers("/api/recates/todos").permitAll()
+						.requestMatchers("/api/fotos").permitAll()
+						.requestMatchers("/api/fotos/todos").permitAll()
 						.requestMatchers("/auth/login").permitAll()
 						.requestMatchers("/auth/registro").permitAll()
 					
