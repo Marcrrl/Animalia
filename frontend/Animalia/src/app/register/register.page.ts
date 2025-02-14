@@ -7,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   standalone: false,
 })
 export class RegisterPage implements OnInit {
+  tipo: string = '';
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  showContent(tipo: string) {
+    this.tipo = tipo;
+  }
 }
