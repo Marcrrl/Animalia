@@ -44,7 +44,7 @@ public class Animales {
     private EstadoConservacion estado_conservacion;
 
     public enum EstadoConservacion {
-        EXTINTO, VULNERABLE, BAJO_RIESGO, PELIGRO_EXTINCION, AMENAZADO, SIN_RIESGO, PLAGA, DESCONOCIDO
+        EXTINTO,  BAJO_RIESGO, PELIGRO_EXTINCION, SIN_RIESGO
     }
 
     @Column(nullable = true)

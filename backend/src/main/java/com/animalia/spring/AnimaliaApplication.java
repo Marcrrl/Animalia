@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.geo.Point;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import com.animalia.spring.entidades.Animales;
 import com.animalia.spring.entidades.Empresas;
@@ -48,7 +49,7 @@ public class AnimaliaApplication {
                                                 Animales.Familia.MAMIFERO);
                                 Animales a3 = new Animales(null, "Equus ferus caballus", "Juan",
                                                 "Animal de granja atrapado en una terraza",
-                                                "caballo.webp", EstadoConservacion.DESCONOCIDO,
+                                                "caballo.webp", EstadoConservacion.EXTINTO,
                                                 Familia.AVES);
                                 Animales a4 = new Animales(null, "Panthera leo", "León",
                                                 "Gran felino conocido como el rey de la selva",
@@ -56,7 +57,7 @@ public class AnimaliaApplication {
                                                 EstadoConservacion.EXTINTO, Animales.Familia.REPTIL);
                                 Animales a5 = new Animales(null, "Ailuropoda melanoleuca", "Panda",
                                                 " Oso de China, famoso por su color blanco y negro",
-                                                "panda.jpg", EstadoConservacion.AMENAZADO,
+                                                "panda.jpg", EstadoConservacion.PELIGRO_EXTINCION,
                                                 Familia.PECES);
                                 List<Animales> animales = Arrays.asList(a1, a2, a3, a4, a5);
                                 animales.forEach(animal -> {
@@ -165,17 +166,17 @@ public class AnimaliaApplication {
                                 List<Rescates> rescates = Arrays.asList(r1, r2, r3, r4, r5, r6);
                                 rescatesRepositorio.saveAll(rescates);
 
-                                Fotos f1 = new Fotos(null, "perro.jpg", r1, u3, "Calle Falsa 123",
+                                Fotos f1 = new Fotos(null, "perro.jpg", r1, u3, new Point(0, 0),
                                                 "Perro en la calle", LocalDate.now());
-                                Fotos f2 = new Fotos(null, "gato.jpg", r2, u1, "Calle Verdadera 456",
+                                Fotos f2 = new Fotos(null, "gato.jpg", r2, u1, new Point(0, 0),
                                                 "Gato en la calle", LocalDate.now());
-                                Fotos f3 = new Fotos(null, "juan.jpg", r1, u2, "Avenida Siempre Viva 789",
+                                Fotos f3 = new Fotos(null, "juan.jpg", r1, u2, new Point(0, 0),
                                                 "Caballo en la calle", LocalDate.now());
-                                Fotos f4 = new Fotos(null, "leon1.jpg", r4, u4, "Calle Luna 321",
+                                Fotos f4 = new Fotos(null, "leon1.jpg", r4, u4, new Point(0, 0),
                                                 "León en la calle", LocalDate.now());
-                                Fotos f5 = new Fotos(null, "panda.jpg", r5, u5, "Avenida Sol 654",
+                                Fotos f5 = new Fotos(null, "panda.jpg", r5, u5, new Point(0, 0),
                                                 "Panda en la calle", LocalDate.now());
-                                Fotos f6 = new Fotos(null, "leon.jpg", r1, u6, "Calle Estrella 987",
+                                Fotos f6 = new Fotos(null, "leon.jpg", r1, u6, new Point(0, 0),
                                                 "Perro en la calle", LocalDate.now());
 
                                 // Guardar fotos

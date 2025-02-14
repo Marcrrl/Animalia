@@ -29,7 +29,6 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         try {
             String token = getJwtFromRequest(request);
-            log.info("JWT Token from request: " + token);
 
             if (StringUtils.hasText(token) && tokenProvider.validateToken(token)) {
                 Long userId = tokenProvider.getUserIdFromJWT(token);
@@ -40,7 +39,6 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
                 authentication.setDetails(new WebAuthenticationDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-                log.info("JWT Token is valid and authentication is set for user: " + user.getEmail());
             }
 
         } catch (Exception ex) {

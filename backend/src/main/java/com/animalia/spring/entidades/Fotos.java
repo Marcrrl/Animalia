@@ -2,6 +2,8 @@ package com.animalia.spring.entidades;
 
 import java.time.LocalDate;
 
+import org.springframework.data.geo.Point;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
@@ -46,7 +48,7 @@ public class Fotos {
     private Usuarios usuarios;
 
     @Column(nullable = true)
-    private String ubicacion;
+    private Point ubicacion;
 
     @Column(nullable = true)
     private String descripcion;
