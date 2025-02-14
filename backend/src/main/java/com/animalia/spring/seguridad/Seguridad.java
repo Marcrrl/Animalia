@@ -1,7 +1,10 @@
 package com.animalia.spring.seguridad;
 
+import java.net.http.HttpRequest;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -49,14 +52,15 @@ public class Seguridad {
 				.authorizeHttpRequests(auth -> auth
 						.requestMatchers("/").permitAll()
 						.requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-						.requestMatchers("/api/animales").permitAll()
-						.requestMatchers("/api/animales/todos").permitAll()
-						.requestMatchers("/api/empresas").permitAll()
-						.requestMatchers("/api/empresas/todos").permitAll()
-						.requestMatchers("/api/recates").permitAll()
-						.requestMatchers("/api/recates/todos").permitAll()
-						.requestMatchers("/api/fotos").permitAll()
-						.requestMatchers("/api/fotos/todos").permitAll()
+						.requestMatchers(HttpMethod.GET,"/api/animales").permitAll()
+						.requestMatchers(HttpMethod.GET,"/api/animales/todos").permitAll()
+						.requestMatchers(HttpMethod.GET,"/api/empresas").permitAll()
+						.requestMatchers(HttpMethod.POST,"/api/empresas").permitAll()
+						.requestMatchers(HttpMethod.GET,"/api/empresas/todos").permitAll()
+						.requestMatchers(HttpMethod.GET,"/api/recates").permitAll()
+						.requestMatchers(HttpMethod.GET,"/api/recates/todos").permitAll()
+						.requestMatchers(HttpMethod.GET,"/api/fotos").permitAll()
+						.requestMatchers(HttpMethod.GET,"/api/fotos/todos").permitAll()
 						.requestMatchers("/auth/login").permitAll()
 						.requestMatchers("/auth/registro").permitAll()
 					
