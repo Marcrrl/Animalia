@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-gestion',
@@ -74,7 +74,12 @@ export class GestionPage implements OnInit {
   }
 
   addUsuario() {
-    this.http.post('http://localhost:9000/auth/add', this.newUsuario).subscribe(() => {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.post('http://localhost:9000/auth/add', this.newUsuario, { headers }).subscribe(() => {
       this.getUsuarios();
       this.showForm = false;
       this.errorMessage = '';
@@ -89,6 +94,11 @@ export class GestionPage implements OnInit {
   }
 
   updateUsuario() {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
     const usuarioActualizado = {
       id: this.selectedUsuario.id,
       nombre: this.selectedUsuario.nombre,
@@ -98,12 +108,12 @@ export class GestionPage implements OnInit {
       telefono: this.selectedUsuario.telefono,
       direccion: this.selectedUsuario.direccion,
       url_foto_perfil: this.selectedUsuario.url_foto_perfil,
-      tipo_usuario: this.selectedUsuario.tipo_usuario,
+      tipoUsuario: this.selectedUsuario.tipoUsuario,
       fecha_registro: this.selectedUsuario.fecha_registro,
       cantidad_rescates: this.selectedUsuario.cantidad_rescates
     };
 
-    this.http.put(`http://localhost:9000/api/usuarios`, usuarioActualizado).subscribe(() => {
+    this.http.put(`http://localhost:9000/api/usuarios`, usuarioActualizado, { headers }).subscribe(() => {
       this.getUsuarios();
       this.showUpdateForm = false;
       this.errorMessage = '';
@@ -118,7 +128,12 @@ export class GestionPage implements OnInit {
   }
 
   deleteUsuario(id: number) {
-    this.http.delete(`http://localhost:9000/api/usuarios/${id}`).subscribe(() => {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.delete(`http://localhost:9000/api/usuarios/${id}`, { headers }).subscribe(() => {
       this.getUsuarios();
     }, error => {
       console.error('Error al eliminar usuario:', error);
@@ -158,6 +173,11 @@ export class GestionPage implements OnInit {
   }
 
   addEmpresa() {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
     const nuevaEmpresa = {
       nombre: this.newEmpresa.nombre,
       direccion: this.newEmpresa.direccion,
@@ -169,7 +189,7 @@ export class GestionPage implements OnInit {
       usuarios: []
     };
 
-    this.http.post('http://localhost:9000/api/empresas', nuevaEmpresa).subscribe(() => {
+    this.http.post('http://localhost:9000/api/empresas', nuevaEmpresa, { headers }).subscribe(() => {
       this.getEmpresas();
       this.showEmpresaForm = false;
       this.errorMessage = '';
@@ -180,6 +200,11 @@ export class GestionPage implements OnInit {
   }
 
   updateEmpresa() {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
     const empresaActualizada = {
       id: this.selectedEmpresa.id,
       nombre: this.selectedEmpresa.nombre,
@@ -192,7 +217,7 @@ export class GestionPage implements OnInit {
       usuarios: this.selectedEmpresa.usuarios
     };
 
-    this.http.put(`http://localhost:9000/api/empresas`, empresaActualizada).subscribe(() => {
+    this.http.put(`http://localhost:9000/api/empresas`, empresaActualizada, { headers }).subscribe(() => {
       this.getEmpresas();
       this.showUpdateEmpresaForm = false;
       this.errorMessage = '';
@@ -203,7 +228,12 @@ export class GestionPage implements OnInit {
   }
 
   deleteEmpresa(id: number) {
-    this.http.delete(`http://localhost:9000/api/empresas/${id}`).subscribe(() => {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.delete(`http://localhost:9000/api/empresas/${id}`, { headers }).subscribe(() => {
       this.getEmpresas();
     }, error => {
       console.error('Error al eliminar empresa:', error);
@@ -239,6 +269,11 @@ export class GestionPage implements OnInit {
   }
 
   addAnimal() {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
     const nuevoAnimal = {
       nombre_comun: this.newAnimal.nombre_comun,
       especie: this.newAnimal.especie,
@@ -246,7 +281,8 @@ export class GestionPage implements OnInit {
       familia: this.newAnimal.familia.toUpperCase(),
       estado_conservacion: this.newAnimal.estado_conservacion
     };
-    this.http.post('http://localhost:9000/api/animales', nuevoAnimal).subscribe(() => {
+
+    this.http.post('http://localhost:9000/api/animales', nuevoAnimal, { headers }).subscribe(() => {
       this.getAnimales();
       this.showAnimalForm = false;
       this.errorMessage = '';
@@ -257,6 +293,11 @@ export class GestionPage implements OnInit {
   }
 
   updateAnimal() {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
     const animalActualizado = {
       id: this.selectedAnimal.id,
       nombre_comun: this.selectedAnimal.nombre_comun,
@@ -266,7 +307,7 @@ export class GestionPage implements OnInit {
       estado_conservacion: this.selectedAnimal.estado_conservacion
     };
 
-    this.http.put(`http://localhost:9000/api/animales`, animalActualizado).subscribe(() => {
+    this.http.put(`http://localhost:9000/api/animales`, animalActualizado, { headers }).subscribe(() => {
       this.getAnimales();
       this.showUpdateAnimalForm = false;
       this.errorMessage = '';
@@ -277,7 +318,12 @@ export class GestionPage implements OnInit {
   }
 
   deleteAnimal(id: number) {
-    this.http.delete(`http://localhost:9000/api/animales/${id}`).subscribe(() => {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.delete(`http://localhost:9000/api/animales/${id}`, { headers }).subscribe(() => {
       this.getAnimales();
     }, error => {
       console.error('Error al eliminar animal:', error);
