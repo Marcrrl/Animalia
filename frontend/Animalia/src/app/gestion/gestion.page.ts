@@ -66,7 +66,7 @@ export class GestionPage implements OnInit {
   }
 
   getUsuarios() {
-    this.http.get<any[]>('http://localhost:9000/api/usuarios/todos').subscribe(data => {
+    this.http.get<any[]>('http://localhost:9000/api/usuarios/todos-incluidos-eliminados').subscribe(data => {
       this.usuarios = data.filter(usuario => usuario.id !== this.loggedInUserId);
     }, error => {
       console.error('Error al obtener usuarios:', error);
@@ -113,7 +113,7 @@ export class GestionPage implements OnInit {
       cantidad_rescates: this.selectedUsuario.cantidad_rescates
     };
 
-    this.http.put(`http://localhost:9000/api/usuarios`, usuarioActualizado, { headers }).subscribe(() => {
+    this.http.put(`http://localhost:9000/api/usuarios/todos`, usuarioActualizado, { headers }).subscribe(() => {
       this.getUsuarios();
       this.showUpdateForm = false;
       this.errorMessage = '';
@@ -140,12 +140,27 @@ export class GestionPage implements OnInit {
     });
   }
 
+  toggleUsuarioStatus(usuario: any) {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    const updatedUsuario = { ...usuario, deleted: !usuario.deleted };
+
+    this.http.put(`http://localhost:9000/api/usuarios/todos`, updatedUsuario, { headers }).subscribe(() => {
+      this.getUsuarios();
+    }, error => {
+      console.error('Error al cambiar el estado del usuario:', error);
+    });
+  }
+
   getRescates() {
     // Lógica para obtener la lista de rescates
   }
 
   getEmpresas() {
-    this.http.get<any[]>('http://localhost:9000/api/empresas/todos').subscribe(data => {
+    this.http.get<any[]>('http://localhost:9000/api/empresas/todos-incluidas-eliminadas').subscribe(data => {
       this.empresas = data;
     }, error => {
       console.error('Error al obtener empresas:', error);
@@ -240,8 +255,23 @@ export class GestionPage implements OnInit {
     });
   }
 
+  toggleEmpresaStatus(empresa: any) {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    const updatedEmpresa = { ...empresa, deleted: !empresa.deleted };
+
+    this.http.put(`http://localhost:9000/api/empresas`, updatedEmpresa, { headers }).subscribe(() => {
+      this.getEmpresas();
+    }, error => {
+      console.error('Error al cambiar el estado de la empresa:', error);
+    });
+  }
+
   getAnimales() {
-    this.http.get<any[]>('http://localhost:9000/api/animales/todos').subscribe(data => {
+    this.http.get<any[]>('http://localhost:9000/api/animales/todos-incluidos-eliminados').subscribe(data => {
       this.animales = data;
     }, error => {
       console.error('Error al obtener animales:', error);
@@ -327,6 +357,21 @@ export class GestionPage implements OnInit {
       this.getAnimales();
     }, error => {
       console.error('Error al eliminar animal:', error);
+    });
+  }
+
+  toggleAnimalStatus(animal: any) {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    const updatedAnimal = { ...animal, deleted: !animal.deleted };
+
+    this.http.put(`http://localhost:9000/api/animales`, updatedAnimal, { headers }).subscribe(() => {
+      this.getAnimales();
+    }, error => {
+      console.error('Error al cambiar el estado del animal:', error);
     });
   }
 

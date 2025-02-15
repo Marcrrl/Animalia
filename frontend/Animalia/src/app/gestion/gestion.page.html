@@ -106,7 +106,9 @@
       <ion-item *ngFor="let usuario of usuarios">
         <ion-label>{{ usuario.nombre }} {{ usuario.apellido }} - {{ usuario.email }} - {{ usuario.telefono }}</ion-label>
         <ion-button (click)="showUpdateUserForm(usuario)">Modificar</ion-button>
-        <ion-button color="danger" (click)="deleteUsuario(usuario.id)">Eliminar</ion-button>
+        <ion-button [color]="usuario.deleted ? 'danger' : 'success'" (click)="toggleUsuarioStatus(usuario)">
+          {{ usuario.deleted ? 'Desactivado' : 'Activado' }}
+        </ion-button>
       </ion-item>
     </ion-list>
   </div>
@@ -195,7 +197,9 @@
       <ion-item *ngFor="let empresa of empresas">
         <ion-label>{{ empresa.nombre }} - {{ empresa.direccion }} - {{ empresa.telefono }}</ion-label>
         <ion-button (click)="displayUpdateEmpresaForm(empresa)">Modificar</ion-button>
-        <ion-button color="danger" (click)="deleteEmpresa(empresa.id)">Eliminar</ion-button>
+        <ion-button [color]="empresa.deleted ? 'danger' : 'success'" (click)="toggleEmpresaStatus(empresa)">
+          {{ empresa.deleted ? 'Desactivado' : 'Activado' }}
+        </ion-button>
       </ion-item>
     </ion-list>
   </div>
@@ -281,7 +285,9 @@
       <ion-item *ngFor="let animal of animales">
         <ion-label>{{ animal.nombre_comun }} - {{ animal.especie }} - {{ animal.familia }}</ion-label>
         <ion-button (click)="displayUpdateAnimalForm(animal)">Modificar</ion-button>
-        <ion-button color="danger" (click)="deleteAnimal(animal.id)">Eliminar</ion-button>
+        <ion-button [color]="animal.deleted ? 'danger' : 'success'" (click)="toggleAnimalStatus(animal)">
+          {{ animal.deleted ? 'Desactivado' : 'Activado' }}
+        </ion-button>
       </ion-item>
     </ion-list>
   </div>
