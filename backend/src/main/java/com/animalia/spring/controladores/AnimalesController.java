@@ -37,6 +37,7 @@ public class AnimalesController {
     private AnimalesServicio animalesServicio;
 
     @GetMapping("/todos")
+    @Operation(summary = "Mostrar todos los animales del sistema", description = "Devuelve una lista con todos los animales del sistema")
     public ResponseEntity<List<Animales>> obtenerAnimales() {
         if (animalesServicio.obtenerAnimales().isEmpty()) {
             throw new AnimalNoEcontrada();
@@ -46,12 +47,10 @@ public class AnimalesController {
     }
 
     @GetMapping
-    @Operation(summary = "Mostrar todos los Animales del sistema", description = "Devuelve una lista con todos los animales del sistema paginados")
+    @Operation(summary = "Mostrar todos los animales del sistema paginados", description = "Devuelve una lista paginada con todos los animales del sistema")
     public ResponseEntity<List<Animales>> obtenerUsuariosPagebale(
             @PageableDefault(size = 5, page = 0) Pageable pageable) {
-
         Page<Animales> Animales = animalesServicio.obtenerAnimalesPaginacion(pageable);
-
         if (Animales.isEmpty()) {
             throw new EmpresaNoEcontrada();
         } else {
@@ -60,6 +59,7 @@ public class AnimalesController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Buscar un animal por ID", description = "Buscar un animal a partir de su ID")
     public ResponseEntity<Animales> obtenerAnimalPorId(@PathVariable long id) {
         return ResponseEntity.ok(animalesServicio.obtenerAnimalPorId(id));
     }
@@ -83,27 +83,22 @@ public class AnimalesController {
         }
     }
 
-    // @GetMapping("/buscar/{busqueda}")
-    // public ResponseEntity<List<Animales>> buscarAnimales(@PathVariable String
-    // busqueda) {
-    // return ResponseEntity.ok(animalesServicio.buscarAnimales(busqueda));
-    // }
-
     @PostMapping
+    @Operation(summary = "Guardar un animal", description = "Guardar un nuevo animal en el sistema")
     public ResponseEntity<Animales> guardarAnimal(@RequestBody Animales animal) {
         return ResponseEntity.ok(animalesServicio.guardarAnimal(animal));
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Eliminar un animal por ID", description = "Eliminar un animal del sistema a partir de su ID")
     public ResponseEntity<Void> eliminarAnimal(@PathVariable long id) {
         animalesServicio.eliminarAnimal(id);
-        ;
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping
+    @Operation(summary = "Actualizar un animal", description = "Actualizar los datos de un animal en el sistema")
     public ResponseEntity<Animales> actualizarAnimal(@RequestBody Animales animal) {
         return ResponseEntity.ok(animalesServicio.actualizarAnimal(animal));
     }
-
 }

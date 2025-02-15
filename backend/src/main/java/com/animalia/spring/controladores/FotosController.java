@@ -31,9 +31,8 @@ public class FotosController {
     private FotosServicio fotosServicio;
 
     @GetMapping("/todos")
-    @Operation(summary = "Mostrar todos los fotos del sistema", description = "Devuelve una lista con todos los fotos del sistema")
+    @Operation(summary = "Mostrar todas las fotos del sistema", description = "Devuelve una lista con todas las fotos del sistema")
     public ResponseEntity<List<Fotos>> obtenerFotos() {
-
         if (fotosServicio.obtenerFotos().isEmpty()) {
             throw new FotosNoEcontrada();
         } else {
@@ -42,12 +41,10 @@ public class FotosController {
     }
 
     @GetMapping
-    @Operation(summary = "Mostrar todos los fotos del sistema", description = "Devuelve una lista con todos los fotos del sistema paginados")
+    @Operation(summary = "Mostrar todas las fotos del sistema paginadas", description = "Devuelve una lista paginada con todas las fotos del sistema")
     public ResponseEntity<List<Fotos>> obtenerUsuariosPagebale(
             @PageableDefault(size = 5, page = 0) Pageable pageable) {
-
         Page<Fotos> Fotos = fotosServicio.obtenerEmpresasPaginacion(pageable);
-
         if (Fotos.isEmpty()) {
             throw new EmpresaNoEcontrada();
         } else {
@@ -56,28 +53,32 @@ public class FotosController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Buscar una foto por ID", description = "Buscar una foto a partir de su ID")
     public ResponseEntity<Fotos> obtenerFotoPorId(@PathVariable long id) {
         return ResponseEntity.ok(fotosServicio.obtenerFotoPorId(id));
     }
 
     @PostMapping
+    @Operation(summary = "Guardar una foto", description = "Guardar una nueva foto en el sistema")
     public ResponseEntity<Fotos> guardarFoto(@RequestBody Fotos foto) {
         return ResponseEntity.ok(fotosServicio.guardarFoto(foto));
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Eliminar una foto por ID", description = "Eliminar una foto del sistema a partir de su ID")
     public ResponseEntity<Void> eliminarFoto(@PathVariable long id) {
         fotosServicio.eliminarFoto(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping
+    @Operation(summary = "Actualizar una foto", description = "Actualizar los datos de una foto en el sistema")
     public ResponseEntity<Fotos> actualizarFoto(@RequestBody Fotos foto) {
         return ResponseEntity.ok(fotosServicio.actualizarFoto(foto));
-
     }
 
     @GetMapping("/imagen/{nombreImagen}")
+    @Operation(summary = "Buscar una imagen", description = "Buscar una imagen a partir de su nombre")
     public ResponseEntity<Resource> obtenerImagen(@PathVariable String nombreImagen) {
         try {
             // Cargar la imagen desde resources/static/
@@ -94,5 +95,4 @@ public class FotosController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
 }

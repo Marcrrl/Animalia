@@ -25,7 +25,7 @@ public class EmpresasController {
     private EmpresasServicio empresasServicio;
 
     @GetMapping("/todos")
-    @Operation(summary = "Mostrar todos los empresas del sistema", description = "Devuelve una lista con todos los empresas del sistema")
+    @Operation(summary = "Mostrar todas las empresas del sistema", description = "Devuelve una lista con todas las empresas del sistema")
     public ResponseEntity<List<Empresas>> obtenerEmpresas() {
         if (empresasServicio.obtenerEmpresas().isEmpty()) {
             throw new EmpresaNoEcontrada();
@@ -35,12 +35,10 @@ public class EmpresasController {
     }
 
     @GetMapping
-    @Operation(summary = "Mostrar todos los empresas del sistema", description = "Devuelve una lista con todos los empresas del sistema paginados")
+    @Operation(summary = "Mostrar todas las empresas del sistema paginadas", description = "Devuelve una lista paginada con todas las empresas del sistema")
     public ResponseEntity<List<Empresas>> obtenerUsuariosPagebale(
             @PageableDefault(size = 5, page = 0) Pageable pageable) {
-
         Page<Empresas> empresas = empresasServicio.obtenerEmpresasPaginacion(pageable);
-
         if (empresas.isEmpty()) {
             throw new EmpresaNoEcontrada();
         } else {
@@ -49,10 +47,9 @@ public class EmpresasController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Buscar una empresa por ID", description = "Buscar una empresa a partir de su ID")
     public ResponseEntity<Empresas> obtenerEmpresaPorId(@PathVariable long id) {
-
         Empresas e = empresasServicio.obtenerEmpresaPorId(id);
-        
         if (e == null) {
             throw new EmpresaNoEcontrada(id);
         } else {
@@ -61,19 +58,21 @@ public class EmpresasController {
     }
 
     @PostMapping
+    @Operation(summary = "Guardar una empresa", description = "Guardar una nueva empresa en el sistema")
     public ResponseEntity<Empresas> guardarEmpresa(@RequestBody Empresas empresa) {
         return ResponseEntity.ok(empresasServicio.guardarEmpresa(empresa));
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Eliminar una empresa por ID", description = "Eliminar una empresa del sistema a partir de su ID")
     public ResponseEntity<Void> eliminarEmpresa(@PathVariable long id) {
         empresasServicio.eliminarEmpresa(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping
+    @Operation(summary = "Actualizar una empresa", description = "Actualizar los datos de una empresa en el sistema")
     public ResponseEntity<Empresas> actualizarEmpresa(@RequestBody Empresas empresa) {
         return ResponseEntity.ok(empresasServicio.actualizarEmpresa(empresa));
-
     }
 }

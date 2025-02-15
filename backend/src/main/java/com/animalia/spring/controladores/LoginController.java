@@ -32,7 +32,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-@Tag(name = "Autentificacion", description = "Validacion usuarios")
+@Tag(name = "Autentificación", description = "Validación de usuarios")
 public class LoginController {
 
     @Autowired
@@ -46,7 +46,7 @@ public class LoginController {
     private final UserDtoConverter converter;
 
     @PostMapping("/login")
-    @Operation(summary = "Inicio Sesion")
+    @Operation(summary = "Inicio de sesión", description = "Iniciar sesión en el sistema")
     public ResponseEntity<JwtUserResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
@@ -69,23 +69,18 @@ public class LoginController {
     }
 
     @GetMapping("/user/me")
-    @Operation(summary = "Comprobacion Usuario", description = "Devuelve el usurio que esta iniciada la sesion")
+    @Operation(summary = "Comprobación de usuario", description = "Devuelve el usuario que ha iniciado sesión")
     public UsuarioJWTDTO me(@AuthenticationPrincipal Usuarios user) {
         return converter.convertUserEntityToGetUserJWTDto(user);
     }
 
     @PostMapping("/add")
-    @Operation(summary = "Registro", description = "Creacion de usuarios")
+    @Operation(summary = "Registro de usuario", description = "Registrar un nuevo usuario en el sistema")
     public ResponseEntity<Void> addUser(@RequestBody UsuarioRegistroDTO entity) {
-
-        
         Usuarios user = converter.convertUserRegistroDtoToUserEntity(entity);
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
-        
         usuariosServicio.guardarUsuario(user);
-        
         return ResponseEntity.ok().build();
     }
-
 }

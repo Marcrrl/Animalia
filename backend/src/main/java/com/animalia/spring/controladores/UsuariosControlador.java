@@ -27,6 +27,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.http.HttpStatus;
 
 @RestController
@@ -60,7 +61,7 @@ public class UsuariosControlador {
     }
 
     @GetMapping
-    @Operation(summary = "Mostrar todos los usuarios del sistema", description = "Devuelve una lista con todos los usuarios del sistema")
+    @Operation(summary = "Mostrar todos los usuarios del sistema con paginación", description = "Devuelve una lista paginada con todos los usuarios del sistema")
     public ResponseEntity<Page<UsuarioDTO>> obtenerUsuariosPagebale(
             @PageableDefault(size = 5, page = 0) Pageable pageable) {
 
@@ -74,7 +75,7 @@ public class UsuariosControlador {
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Buscar usuario", description = "Buscar un usuario a partir de su id")
+    @Operation(summary = "Buscar usuario por ID", description = "Buscar un usuario a partir de su ID")
     public ResponseEntity<UsuarioDTO> obtenerUsuarioPorId(@PathVariable long id) {
         UsuarioDTO u = usuariosServicio.obtenerUsuarioDTOPorId(id);
         if (u == null) {
@@ -84,7 +85,7 @@ public class UsuariosControlador {
     }
 
     @GetMapping("/imagen/{nombreImagen}")
-    @Operation(summary = "Buscar una imagen", description = "Buscar una imagen de usuario a partir de su nombre")
+    @Operation(summary = "Buscar una imagen de usuario", description = "Buscar una imagen de usuario a partir de su nombre")
     public ResponseEntity<Resource> obtenerImagen(@PathVariable String nombreImagen) {
         try {
             Resource resource = new ClassPathResource("static/img/" + nombreImagen);
@@ -101,14 +102,14 @@ public class UsuariosControlador {
         }
     }
 
-    @Operation(summary = "Eliminar usuario", description = "Elimina un usuario del sistema poniendo el id.")
+    @Operation(summary = "Eliminar usuario por ID", description = "Elimina un usuario del sistema a partir de su ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarUsuario(@PathVariable long id) {
         usuariosServicio.eliminarUsuario(id);
         return ResponseEntity.noContent().build();
     }
 
-    @Operation(summary = "Editar usuario", description = "Editar usuario en el sistema.")
+    @Operation(summary = "Editar usuario", description = "Editar los datos de un usuario en el sistema")
     @PutMapping
     public ResponseEntity<UsuarioDTO> actualizarUsuario(@RequestBody Usuarios usuario) {
         try {
@@ -116,6 +117,28 @@ public class UsuariosControlador {
             return ResponseEntity.ok(usuarioActualizado);
         } catch (DataIntegrityViolationException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
+        }
+    }
+
+    @Operation(summary = "Cambiar contraseña de usuario", description = "Cambiar la contraseña de un usuario a una nueva contraseña")
+    @PutMapping("/{id}/cambiar-contrasena")
+    public ResponseEntity<UsuarioDTO> cambiarContrasena(@PathVariable long id, @RequestBody String nuevaContrasena) {
+        UsuarioDTO usuarioActualizado = usuariosServicio.cambiarContrasena(id, nuevaContrasena);
+        if (usuarioActualizado != null) {
+            return ResponseEntity.ok(usuarioActualizado);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @Operation(summary = "Restablecer contraseña de usuario", description = "Restablecer la contraseña de un usuario a '123'")
+    @PostMapping("/{id}/restablecer-contrasena")
+    public ResponseEntity<UsuarioDTO> restablecerContrasena(@PathVariable long id) {
+        UsuarioDTO usuarioActualizado = usuariosServicio.restablecerContrasena(id);
+        if (usuarioActualizado != null) {
+            return ResponseEntity.ok(usuarioActualizado);
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 

@@ -21,57 +21,58 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.animalia.spring.seguridad.JWT.JwtAuthorizationFilter;
 import lombok.RequiredArgsConstructor;
 
-
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 @EnableMethodSecurity(prePostEnabled = true)
 public class Seguridad {
 
-	private final UserDetailsService userDetailsService;
-	private final PasswordEncoder passwordEncoder;
-	private final AuthenticationEntryPoint jwtAuthenticationEntryPoint;
-	private final JwtAuthorizationFilter jwtAuthorizationFilter;
+    private final UserDetailsService userDetailsService;
+    private final PasswordEncoder passwordEncoder;
+    private final AuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final JwtAuthorizationFilter jwtAuthorizationFilter;
 
-	@Bean
-	protected AuthenticationManager authenticationManager(UserDetailsService userDetailsService) {
-		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-		authProvider.setPasswordEncoder(passwordEncoder);
-		authProvider.setUserDetailsService(userDetailsService);
-		return new ProviderManager(authProvider);
-	}
+    @Bean
+    protected AuthenticationManager authenticationManager(UserDetailsService userDetailsService) {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setPasswordEncoder(passwordEncoder);
+        authProvider.setUserDetailsService(userDetailsService);
+        return new ProviderManager(authProvider);
+    }
 
-	@Bean
-	protected SecurityFilterChain filter(HttpSecurity http) throws Exception {
+    @Bean
+    protected SecurityFilterChain filter(HttpSecurity http) throws Exception {
 
-		http
-				.exceptionHandling(ex -> ex.authenticationEntryPoint(jwtAuthenticationEntryPoint))
-				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.authorizeHttpRequests(auth -> auth
-						.requestMatchers("/").permitAll()
-						.requestMatchers("/swagger-ui/**", "/v3/api-docs/**","/swagger-ui.html").permitAll()
-						.requestMatchers(HttpMethod.GET,"/api/**").permitAll()
-						.requestMatchers("/auth/login").permitAll()
-						.requestMatchers("/auth/registro").permitAll()
-					
+        http
+                .cors() // Enable CORS
+                .and()
+                .exceptionHandling(ex -> ex.authenticationEntryPoint(jwtAuthenticationEntryPoint))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/empresas").permitAll()
+                        .requestMatchers("/auth/login").permitAll()
+                        .requestMatchers("/auth/registro").permitAll()
+                        .anyRequest().authenticated() // Cualquier otra ruta requerirá autenticación
+                )
+                // Añadimos un filtro encargado de coger el token y si es válido
+                .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
+                .csrf(csrf -> csrf.disable());
 
-						.anyRequest().authenticated() // Cualquier otra ruta requerirá autenticación
-				)
-				// Añadimos un filtro encargado de coger el token y si es válido
-				.addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
-				.csrf(csrf -> csrf.disable());
+        return http.build();
+    }
 
-		return http.build();
-	}
-
-	@Bean
+    @Bean
     protected WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedOriginPatterns("*")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowedHeaders("*")
                         .allowCredentials(true);
             }
         };

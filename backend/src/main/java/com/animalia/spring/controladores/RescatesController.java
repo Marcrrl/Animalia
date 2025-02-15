@@ -35,7 +35,6 @@ public class RescatesController {
     @GetMapping("/todos")
     @Operation(summary = "Mostrar todos los rescates del sistema", description = "Devuelve una lista con todos los rescates del sistema")
     public ResponseEntity<List<Rescates>> obtenerRescates() {
-
         if (rescatesServicio.obtenerRescates().isEmpty()) {
             throw new RescateNoEcontrada();
         } else {
@@ -44,12 +43,10 @@ public class RescatesController {
     }
 
     @GetMapping
-    @Operation(summary = "Mostrar todos los Animales del sistema", description = "Devuelve una lista con todos los animales del sistema paginados")
+    @Operation(summary = "Mostrar todos los rescates del sistema paginados", description = "Devuelve una lista paginada con todos los rescates del sistema")
     public ResponseEntity<List<Rescates>> obtenerUsuariosPagebale(
             @PageableDefault(size = 5, page = 0) Pageable pageable) {
-
         Page<Rescates> Rescates = rescatesServicio.obtenerRescatesPaginacion(pageable);
-
         if (Rescates.isEmpty()) {
             throw new RescateNoEcontrada();
         } else {
@@ -58,7 +55,7 @@ public class RescatesController {
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Buscar un rescate a partir de su id", description = "Devuelve una lista con todos los rescate del sistema")
+    @Operation(summary = "Buscar un rescate por ID", description = "Buscar un rescate a partir de su ID")
     public ResponseEntity<Rescates> obtenerRescatePorId(@PathVariable long id) {
         if (rescatesServicio.obtenerRescatePorId(id) == null) {
             throw new RescateNoEcontrada(id);
@@ -68,7 +65,7 @@ public class RescatesController {
     }
 
     @GetMapping("/{id}/fotos")
-    @Operation(summary = "Obtener URLs de imágenes de un rescate")
+    @Operation(summary = "Obtener URLs de imágenes de un rescate", description = "Devuelve una lista de URLs de imágenes en base64 de un rescate")
     public ResponseEntity<List<Map<String, String>>> obtenerImagenesBase64(@PathVariable long id) {
         Rescates rescate = rescatesServicio.obtenerRescatePorId(id);
         if (rescate == null) {
@@ -100,19 +97,21 @@ public class RescatesController {
     }
 
     @PostMapping
+    @Operation(summary = "Guardar un rescate", description = "Guardar un nuevo rescate en el sistema")
     public ResponseEntity<Rescates> guardarRescate(@RequestBody Rescates rescate) {
         return ResponseEntity.ok(rescatesServicio.guardarRescate(rescate));
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Eliminar un rescate por ID", description = "Eliminar un rescate del sistema a partir de su ID")
     public ResponseEntity<Void> eliminarRescate(@PathVariable long id) {
         rescatesServicio.eliminarRescate(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping
+    @Operation(summary = "Actualizar un rescate", description = "Actualizar los datos de un rescate en el sistema")
     public ResponseEntity<Rescates> actualizarRescate(@RequestBody Rescates rescate) {
         return ResponseEntity.ok(rescatesServicio.actualizarRescate(rescate));
-
     }
 }

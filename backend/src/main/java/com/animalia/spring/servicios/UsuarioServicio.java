@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.animalia.spring.entidades.UsuarioDTO;
@@ -23,6 +24,9 @@ public class UsuarioServicio {
     @Autowired
     private UserDtoConverter userDtoConverter;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public Page<UsuarioDTO> obtenerUsuariosPaginacion(Pageable pageable) {
         return usuarioRepositorio.findAll(pageable).map(userDtoConverter::convertUserEntityToUserDto);
     }
@@ -38,9 +42,11 @@ public class UsuarioServicio {
                 .map(userDtoConverter::convertUserEntityToUserDto)
                 .orElse(null);
     }
+
     public Usuarios obtenerUsuarioPorId(long id) {
         return usuarioRepositorio.findById(id).orElse(null);
     }
+
     public UsuarioDTO guardarUsuario(Usuarios usuario) {
         return userDtoConverter.convertUserEntityToUserDto(usuarioRepositorio.save(usuario));
     }
@@ -50,6 +56,12 @@ public class UsuarioServicio {
     }
 
     public UsuarioDTO actualizarUsuario(Usuarios usuario) {
+        Usuarios existingUsuario = usuarioRepositorio.findById(usuario.getId()).orElse(null);
+        if (existingUsuario != null) {
+            if (usuario.getPassword() == null || usuario.getPassword().isEmpty()) {
+                usuario.setPassword(existingUsuario.getPassword());
+            }
+        }
         return userDtoConverter.convertUserEntityToUserDto(usuarioRepositorio.save(usuario));
     }
 
@@ -66,5 +78,25 @@ public class UsuarioServicio {
     // Method to return UserDetails for authentication
     public Usuarios obtenerUsuarioPorCorreoParaAutenticacion(String correo) {
         return usuarioRepositorio.findByEmail(correo);
+    }
+
+    // Method to change the password
+    public UsuarioDTO cambiarContrasena(long id, String nuevaContrasena) {
+        Usuarios usuario = usuarioRepositorio.findById(id).orElse(null);
+        if (usuario != null) {
+            usuario.setPassword(passwordEncoder.encode(nuevaContrasena));
+            return userDtoConverter.convertUserEntityToUserDto(usuarioRepositorio.save(usuario));
+        }
+        return null;
+    }
+
+    // Method to reset the password to a default value
+    public UsuarioDTO restablecerContrasena(long id) {
+        Usuarios usuario = usuarioRepositorio.findById(id).orElse(null);
+        if (usuario != null) {
+            usuario.setPassword(passwordEncoder.encode("123"));
+            return userDtoConverter.convertUserEntityToUserDto(usuarioRepositorio.save(usuario));
+        }
+        return null;
     }
 }

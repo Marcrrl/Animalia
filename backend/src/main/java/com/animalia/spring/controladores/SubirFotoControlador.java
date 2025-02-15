@@ -19,6 +19,7 @@ import io.swagger.v3.oas.annotations.Operation;
 @RestController
 @RequestMapping("api")
 public class SubirFotoControlador {
+
     @PostMapping("/subir-imagen")
     @Operation(summary = "Subir una imagen", description = "Subir una imagen desde los archivos del sistema.")
     public ResponseEntity<Map<String, String>> subirImagen(@RequestBody MultipartFile file) {
