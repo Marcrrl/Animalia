@@ -20,7 +20,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-		return Optional.ofNullable(userEntityServicio.obtenerUsuarioPorCorreo(username))
+		return Optional.ofNullable(userEntityServicio.obtenerUsuarioPorCorreoParaAutenticacion(username))
 				.map(user -> (UserDetails) user)
 				.orElseThrow(() -> new UsernameNotFoundException(username + " no encontrado"));
 	}

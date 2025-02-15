@@ -3,9 +3,11 @@ package com.animalia.spring.controladores;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -109,7 +111,16 @@ public class UsuariosControlador {
     @Operation(summary = "Editar usuario", description = "Editar usuario en el sistema.")
     @PutMapping
     public ResponseEntity<UsuarioDTO> actualizarUsuario(@RequestBody Usuarios usuario) {
-        UsuarioDTO usuarioActualizado = usuariosServicio.actualizarUsuario(usuario);
-        return ResponseEntity.ok(usuarioActualizado);
+        try {
+            UsuarioDTO usuarioActualizado = usuariosServicio.actualizarUsuario(usuario);
+            return ResponseEntity.ok(usuarioActualizado);
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
+        }
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<String> handleDataIntegrityViolationException(DataIntegrityViolationException e) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("Duplicate entry: " + e.getMostSpecificCause().getMessage());
     }
 }
