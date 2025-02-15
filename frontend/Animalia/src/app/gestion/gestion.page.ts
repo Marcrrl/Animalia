@@ -13,6 +13,7 @@ export class GestionPage implements OnInit {
   usuarios: any[] = [];
   animales: any[] = [];
   empresas: any[] = [];
+  rescates: any[] = [];
   loggedInUserId: number = Number(sessionStorage.getItem('id'));
   showForm: boolean = false;
   showUpdateForm: boolean = false;
@@ -20,12 +21,16 @@ export class GestionPage implements OnInit {
   showUpdateAnimalForm: boolean = false;
   showEmpresaForm: boolean = false;
   showUpdateEmpresaForm: boolean = false;
+  showRescateForm: boolean = false;
+  showUpdateRescateForm: boolean = false;
   newUsuario: any = {};
   selectedUsuario: any = {};
   newAnimal: any = {};
   selectedAnimal: any = {};
   newEmpresa: any = {};
   selectedEmpresa: any = {};
+  newRescate: any = {};
+  selectedRescate: any = {};
   errorMessage: string = '';
 
   constructor(private router: Router, private http: HttpClient) { }
@@ -35,6 +40,7 @@ export class GestionPage implements OnInit {
     this.getUsuarios();
     this.getAnimales();
     this.getEmpresas();
+    this.getRescates();
   }
 
   showList(view: string) {
@@ -156,7 +162,44 @@ export class GestionPage implements OnInit {
   }
 
   getRescates() {
-    // Lógica para obtener la lista de rescates
+    this.http.get<any[]>('http://localhost:9000/api/rescates/todos').subscribe(data => {
+      this.rescates = data;
+    }, error => {
+      console.error('Error al obtener rescates:', error);
+    });
+  }
+
+  displayUpdateRescateForm(rescate: any) {
+    this.showUpdateRescateForm = true;
+    this.selectedRescate = { ...rescate };
+  }
+
+  cancelUpdateRescate() {
+    this.showUpdateRescateForm = false;
+  }
+
+  updateRescate() {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    const rescateActualizado = {
+      id: this.selectedRescate.id,
+      nombre: this.selectedRescate.nombre,
+      descripcion: this.selectedRescate.descripcion,
+      fecha: this.selectedRescate.fecha,
+      lugar: this.selectedRescate.lugar
+    };
+
+    this.http.put(`http://localhost:9000/api/rescates`, rescateActualizado, { headers }).subscribe(() => {
+      this.getRescates();
+      this.showUpdateRescateForm = false;
+      this.errorMessage = '';
+    }, error => {
+      console.error('Error al actualizar rescate:', error);
+      this.errorMessage = 'Error al actualizar rescate. Por favor, inténtelo de nuevo.';
+    });
   }
 
   getEmpresas() {
