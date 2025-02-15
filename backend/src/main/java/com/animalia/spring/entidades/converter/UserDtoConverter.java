@@ -68,7 +68,8 @@ public class UserDtoConverter {
                 user.getUrl_foto_perfil(),
                 user.getTipoUsuario(),
                 user.getFecha_registro(),
-                user.getCantidad_rescates()
+                user.getCantidad_rescates(),
+				user.isDeleted()
         );
     }
 

@@ -1,6 +1,7 @@
 package com.animalia.spring.servicios;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -8,15 +9,20 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.animalia.spring.entidades.Empresas;
+import com.animalia.spring.entidades.Usuarios;
 import com.animalia.spring.entidades.DTO.EmpresaDTO;
 import com.animalia.spring.entidades.converter.EmpresaDtoConverter;
 import com.animalia.spring.repositorio.EmpresasRepositorio;
+import com.animalia.spring.repositorio.UsuarioRepositorio;
 
 @Service("empresasServicio")
 public class EmpresasServicio {
 
     @Autowired
     private EmpresasRepositorio empresasRepositorio;
+
+    @Autowired
+    private UsuarioRepositorio usuarioRepositorio;
 
     @Autowired
     private EmpresaDtoConverter empresaDtoConverter;
@@ -65,5 +71,37 @@ public class EmpresasServicio {
 
     public List<Empresas> obtenerEmpresaPorNombre(String nombre) {
         return empresasRepositorio.findByNombre(nombre);
+    }
+
+    public Empresas agregarUsuarioAEmpresa(Long empresaId, Long usuarioId) {
+        Empresas empresa = empresasRepositorio.findById(empresaId).orElse(null);
+        Usuarios usuario = usuarioRepositorio.findById(usuarioId).orElse(null);
+        if (empresa != null && usuario != null) {
+            usuario.setEmpresa(empresa);
+            usuarioRepositorio.save(usuario);
+            empresa.getUsuarios().add(usuario);
+            return empresasRepositorio.save(empresa);
+        }
+        return null;
+    }
+
+    public Empresas eliminarUsuarioDeEmpresa(Long empresaId, Long usuarioId) {
+        Empresas empresa = empresasRepositorio.findById(empresaId).orElse(null);
+        Usuarios usuario = usuarioRepositorio.findById(usuarioId).orElse(null);
+        if (empresa != null && usuario != null) {
+            usuario.setEmpresa(null);
+            usuarioRepositorio.save(usuario);
+            empresa.getUsuarios().remove(usuario);
+            return empresasRepositorio.save(empresa);
+        }
+        return null;
+    }
+
+    public Set<Usuarios> obtenerUsuariosDeEmpresa(Long empresaId) {
+        Empresas empresa = empresasRepositorio.findById(empresaId).orElse(null);
+        if (empresa != null) {
+            return empresa.getUsuarios();
+        }
+        return Set.of();
     }
 }

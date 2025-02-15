@@ -22,4 +22,5 @@ public class UsuarioDTO {
     private TipoUsuario tipoUsuario;
     private LocalDate fecha_registro;
     private long cantidad_rescates;
+    private boolean deleted;
 }

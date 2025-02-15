@@ -1,6 +1,7 @@
 package com.animalia.spring.controladores;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.animalia.spring.Excepciones.EmpresaNoEcontrada;
 import com.animalia.spring.entidades.Empresas;
+import com.animalia.spring.entidades.Usuarios;
 import com.animalia.spring.entidades.DTO.EmpresaDTO;
 import com.animalia.spring.servicios.EmpresasServicio;
 
@@ -91,6 +93,39 @@ public class EmpresasController {
             return ResponseEntity.ok(empresaActualizada);
         } else {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/{empresaId}/usuarios/{usuarioId}")
+    @Operation(summary = "Agregar un usuario a una empresa", description = "Agregar un usuario a una empresa por sus IDs")
+    public ResponseEntity<Empresas> agregarUsuarioAEmpresa(@PathVariable Long empresaId, @PathVariable Long usuarioId) {
+        Empresas empresaActualizada = empresasServicio.agregarUsuarioAEmpresa(empresaId, usuarioId);
+        if (empresaActualizada != null) {
+            return ResponseEntity.ok(empresaActualizada);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/{empresaId}/usuarios/{usuarioId}")
+    @Operation(summary = "Eliminar un usuario de una empresa", description = "Eliminar un usuario de una empresa por sus IDs")
+    public ResponseEntity<Empresas> eliminarUsuarioDeEmpresa(@PathVariable Long empresaId, @PathVariable Long usuarioId) {
+        Empresas empresaActualizada = empresasServicio.eliminarUsuarioDeEmpresa(empresaId, usuarioId);
+        if (empresaActualizada != null) {
+            return ResponseEntity.ok(empresaActualizada);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/{empresaId}/usuarios")
+    @Operation(summary = "Obtener usuarios de una empresa", description = "Obtener la lista de usuarios de una empresa por su ID")
+    public ResponseEntity<Set<Usuarios>> obtenerUsuariosDeEmpresa(@PathVariable Long empresaId) {
+        Set<Usuarios> usuarios = empresasServicio.obtenerUsuariosDeEmpresa(empresaId);
+        if (usuarios.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(usuarios);
         }
     }
 }
