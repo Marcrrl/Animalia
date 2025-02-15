@@ -78,23 +78,17 @@ export class AnimalesPage implements OnInit {
     return this.animalesService.obtenerImagenUrl(animal.foto);
   }
 
-  handleInput(event: Event) {
-    const target = event.target as HTMLIonSearchbarElement;
-    const query = target.value?.toLowerCase() || '';
-    this.results = this.animales.filter((d: any) =>
-      d.nombre_comun.toLowerCase().includes(query)
-    );
+  handleInput(event: any) {
+    const query = event.target.value.toLowerCase();
+    if (query.trim() === '') {
+      this.loadAnimales(); // Reload all animals if the search query is empty
+    } else {
+      this.animales = this.animales.filter(animal => animal.nombre_comun.toLowerCase().includes(query));
+    }
   }
 
   handleSearchbarClick() {
-    const searchbar = document.querySelector('ion-searchbar');
-    const query = searchbar?.value?.trim() || '';
-
-    if (query === '') {
-      this.showAllAnimals();
-    } else {
-      this.searchAnimals(query);
-    }
+    // Implement any additional logic needed when the search bar is clicked
   }
 
   showAllAnimals() {
@@ -115,7 +109,7 @@ export class AnimalesPage implements OnInit {
     );
   }
 
-  cambioFamilia(familia: string) {
+  /*cambioFamilia(familia: string) {
     if (this.selectedFamilia === familia) {
       this.selectedFamilia = null;
       this.showAllAnimals();
@@ -127,7 +121,22 @@ export class AnimalesPage implements OnInit {
 
   isFamiliaSelected(familia: string): boolean {
     return this.selectedFamilia === familia;
-  }
+  }*/
+
+    isFamiliaSelected(familia: string): boolean {
+      return this.selectedFamilia === familia;
+    }
+
+    cambioFamilia(familia: string) {
+
+      if (this.selectedFamilia === familia) {
+        this.selectedFamilia = null;
+        this.showAllAnimals();
+      } else {
+        this.selectedFamilia = familia;
+        this.results = this.animales.filter((d: any) => d.familia === familia);
+      }
+    }
 
   openEndMenu() {
     this.menuCtrl.enable(true, 'end');
