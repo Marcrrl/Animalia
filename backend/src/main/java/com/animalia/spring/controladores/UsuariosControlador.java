@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.animalia.spring.entidades.UsuarioDTO;
 import com.animalia.spring.entidades.Usuarios;
+import com.animalia.spring.entidades.DTO.UsuarioDTO;
 import com.animalia.spring.entidades.Usuarios.TipoUsuario;
 import com.animalia.spring.servicios.UsuarioServicio;
 

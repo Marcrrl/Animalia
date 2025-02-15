@@ -1,6 +1,8 @@
-package com.animalia.spring.entidades;
+package com.animalia.spring.entidades.DTO;
 
 import java.time.LocalDate;
+
+import com.animalia.spring.entidades.Usuarios;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

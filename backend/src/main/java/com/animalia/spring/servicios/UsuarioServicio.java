@@ -9,8 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.animalia.spring.entidades.UsuarioDTO;
 import com.animalia.spring.entidades.Usuarios;
+import com.animalia.spring.entidades.DTO.UsuarioDTO;
 import com.animalia.spring.entidades.Usuarios.TipoUsuario;
 import com.animalia.spring.entidades.converter.UserDtoConverter;
 import com.animalia.spring.repositorio.UsuarioRepositorio;

@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.animalia.spring.entidades.UsuarioJWTDTO;
-import com.animalia.spring.entidades.UsuarioRegistroDTO;
 import com.animalia.spring.entidades.Usuarios;
+import com.animalia.spring.entidades.DTO.UsuarioJWTDTO;
+import com.animalia.spring.entidades.DTO.UsuarioRegistroDTO;
 import com.animalia.spring.entidades.converter.UserDtoConverter;
 import com.animalia.spring.seguridad.JWT.JwtProvider;
 import com.animalia.spring.seguridad.JWT.model.JwtUserResponse;

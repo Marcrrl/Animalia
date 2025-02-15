@@ -1,4 +1,4 @@
-package com.animalia.spring.entidades;
+package com.animalia.spring.entidades.DTO;
 
 import com.animalia.spring.entidades.Usuarios.TipoUsuario;
 
@@ -12,5 +12,5 @@ import lombok.NoArgsConstructor;
 public class UsuarioJWTDTO {
 
     private Long id;
-    private TipoUsuario tipo_usuario;
+    private TipoUsuario tipoUsuario;
 }

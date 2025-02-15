@@ -1,4 +1,4 @@
-package com.animalia.spring.entidades;
+package com.animalia.spring.entidades.DTO;
 
 import com.animalia.spring.entidades.Usuarios.TipoUsuario;
 
@@ -25,7 +25,7 @@ public class UsuarioRegistroDTO {
 
     private String direccion;
 
-    private TipoUsuario tipo_usuario;
+    private TipoUsuario tipoUsuario;
 
     private Long idEmpresa;
 }

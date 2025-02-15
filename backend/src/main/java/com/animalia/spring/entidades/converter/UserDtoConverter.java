@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.animalia.spring.entidades.Empresas;
-import com.animalia.spring.entidades.UsuarioDTO;
-import com.animalia.spring.entidades.UsuarioJWTDTO;
-import com.animalia.spring.entidades.UsuarioRegistroDTO;
 import com.animalia.spring.entidades.Usuarios;
+import com.animalia.spring.entidades.DTO.UsuarioDTO;
+import com.animalia.spring.entidades.DTO.UsuarioJWTDTO;
+import com.animalia.spring.entidades.DTO.UsuarioRegistroDTO;
 import com.animalia.spring.servicios.EmpresasServicio;
 
 @Component
@@ -21,7 +21,7 @@ public class UserDtoConverter {
 	public UsuarioJWTDTO convertUserEntityToGetUserJWTDto(Usuarios user) {
 		UsuarioJWTDTO newUser = new UsuarioJWTDTO();
 		newUser.setId(user.getId());
-		newUser.setTipo_usuario(user.getTipoUsuario());
+		newUser.setTipoUsuario(user.getTipoUsuario());
 		return newUser;
 	}
 
@@ -45,7 +45,7 @@ public class UserDtoConverter {
 		user.setTelefono(userDto.getTelefono());
 		user.setDireccion(userDto.getDireccion());
 		user.setUrl_foto_perfil("iconoBase.png");
-		user.setTipoUsuario(userDto.getTipo_usuario());
+		user.setTipoUsuario(userDto.getTipoUsuario());
 		user.setFecha_registro(LocalDate.now());
 		if (userDto.getIdEmpresa() != null) {
 			Empresas e = empresasServicio.obtenerEmpresaPorId(userDto.getIdEmpresa());
