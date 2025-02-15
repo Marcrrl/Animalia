@@ -103,7 +103,6 @@ export class AnimalesPage implements OnInit {
 
   haciaDatosAnimal(id_animal: number) {
     this.router.navigate(['/detalles-animal', id_animal]);
-    console.log('ID del animal:', id_animal);
   }
 
   haciaMapa(tipo: string) {
@@ -141,7 +140,6 @@ export class AnimalesPage implements OnInit {
     this.menuCtrl.close('end');
     this.toggleStickySearchbar(true);
     this.isMenuOpen = false;
-    console.log('Menu cerrado');
   }
 
   toggleStickySearchbar(isSticky: boolean) {

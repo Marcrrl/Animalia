@@ -1,3 +1,9 @@
+.bg-fennec {
+  --background: url('../../assets/img/fennec.jpg') center/cover no-repeat fixed;
+  --background-color: rgba(0, 0, 0, 0.5);
+}
+
+
 @media (max-width: 768px) {
   .half {
     width: 100%;
@@ -79,4 +85,28 @@ ion-button {
     left: 50%;
     transform: translate(-50%, -50%);
   }
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.custom-button {
+  background-color: #007bff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 25px;
+  font-size: 16px;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+}
+
+.custom-button:hover {
+  background-color: #0056b3;
 }

@@ -56,7 +56,6 @@ export class EmpresasPage implements OnInit {
   }
   haciaDatosEmpresa(id: number) {
     this.router.navigate(['/detalles-empresa', id]);
-    console.log('ID de la empresa:', id);
   }
 
   searchEmpresas(query: string) {
@@ -83,7 +82,6 @@ export class EmpresasPage implements OnInit {
     this.menuCtrl.close('end-empresas');
     this.toggleStickySearchbar(true);
     this.isMenuOpen = false;
-    console.log('Menu cerrado');
   }
 
   toggleStickySearchbar(isSticky: boolean) {

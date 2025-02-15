@@ -50,11 +50,11 @@ body {
     .center {
         position: absolute;
         top: 56px;
-        left: 0;
-        width: 100%;
+        left: 50%;
+        width: 70%;
         height: calc(100% - 56px - 56px);
         border-radius: 0;
-        transform: none;
+        transform: translateX(-50%);
         overflow: hidden;
         background-image: linear-gradient(to top right, #f9a743, #f9db5f);
     }
@@ -64,11 +64,11 @@ body {
     .center {
         position: absolute;
         top: 56px;
-        left: 0;
-        width: 100%;
+        left: 50%;
+        width: 70%;
         height: calc(100% - 56px - 56px);
         border-radius: 0;
-        transform: none;
+        transform: translateX(-50%);
         overflow: hidden;
         background-image: linear-gradient(to top right, #f9a743, #f9db5f);
     }
@@ -78,11 +78,11 @@ body {
     .center {
         position: absolute;
         top: 56px;
-        left: 0;
-        width: 100%;
+        left: 50%;
+        width: 70%;
         height: calc(100% - 56px - 56px);
         border-radius: 0;
-        transform: none;
+        transform: translateX(-50%);
         overflow: hidden;
         background-image: linear-gradient(to top right, #f9a743, #f9db5f);
     }
