@@ -148,7 +148,7 @@ export class GestionPage implements OnInit {
 
     const updatedUsuario = { ...usuario, deleted: !usuario.deleted };
 
-    this.http.put(`http://localhost:9000/api/usuarios/todos`, updatedUsuario, { headers }).subscribe(() => {
+    this.http.put(`http://localhost:9000/api/usuarios`, updatedUsuario, { headers }).subscribe(() => {
       this.getUsuarios();
     }, error => {
       console.error('Error al cambiar el estado del usuario:', error);
