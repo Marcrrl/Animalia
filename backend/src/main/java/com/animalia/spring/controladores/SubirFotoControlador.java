@@ -34,7 +34,7 @@ import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
 @RequestMapping("api")
-public class ArchivosControlador {
+public class SubirFotoControlador {
 
     @Autowired
     private RescatesServicio rescatesServicio;
