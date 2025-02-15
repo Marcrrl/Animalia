@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.animalia.spring.entidades.Empresas;
+import com.animalia.spring.entidades.UsuarioDTO;
 import com.animalia.spring.entidades.UsuarioJWTDTO;
 import com.animalia.spring.entidades.UsuarioRegistroDTO;
 import com.animalia.spring.entidades.Usuarios;
@@ -20,7 +21,7 @@ public class UserDtoConverter {
 	public UsuarioJWTDTO convertUserEntityToGetUserJWTDto(Usuarios user) {
 		UsuarioJWTDTO newUser = new UsuarioJWTDTO();
 		newUser.setId(user.getId());
-		newUser.setTipo_usuario(user.getTipo_usuario());
+		newUser.setTipo_usuario(user.getTipoUsuario());
 		return newUser;
 	}
 
@@ -44,7 +45,7 @@ public class UserDtoConverter {
 		user.setTelefono(userDto.getTelefono());
 		user.setDireccion(userDto.getDireccion());
 		user.setUrl_foto_perfil("iconoBase.png");
-		user.setTipo_usuario(userDto.getTipo_usuario());
+		user.setTipoUsuario(userDto.getTipo_usuario());
 		user.setFecha_registro(LocalDate.now());
 		if (userDto.getIdEmpresa() != null) {
 			Empresas e = empresasServicio.obtenerEmpresaPorId(userDto.getIdEmpresa());
@@ -53,6 +54,36 @@ public class UserDtoConverter {
 			user.setEmpresa(null);
 		}
 		user.setCantidad_rescates(0);
+		return user;
+	}
+
+	public UsuarioDTO convertUserEntityToUserDto(Usuarios user) {
+		return new UsuarioDTO(
+			user.getId(),
+			user.getNombre(),
+			user.getApellido(),
+			user.getEmail(),
+			user.getTelefono(),
+			user.getDireccion(),
+			user.getUrl_foto_perfil(),
+			user.getTipoUsuario(),
+			user.getFecha_registro(),
+			user.getCantidad_rescates()
+		);
+	}
+
+	public Usuarios convertUserDtoToUserEntity(UsuarioDTO userDto) {
+		Usuarios user = new Usuarios();
+		user.setId(userDto.getId());
+		user.setNombre(userDto.getNombre());
+		user.setApellido(userDto.getApellido());
+		user.setEmail(userDto.getEmail());
+		user.setTelefono(userDto.getTelefono());
+		user.setDireccion(userDto.getDireccion());
+		user.setUrl_foto_perfil(userDto.getUrl_foto_perfil());
+		user.setTipoUsuario(userDto.getTipoUsuario());
+		user.setFecha_registro(userDto.getFecha_registro());
+		user.setCantidad_rescates(userDto.getCantidad_rescates());
 		return user;
 	}
 }
