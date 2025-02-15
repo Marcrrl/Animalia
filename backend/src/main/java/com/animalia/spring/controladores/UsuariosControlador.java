@@ -76,7 +76,7 @@ public class UsuariosControlador {
         Page<UsuarioDTO> usuarios = usuariosServicio.obtenerUsuariosPaginacion(pageable);
 
         if (usuarios.isEmpty()) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok(Page.empty(pageable));
         } else {
             return ResponseEntity.ok(usuarios);
         }
