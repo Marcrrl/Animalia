@@ -12,15 +12,20 @@ export class GestionPage implements OnInit {
   currentView: string = '';
   usuarios: any[] = [];
   animales: any[] = [];
+  empresas: any[] = [];
   loggedInUserId: number = Number(sessionStorage.getItem('id'));
   showForm: boolean = false;
   showUpdateForm: boolean = false;
   showAnimalForm: boolean = false;
   showUpdateAnimalForm: boolean = false;
+  showEmpresaForm: boolean = false;
+  showUpdateEmpresaForm: boolean = false;
   newUsuario: any = {};
   selectedUsuario: any = {};
   newAnimal: any = {};
   selectedAnimal: any = {};
+  newEmpresa: any = {};
+  selectedEmpresa: any = {};
   errorMessage: string = '';
 
   constructor(private router: Router, private http: HttpClient) { }
@@ -29,6 +34,7 @@ export class GestionPage implements OnInit {
     this.loggedInUserId = Number(sessionStorage.getItem('id'));
     this.getUsuarios();
     this.getAnimales();
+    this.getEmpresas();
   }
 
   showList(view: string) {
@@ -123,9 +129,85 @@ export class GestionPage implements OnInit {
     // Lógica para obtener la lista de rescates
   }
 
-  // Métodos para gestionar cada tipo de entidad
   getEmpresas() {
-    // Lógica para obtener la lista de empresas
+    this.http.get<any[]>('http://localhost:9000/api/empresas/todos').subscribe(data => {
+      this.empresas = data;
+    }, error => {
+      console.error('Error al obtener empresas:', error);
+    });
+  }
+
+  showAddEmpresaForm() {
+    this.showEmpresaForm = true;
+    this.showUpdateEmpresaForm = false;
+    this.newEmpresa = {};
+  }
+
+  displayUpdateEmpresaForm(empresa: any) {
+    this.showUpdateEmpresaForm = true;
+    this.showEmpresaForm = false;
+    this.selectedEmpresa = { ...empresa };
+  }
+
+  cancelAddEmpresa() {
+    this.showEmpresaForm = false;
+  }
+
+  cancelUpdateEmpresa() {
+    this.showUpdateEmpresaForm = false;
+  }
+
+  addEmpresa() {
+    const nuevaEmpresa = {
+      nombre: this.newEmpresa.nombre,
+      direccion: this.newEmpresa.direccion,
+      telefono: this.newEmpresa.telefono,
+      email: this.newEmpresa.email,
+      tipo: this.newEmpresa.tipo,
+      url_web: this.newEmpresa.url_web,
+      fecha_creacion: new Date().toISOString().split('T')[0],
+      usuarios: []
+    };
+
+    this.http.post('http://localhost:9000/api/empresas', nuevaEmpresa).subscribe(() => {
+      this.getEmpresas();
+      this.showEmpresaForm = false;
+      this.errorMessage = '';
+    }, error => {
+      console.error('Error al añadir empresa:', error);
+      this.errorMessage = 'Error al añadir empresa. Por favor, inténtelo de nuevo.';
+    });
+  }
+
+  updateEmpresa() {
+    const empresaActualizada = {
+      id: this.selectedEmpresa.id,
+      nombre: this.selectedEmpresa.nombre,
+      direccion: this.selectedEmpresa.direccion,
+      telefono: this.selectedEmpresa.telefono,
+      email: this.selectedEmpresa.email,
+      tipo: this.selectedEmpresa.tipo,
+      url_web: this.selectedEmpresa.url_web,
+      fecha_creacion: this.selectedEmpresa.fecha_creacion,
+      usuarios: this.selectedEmpresa.usuarios
+    };
+
+    this.http.put(`http://localhost:9000/api/empresas`, empresaActualizada).subscribe(() => {
+      this.getEmpresas();
+      this.showUpdateEmpresaForm = false;
+      this.errorMessage = '';
+    }, error => {
+      console.error('Error al actualizar empresa:', error);
+      this.errorMessage = 'Error al actualizar empresa. Por favor, inténtelo de nuevo.';
+    });
+  }
+
+  deleteEmpresa(id: number) {
+    this.http.delete(`http://localhost:9000/api/empresas/${id}`).subscribe(() => {
+      this.getEmpresas();
+    }, error => {
+      console.error('Error al eliminar empresa:', error);
+    });
   }
 
   getAnimales() {
@@ -157,12 +239,11 @@ export class GestionPage implements OnInit {
   }
 
   addAnimal() {
-    console.log('Añadiendo animal:', this.newAnimal);
     const nuevoAnimal = {
       nombre_comun: this.newAnimal.nombre_comun,
       especie: this.newAnimal.especie,
       descripcion: this.newAnimal.descripcion,
-      familia: this.newAnimal.familia,
+      familia: this.newAnimal.familia.toUpperCase(),
       estado_conservacion: this.newAnimal.estado_conservacion
     };
     this.http.post('http://localhost:9000/api/animales', nuevoAnimal).subscribe(() => {
@@ -185,7 +266,6 @@ export class GestionPage implements OnInit {
       estado_conservacion: this.selectedAnimal.estado_conservacion
     };
 
-    console.log('Actualizando animal:', animalActualizado);
     this.http.put(`http://localhost:9000/api/animales`, animalActualizado).subscribe(() => {
       this.getAnimales();
       this.showUpdateAnimalForm = false;
@@ -210,7 +290,6 @@ export class GestionPage implements OnInit {
     formData.append('imagen', file);
 
     this.http.post<{ url: string }>('http://localhost:9000/api/subir-imagen', formData).subscribe(response => {
-      console.log('Imagen subida:', response);
       this.newAnimal.foto = response.url;
     }, error => {
       console.error('Error al subir imagen:', error);
