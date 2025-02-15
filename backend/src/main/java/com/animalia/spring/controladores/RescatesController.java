@@ -1,6 +1,7 @@
 package com.animalia.spring.controladores;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,6 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 import com.animalia.spring.Excepciones.RescateNoEcontrada;
 import com.animalia.spring.entidades.Rescates;
+import com.animalia.spring.entidades.DTO.RescateDTO;
+import com.animalia.spring.entidades.DTO.RescateDetalleDTO;
+import com.animalia.spring.entidades.converter.RescateDtoConverter;
+import com.animalia.spring.entidades.converter.RescateDetalleDtoConverter;
 import com.animalia.spring.servicios.RescatesServicio;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,13 +29,48 @@ public class RescatesController {
     @Autowired
     private RescatesServicio rescatesServicio;
 
+    @Autowired
+    private RescateDtoConverter rescateDtoConverter;
+
+    @Autowired
+    private RescateDetalleDtoConverter rescateDetalleDtoConverter;
+
     @GetMapping("/todos")
     @Operation(summary = "Mostrar todos los rescates del sistema", description = "Devuelve una lista con todos los rescates del sistema")
     public ResponseEntity<List<Rescates>> obtenerRescates() {
-        if (rescatesServicio.obtenerRescates().isEmpty()) {
+        List<Rescates> rescates = rescatesServicio.obtenerRescates();
+        if (rescates.isEmpty()) {
             throw new RescateNoEcontrada();
         } else {
-            return ResponseEntity.ok(rescatesServicio.obtenerRescates());
+            return ResponseEntity.ok(rescates);
+        }
+    }
+
+    @GetMapping("/todos-sin-fotos")
+    @Operation(summary = "Mostrar todos los rescates del sistema sin fotos", description = "Devuelve una lista con todos los rescates del sistema sin incluir las fotos")
+    public ResponseEntity<List<RescateDTO>> obtenerRescatesSinFotos() {
+        List<Rescates> rescates = rescatesServicio.obtenerRescates();
+        if (rescates.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            List<RescateDTO> rescateDTOs = rescates.stream()
+                    .map(rescateDtoConverter::convertRescateEntityToRescateDto)
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok(rescateDTOs);
+        }
+    }
+
+    @GetMapping("/detalle")
+    @Operation(summary = "Mostrar todos los rescates del sistema con detalles", description = "Devuelve una lista con todos los rescates del sistema con detalles")
+    public ResponseEntity<List<RescateDetalleDTO>> obtenerRescatesConDetalles() {
+        List<Rescates> rescates = rescatesServicio.obtenerRescates();
+        if (rescates.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            List<RescateDetalleDTO> rescateDetalleDTOs = rescates.stream()
+                    .map(rescateDetalleDtoConverter::convertRescateEntityToRescateDetalleDto)
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok(rescateDetalleDTOs);
         }
     }
 
@@ -49,10 +89,11 @@ public class RescatesController {
     @GetMapping("/{id}")
     @Operation(summary = "Buscar un rescate por ID", description = "Buscar un rescate a partir de su ID")
     public ResponseEntity<Rescates> obtenerRescatePorId(@PathVariable long id) {
-        if (rescatesServicio.obtenerRescatePorId(id) == null) {
+        Rescates rescate = rescatesServicio.obtenerRescatePorId(id);
+        if (rescate == null) {
             throw new RescateNoEcontrada(id);
         } else {
-            return ResponseEntity.ok(rescatesServicio.obtenerRescatePorId(id));
+            return ResponseEntity.ok(rescate);
         }
     }
 
