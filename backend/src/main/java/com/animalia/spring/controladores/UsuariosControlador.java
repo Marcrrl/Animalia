@@ -1,27 +1,31 @@
 package com.animalia.spring.controladores;
 
 import java.util.List;
-import org.springframework.http.MediaType;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import com.animalia.spring.Excepciones.UsuarioNoEncontrado;
-import com.animalia.spring.entidades.Usuarios;
-import com.animalia.spring.servicios.UsuarioServicio;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.animalia.spring.entidades.UsuarioDTO;
+import com.animalia.spring.entidades.Usuarios;
+import com.animalia.spring.entidades.Usuarios.TipoUsuario;
+import com.animalia.spring.servicios.UsuarioServicio;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.MediaType;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.http.HttpStatus;
 
 @RestController
 @RequestMapping("api/usuarios")
@@ -33,10 +37,21 @@ public class UsuariosControlador {
 
     @GetMapping("/todos")
     @Operation(summary = "Mostrar todos los usuarios del sistema", description = "Devuelve una lista con todos los usuarios del sistema")
-    public ResponseEntity<List<Usuarios>> obtenerUsuarios() {
-        List<Usuarios> usuarios = usuariosServicio.obtenerUsuarios();
+    public ResponseEntity<List<UsuarioDTO>> obtenerUsuarios() {
+        List<UsuarioDTO> usuarios = usuariosServicio.obtenerUsuarios();
         if (usuarios.isEmpty()) {
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(usuarios);
+        }
+    }
+
+    @GetMapping("/tipo/{tipoUsuario}")
+    @Operation(summary = "Mostrar todos los usuarios del sistema por tipo", description = "Devuelve una lista con todos los usuarios del sistema por tipo")
+    public ResponseEntity<List<UsuarioDTO>> obtenerUsuarios(@PathVariable TipoUsuario tipoUsuario) {
+        List<UsuarioDTO> usuarios = usuariosServicio.obtenerUsuariosPorTipo(tipoUsuario);
+        if (usuarios.isEmpty()) {
+            return ResponseEntity.notFound().build();
         } else {
             return ResponseEntity.ok(usuarios);
         }
@@ -44,13 +59,13 @@ public class UsuariosControlador {
 
     @GetMapping
     @Operation(summary = "Mostrar todos los usuarios del sistema", description = "Devuelve una lista con todos los usuarios del sistema")
-    public ResponseEntity<Page<Usuarios>> obtenerUsuariosPagebale(
+    public ResponseEntity<Page<UsuarioDTO>> obtenerUsuariosPagebale(
             @PageableDefault(size = 5, page = 0) Pageable pageable) {
 
-        Page<Usuarios> usuarios = usuariosServicio.obtenerUsuariosPaginacion(pageable);
+        Page<UsuarioDTO> usuarios = usuariosServicio.obtenerUsuariosPaginacion(pageable);
 
         if (usuarios.isEmpty()) {
-            throw new UsuarioNoEncontrado();
+            return ResponseEntity.notFound().build();
         } else {
             return ResponseEntity.ok(usuarios);
         }
@@ -58,10 +73,10 @@ public class UsuariosControlador {
 
     @GetMapping("/{id}")
     @Operation(summary = "Buscar usuario", description = "Buscar un usuario a partir de su id")
-    public ResponseEntity<Usuarios> obtenerUsuarioPorId(@PathVariable long id) {
-        Usuarios u = usuariosServicio.obtenerUsuarioPorId(id);
+    public ResponseEntity<UsuarioDTO> obtenerUsuarioPorId(@PathVariable long id) {
+        UsuarioDTO u = usuariosServicio.obtenerUsuarioDTOPorId(id);
         if (u == null) {
-            throw new UsuarioNoEncontrado(id);
+            return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(u);
     }
@@ -93,7 +108,8 @@ public class UsuariosControlador {
 
     @Operation(summary = "Editar usuario", description = "Editar usuario en el sistema.")
     @PutMapping
-    public ResponseEntity<Usuarios> actualizarUsuario(@RequestBody Usuarios usuario) {
-        return ResponseEntity.ok(usuariosServicio.actualizarUsuario(usuario));
+    public ResponseEntity<UsuarioDTO> actualizarUsuario(@RequestBody Usuarios usuario) {
+        UsuarioDTO usuarioActualizado = usuariosServicio.actualizarUsuario(usuario);
+        return ResponseEntity.ok(usuarioActualizado);
     }
 }

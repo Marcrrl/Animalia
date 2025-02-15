@@ -67,7 +67,7 @@ public class Usuarios implements UserDetails {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private TipoUsuario tipo_usuario;
+    private TipoUsuario tipoUsuario;
 
     @Column(nullable = false)
     @NotNull
@@ -87,7 +87,7 @@ public class Usuarios implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority(tipo_usuario.name()));
+        return Collections.singletonList(new SimpleGrantedAuthority(tipoUsuario.name()));
     }
 
     @Override
@@ -117,8 +117,10 @@ public class Usuarios implements UserDetails {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Usuarios usuarios = (Usuarios) o;
         return Objects.equals(id, usuarios.id);
     }
