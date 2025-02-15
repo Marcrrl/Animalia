@@ -29,7 +29,6 @@ export class DetallesEmpresaPage implements OnInit {
     this.empresasService.getById(this.id).subscribe(
       (data) => {
         this.empresa = data;
-        console.log(this.empresa.nombre);
       },
       (error) => {
         console.error('Error fetching empresa details:', error);

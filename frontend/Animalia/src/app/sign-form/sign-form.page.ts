@@ -129,8 +129,6 @@ export class SignFormPage implements OnInit, AfterViewInit {
 
         // Redirigimos a la página principal
         this.router.navigateByUrl('/Perfil').then(() => {window.location.reload();});
-        console.log(document.cookie = `id=${userId}; path=/; HttpOnly`);
-        console.log(document.cookie = `rol=${userRol}; path=/; HttpOnly`);
         
       },
       error => {

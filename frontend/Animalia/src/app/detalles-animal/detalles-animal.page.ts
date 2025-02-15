@@ -25,8 +25,7 @@ export class DetallesAnimalPage implements OnInit {
     this.animalesService.getById(this.id).subscribe(
       (data) => {
         this.animal = data;
-        this.imagen = this.animalesService.obtenerImagenUrl(this.animal.foto);
-        console.log(this.imagen);
+        this.imagen = this.animalesService.obtenerImagenUrl(this.animal.foto)
       },
       (error) => {
         console.error('Error fetching animal details:', error);
