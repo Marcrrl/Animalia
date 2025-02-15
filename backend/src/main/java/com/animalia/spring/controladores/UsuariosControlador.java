@@ -46,6 +46,17 @@ public class UsuariosControlador {
         }
     }
 
+    @GetMapping("/todos-incluidos-eliminados")
+    @Operation(summary = "Mostrar todos los usuarios del sistema, incluidos los eliminados", description = "Devuelve una lista con todos los usuarios del sistema, incluidos los eliminados")
+    public ResponseEntity<List<UsuarioDTO>> obtenerTodosLosUsuarios() {
+        List<UsuarioDTO> usuarios = usuariosServicio.obtenerTodosLosUsuarios();
+        if (usuarios.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(usuarios);
+        }
+    }
+
     @GetMapping("/tipo/{tipoUsuario}")
     @Operation(summary = "Mostrar todos los usuarios del sistema por tipo", description = "Devuelve una lista con todos los usuarios del sistema por tipo")
     public ResponseEntity<List<UsuarioDTO>> obtenerUsuarios(@PathVariable TipoUsuario tipoUsuario) {

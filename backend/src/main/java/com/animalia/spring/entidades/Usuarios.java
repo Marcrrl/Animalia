@@ -81,6 +81,9 @@ public class Usuarios implements UserDetails {
     @JsonBackReference
     private Empresas empresa;
 
+    @Column(nullable = false)
+    private boolean deleted = false; // Add this line
+
     public enum TipoUsuario {
         ADMIN, USER, EMPRESA
     }

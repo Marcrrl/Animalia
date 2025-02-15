@@ -54,4 +54,7 @@ public class Animales {
     public enum Familia {
         MAMIFERO, REPTIL, ANFIBIO, AVES, PECES
     }
+
+    @Column(nullable = false)
+    private boolean deleted = false;
 }

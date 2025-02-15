@@ -28,23 +28,29 @@ public class UsuarioServicio {
     private PasswordEncoder passwordEncoder;
 
     public Page<UsuarioDTO> obtenerUsuariosPaginacion(Pageable pageable) {
-        return usuarioRepositorio.findAll(pageable).map(userDtoConverter::convertUserEntityToUserDto);
+        return usuarioRepositorio.findAllActive(pageable).map(userDtoConverter::convertUserEntityToUserDto);
     }
 
     public List<UsuarioDTO> obtenerUsuarios() {
+        return usuarioRepositorio.findAllActive().stream()
+                .map(userDtoConverter::convertUserEntityToUserDto)
+                .collect(Collectors.toList());
+    }
+
+    public List<UsuarioDTO> obtenerTodosLosUsuarios() {
         return usuarioRepositorio.findAll().stream()
                 .map(userDtoConverter::convertUserEntityToUserDto)
                 .collect(Collectors.toList());
     }
 
     public UsuarioDTO obtenerUsuarioDTOPorId(long id) {
-        return usuarioRepositorio.findById(id)
+        return usuarioRepositorio.findByIdActive(id)
                 .map(userDtoConverter::convertUserEntityToUserDto)
                 .orElse(null);
     }
 
     public Usuarios obtenerUsuarioPorId(long id) {
-        return usuarioRepositorio.findById(id).orElse(null);
+        return usuarioRepositorio.findByIdActive(id).orElse(null);
     }
 
     public UsuarioDTO guardarUsuario(Usuarios usuario) {
@@ -52,7 +58,11 @@ public class UsuarioServicio {
     }
 
     public void eliminarUsuario(long id) {
-        usuarioRepositorio.deleteById(id);
+        Usuarios usuario = usuarioRepositorio.findById(id).orElse(null);
+        if (usuario != null) {
+            usuario.setDeleted(true);
+            usuarioRepositorio.save(usuario);
+        }
     }
 
     public UsuarioDTO actualizarUsuario(Usuarios usuario) {

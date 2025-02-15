@@ -34,6 +34,17 @@ public class EmpresasController {
         }
     }
 
+    @GetMapping("/todos-incluidas-eliminadas")
+    @Operation(summary = "Mostrar todas las empresas del sistema, incluidas las eliminadas", description = "Devuelve una lista con todas las empresas del sistema, incluidas las eliminadas")
+    public ResponseEntity<List<Empresas>> obtenerTodasLasEmpresas() {
+        List<Empresas> empresas = empresasServicio.obtenerTodasLasEmpresas();
+        if (empresas.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(empresas);
+        }
+    }
+
     @GetMapping
     @Operation(summary = "Mostrar todas las empresas del sistema paginadas", description = "Devuelve una lista paginada con todas las empresas del sistema")
     public ResponseEntity<List<Empresas>> obtenerUsuariosPagebale(

@@ -12,15 +12,24 @@ import com.animalia.spring.repositorio.AnimalesRepositorio;
 
 @Service
 public class AnimalesServicio {
+
     @Autowired
     private AnimalesRepositorio animalesRepositorio;
 
     public List<Animales> obtenerAnimales() {
+        return animalesRepositorio.findAllActive();
+    }
+
+    public List<Animales> obtenerTodosLosAnimales() {
         return animalesRepositorio.findAll();
     }
 
+    public Page<Animales> obtenerAnimalesPaginacion(Pageable pageable) {
+        return animalesRepositorio.findAllActive(pageable);
+    }
+
     public Animales obtenerAnimalPorId(long id) {
-        return animalesRepositorio.findById(id).get();
+        return animalesRepositorio.findByIdActive(id).orElse(null);
     }
 
     public Animales guardarAnimal(Animales animal) {
@@ -28,18 +37,14 @@ public class AnimalesServicio {
     }
 
     public void eliminarAnimal(long id) {
-        animalesRepositorio.deleteById(id);
+        Animales animal = animalesRepositorio.findById(id).orElse(null);
+        if (animal != null) {
+            animal.setDeleted(true);
+            animalesRepositorio.save(animal);
+        }
     }
 
     public Animales actualizarAnimal(Animales animal) {
         return animalesRepositorio.save(animal);
     }
-
-    public Page<Animales> obtenerAnimalesPaginacion(Pageable pageable) {
-        return animalesRepositorio.findAll(pageable);
-    }
-
-    // public List<Animales> buscarAnimales(String busqueda) {
-    //     return animalesRepositorio.findEspecieContainsIgnoreCaseOrNombre_comun(busqueda, busqueda);
-    // }
 }
