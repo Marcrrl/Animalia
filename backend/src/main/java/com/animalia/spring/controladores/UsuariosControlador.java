@@ -21,9 +21,6 @@ import com.animalia.spring.servicios.UsuarioServicio;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.MediaType;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -82,24 +79,6 @@ public class UsuariosControlador {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(u);
-    }
-
-    @GetMapping("/imagen/{nombreImagen}")
-    @Operation(summary = "Buscar una imagen de usuario", description = "Buscar una imagen de usuario a partir de su nombre")
-    public ResponseEntity<Resource> obtenerImagen(@PathVariable String nombreImagen) {
-        try {
-            Resource resource = new ClassPathResource("static/img/" + nombreImagen);
-
-            if (!resource.exists()) {
-                return ResponseEntity.notFound().build();
-            }
-
-            return ResponseEntity.ok()
-                    .contentType(MediaType.IMAGE_JPEG)
-                    .body(resource);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
     }
 
     @Operation(summary = "Eliminar usuario por ID", description = "Elimina un usuario del sistema a partir de su ID")
