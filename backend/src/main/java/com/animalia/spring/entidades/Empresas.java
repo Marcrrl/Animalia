@@ -58,6 +58,9 @@ public class Empresas {
     @Column(nullable = false)
     private LocalDate fecha_creacion;
 
+    @Column(nullable = false)
+    private boolean deleted = false; // Add this line
+
     @OneToMany(mappedBy = "empresa")
     @JsonManagedReference
     private Set<Usuarios> usuarios = new HashSet<>();

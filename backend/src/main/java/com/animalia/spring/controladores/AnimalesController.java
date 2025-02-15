@@ -46,6 +46,17 @@ public class AnimalesController {
         }
     }
 
+    @GetMapping("/todos-incluidos-eliminados")
+    @Operation(summary = "Mostrar todos los animales del sistema, incluidos los eliminados", description = "Devuelve una lista con todos los animales del sistema, incluidos los eliminados")
+    public ResponseEntity<List<Animales>> obtenerTodosLosAnimales() {
+        List<Animales> animales = animalesServicio.obtenerTodosLosAnimales();
+        if (animales.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(animales);
+        }
+    }
+
     @GetMapping
     @Operation(summary = "Mostrar todos los animales del sistema paginados", description = "Devuelve una lista paginada con todos los animales del sistema")
     public ResponseEntity<List<Animales>> obtenerUsuariosPagebale(

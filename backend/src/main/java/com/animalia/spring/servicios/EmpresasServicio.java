@@ -16,7 +16,7 @@ public class EmpresasServicio {
     private EmpresasRepositorio empresasRepositorio;
 
     public Empresas obtenerEmpresaPorId(long id) {
-        return empresasRepositorio.findById(id).get();
+        return empresasRepositorio.findByIdActive(id).orElse(null);
     }
 
     public Empresas guardarEmpresa(Empresas empresa) {
@@ -24,23 +24,30 @@ public class EmpresasServicio {
     }
 
     public void eliminarEmpresa(long id) {
-        empresasRepositorio.deleteById( id);
+        Empresas empresa = empresasRepositorio.findById(id).orElse(null);
+        if (empresa != null) {
+            empresa.setDeleted(true);
+            empresasRepositorio.save(empresa);
+        }
     }
 
     public Empresas actualizarEmpresa(Empresas empresa) {
         return empresasRepositorio.save(empresa);
     }
 
-    public List<Empresas> obtenerEmpresaPorNombre(String nombre) {
-        return empresasRepositorio.findByNombre(nombre);
+    public List<Empresas> obtenerEmpresas() {
+        return empresasRepositorio.findAllActive();
     }
 
-    public List<Empresas> obtenerEmpresas() {
+    public List<Empresas> obtenerTodasLasEmpresas() {
         return empresasRepositorio.findAll();
     }
 
     public Page<Empresas> obtenerEmpresasPaginacion(Pageable pageable) {
-        return empresasRepositorio.findAll(pageable);
+        return empresasRepositorio.findAllActive(pageable);
     }
 
+    public List<Empresas> obtenerEmpresaPorNombre(String nombre) {
+        return empresasRepositorio.findByNombre(nombre);
+    }
 }
