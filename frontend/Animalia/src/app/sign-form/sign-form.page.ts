@@ -25,7 +25,7 @@ export class SignFormPage implements OnInit, AfterViewInit {
     const showPasswordButton = document.querySelector('.password-button') as HTMLButtonElement;
     const face = document.querySelector('.face') as HTMLElement;
     const iconoContraseña = document.querySelector('.iconoContraseña') as HTMLElement;
-    const form = document.querySelector('form') as HTMLFormElement;
+    const form = document.querySelector('.login') as HTMLDivElement; // Updated selector
     if (usernameInput && passwordInput && showPasswordButton && face && iconoContraseña) {
       usernameInput.addEventListener('input', (event: Event) => {
         this.email = (event.target as HTMLInputElement).value;
