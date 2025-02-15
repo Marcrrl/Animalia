@@ -1,10 +1,56 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title class="ion-text-center">Registrarse</ion-title>
+  <ion-toolbar class="custom-toolbar">
+    <ion-buttons slot="start" *ngIf="tipo !== ''">
+      <ion-button (click)="showContent('')">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Registrarse</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-
-  <h2>Prueba Register</h2>
+<ion-content [fullscreen]="true" *ngIf="tipo === ''">
+  <div class="half">
+    <ion-button class="left-half mb-0 usuario-button" color="light" (click)="showContent('usuario')">
+      <ion-title>USUARIO</ion-title>
+    </ion-button>
+    <ion-button class="right-half mt-0 empresa-button" color="light" (click)="showContent('empresa')">
+      <ion-title>EMPRESA</ion-title>
+    </ion-button>
+  </div>
+  <img class="center-circle" src="../../assets/icon/logo1.jpg">
 </ion-content>
+
+<ion-content *ngIf="tipo === 'usuario'" [fullscreen]="true">
+  <h1>Usuarios</h1>
+  <form action="" class="p-2">
+    <div class="d-flex justify-content-around w-100">
+      <div class="form-floating mb-3 w-50 me-1">
+        <input type="email" class="form-control" id="floatingInput" placeholder="Nombre">
+        <label for="floatingInput">Nombre</label>
+      </div>
+      <div class="form-floating mb-3 w-50 ms-1">
+        <input type="email" class="form-control" id="floatingInput" placeholder="Apellidos">
+        <label for="floatingInput">Apellidos</label>
+      </div>
+    </div>
+
+    <div class="form-floating mb-3">
+      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+      <label for="floatingInput">Email</label>
+    </div>
+
+    
+    
+    <div class="form-floating">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+      <label for="floatingPassword">Password</label>
+    </div>
+  </form>
+</ion-content>
+
+<ion-content *ngIf="tipo === 'empresa'" [fullscreen]="true">
+  <h1>Empresas</h1>
+</ion-content>
+
+

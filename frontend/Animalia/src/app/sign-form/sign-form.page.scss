@@ -46,6 +46,48 @@ body {
     }
 }
 
+@media (max-width: 2560px) {
+    .center {
+        position: absolute;
+        top: 56px;
+        left: 0;
+        width: 100%;
+        height: calc(100% - 56px - 56px);
+        border-radius: 0;
+        transform: none;
+        overflow: hidden;
+        background-image: linear-gradient(to top right, #f9a743, #f9db5f);
+    }
+}
+
+@media (max-width: 1440px) {
+    .center {
+        position: absolute;
+        top: 56px;
+        left: 0;
+        width: 100%;
+        height: calc(100% - 56px - 56px);
+        border-radius: 0;
+        transform: none;
+        overflow: hidden;
+        background-image: linear-gradient(to top right, #f9a743, #f9db5f);
+    }
+}
+
+@media (max-width: 1024px) {
+    .center {
+        position: absolute;
+        top: 56px;
+        left: 0;
+        width: 100%;
+        height: calc(100% - 56px - 56px);
+        border-radius: 0;
+        transform: none;
+        overflow: hidden;
+        background-image: linear-gradient(to top right, #f9a743, #f9db5f);
+    }
+}
+
 @media (max-width: 768px) {
     .center {
         position: absolute;
