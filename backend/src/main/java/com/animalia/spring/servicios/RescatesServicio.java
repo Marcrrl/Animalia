@@ -7,21 +7,41 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.animalia.spring.entidades.Animales;
+import com.animalia.spring.entidades.Empresas;
 import com.animalia.spring.entidades.Rescates;
+import com.animalia.spring.entidades.Usuarios;
+import com.animalia.spring.entidades.DTO.RescateDTO;
+import com.animalia.spring.repositorio.AnimalesRepositorio;
+import com.animalia.spring.repositorio.EmpresasRepositorio;
 import com.animalia.spring.repositorio.RescatesRepositorio;
+import com.animalia.spring.repositorio.UsuarioRepositorio;
 
 @Service
 public class RescatesServicio {
 
     @Autowired
     private RescatesRepositorio rescatesRepositorio;
-    
+
+    @Autowired
+    private EmpresasRepositorio empresasRepositorio;
+
+    @Autowired
+    private UsuarioRepositorio usuarioRepositorio;
+
+    @Autowired
+    private AnimalesRepositorio animalesRepositorio;
+
     public List<Rescates> obtenerRescates() {
         return rescatesRepositorio.findAll();
     }
 
+    public Page<Rescates> obtenerRescatesPaginacion(Pageable pageable) {
+        return rescatesRepositorio.findAll(pageable);
+    }
+
     public Rescates obtenerRescatePorId(long id) {
-        return rescatesRepositorio.findById(id).get();
+        return rescatesRepositorio.findById(id).orElse(null);
     }
 
     public Rescates guardarRescate(Rescates rescate) {
@@ -32,47 +52,25 @@ public class RescatesServicio {
         rescatesRepositorio.deleteById(id);
     }
 
-    public Rescates actualizarRescate(Rescates rescate) {
-        return rescatesRepositorio.save(rescate);
+    public Rescates actualizarRescate(long id, Long empresaId, Long usuarioId, Long animalId, RescateDTO rescateDTO) {
+        Rescates existingRescate = rescatesRepositorio.findById(id).orElse(null);
+        if (existingRescate != null) {
+            Empresas empresa = empresasRepositorio.findById(empresaId).orElse(null);
+            Usuarios usuario = usuarioRepositorio.findById(usuarioId).orElse(null);
+            Animales animal = animalesRepositorio.findById(animalId).orElse(null);
+
+            if (empresa != null && usuario != null && animal != null) {
+                existingRescate.setEmpresa(empresa);
+                existingRescate.setUsuario(usuario);
+                existingRescate.setAnimal(animal);
+                existingRescate.setUbicacion(rescateDTO.getUbicacion());
+                existingRescate.setEstado_rescate(rescateDTO.getEstado_rescate());
+                existingRescate.setEstado_animal(rescateDTO.getEstado_animal());
+                existingRescate.setFecha_rescate(rescateDTO.getFecha_rescate());
+
+                return rescatesRepositorio.save(existingRescate);
+            }
+        }
+        return null;
     }
-
-    public Page<Rescates> obtenerRescatesPaginacion(Pageable pageable) {
-        return rescatesRepositorio.findAll(pageable);
-    }
-
-    // public List<Rescates> obtenerRescatesPorEmpresa(Empresas empresa){
-    //     return rescatesRepositorio.findByEmpresa(empresa);
-    // }
-
-    // public List<Rescates> obtenerRescatesPorUbicacion(String ubicacion){
-    //     return rescatesRepositorio.findByUbicacionContainsIgnoreCase(ubicacion);
-    // }
-
-    // public List<Rescates> obtenerRescatesPorFecha(String fecha){
-    //     return rescatesRepositorio.findByFecha_rescate(fecha);
-    // }
-
-    // public List<Rescates> obtenerRescatesPorEstadoRescate(Estado estado){
-    //     return rescatesRepositorio.findByEstado_rescate(estado);
-    // }
-
-    // public List<Rescates> obtenerRescatesPorAnimal(String especie, String nombre_comun){
-    //     return rescatesRepositorio.findByAnimalEspecieContainsIgnoreCaseOrAnimalNombre_comunContainsIgnoreCase(especie, nombre_comun);
-    // }
-
-    // public List<Rescates> obtenerRescatesPorUsuario(Usuarios usuario){
-    //     return rescatesRepositorio.findByUsuario(usuario);
-    // }
-
-    // public List<Rescates> obtenerRescatesPorEmpresaNombre(String nombre){
-    //     return rescatesRepositorio.findByEmpresaNombreContainsIgnoreCase(nombre);
-    // }
-
-    // public List<Rescates> obtenerRescatesPorUsuarioNombre(String nombre){
-    //     return rescatesRepositorio.findByUsuarioNombreContainsIgnoreCase(nombre);
-    // }
-
-    // public List<Rescates> obtenerRescatesPorAnimal(Animales animal){
-    //     return rescatesRepositorio.findByAnimal(animal);
-    // }
 }

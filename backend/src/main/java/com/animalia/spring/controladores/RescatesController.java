@@ -110,9 +110,14 @@ public class RescatesController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     @Operation(summary = "Actualizar un rescate", description = "Actualizar los datos de un rescate en el sistema")
-    public ResponseEntity<Rescates> actualizarRescate(@RequestBody Rescates rescate) {
-        return ResponseEntity.ok(rescatesServicio.actualizarRescate(rescate));
+    public ResponseEntity<Rescates> actualizarRescate(@PathVariable long id, @RequestParam Long empresaId, @RequestParam Long usuarioId, @RequestParam Long animalId, @RequestBody RescateDTO rescateDTO) {
+        Rescates rescateActualizado = rescatesServicio.actualizarRescate(id, empresaId, usuarioId, animalId, rescateDTO);
+        if (rescateActualizado != null) {
+            return ResponseEntity.ok(rescateActualizado);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
