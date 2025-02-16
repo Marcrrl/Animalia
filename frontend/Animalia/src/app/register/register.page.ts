@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +16,7 @@ export class RegisterPage implements OnInit {
   errorMessage: string = '';
   newUsuario: any = {};
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private toastController: ToastController, private router: Router) { }
 
   ngOnInit() {
   }
@@ -23,13 +25,24 @@ export class RegisterPage implements OnInit {
     this.tipo = tipo;
   }
 
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000,
+      position: 'bottom'
+    });
+    toast.present();
+  }
+
   addUsuario() {
     this.newUsuario.tipoUsuario = 'USER';
-    this.newUsuario.fecha_registro = new Date().toISOString().split('T')[0]; // Set default fecha_registro
-    console.log('Sending user data:', JSON.stringify(this.newUsuario)); // Log JSON data
+    //this.newUsuario.fecha_registro = new Date().toISOString().split('T')[0]; // Set default fecha_registro
+    //console.log('Sending user data:', JSON.stringify(this.newUsuario)); // Log JSON data
     this.http.post('http://localhost:9000/auth/add', this.newUsuario).subscribe(() => {
       this.errorMessage = '';
       this.newUsuario = {}; // Reset form
+      this.presentToast('Usuario creado exitosamente');
+      this.router.navigate(['/IniciarSesion']); // Navigate to login page
     }, error => {
       console.error('Error al añadir usuario:', error);
       if (error.status === 400 && error.error.message.includes('telefono ya existe')) {
