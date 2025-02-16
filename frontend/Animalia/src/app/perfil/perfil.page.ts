@@ -114,7 +114,7 @@ export class PerfilPage implements OnInit {
           this.usuario.url_foto_perfil = url_foto_perfil.replace('/api/imagen/', '');
           setTimeout(() => {
             this.cargarImagenPerfil(this.usuario.url_foto_perfil);
-          }, 100);
+          }, 1000);
         } else {
           console.error('Error al subir la imagen:', response.statusText);
         }
