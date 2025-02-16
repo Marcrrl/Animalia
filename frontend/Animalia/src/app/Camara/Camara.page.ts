@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
@@ -11,13 +11,13 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 })
 export class CamaraPage implements OnInit {
   foto: string = ''; // Para almacenar la ruta de la foto
-  fotoForm: FormGroup ;
-  file: Blob | null = null;
+  fotoForm: FormGroup;
   emailUsuario: string | null = null;
+  file: File | null = null;
   constructor(
     private fb: FormBuilder, private http: HttpClient
   ) {
-    this.fotoForm = this.fb.group({ 
+    this.fotoForm = this.fb.group({
       ubicacion: ['', Validators.required],
       descripcion: ['', Validators.required],
       fecha_captura: ['', Validators.required],
@@ -27,7 +27,7 @@ export class CamaraPage implements OnInit {
 
   ngOnInit() {
 
-     
+
     // Obtener el email del usuario desde localStorage
     const storedEmail = localStorage.getItem('email');
     if (storedEmail) {
@@ -46,10 +46,49 @@ export class CamaraPage implements OnInit {
       });
 
       this.foto = photo.webPath || " "; // Usamos el URI para mostrar la foto
+
+      if (photo.webPath) {
+        this.file = await this.convertToFile(photo.webPath);
+        console.log(this.file);
+      }
     } catch (error) {
       console.log('Error al tomar la foto', error);
     }
   }
+
+  subirImagen() {
+    const token = sessionStorage.getItem('token');
+    console.log('Token:', token);
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    const formData = new FormData();
+
+    if (this.file) {
+      formData.append('file', this.file);
+    }
+
+    this.http.post('http://localhost:9000/api/subir-imagen', formData, {
+      headers: headers,
+      observe: 'response'
+    }).subscribe(response => {
+      if (response.status === 200 && response.body) {
+        console.log('Foto guardada con éxito', response);
+      } else {
+        console.error('Error al subir la imagen:', response.statusText);
+      }
+    }, error => {
+      console.error('Error al subir la imagen:', error);
+    });
+  }
+
+  async convertToFile(webPath: string): Promise<File> {
+    const response = await fetch(webPath);
+    const blob = await response.blob();
+    const file = new File([blob], `photo_${Date.now()}.jpeg`, { type: blob.type });
+    return file;
+  }
+
 
   submitForm() {
     if (this.fotoForm.valid &&/* this.file &&*/ this.emailUsuario) {
