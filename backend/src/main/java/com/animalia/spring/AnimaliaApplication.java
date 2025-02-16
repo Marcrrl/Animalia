@@ -37,7 +37,8 @@ public class AnimaliaApplication {
                         FotosRepositorio fotosRepositorio, PasswordEncoder passwordEncoder) {
                 return (args) -> {
                         if (animalesRepositorio.count() == 0 && usuariosRepositorio.count() == 0
-                                        && empresasRepositorio.count() == 0 && rescatesRepositorio.count() == 0) {
+                                        && empresasRepositorio.count() == 0 && rescatesRepositorio.count() == 0
+                                        && fotosRepositorio.count() == 0) {
                                 Animales a1 = new Animales(null, "Canis lupus familiaris", "Perro",
                                                 "Animal domesticado y compañero del ser humano",
                                                 "perro.jpg",

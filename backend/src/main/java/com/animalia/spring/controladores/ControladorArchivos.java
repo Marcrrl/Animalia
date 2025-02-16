@@ -46,7 +46,7 @@ public class ControladorArchivos {
             return ResponseEntity.badRequest().body(Map.of("error", "El archivo está vacío o no se ha enviado."));
         }
         try {
-            String uploadDir = "static/img";
+            String uploadDir = "src/main/resources/static/img";
             Path uploadPath = Paths.get(uploadDir);
 
             if (!Files.exists(uploadPath)) {
