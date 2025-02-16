@@ -193,15 +193,24 @@ export class GestionPage implements OnInit {
       'Authorization': `Bearer ${token}`
     });
 
-    const rescateActualizado = {
-      id: this.selectedRescate.id,
-      nombre: this.selectedRescate.nombre,
-      descripcion: this.selectedRescate.descripcion,
-      fecha: this.selectedRescate.fecha,
-      lugar: this.selectedRescate.lugar
+    const params = {
+      empresaId: this.selectedRescate.empresaId,
+      usuarioId: this.selectedRescate.usuarioId,
+      animalId: this.selectedRescate.animalId
     };
 
-    this.http.put(`http://localhost:9000/api/rescates`, rescateActualizado, { headers }).subscribe(() => {
+    const rescateActualizado = {
+      id: this.selectedRescate.id,
+      nombreEmpresa: this.selectedRescate.nombreEmpresa,
+      nombreUsuario: this.selectedRescate.nombreUsuario,
+      nombreAnimal: this.selectedRescate.nombreAnimal,
+      ubicacion: this.selectedRescate.ubicacion,
+      estadoRescate: this.selectedRescate.estadoRescate,
+      estadoAnimal: this.selectedRescate.estadoAnimal,
+      fechaRescate: this.selectedRescate.fechaRescate
+    };
+
+    this.http.put(`http://localhost:9000/api/rescates/${rescateActualizado.id}`, rescateActualizado, { headers, params }).subscribe(() => {
       this.getRescates();
       this.showUpdateRescateForm = false;
       this.errorMessage = '';
