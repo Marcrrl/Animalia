@@ -128,17 +128,19 @@ export class AnimalesPage implements OnInit {
 
   cambioFamilia(familia: string | null) {
     if (this.selectedFamilia === familia) {
+      
       this.selectedFamilia = null;
       this.filteredAnimals = [...this.animales]; // Restaurar todos los animales
     } else {
+      console.log('Familia seleccionada:', familia);
       this.selectedFamilia = familia;
       this.filteredAnimals = this.animales.filter((animal: any) => animal.familia === familia);
     }
-
+  
     // Actualizar el total de animales y páginas
     this.totalAnimales = this.filteredAnimals.length;
     this.totalPages = Math.ceil(this.totalAnimales / this.itemsPerPage);
-
+  
     // Reiniciar la paginación cuando cambia el filtro
     this.currentPage = 0;
     this.currentPagehtml = 1;
