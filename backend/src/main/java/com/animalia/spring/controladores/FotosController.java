@@ -37,7 +37,7 @@ public class FotosController {
 
     @GetMapping
     @Operation(summary = "Mostrar todas las fotos del sistema paginadas", description = "Devuelve una lista paginada con todas las fotos del sistema")
-    public ResponseEntity<List<Fotos>> obtenerUsuariosPagebale(
+    public ResponseEntity<List<Fotos>> obtenerFotosPagebale(
             @PageableDefault(size = 5, page = 0) Pageable pageable) {
         Page<Fotos> Fotos = fotosServicio.obtenerEmpresasPaginacion(pageable);
         if (Fotos.isEmpty()) {

@@ -70,15 +70,15 @@ public class UsuariosControlador {
 
     @GetMapping
     @Operation(summary = "Mostrar todos los usuarios del sistema con paginación", description = "Devuelve una lista paginada con todos los usuarios del sistema")
-    public ResponseEntity<Page<UsuarioDTO>> obtenerUsuariosPagebale(
+    public ResponseEntity<List<UsuarioDTO>> obtenerUsuariosPagebale(
             @PageableDefault(size = 5, page = 0) Pageable pageable) {
 
         Page<UsuarioDTO> usuarios = usuariosServicio.obtenerUsuariosPaginacion(pageable);
 
         if (usuarios.isEmpty()) {
-            return ResponseEntity.ok(Page.empty(pageable));
+            return ResponseEntity.ok(List.of());
         } else {
-            return ResponseEntity.ok(usuarios);
+            return ResponseEntity.ok(usuarios.getContent());
         }
     }
 

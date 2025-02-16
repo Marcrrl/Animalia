@@ -51,13 +51,13 @@ public class EmpresasController {
 
     @GetMapping
     @Operation(summary = "Mostrar todas las empresas del sistema paginadas", description = "Devuelve una lista paginada con todas las empresas del sistema")
-    public ResponseEntity<Page<Empresas>> obtenerUsuariosPagebale(
+    public ResponseEntity<List<Empresas>> obtenerEmpresasPagebale(
             @PageableDefault(size = 5, page = 0) Pageable pageable) {
         Page<Empresas> empresas = empresasServicio.obtenerEmpresasPaginacion(pageable);
         if (empresas.isEmpty()) {
-            return ResponseEntity.ok(Page.empty(pageable));
+            return ResponseEntity.ok(List.of());
         } else {
-            return ResponseEntity.ok(empresas);
+            return ResponseEntity.ok(empresas.getContent());
         }
     }
 
@@ -128,4 +128,7 @@ public class EmpresasController {
             return ResponseEntity.ok(usuarios);
         }
     }
+
+
+    //al crear empresa crear usuario para la empresa
 }

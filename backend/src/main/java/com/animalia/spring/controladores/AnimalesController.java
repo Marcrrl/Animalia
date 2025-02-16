@@ -54,13 +54,13 @@ public class AnimalesController {
 
     @GetMapping
     @Operation(summary = "Mostrar todos los animales del sistema paginados", description = "Devuelve una lista paginada con todos los animales del sistema")
-    public ResponseEntity<Page<Animales>> obtenerUsuariosPagebale(
+    public ResponseEntity<List<Animales>> obtenerAnimalesPagebale(
             @PageableDefault(size = 5, page = 0) Pageable pageable) {
         Page<Animales> animales = animalesServicio.obtenerAnimalesPaginacion(pageable);
         if (animales.isEmpty()) {
-            return ResponseEntity.ok(Page.empty(pageable));
+            return ResponseEntity.ok(List.of());
         } else {
-            return ResponseEntity.ok(animales);
+            return ResponseEntity.ok(animales.getContent());
         }
     }
 
