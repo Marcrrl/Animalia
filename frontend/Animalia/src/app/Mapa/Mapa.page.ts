@@ -28,7 +28,6 @@ export class MapaPage {
   ) {}
 
   ionViewWillEnter() {
-    console.log('Cargando datos antes de inicializar el mapa...');
     this.cargarEmpresas();
   }
 
@@ -53,7 +52,6 @@ export class MapaPage {
           );
         }
       } else if (this.tipo == 'animales') {
-        console.log('Cargando animales');
         //falta meter el servicio de fotos
         /*data = await this.animalesService.getAnimales().toPromise();
         {
@@ -101,12 +99,10 @@ export class MapaPage {
 
   ionViewDidEnter() {
     if (this.datos.length === 0) {
-      console.log('no hay datos para mostrar');
       return;
     }
 
     if (!this.mapInitialized) {
-      console.log('Creando nuevo mapa...');
       this.map = L.map(this.mapContainerId).setView(
         [this.datos[0].latitud, this.datos[0].longitud],
          14
@@ -120,7 +116,6 @@ export class MapaPage {
 
       this.mapInitialized = true;
     } else {
-      console.log('Mapa ya inicializado, actualizando marcadores...');
       //this.map.setView([this.empresas[0].latitud, this.empresas[0].longitud], 13);
     }
 

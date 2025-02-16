@@ -33,7 +33,6 @@ export class CamaraPage implements OnInit {
     if (storedEmail) {
       this.emailUsuario = storedEmail;
       this.fotoForm.patchValue({ email_usuario: this.emailUsuario });
-      console.log('Email del usuario:', this.emailUsuario);
     }
   }
 
@@ -53,7 +52,6 @@ export class CamaraPage implements OnInit {
   }
 
   submitForm() {
-    console.log(this.fotoForm.invalid, this.fotoForm.value);
     if (this.fotoForm.valid &&/* this.file &&*/ this.emailUsuario) {
       const formData = new FormData();
       //formData.append('archivo', this.file, 'foto.jpg'); // Archivo

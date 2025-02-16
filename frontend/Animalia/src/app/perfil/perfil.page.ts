@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { UsuarioService } from '../services/usuario.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MenuController, IonButtons, IonContent, IonHeader, IonMenu, IonMenuButton, IonTitle, IonToolbar, IonTab } from '@ionic/angular';
 
 @Component({
@@ -62,13 +62,19 @@ export class PerfilPage implements OnInit {
       direccion: (document.querySelector('ion-input[label="Dirección"]') as HTMLInputElement).value,
       password: this.usuario?.password,
       url_foto_perfil: this.usuario?.url_foto_perfil,
-      tipo_usuario: this.usuario?.tipo_usuario,
+      tipoUsuario: this.usuario?.tipoUsuario,
       fecha_registro: this.usuario?.fecha_registro,
       cantidad_rescates: this.usuario?.cantidad_rescates
     };
+    
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
 
     this.http.put('http://localhost:9000/api/usuarios', JSON.stringify(datosUsuario), {
-      headers: { 'Content-Type': 'application/json' }
+      headers: headers
     }).subscribe(response => {
       this.camposActivos = false;
       this.usuarioOriginal = { ...this.usuario };
@@ -90,13 +96,24 @@ export class PerfilPage implements OnInit {
   subirImagen(event: any) {
     const file = event.target.files[0];
     if (file) {
-      this.usuarioService.subirImagenPerfil(file).subscribe(response => {
+      const token = sessionStorage.getItem('token');
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+
+      const formData = new FormData();
+      formData.append('file', file);
+
+      this.http.post<{ url_foto_perfil: string }>('http://localhost:9000/api/subir-imagen', formData, {
+        headers: headers,
+        observe: 'response'
+      }).subscribe(response => {
         if (response.status === 200 && response.body) {
           const url_foto_perfil = response.body.url_foto_perfil;
-          this.usuario.url_foto_perfil = url_foto_perfil.replace('/api/usuarios/imagen/', '');
+          this.usuario.url_foto_perfil = url_foto_perfil.replace('/api/imagen/', '');
           setTimeout(() => {
             this.cargarImagenPerfil(this.usuario.url_foto_perfil);
-          }, 500);
+          }, 100);
         } else {
           console.error('Error al subir la imagen:', response.statusText);
         }

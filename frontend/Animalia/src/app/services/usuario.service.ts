@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -20,14 +20,16 @@ export class UsuarioService {
   }
 
   getImagen(url_foto_perfil: string): Observable<Blob> {
-    const url = `${this.apiUrl}/imagen/${url_foto_perfil}`;
+    const url = `http://localhost:9000/api/imagen/${url_foto_perfil}`;
     return this.http.get(url, { responseType: 'blob' });
   }
 
-  subirImagenPerfil(file: File): Observable<any> {
+  subirImagenPerfil(file: File, headers: HttpHeaders): Observable<any> {
     const formData = new FormData();
-    formData.append('file', file);
-    return this.http.post(`${this.apiUrl}/subir-imagen`, formData, {
+    formData.append('imagen', file);
+
+    return this.http.post('http://localhost:9000/api/subir-imagen', formData, {
+      headers: headers,
       observe: 'response'
     });
   }

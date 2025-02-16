@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-gestion',
@@ -11,11 +11,26 @@ import { HttpClient } from '@angular/common/http';
 export class GestionPage implements OnInit {
   currentView: string = '';
   usuarios: any[] = [];
+  animales: any[] = [];
+  empresas: any[] = [];
+  rescates: any[] = [];
   loggedInUserId: number = Number(sessionStorage.getItem('id'));
   showForm: boolean = false;
   showUpdateForm: boolean = false;
+  showAnimalForm: boolean = false;
+  showUpdateAnimalForm: boolean = false;
+  showEmpresaForm: boolean = false;
+  showUpdateEmpresaForm: boolean = false;
+  showRescateForm: boolean = false;
+  showUpdateRescateForm: boolean = false;
   newUsuario: any = {};
   selectedUsuario: any = {};
+  newAnimal: any = {};
+  selectedAnimal: any = {};
+  newEmpresa: any = {};
+  selectedEmpresa: any = {};
+  newRescate: any = {};
+  selectedRescate: any = {};
   errorMessage: string = '';
 
   constructor(private router: Router, private http: HttpClient) { }
@@ -23,6 +38,9 @@ export class GestionPage implements OnInit {
   ngOnInit() {
     this.loggedInUserId = Number(sessionStorage.getItem('id'));
     this.getUsuarios();
+    this.getAnimales();
+    this.getEmpresas();
+    this.getRescates();
   }
 
   showList(view: string) {
@@ -53,17 +71,8 @@ export class GestionPage implements OnInit {
     this.showUpdateForm = false;
   }
 
-  // Métodos para gestionar cada tipo de entidad
-  getEmpresas() {
-    // Lógica para obtener la lista de empresas
-  }
-
-  getAnimales() {
-    // Lógica para obtener la lista de animales
-  }
-
   getUsuarios() {
-    this.http.get<any[]>('http://localhost:9000/api/usuarios/todos').subscribe(data => {
+    this.http.get<any[]>('http://localhost:9000/api/usuarios/todos-incluidos-eliminados').subscribe(data => {
       this.usuarios = data.filter(usuario => usuario.id !== this.loggedInUserId);
     }, error => {
       console.error('Error al obtener usuarios:', error);
@@ -71,7 +80,12 @@ export class GestionPage implements OnInit {
   }
 
   addUsuario() {
-    this.http.post('http://localhost:9000/auth/add', this.newUsuario).subscribe(() => {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.post('http://localhost:9000/auth/add', this.newUsuario, { headers }).subscribe(() => {
       this.getUsuarios();
       this.showForm = false;
       this.errorMessage = '';
@@ -86,6 +100,11 @@ export class GestionPage implements OnInit {
   }
 
   updateUsuario() {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
     const usuarioActualizado = {
       id: this.selectedUsuario.id,
       nombre: this.selectedUsuario.nombre,
@@ -95,12 +114,12 @@ export class GestionPage implements OnInit {
       telefono: this.selectedUsuario.telefono,
       direccion: this.selectedUsuario.direccion,
       url_foto_perfil: this.selectedUsuario.url_foto_perfil,
-      tipo_usuario: this.selectedUsuario.tipo_usuario,
+      tipoUsuario: this.selectedUsuario.tipoUsuario,
       fecha_registro: this.selectedUsuario.fecha_registro,
       cantidad_rescates: this.selectedUsuario.cantidad_rescates
     };
 
-    this.http.put(`http://localhost:9000/api/usuarios`, usuarioActualizado).subscribe(() => {
+    this.http.put(`http://localhost:9000/api/usuarios/todos`, usuarioActualizado, { headers }).subscribe(() => {
       this.getUsuarios();
       this.showUpdateForm = false;
       this.errorMessage = '';
@@ -115,14 +134,317 @@ export class GestionPage implements OnInit {
   }
 
   deleteUsuario(id: number) {
-    this.http.delete(`http://localhost:9000/api/usuarios/${id}`).subscribe(() => {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.delete(`http://localhost:9000/api/usuarios/${id}`, { headers }).subscribe(() => {
       this.getUsuarios();
     }, error => {
       console.error('Error al eliminar usuario:', error);
     });
   }
 
+  toggleUsuarioStatus(usuario: any) {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    const updatedUsuario = { ...usuario, deleted: !usuario.deleted };
+
+    this.http.put(`http://localhost:9000/api/usuarios`, updatedUsuario, { headers }).subscribe(() => {
+      this.getUsuarios();
+    }, error => {
+      console.error('Error al cambiar el estado del usuario:', error);
+    });
+  }
+
   getRescates() {
-    // Lógica para obtener la lista de rescates
+    this.http.get<any[]>('http://localhost:9000/api/rescates/detalle').subscribe(data => {
+      this.rescates = data.map(rescate => ({
+        id: rescate.id,
+        nombreEmpresa: rescate.nombreEmpresa,
+        nombreUsuario: rescate.nombreUsuario,
+        nombreAnimal: rescate.nombreAnimal,
+        ubicacion: rescate.ubicacion,
+        estadoRescate: rescate.estadoRescate,
+        estadoAnimal: rescate.estadoAnimal,
+        fechaRescate: rescate.fechaRescate
+      }));
+    }, error => {
+      console.error('Error al obtener rescates:', error);
+    });
+  }
+
+  displayUpdateRescateForm(rescate: any) {
+    this.showUpdateRescateForm = true;
+    this.selectedRescate = { ...rescate };
+  }
+
+  cancelUpdateRescate() {
+    this.showUpdateRescateForm = false;
+  }
+
+  updateRescate() {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    const params = {
+      empresaId: this.selectedRescate.empresaId,
+      usuarioId: this.selectedRescate.usuarioId,
+      animalId: this.selectedRescate.animalId
+    };
+
+    const rescateActualizado = {
+      id: this.selectedRescate.id,
+      nombreEmpresa: this.selectedRescate.nombreEmpresa,
+      nombreUsuario: this.selectedRescate.nombreUsuario,
+      nombreAnimal: this.selectedRescate.nombreAnimal,
+      ubicacion: this.selectedRescate.ubicacion,
+      estadoRescate: this.selectedRescate.estadoRescate,
+      estadoAnimal: this.selectedRescate.estadoAnimal,
+      fechaRescate: this.selectedRescate.fechaRescate
+    };
+
+    this.http.put(`http://localhost:9000/api/rescates/${rescateActualizado.id}`, rescateActualizado, { headers, params }).subscribe(() => {
+      this.getRescates();
+      this.showUpdateRescateForm = false;
+      this.errorMessage = '';
+    }, error => {
+      console.error('Error al actualizar rescate:', error);
+      this.errorMessage = 'Error al actualizar rescate. Por favor, inténtelo de nuevo.';
+    });
+  }
+
+  getEmpresas() {
+    this.http.get<any[]>('http://localhost:9000/api/empresas/todos-incluidas-eliminadas').subscribe(data => {
+      this.empresas = data;
+    }, error => {
+      console.error('Error al obtener empresas:', error);
+    });
+  }
+
+  showAddEmpresaForm() {
+    this.showEmpresaForm = true;
+    this.showUpdateEmpresaForm = false;
+    this.newEmpresa = {};
+  }
+
+  displayUpdateEmpresaForm(empresa: any) {
+    this.showUpdateEmpresaForm = true;
+    this.showEmpresaForm = false;
+    this.selectedEmpresa = { ...empresa };
+  }
+
+  cancelAddEmpresa() {
+    this.showEmpresaForm = false;
+  }
+
+  cancelUpdateEmpresa() {
+    this.showUpdateEmpresaForm = false;
+  }
+
+  addEmpresa() {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    const nuevaEmpresa = {
+      nombre: this.newEmpresa.nombre,
+      direccion: this.newEmpresa.direccion,
+      telefono: this.newEmpresa.telefono,
+      email: this.newEmpresa.email,
+      tipo: this.newEmpresa.tipo,
+      url_web: this.newEmpresa.url_web,
+      fecha_creacion: new Date().toISOString().split('T')[0],
+      usuarios: []
+    };
+
+    this.http.post('http://localhost:9000/api/empresas', nuevaEmpresa, { headers }).subscribe(() => {
+      this.getEmpresas();
+      this.showEmpresaForm = false;
+      this.errorMessage = '';
+    }, error => {
+      console.error('Error al añadir empresa:', error);
+      this.errorMessage = 'Error al añadir empresa. Por favor, inténtelo de nuevo.';
+    });
+  }
+
+  updateEmpresa() {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    const empresaActualizada = {
+      id: this.selectedEmpresa.id,
+      nombre: this.selectedEmpresa.nombre,
+      direccion: this.selectedEmpresa.direccion,
+      telefono: this.selectedEmpresa.telefono,
+      email: this.selectedEmpresa.email,
+      tipo: this.selectedEmpresa.tipo,
+      url_web: this.selectedEmpresa.url_web,
+      fecha_creacion: this.selectedEmpresa.fecha_creacion,
+      usuarios: this.selectedEmpresa.usuarios
+    };
+
+    this.http.put(`http://localhost:9000/api/empresas`, empresaActualizada, { headers }).subscribe(() => {
+      this.getEmpresas();
+      this.showUpdateEmpresaForm = false;
+      this.errorMessage = '';
+    }, error => {
+      console.error('Error al actualizar empresa:', error);
+      this.errorMessage = 'Error al actualizar empresa. Por favor, inténtelo de nuevo.';
+    });
+  }
+
+  deleteEmpresa(id: number) {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.delete(`http://localhost:9000/api/empresas/${id}`, { headers }).subscribe(() => {
+      this.getEmpresas();
+    }, error => {
+      console.error('Error al eliminar empresa:', error);
+    });
+  }
+
+  toggleEmpresaStatus(empresa: any) {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    const updatedEmpresa = { ...empresa, deleted: !empresa.deleted };
+
+    this.http.put(`http://localhost:9000/api/empresas`, updatedEmpresa, { headers }).subscribe(() => {
+      this.getEmpresas();
+    }, error => {
+      console.error('Error al cambiar el estado de la empresa:', error);
+    });
+  }
+
+  getAnimales() {
+    this.http.get<any[]>('http://localhost:9000/api/animales/todos-incluidos-eliminados').subscribe(data => {
+      this.animales = data;
+    }, error => {
+      console.error('Error al obtener animales:', error);
+    });
+  }
+
+  showAddAnimalForm() {
+    this.showAnimalForm = true;
+    this.showUpdateAnimalForm = false;
+    this.newAnimal = {};
+  }
+
+  displayUpdateAnimalForm(animal: any) {
+    this.showUpdateAnimalForm = true;
+    this.showAnimalForm = false;
+    this.selectedAnimal = { ...animal };
+  }
+
+  cancelAddAnimal() {
+    this.showAnimalForm = false;
+  }
+
+  cancelUpdateAnimal() {
+    this.showUpdateAnimalForm = false;
+  }
+
+  addAnimal() {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    const nuevoAnimal = {
+      nombre_comun: this.newAnimal.nombre_comun,
+      especie: this.newAnimal.especie,
+      descripcion: this.newAnimal.descripcion,
+      familia: this.newAnimal.familia.toUpperCase(),
+      estado_conservacion: this.newAnimal.estado_conservacion
+    };
+
+    this.http.post('http://localhost:9000/api/animales', nuevoAnimal, { headers }).subscribe(() => {
+      this.getAnimales();
+      this.showAnimalForm = false;
+      this.errorMessage = '';
+    }, error => {
+      console.error('Error al añadir animal:', error);
+      this.errorMessage = 'Error al añadir animal. Por favor, inténtelo de nuevo.';
+    });
+  }
+
+  updateAnimal() {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    const animalActualizado = {
+      id: this.selectedAnimal.id,
+      nombre_comun: this.selectedAnimal.nombre_comun,
+      especie: this.selectedAnimal.especie,
+      descripcion: this.selectedAnimal.descripcion,
+      familia: this.selectedAnimal.familia,
+      estado_conservacion: this.selectedAnimal.estado_conservacion
+    };
+
+    this.http.put(`http://localhost:9000/api/animales`, animalActualizado, { headers }).subscribe(() => {
+      this.getAnimales();
+      this.showUpdateAnimalForm = false;
+      this.errorMessage = '';
+    }, error => {
+      console.error('Error al actualizar animal:', error);
+      this.errorMessage = 'Error al actualizar animal. Por favor, inténtelo de nuevo.';
+    });
+  }
+
+  deleteAnimal(id: number) {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.delete(`http://localhost:9000/api/animales/${id}`, { headers }).subscribe(() => {
+      this.getAnimales();
+    }, error => {
+      console.error('Error al eliminar animal:', error);
+    });
+  }
+
+  toggleAnimalStatus(animal: any) {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    const updatedAnimal = { ...animal, deleted: !animal.deleted };
+
+    this.http.put(`http://localhost:9000/api/animales`, updatedAnimal, { headers }).subscribe(() => {
+      this.getAnimales();
+    }, error => {
+      console.error('Error al cambiar el estado del animal:', error);
+    });
+  }
+
+  uploadImage(event: any) {
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append('imagen', file);
+
+    this.http.post<{ url: string }>('http://localhost:9000/api/subir-imagen', formData).subscribe(response => {
+      this.newAnimal.foto = response.url;
+    }, error => {
+      console.error('Error al subir imagen:', error);
+    });
   }
 }
