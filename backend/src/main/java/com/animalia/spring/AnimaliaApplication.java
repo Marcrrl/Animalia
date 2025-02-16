@@ -168,15 +168,15 @@ public class AnimaliaApplication {
 
                                 Fotos f1 = new Fotos(null, "perro.jpg", r1, u3, new Point(0, 0),
                                                 "Perro en la calle", LocalDate.now());
-                                Fotos f2 = new Fotos(null, "gato.jpg", r2, u1, new Point(0, 0),
+                                Fotos f2 = new Fotos(null, "gato.jpg", r2, u2, new Point(0, 0),
                                                 "Gato en la calle", LocalDate.now());
                                 Fotos f3 = new Fotos(null, "caballo.jpg", r3, u2, new Point(0, 0),
                                                 "Caballo en la calle", LocalDate.now());
-                                Fotos f4 = new Fotos(null, "leon1.jpg", r4, u4, new Point(0, 0),
+                                Fotos f4 = new Fotos(null, "leon1.jpg", r4, u2, new Point(0, 0),
                                                 "León en la calle", LocalDate.now());
-                                Fotos f5 = new Fotos(null, "panda.jpg", r5, u5, new Point(0, 0),
+                                Fotos f5 = new Fotos(null, "panda.jpg", r5, u2, new Point(0, 0),
                                                 "Panda en la calle", LocalDate.now());
-                                Fotos f6 = new Fotos(null, "leon.jpg", r6, u6, new Point(0, 0),
+                                Fotos f6 = new Fotos(null, "leon.jpg", r6, u2, new Point(0, 0),
                                                 "Perro en la calle", LocalDate.now());
 
                                 // Guardar fotos

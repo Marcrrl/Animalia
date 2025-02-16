@@ -23,6 +23,6 @@ export class AnimalesService {
   }
 
   obtenerImagenUrl(nombreImagen: string): string {
-    return `${this.apiUrl}/imagen/${nombreImagen}`;
+    return `http://localhost:9000/api/imagen/${nombreImagen}`;
   }
 }
