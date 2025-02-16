@@ -25,10 +25,14 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "usuarios")
@@ -82,7 +86,7 @@ public class Usuarios implements UserDetails {
     private Empresas empresa;
 
     @Column(nullable = false)
-    private boolean deleted = false; // Add this line
+    private boolean deleted = false;
 
     public enum TipoUsuario {
         ADMIN, USER, EMPRESA
@@ -120,12 +124,10 @@ public class Usuarios implements UserDetails {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         Usuarios usuarios = (Usuarios) o;
-        return Objects.equals(id, usuarios.id);
+        return id.equals(usuarios.id);
     }
 
     @Override

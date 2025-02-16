@@ -14,6 +14,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Objects;
+
 @Entity
 @Data
 @Getter
@@ -43,6 +45,7 @@ public class Animales {
     @Enumerated(EnumType.STRING)
     private EstadoConservacion estado_conservacion;
 
+    
     public enum EstadoConservacion {
         EXTINTO,  BAJO_RIESGO, PELIGRO_EXTINCION, SIN_RIESGO
     }
@@ -54,7 +57,21 @@ public class Animales {
     public enum Familia {
         MAMIFERO, REPTIL, ANFIBIO, AVES, PECES
     }
-
+    
     @Column(nullable = false)
     private boolean deleted = false;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Animales animales = (Animales) o;
+        return id.equals(animales.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+    
 }

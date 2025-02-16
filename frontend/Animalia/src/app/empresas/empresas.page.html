@@ -126,7 +126,7 @@
 
 
   <ion-list id="lista" *ngIf="empresas.length > 0">
-    <ion-item *ngFor="let empresa of results; let i=index" button details="false" (click)="haciaDatosEmpresa(empresa.id)"
+    <ion-item *ngFor="let empresa of paginaActual; let i=index" button details="false" (click)="haciaDatosEmpresa(empresa.id)"
       class="w-100 h-75  mt-3">
 
       <ion-label class="m-0">
@@ -137,3 +137,20 @@
     </ion-item>
   </ion-list>
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="prevPage()" [disabled]="currentPage === 0"
+        >Anterior</ion-button
+      >
+    </ion-buttons>
+    <ion-title class="ion-text-center"
+      >Página {{ currentPagehtml }} de {{ totalPages }}</ion-title
+    >
+    <ion-buttons slot="end">
+      <ion-button (click)="nextPage()" [disabled]="currentPage+1 >= totalPages"
+        >Siguiente</ion-button
+      >
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

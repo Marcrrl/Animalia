@@ -1,6 +1,7 @@
 package com.animalia.spring.entidades;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 import org.springframework.data.geo.Point;
 
@@ -63,4 +64,17 @@ public class Fotos {
      * o tambien puede ser que el usuario se enceuntre en algun sitio remoto
      * donde no se pueda obtener la ubicacion exacta de donde se tomo la foto
      */
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Fotos fotos = (Fotos) o;
+        return id.equals(fotos.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

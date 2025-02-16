@@ -19,10 +19,14 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "empresas")
@@ -59,7 +63,7 @@ public class Empresas {
     private LocalDate fecha_creacion;
 
     @Column(nullable = false)
-    private boolean deleted = false; // Add this line
+    private boolean deleted = false;
 
     @OneToMany(mappedBy = "empresa")
     @JsonManagedReference
@@ -74,7 +78,7 @@ public class Empresas {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Empresas empresas = (Empresas) o;
-        return Objects.equals(id, empresas.id);
+        return id.equals(empresas.id);
     }
 
     @Override

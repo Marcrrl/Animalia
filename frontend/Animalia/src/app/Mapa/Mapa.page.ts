@@ -37,7 +37,7 @@ export class MapaPage {
     let data: any[] = [];
     try {
       if (this.tipo == 'empresas') {
-        data = await this.empresaService.getEmpresas().toPromise();
+        data = await this.empresaService.getTotalEmpresas().toPromise();
         {
           this.datos = await Promise.all(
             data.map(async (dato: any) => {

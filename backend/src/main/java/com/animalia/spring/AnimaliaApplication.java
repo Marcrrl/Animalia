@@ -37,7 +37,8 @@ public class AnimaliaApplication {
                         FotosRepositorio fotosRepositorio, PasswordEncoder passwordEncoder) {
                 return (args) -> {
                         if (animalesRepositorio.count() == 0 && usuariosRepositorio.count() == 0
-                                        && empresasRepositorio.count() == 0 && rescatesRepositorio.count() == 0) {
+                                        && empresasRepositorio.count() == 0 && rescatesRepositorio.count() == 0
+                                        && fotosRepositorio.count() == 0) {
                                 Animales a1 = new Animales(null, "Canis lupus familiaris", "Perro",
                                                 "Animal domesticado y compañero del ser humano",
                                                 "perro.jpg",
@@ -46,19 +47,19 @@ public class AnimaliaApplication {
                                                 "Animal doméstico, conocido por su agilidad",
                                                 "gato.jpg",
                                                 EstadoConservacion.SIN_RIESGO,
-                                                Animales.Familia.MAMIFERO, false);
+                                                Animales.Familia.ANFIBIO, false);
                                 Animales a3 = new Animales(null, "Equus ferus caballus", "Caballo",
                                                 "Animal de granja atrapado en una terraza",
                                                 "caballo.webp", EstadoConservacion.EXTINTO,
-                                                Familia.MAMIFERO, false);
+                                                Familia.AVES, false);
                                 Animales a4 = new Animales(null, "Panthera leo", "León",
                                                 "Gran felino conocido como el rey de la selva",
                                                 "leon.jpg",
-                                                EstadoConservacion.EXTINTO, Animales.Familia.MAMIFERO, false);
+                                                EstadoConservacion.EXTINTO, Animales.Familia.PECES, false);
                                 Animales a5 = new Animales(null, "Ailuropoda melanoleuca", "Panda",
                                                 "Oso de China, famoso por su color blanco y negro",
                                                 "panda.jpg", EstadoConservacion.PELIGRO_EXTINCION,
-                                                Familia.MAMIFERO, false);
+                                                Familia.REPTIL, false);
                                 List<Animales> animales = Arrays.asList(a1, a2, a3, a4, a5);
                                 animales.forEach(animal -> {
                                         animalesRepositorio.save(animal);
@@ -108,27 +109,33 @@ public class AnimaliaApplication {
 
                                 Usuarios u2 = new Usuarios(null, "Ana", "García", "ana.garcia@example.com",
                                                 passwordEncoder.encode("123"), "987654321", "Avenida Siempre Viva 456",
-                                                "iconoBase.png", Usuarios.TipoUsuario.ADMIN, LocalDate.now(), 10, null, false);
+                                                "iconoBase.png", Usuarios.TipoUsuario.ADMIN, LocalDate.now(), 10, null,
+                                                false);
 
                                 Usuarios u3 = new Usuarios(null, "Carlos", "Hernández", "carlos.hernandez@example.com",
                                                 passwordEncoder.encode("123"), "1122334455", "Calle Luna 789",
-                                                "iconoBase.png", Usuarios.TipoUsuario.EMPRESA, LocalDate.now(), 5, e5, false);
+                                                "iconoBase.png", Usuarios.TipoUsuario.EMPRESA, LocalDate.now(), 5, e5,
+                                                false);
 
                                 Usuarios u4 = new Usuarios(null, "Lucía", "Martínez", "lucia.martinez@example.com",
                                                 passwordEncoder.encode("123"), "5566778899", "Avenida Sol 321",
-                                                "iconoBase.png", Usuarios.TipoUsuario.USER, LocalDate.now(), 8, null, false);
+                                                "iconoBase.png", Usuarios.TipoUsuario.USER, LocalDate.now(), 8, null,
+                                                false);
 
                                 Usuarios u5 = new Usuarios(null, "Pedro", "Gómez", "pedro.gomez@example.com",
                                                 passwordEncoder.encode("123"), "9988776655", "Calle Estrella 654",
-                                                "iconoBase.png", Usuarios.TipoUsuario.ADMIN, LocalDate.now(), 15, null, false);
+                                                "iconoBase.png", Usuarios.TipoUsuario.ADMIN, LocalDate.now(), 15, null,
+                                                false);
 
                                 Usuarios u6 = new Usuarios(null, "Usuario", "6", "u6@example.com",
                                                 passwordEncoder.encode("123"), "telefono6", "Calle Estrella 654",
-                                                "iconoBase.png", Usuarios.TipoUsuario.ADMIN, LocalDate.now(), 15, null, false);
+                                                "iconoBase.png", Usuarios.TipoUsuario.ADMIN, LocalDate.now(), 15, null,
+                                                false);
 
                                 Usuarios u7 = new Usuarios(null, "Usuario", "7", "u7@example.com",
                                                 passwordEncoder.encode("123"), "telefono7", "Calle Estrella 654",
-                                                "iconoBase.png", Usuarios.TipoUsuario.ADMIN, LocalDate.now(), 15, null, false);
+                                                "iconoBase.png", Usuarios.TipoUsuario.ADMIN, LocalDate.now(), 15, null,
+                                                false);
                                 // Lista de usuarios
                                 List<Usuarios> usuarios = Arrays.asList(u1, u2, u3, u4, u5, u6, u7);
 

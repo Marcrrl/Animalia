@@ -2,6 +2,7 @@ package com.animalia.spring.entidades;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -18,10 +19,14 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "rescates")
@@ -33,7 +38,7 @@ public class Rescates {
 
     @ManyToOne
     @JsonManagedReference
-    @JoinColumn(name = "id_empresa", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "id_empresa", referencedColumnName = "id", nullable = true)
     private Empresas empresa;
 
     @ManyToOne
@@ -74,4 +79,28 @@ public class Rescates {
     @JsonManagedReference
     private List<Fotos> fotos;
 
+    // public Rescates(Long id, Empresas empresa, Usuarios usuario, Animales animal, String ubicacion, Estado estado_rescate, EstadoAnimal estado_animal, LocalDate fecha_rescate, List<Fotos> fotos) {
+    //     this.id = id;
+    //     this.empresa = empresa;
+    //     this.usuario = usuario;
+    //     this.animal = animal;
+    //     this.ubicacion = ubicacion;
+    //     this.estado_rescate = estado_rescate;
+    //     this.estado_animal = estado_animal;
+    //     this.fecha_rescate = fecha_rescate;
+    //     this.fotos = fotos;
+    // }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Rescates rescates = (Rescates) o;
+        return id.equals(rescates.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
