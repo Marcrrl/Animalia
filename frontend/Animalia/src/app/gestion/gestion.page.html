@@ -295,20 +295,32 @@
     <div *ngIf="showUpdateRescateForm">
       <form (submit)="updateRescate()">
         <ion-item>
-          <ion-label position="floating">Nombre</ion-label>
-          <ion-input [(ngModel)]="selectedRescate.nombre" name="nombre" required></ion-input>
+          <ion-label position="floating">Nombre Empresa</ion-label>
+          <ion-input [(ngModel)]="selectedRescate.nombreEmpresa" name="nombreEmpresa" required></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Descripción</ion-label>
-          <ion-input [(ngModel)]="selectedRescate.descripcion" name="descripcion" required></ion-input>
+          <ion-label position="floating">Nombre Usuario</ion-label>
+          <ion-input [(ngModel)]="selectedRescate.nombreUsuario" name="nombreUsuario" required></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Fecha</ion-label>
-          <ion-input [(ngModel)]="selectedRescate.fecha" name="fecha" type="date" required></ion-input>
+          <ion-label position="floating">Nombre Animal</ion-label>
+          <ion-input [(ngModel)]="selectedRescate.nombreAnimal" name="nombreAnimal" required></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Lugar</ion-label>
-          <ion-input [(ngModel)]="selectedRescate.lugar" name="lugar" required></ion-input>
+          <ion-label position="floating">Ubicación</ion-label>
+          <ion-input [(ngModel)]="selectedRescate.ubicacion" name="ubicacion" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Estado Rescate</ion-label>
+          <ion-input [(ngModel)]="selectedRescate.estadoRescate" name="estadoRescate" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Estado Animal</ion-label>
+          <ion-input [(ngModel)]="selectedRescate.estadoAnimal" name="estadoAnimal" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Fecha Rescate</ion-label>
+          <ion-input [(ngModel)]="selectedRescate.fechaRescate" name="fechaRescate" type="date" required></ion-input>
         </ion-item>
         <ion-button type="submit">Guardar</ion-button>
         <ion-button color="danger" (click)="cancelUpdateRescate()">Cancelar</ion-button>
@@ -316,7 +328,15 @@
     </div>
     <ion-list>
       <ion-item *ngFor="let rescate of rescates">
-        <ion-label>{{ rescate.nombre }} - {{ rescate.descripcion }} - {{ rescate.fecha }} - {{ rescate.lugar }}</ion-label>
+        <ion-label>
+          <div><strong>Nombre Empresa:</strong> {{ rescate.nombreEmpresa }}</div>
+          <div><strong>Nombre Usuario:</strong> {{ rescate.nombreUsuario }}</div>
+          <div><strong>Nombre Animal:</strong> {{ rescate.nombreAnimal }}</div>
+          <div><strong>Ubicación:</strong> {{ rescate.ubicacion }}</div>
+          <div><strong>Estado Rescate:</strong> {{ rescate.estadoRescate }}</div>
+          <div><strong>Estado Animal:</strong> {{ rescate.estadoAnimal }}</div>
+          <div><strong>Fecha Rescate:</strong> {{ rescate.fechaRescate }}</div>
+        </ion-label>
         <ion-button (click)="displayUpdateRescateForm(rescate)">Modificar</ion-button>
       </ion-item>
     </ion-list>
