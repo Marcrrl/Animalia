@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -23,6 +23,6 @@ export class AnimalesService {
   }
 
   obtenerImagenUrl(nombreImagen: string): string {
-    return `http://localhost:9000/api/imagen/${nombreImagen}`;
+    return `${this.apiUrl}/imagen/${nombreImagen}`;
   }
 }

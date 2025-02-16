@@ -1,17 +1,22 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmpresasService {
-  private apiUrl = 'http://localhost:9000/api/empresas/todos';
+  private apiUrl = 'http://localhost:9000/api/empresas';
 
   constructor(private http: HttpClient) { }
 
-  getEmpresas(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}`);
+
+  getEmpresas(page: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}?page=${page}`);
+  }
+  // Obtener todos los animales para calcular el total de páginas
+  getTotalEmpresas() {
+    return this.http.get<any>(`${this.apiUrl}/todos`);
   }
 
   getById(id: number): Observable<any> {
