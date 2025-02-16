@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { Geolocation } from '@capacitor/geolocation';
 
 @Component({
   selector: 'app-Camara',
@@ -14,6 +15,8 @@ export class CamaraPage implements OnInit {
   fotoForm: FormGroup;
   emailUsuario: string | null = null;
   file: File | null = null;
+
+
   constructor(
     private fb: FormBuilder, private http: HttpClient
   ) {
@@ -35,6 +38,42 @@ export class CamaraPage implements OnInit {
       this.fotoForm.patchValue({ email_usuario: this.emailUsuario });
     }
   }
+
+  async obtenerUbicacionPoint() {
+  try {
+    let latitude: number;
+    let longitude: number;
+
+    if ('geolocation' in navigator) {
+      // Usar navigator.geolocation con Promises
+      const position = await new Promise<GeolocationPosition>((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+      });
+
+      latitude = position.coords.latitude;
+      longitude = position.coords.longitude;
+    } else {
+      // Usar Capacitor Geolocation
+      const coordinates = await Geolocation.getCurrentPosition();
+      latitude = coordinates.coords.latitude;
+      longitude = coordinates.coords.longitude;
+    }
+
+    // Crear el Point en formato GeoJSON
+    const point = {
+      type: 'Point',
+      coordinates: [longitude, latitude], // GeoJSON usa [longitud, latitud]
+    };
+
+    console.log('Ubicación obtenida:', point);
+
+    return point; // Puedes devolverlo para usarlo en tu API
+  } catch (error) {
+    console.error('Error obteniendo ubicación', error);
+    return null;
+  }
+}
+
 
   // Método para tomar una foto
   async takePicture() {
@@ -65,6 +104,7 @@ export class CamaraPage implements OnInit {
     const formData = new FormData();
 
     if (this.file) {
+      console.log('Subiendo archivo:', this.file);
       formData.append('file', this.file);
     }
 
@@ -85,12 +125,16 @@ export class CamaraPage implements OnInit {
   async convertToFile(webPath: string): Promise<File> {
     const response = await fetch(webPath);
     const blob = await response.blob();
-    const file = new File([blob], `photo_${Date.now()}.jpeg`, { type: blob.type });
+    const file = new File([blob], `photo_${Date.now()}.jpg`, { type: blob.type });
     return file;
   }
 
 
   submitForm() {
+    const fechaActual = new Date();
+    const fechaLegible = fechaActual.toLocaleDateString('es-ES');
+    console.log(fechaLegible);
+
     if (this.fotoForm.valid &&/* this.file &&*/ this.emailUsuario) {
       const formData = new FormData();
       //formData.append('archivo', this.file, 'foto.jpg'); // Archivo
