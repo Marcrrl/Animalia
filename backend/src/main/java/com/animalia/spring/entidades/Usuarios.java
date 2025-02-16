@@ -23,13 +23,12 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@AllArgsConstructor
+//@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "usuarios")
 public class Usuarios implements UserDetails {
@@ -86,6 +85,22 @@ public class Usuarios implements UserDetails {
 
     public enum TipoUsuario {
         ADMIN, USER, EMPRESA
+    }
+
+    public Usuarios(Long id, String nombre, String apellido, String email, String password, String telefono, String direccion, String url_foto_perfil, TipoUsuario tipoUsuario, LocalDate fecha_registro, long cantidad_rescates, Empresas empresa, boolean deleted) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.email = email;
+        this.password = password;
+        this.telefono = telefono;
+        this.direccion = direccion;
+        this.url_foto_perfil = url_foto_perfil;
+        this.tipoUsuario = tipoUsuario;
+        this.fecha_registro = fecha_registro;
+        this.cantidad_rescates = cantidad_rescates;
+        this.empresa = empresa;
+        this.deleted = deleted;
     }
 
     @Override

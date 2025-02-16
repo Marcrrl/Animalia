@@ -16,14 +16,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 @Table(name = "rescates")
 public class Rescates {
 
@@ -74,4 +73,15 @@ public class Rescates {
     @JsonManagedReference
     private List<Fotos> fotos;
 
+    public Rescates(Long id, Empresas empresa, Usuarios usuario, Animales animal, String ubicacion, Estado estado_rescate, EstadoAnimal estado_animal, LocalDate fecha_rescate, List<Fotos> fotos) {
+        this.id = id;
+        this.empresa = empresa;
+        this.usuario = usuario;
+        this.animal = animal;
+        this.ubicacion = ubicacion;
+        this.estado_rescate = estado_rescate;
+        this.estado_animal = estado_animal;
+        this.fecha_rescate = fecha_rescate;
+        this.fotos = fotos;
+    }
 }

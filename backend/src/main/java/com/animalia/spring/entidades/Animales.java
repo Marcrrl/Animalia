@@ -8,7 +8,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +17,7 @@ import lombok.Setter;
 @Data
 @Getter
 @Setter
-@AllArgsConstructor
+// @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "animales")
 public class Animales {
@@ -57,4 +56,15 @@ public class Animales {
 
     @Column(nullable = false)
     private boolean deleted = false;
+
+    public Animales(Long id, String especie, String nombre_comun, String descripcion, String foto, EstadoConservacion estado_conservacion, Familia familia, boolean deleted) {
+        this.id = id;
+        this.especie = especie;
+        this.nombre_comun = nombre_comun;
+        this.descripcion = descripcion;
+        this.foto = foto;
+        this.estado_conservacion = estado_conservacion;
+        this.familia = familia;
+        this.deleted = deleted;
+    }
 }

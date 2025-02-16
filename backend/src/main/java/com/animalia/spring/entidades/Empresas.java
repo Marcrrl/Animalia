@@ -17,13 +17,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@AllArgsConstructor
+//@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "empresas")
 public class Empresas {
@@ -67,6 +66,19 @@ public class Empresas {
 
     public enum TipoEmpresa {
         CLINICA, REFUGIO, HOSPITAL, PROTECTORA, RESERVA, ACUARIO, OTRO
+    }
+
+    public Empresas(Long id, String nombre, String direccion, String telefono, String email, TipoEmpresa tipo, String url_web, LocalDate fecha_creacion, boolean deleted, Set<Usuarios> usuarios) {
+        this.id = id;
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.email = email;
+        this.tipo = tipo;
+        this.url_web = url_web;
+        this.fecha_creacion = fecha_creacion;
+        this.deleted = deleted;
+        this.usuarios = usuarios;
     }
 
     @Override
