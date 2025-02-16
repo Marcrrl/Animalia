@@ -28,9 +28,9 @@ public class RescateDtoConverter {
         rescate.setUsuario(rescateDTO.getUsuario());
         rescate.setAnimal(rescateDTO.getAnimal());
         rescate.setUbicacion(rescateDTO.getUbicacion());
-        rescate.setEstado_rescate(rescateDTO.getEstado_rescate());
-        rescate.setEstado_animal(rescateDTO.getEstado_animal());
-        rescate.setFecha_rescate(rescateDTO.getFecha_rescate());
+        rescate.setEstado_rescate(rescateDTO.getEstadoRescate());
+        rescate.setEstado_animal(rescateDTO.getEstadoAnimal());
+        rescate.setFecha_rescate(rescateDTO.getFechaRescate());
         return rescate;
     }
 }
