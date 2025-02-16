@@ -15,6 +15,9 @@
     </ion-item>
     <img *ngIf="foto" [src]="foto" class="preview-image" />
 
+    <ion-button *ngIf="file" expand="full" (click)="subirImagen()">Subir Foto</ion-button>
+
+
     <!-- Ubicación -->
     <ion-item>
       <ion-label position="stacked">Ubicación</ion-label>
