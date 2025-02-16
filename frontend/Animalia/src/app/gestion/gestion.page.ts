@@ -162,8 +162,17 @@ export class GestionPage implements OnInit {
   }
 
   getRescates() {
-    this.http.get<any[]>('http://localhost:9000/api/rescates/todos').subscribe(data => {
-      this.rescates = data;
+    this.http.get<any[]>('http://localhost:9000/api/rescates/detalle').subscribe(data => {
+      this.rescates = data.map(rescate => ({
+        id: rescate.id,
+        nombreEmpresa: rescate.nombreEmpresa,
+        nombreUsuario: rescate.nombreUsuario,
+        nombreAnimal: rescate.nombreAnimal,
+        ubicacion: rescate.ubicacion,
+        estadoRescate: rescate.estadoRescate,
+        estadoAnimal: rescate.estadoAnimal,
+        fechaRescate: rescate.fechaRescate
+      }));
     }, error => {
       console.error('Error al obtener rescates:', error);
     });
