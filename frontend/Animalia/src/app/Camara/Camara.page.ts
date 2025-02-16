@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { Geolocation } from '@capacitor/geolocation';
+import { AnimalesService } from '../services/animales.service';
+import { FotosService } from '../services/fotos.service';
 
 @Component({
   selector: 'app-Camara',
@@ -15,21 +17,37 @@ export class CamaraPage implements OnInit {
   fotoForm: FormGroup;
   emailUsuario: string | null = null;
   file: File | null = null;
-
+  nombreFoto: string = '';
+  public animales: any[] = [];
+  results: any[] = [];
+  animalSeleccionado: any = null;
 
   constructor(
-    private fb: FormBuilder, private http: HttpClient
+    private fb: FormBuilder, private http: HttpClient, private animalesService: AnimalesService, private fotosService: FotosService
   ) {
+    // Inicializar el formulario
     this.fotoForm = this.fb.group({
-      ubicacion: ['', Validators.required],
+      url_foto: ['', Validators.required],
+      rescateId: ['', Validators.required],
+      usuarioId: ['', Validators.required],
+      ubicacion: [
+        {
+          type: 'Point',
+          coordinates: [0, 0], // Coordenadas por defecto (longitud, latitud)
+        },
+        Validators.required
+      ],
       descripcion: ['', Validators.required],
-      fecha_captura: ['', Validators.required],
-      emailUsuario: ['', Validators.required],
+      fecha_captura: ['', Validators.required]
     });
   }
 
   ngOnInit() {
-
+    this.nombreFoto = '';
+    this.animalesService.getTotalAnimales().subscribe((animales) => {
+      this.animales = animales; // Guardar todos los animales en la lista principal
+      this.results = [...this.animales];
+    });
 
     // Obtener el email del usuario desde localStorage
     const storedEmail = localStorage.getItem('email');
@@ -40,39 +58,44 @@ export class CamaraPage implements OnInit {
   }
 
   async obtenerUbicacionPoint() {
-  try {
-    let latitude: number;
-    let longitude: number;
+    try {
+      let latitude: number;
+      let longitude: number;
 
-    if ('geolocation' in navigator) {
-      // Usar navigator.geolocation con Promises
-      const position = await new Promise<GeolocationPosition>((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(resolve, reject);
+      if ('geolocation' in navigator) {
+        // Usar navigator.geolocation con Promises
+        const position = await new Promise<GeolocationPosition>((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject);
+        });
+
+        latitude = position.coords.latitude;
+        longitude = position.coords.longitude;
+      } else {
+        // Usar Capacitor Geolocation
+        const coordinates = await Geolocation.getCurrentPosition();
+        latitude = coordinates.coords.latitude;
+        longitude = coordinates.coords.longitude;
+      }
+
+      // Crear el Point en formato GeoJSON
+      const point = {
+        type: 'Point',
+        coordinates: [longitude, latitude], // GeoJSON usa [longitud, latitud]
+      };
+
+      console.log('Ubicación obtenida:', point);
+
+      // Actualizar el formulario con el nuevo punto
+      this.fotoForm.patchValue({
+        ubicacion: point,
       });
 
-      latitude = position.coords.latitude;
-      longitude = position.coords.longitude;
-    } else {
-      // Usar Capacitor Geolocation
-      const coordinates = await Geolocation.getCurrentPosition();
-      latitude = coordinates.coords.latitude;
-      longitude = coordinates.coords.longitude;
+      return point; // Puedes devolverlo para usarlo en tu API
+    } catch (error) {
+      console.error('Error obteniendo ubicación', error);
+      return null;
     }
-
-    // Crear el Point en formato GeoJSON
-    const point = {
-      type: 'Point',
-      coordinates: [longitude, latitude], // GeoJSON usa [longitud, latitud]
-    };
-
-    console.log('Ubicación obtenida:', point);
-
-    return point; // Puedes devolverlo para usarlo en tu API
-  } catch (error) {
-    console.error('Error obteniendo ubicación', error);
-    return null;
   }
-}
 
 
   // Método para tomar una foto
@@ -125,11 +148,40 @@ export class CamaraPage implements OnInit {
   async convertToFile(webPath: string): Promise<File> {
     const response = await fetch(webPath);
     const blob = await response.blob();
-    const file = new File([blob], `photo_${Date.now()}.jpg`, { type: blob.type });
+    this.nombreFoto = `photo_${Date.now()}.jpg`;
+    const file = new File([blob], this.nombreFoto, { type: blob.type });
     return file;
   }
 
+  enviarAnimalRescate() {
+    if (this.fotoForm.valid) {
+      const formValue = this.fotoForm.value;
+      const fechaActual = new Date();
+      const fechaLegible = fechaActual.toLocaleDateString('es-ES');
 
+      const foto = {
+        url_foto: this.nombreFoto,
+        rescate: { id: formValue.rescateId },
+        usuarios: { id: sessionStorage.getItem('id') },
+        ubicacion: formValue.ubicacion,
+        descripcion: formValue.descripcion,
+        fecha_captura: fechaLegible
+      };
+
+      this.fotosService.añadirFoto(foto).subscribe(
+        response => {
+          console.log('Animal agregado', response);
+        },
+        error => {
+          console.error('Error al agregar el animal', error);
+        }
+      );
+    } else {
+      console.error('Formulario inválido');
+    }
+  }
+
+  //No creo que use este metodo en el lo quitaré
   submitForm() {
     const fechaActual = new Date();
     const fechaLegible = fechaActual.toLocaleDateString('es-ES');
@@ -144,13 +196,6 @@ export class CamaraPage implements OnInit {
       formData.append('email_usuario', this.emailUsuario);
       this.http.post('https://tuapi.com/fotos', formData).subscribe(
 
-        /* Aqui poner metodo api fotos post
-        response => {
-          console.log('Foto guardada con éxito', response);
-        },
-        error => {
-          console.error('Error al guardar la foto', error);
-        }*/
       );
     }
   }
