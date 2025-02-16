@@ -29,6 +29,7 @@ export class PerfilPage implements OnInit {
         this.usuario = data;
         this.usuarioOriginal = { ...this.usuario };
         this.cargarImagenPerfil(this.usuario.url_foto_perfil);
+        this.actualizarBadgeRescates(this.usuario.cantidad_rescates); // Actualizar el badge
       });
     } else {
       console.error('No se encontró el id del usuario');
@@ -120,6 +121,13 @@ export class PerfilPage implements OnInit {
       }, error => {
         console.error('Error al subir la imagen:', error);
       });
+    }
+  }
+
+  actualizarBadgeRescates(cantidad: number) {
+    const badge = document.querySelector('ion-badge');
+    if (badge) {
+      badge.textContent = cantidad.toString();
     }
   }
 }
