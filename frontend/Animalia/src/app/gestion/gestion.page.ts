@@ -119,7 +119,7 @@ export class GestionPage implements OnInit {
       cantidad_rescates: this.selectedUsuario.cantidad_rescates
     };
 
-    this.http.put(`http://localhost:9000/api/usuarios/todos`, usuarioActualizado, { headers }).subscribe(() => {
+    this.http.put(`http://localhost:9000/api/usuarios`, usuarioActualizado, { headers }).subscribe(() => {
       this.getUsuarios();
       this.showUpdateForm = false;
       this.errorMessage = '';
