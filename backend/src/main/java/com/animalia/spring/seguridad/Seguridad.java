@@ -53,7 +53,7 @@ public class Seguridad {
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
                         .requestMatchers("/auth/login").permitAll()
-                        .requestMatchers("/auth/registro").permitAll()
+                        .requestMatchers("/auth/add").permitAll()
                         .anyRequest().authenticated() // Cualquier otra ruta requerirá autenticación
                 )
                 // Añadimos un filtro encargado de coger el token y si es válido

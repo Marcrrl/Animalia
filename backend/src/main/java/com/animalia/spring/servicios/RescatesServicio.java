@@ -55,21 +55,32 @@ public class RescatesServicio {
     public Rescates actualizarRescate(long id, Long empresaId, Long usuarioId, Long animalId, RescateDTO rescateDTO) {
         Rescates existingRescate = rescatesRepositorio.findById(id).orElse(null);
         if (existingRescate != null) {
-            Empresas empresa = empresasRepositorio.findById(empresaId).orElse(null);
-            Usuarios usuario = usuarioRepositorio.findById(usuarioId).orElse(null);
-            Animales animal = animalesRepositorio.findById(animalId).orElse(null);
-
-            if (empresa != null && usuario != null && animal != null) {
-                existingRescate.setEmpresa(empresa);
-                existingRescate.setUsuario(usuario);
-                existingRescate.setAnimal(animal);
-                existingRescate.setUbicacion(rescateDTO.getUbicacion());
-                existingRescate.setEstado_rescate(rescateDTO.getEstado_rescate());
-                existingRescate.setEstado_animal(rescateDTO.getEstado_animal());
-                existingRescate.setFecha_rescate(rescateDTO.getFecha_rescate());
-
-                return rescatesRepositorio.save(existingRescate);
+            if (empresaId != null) {
+                Empresas empresa = empresasRepositorio.findById(empresaId).orElse(null);
+                if (empresa != null) {
+                    existingRescate.setEmpresa(empresa);
+                }
             }
+
+            if (usuarioId != null) {
+                Usuarios usuario = usuarioRepositorio.findById(usuarioId).orElse(null);
+                if (usuario != null) {
+                    existingRescate.setUsuario(usuario);
+                }
+            }
+
+            if (animalId != null) {
+                Animales animal = animalesRepositorio.findById(animalId).orElse(null);
+                if (animal != null) {
+                    existingRescate.setAnimal(animal);
+                }
+            }
+            existingRescate.setUbicacion(rescateDTO.getUbicacion());
+            existingRescate.setEstado_rescate(rescateDTO.getEstadoRescate());
+            existingRescate.setEstado_animal(rescateDTO.getEstadoAnimal());
+            existingRescate.setFecha_rescate(rescateDTO.getFechaRescate());
+
+            return rescatesRepositorio.save(existingRescate);
         }
         return null;
     }

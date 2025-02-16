@@ -21,7 +21,7 @@ public class RescateDTO {
     private Usuarios usuario;
     private Animales animal;
     private String ubicacion;
-    private Estado estado_rescate;
-    private EstadoAnimal estado_animal;
-    private LocalDate fecha_rescate;
+    private Estado estadoRescate;
+    private EstadoAnimal estadoAnimal;
+    private LocalDate fechaRescate;
 }
