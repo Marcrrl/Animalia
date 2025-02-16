@@ -8,16 +8,19 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Objects;
+
 @Entity
 @Data
 @Getter
 @Setter
-// @AllArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "animales")
 public class Animales {
@@ -42,6 +45,7 @@ public class Animales {
     @Enumerated(EnumType.STRING)
     private EstadoConservacion estado_conservacion;
 
+    
     public enum EstadoConservacion {
         EXTINTO,  BAJO_RIESGO, PELIGRO_EXTINCION, SIN_RIESGO
     }
@@ -53,18 +57,21 @@ public class Animales {
     public enum Familia {
         MAMIFERO, REPTIL, ANFIBIO, AVES, PECES
     }
-
+    
     @Column(nullable = false)
     private boolean deleted = false;
 
-    public Animales(Long id, String especie, String nombre_comun, String descripcion, String foto, EstadoConservacion estado_conservacion, Familia familia, boolean deleted) {
-        this.id = id;
-        this.especie = especie;
-        this.nombre_comun = nombre_comun;
-        this.descripcion = descripcion;
-        this.foto = foto;
-        this.estado_conservacion = estado_conservacion;
-        this.familia = familia;
-        this.deleted = deleted;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Animales animales = (Animales) o;
+        return id.equals(animales.id);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+    
 }

@@ -1,6 +1,7 @@
 package com.animalia.spring.entidades;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 import org.springframework.data.geo.Point;
 
@@ -14,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +26,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-//@AllArgsConstructor
+@AllArgsConstructor
 @Table(name = "fotos")
 public class Fotos {
 
@@ -63,13 +65,16 @@ public class Fotos {
      * donde no se pueda obtener la ubicacion exacta de donde se tomo la foto
      */
 
-    public Fotos(Long id, String url_foto, Rescates rescate, Usuarios usuarios, Point ubicacion, String descripcion, LocalDate fecha_captura) {
-        this.id = id;
-        this.url_foto = url_foto;
-        this.rescate = rescate;
-        this.usuarios = usuarios;
-        this.ubicacion = ubicacion;
-        this.descripcion = descripcion;
-        this.fecha_captura = fecha_captura;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Fotos fotos = (Fotos) o;
+        return id.equals(fotos.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

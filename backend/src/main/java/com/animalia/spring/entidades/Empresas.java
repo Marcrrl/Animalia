@@ -17,12 +17,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Data
-//@AllArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "empresas")
 public class Empresas {
@@ -58,7 +63,7 @@ public class Empresas {
     private LocalDate fecha_creacion;
 
     @Column(nullable = false)
-    private boolean deleted = false; // Add this line
+    private boolean deleted = false;
 
     @OneToMany(mappedBy = "empresa")
     @JsonManagedReference
@@ -68,25 +73,12 @@ public class Empresas {
         CLINICA, REFUGIO, HOSPITAL, PROTECTORA, RESERVA, ACUARIO, OTRO
     }
 
-    public Empresas(Long id, String nombre, String direccion, String telefono, String email, TipoEmpresa tipo, String url_web, LocalDate fecha_creacion, boolean deleted, Set<Usuarios> usuarios) {
-        this.id = id;
-        this.nombre = nombre;
-        this.direccion = direccion;
-        this.telefono = telefono;
-        this.email = email;
-        this.tipo = tipo;
-        this.url_web = url_web;
-        this.fecha_creacion = fecha_creacion;
-        this.deleted = deleted;
-        this.usuarios = usuarios;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Empresas empresas = (Empresas) o;
-        return Objects.equals(id, empresas.id);
+        return id.equals(empresas.id);
     }
 
     @Override

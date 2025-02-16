@@ -23,12 +23,17 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Data
-//@AllArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "usuarios")
 public class Usuarios implements UserDetails {
@@ -81,26 +86,10 @@ public class Usuarios implements UserDetails {
     private Empresas empresa;
 
     @Column(nullable = false)
-    private boolean deleted = false; // Add this line
+    private boolean deleted = false;
 
     public enum TipoUsuario {
         ADMIN, USER, EMPRESA
-    }
-
-    public Usuarios(Long id, String nombre, String apellido, String email, String password, String telefono, String direccion, String url_foto_perfil, TipoUsuario tipoUsuario, LocalDate fecha_registro, long cantidad_rescates, Empresas empresa, boolean deleted) {
-        this.id = id;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.email = email;
-        this.password = password;
-        this.telefono = telefono;
-        this.direccion = direccion;
-        this.url_foto_perfil = url_foto_perfil;
-        this.tipoUsuario = tipoUsuario;
-        this.fecha_registro = fecha_registro;
-        this.cantidad_rescates = cantidad_rescates;
-        this.empresa = empresa;
-        this.deleted = deleted;
     }
 
     @Override
@@ -135,12 +124,10 @@ public class Usuarios implements UserDetails {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         Usuarios usuarios = (Usuarios) o;
-        return Objects.equals(id, usuarios.id);
+        return id.equals(usuarios.id);
     }
 
     @Override
