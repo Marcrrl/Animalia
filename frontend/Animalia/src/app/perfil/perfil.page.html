@@ -59,7 +59,14 @@
       <ion-item>
         <ion-input id="direccion" labelPlacement="stacked" label="Dirección" [value]="usuario?.direccion" [disabled]="!camposActivos"></ion-input>
       </ion-item>
+      <ion-item *ngIf="mostrarCampoContrasena">
+        <ion-input id="nuevaContrasena" labelPlacement="stacked" label="Nueva Contraseña" type="password"></ion-input>
+      </ion-item>
     </ion-list>
+
+    <ion-button *ngIf="!mostrarCampoContrasena" color="warning" (click)="toggleCampoContrasena()">Cambiar Contraseña</ion-button>
+    <ion-button *ngIf="mostrarCampoContrasena" color="danger" (click)="toggleCampoContrasena()">Cancelar</ion-button>
+    <ion-button *ngIf="mostrarCampoContrasena" color="success" (click)="confirmarCambioContrasena()">Confirmar Cambio de Contraseña</ion-button>
 
     <ion-grid>
       <ion-row>
