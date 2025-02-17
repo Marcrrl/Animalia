@@ -112,8 +112,11 @@ public class RescatesController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Actualizar un rescate", description = "Actualizar los datos de un rescate en el sistema")
-    public ResponseEntity<Rescates> actualizarRescateDetalleDTO(@PathVariable long id, @RequestParam(required = false) Long empresaId, @RequestParam(required = false) Long usuarioId, @RequestParam(required = false) Long animalId, @RequestBody RescateDTO rescateDTO) {
-        Rescates rescateActualizado = rescatesServicio.actualizarRescateDetalleDTO(id, empresaId, usuarioId, animalId, rescateDTO);
+    public ResponseEntity<Rescates> actualizarRescateDetalleDTO(@PathVariable long id,
+            @RequestParam(required = false) Long empresaId, @RequestParam(required = false) Long usuarioId,
+            @RequestParam(required = false) Long animalId, @RequestBody RescateDTO rescateDTO) {
+        Rescates rescateActualizado = rescatesServicio.actualizarRescateDetalleDTO(id, empresaId, usuarioId, animalId,
+                rescateDTO);
         if (rescateActualizado != null) {
             return ResponseEntity.ok(rescateActualizado);
         } else {
@@ -121,14 +124,18 @@ public class RescatesController {
         }
     }
 
-    @GetMapping("/ubicacion/cerca")
-    @Operation(summary = "Mostrar puntos de ubicación de rescates por ubicación cercana", description = "Devuelve una lista de puntos de ubicación de rescates por ubicación cercana")
-    public ResponseEntity<List<String>> obtenerPuntosDeUbicacionPorUbicacionCercana(@RequestParam String ubicacion) {
-        List<String> puntosDeUbicacion = rescatesServicio.obtenerPuntosDeUbicacionPorUbicacionCercana(ubicacion);
-        if (puntosDeUbicacion.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.ok(puntosDeUbicacion);
-        }
-    }
+    // @GetMapping("/ubicacion/cerca")
+    // @Operation(summary = "Mostrar puntos de ubicación de rescates por ubicación cercana", description = "Devuelve una lista de puntos de ubicación de rescates por ubicación cercana")
+    // public ResponseEntity<List<String>> obtenerPuntosDeUbicacionPorUbicacionCercana(
+    //         @RequestBody UbicacionDTO ubicacionDTO) {
+    //     String geoJson = convertirAJson(ubicacionDTO);
+    //     List<String> puntosDeUbicacion = rescatesServicio.obtenerPuntosDeUbicacionPorUbicacionCercana(geoJson);
+    //     return puntosDeUbicacion.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(puntosDeUbicacion);
+    // }
+
+    // private String convertirAJson(UbicacionDTO ubicacionDTO) {
+    //     return String.format("{\"type\":\"%s\",\"coordinates\":[%f,%f]}",
+    //             ubicacionDTO.getType(), ubicacionDTO.getCoordinates()[0], ubicacionDTO.getCoordinates()[1]);
+    // }
+
 }
