@@ -54,6 +54,7 @@ public class Seguridad {
                         .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
                         .requestMatchers("/auth/login").permitAll()
                         .requestMatchers("/auth/add").permitAll()
+						.requestMatchers(HttpMethod.POST,"/api/rescates").permitAll()
                         .anyRequest().authenticated() // Cualquier otra ruta requerirá autenticación
                 )
                 // Añadimos un filtro encargado de coger el token y si es válido
