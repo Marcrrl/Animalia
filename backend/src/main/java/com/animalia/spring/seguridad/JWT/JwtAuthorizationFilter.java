@@ -29,16 +29,18 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         try {
             String token = getJwtFromRequest(request);
+            log.info("JWT Token from request: " + token);
 
             if (StringUtils.hasText(token) && tokenProvider.validateToken(token)) {
                 Long userId = tokenProvider.getUserIdFromJWT(token);
                 Usuarios user = (Usuarios) userDetailsService.loadUserById(userId);
 
                 UsernamePasswordAuthenticationToken authentication =
-                        new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                        new UsernamePasswordAuthenticationToken(user,null, user.getAuthorities());
 
                 authentication.setDetails(new WebAuthenticationDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+                log.info("JWT Token is valid and authentication is set for user: " + user.getEmail());
             }
 
         } catch (Exception ex) {
@@ -51,7 +53,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     private String getJwtFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader(JwtProvider.TOKEN_HEADER);
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(JwtProvider.TOKEN_PREFIX)) {
-            return bearerToken.substring(JwtProvider.TOKEN_PREFIX.length()).trim();
+            return bearerToken.substring(JwtProvider.TOKEN_PREFIX.length());
         }
         return null;
     }
