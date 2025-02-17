@@ -6,8 +6,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true">
-  <form [formGroup]="fotoForm" (ngSubmit)="submitForm()">
-    
+
     <!-- Capturar Foto -->
     <ion-item>
       <ion-label position="stacked">Foto</ion-label>
@@ -18,12 +17,6 @@
     <ion-button *ngIf="file" expand="full" (click)="subirImagen()">Subir Foto</ion-button>
 
 
-    <!-- Ubicación -->
-    <ion-item>
-      <ion-label position="stacked">Ubicación</ion-label>
-      <ion-input formControlName="ubicacion"></ion-input>
-    </ion-item>
-    
   <!-- Seleccion tipo animal foto -->
     <ion-item>
       <ion-label position="floating">Seleccione un animal</ion-label>
@@ -33,26 +26,24 @@
         </ion-select-option>
       </ion-select>
     </ion-item>
-    
-    
-    
+
+
 
     <!-- Descripción -->
     <ion-item>
       <ion-label position="stacked">Descripción</ion-label>
-      <ion-textarea formControlName="descripcion"></ion-textarea>
+      <ion-textarea [(ngModel)]="descripcion"></ion-textarea>
     </ion-item>
 
-    <!-- Fecha de Captura 
+    <!-- Fecha de Captura
     <ion-item>
       <ion-label position="stacked">Fecha de Captura</ion-label>
       <ion-datetime formControlName="fecha_captura"></ion-datetime>
     </ion-item>-->
 
-    <ion-button expand="full" type="submit" [disabled]="fotoForm.invalid">
-      Guardar
+    <ion-button expand="full"  (click)="enviarAnimalRescate()">
+      Buscar rescates con este animal
     </ion-button>
-    <p>Formulario válido: {{ fotoForm.valid }}</p>
-  </form>
+
 </ion-content>
 

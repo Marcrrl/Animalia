@@ -5,6 +5,7 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { Geolocation } from '@capacitor/geolocation';
 import { AnimalesService } from '../services/animales.service';
 import { FotosService } from '../services/fotos.service';
+import { Point } from 'leaflet';
 
 @Component({
   selector: 'app-Camara',
@@ -14,47 +15,37 @@ import { FotosService } from '../services/fotos.service';
 })
 export class CamaraPage implements OnInit {
   foto: string = ''; // Para almacenar la ruta de la foto
-  fotoForm: FormGroup;
   emailUsuario: string | null = null;
   file: File | null = null;
   nombreFoto: string = '';
   public animales: any[] = [];
   results: any[] = [];
   animalSeleccionado: any = null;
-
+  rescateId: number = 0;
+  usuarioId: string | null = null;
+  descripcion: string = '';
+  ubicacion: { type: string; coordinates: [number, number] } = {
+    type: 'Point',
+    coordinates: [0, 0], // Coordenadas por defecto (longitud, latitud)
+  };
   constructor(
-    private fb: FormBuilder, private http: HttpClient, private animalesService: AnimalesService, private fotosService: FotosService
-  ) {
-    // Inicializar el formulario
-    this.fotoForm = this.fb.group({
-      url_foto: ['', Validators.required],
-      rescateId: ['', Validators.required],
-      usuarioId: ['', Validators.required],
-      ubicacion: [
-        {
-          type: 'Point',
-          coordinates: [0, 0], // Coordenadas por defecto (longitud, latitud)
-        },
-        Validators.required
-      ],
-      descripcion: ['', Validators.required],
-      fecha_captura: ['', Validators.required]
-    });
-  }
+    private http: HttpClient,
+    private animalesService: AnimalesService,
+    private fotosService: FotosService
+  ) {}
 
   ngOnInit() {
     this.nombreFoto = '';
+    this.descripcion = '';
+    this.rescateId = 1;
+    this.animalSeleccionado = 1;
     this.animalesService.getTotalAnimales().subscribe((animales) => {
       this.animales = animales; // Guardar todos los animales en la lista principal
       this.results = [...this.animales];
     });
 
-    // Obtener el email del usuario desde localStorage
-    const storedEmail = localStorage.getItem('email');
-    if (storedEmail) {
-      this.emailUsuario = storedEmail;
-      this.fotoForm.patchValue({ email_usuario: this.emailUsuario });
-    }
+    this.usuarioId = sessionStorage.getItem('id');
+    this.obtenerUbicacionPoint();
   }
 
   async obtenerUbicacionPoint() {
@@ -64,9 +55,11 @@ export class CamaraPage implements OnInit {
 
       if ('geolocation' in navigator) {
         // Usar navigator.geolocation con Promises
-        const position = await new Promise<GeolocationPosition>((resolve, reject) => {
-          navigator.geolocation.getCurrentPosition(resolve, reject);
-        });
+        const position = await new Promise<GeolocationPosition>(
+          (resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(resolve, reject);
+          }
+        );
 
         latitude = position.coords.latitude;
         longitude = position.coords.longitude;
@@ -78,7 +71,7 @@ export class CamaraPage implements OnInit {
       }
 
       // Crear el Point en formato GeoJSON
-      const point = {
+      const point: { type: string; coordinates: [number, number] } = {
         type: 'Point',
         coordinates: [longitude, latitude], // GeoJSON usa [longitud, latitud]
       };
@@ -86,9 +79,10 @@ export class CamaraPage implements OnInit {
       console.log('Ubicación obtenida:', point);
 
       // Actualizar el formulario con el nuevo punto
-      this.fotoForm.patchValue({
-        ubicacion: point,
-      });
+      // this.fotoForm.patchValue({
+      //   ubicacion: point,
+      // });
+      this.ubicacion = point;
 
       return point; // Puedes devolverlo para usarlo en tu API
     } catch (error) {
@@ -96,7 +90,6 @@ export class CamaraPage implements OnInit {
       return null;
     }
   }
-
 
   // Método para tomar una foto
   async takePicture() {
@@ -107,7 +100,7 @@ export class CamaraPage implements OnInit {
         quality: 100, // Calidad de la foto
       });
 
-      this.foto = photo.webPath || " "; // Usamos el URI para mostrar la foto
+      this.foto = photo.webPath || ' '; // Usamos el URI para mostrar la foto
 
       if (photo.webPath) {
         this.file = await this.convertToFile(photo.webPath);
@@ -122,7 +115,7 @@ export class CamaraPage implements OnInit {
     const token = sessionStorage.getItem('token');
     console.log('Token:', token);
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     });
     const formData = new FormData();
 
@@ -131,72 +124,80 @@ export class CamaraPage implements OnInit {
       formData.append('file', this.file);
     }
 
-    this.http.post('http://localhost:9000/api/subir-imagen', formData, {
-      headers: headers,
-      observe: 'response'
-    }).subscribe(response => {
-      if (response.status === 200 && response.body) {
-        console.log('Foto guardada con éxito', response);
-      } else {
-        console.error('Error al subir la imagen:', response.statusText);
-      }
-    }, error => {
-      console.error('Error al subir la imagen:', error);
-    });
+    this.http
+      .post('http://localhost:9000/api/subir-imagen', formData, {
+        headers: headers,
+        observe: 'response',
+      })
+      .subscribe(
+        (response) => {
+          if (response.status === 200 && response.body) {
+            console.log('Foto guardada con éxito', response);
+          } else {
+            console.error('Error al subir la imagen:', response.statusText);
+          }
+        },
+        (error) => {
+          console.error('Error al subir la imagen:', error);
+        }
+      );
+    this.enviarAnimalRescate();
   }
 
   async convertToFile(webPath: string): Promise<File> {
     const response = await fetch(webPath);
     const blob = await response.blob();
     this.nombreFoto = `photo_${Date.now()}.jpg`;
+    console.log(this.nombreFoto);
     const file = new File([blob], this.nombreFoto, { type: blob.type });
     return file;
   }
 
   enviarAnimalRescate() {
-    if (this.fotoForm.valid) {
-      const formValue = this.fotoForm.value;
-      const fechaActual = new Date();
-      const fechaLegible = fechaActual.toLocaleDateString('es-ES');
 
-      const foto = {
-        url_foto: this.nombreFoto,
-        rescate: { id: formValue.rescateId },
-        usuarios: { id: sessionStorage.getItem('id') },
-        ubicacion: formValue.ubicacion,
-        descripcion: formValue.descripcion,
-        fecha_captura: fechaLegible
-      };
-
-      this.fotosService.añadirFoto(foto).subscribe(
-        response => {
-          console.log('Animal agregado', response);
-        },
-        error => {
-          console.error('Error al agregar el animal', error);
-        }
-      );
+    if (
+      this.rescateId &&
+      this.usuarioId &&
+      this.nombreFoto &&
+      this.descripcion &&
+      this.ubicacion.coordinates[0] &&
+      this.ubicacion.coordinates[1]
+    ) {
+      this.fotosService
+        .añadirFoto(
+          this.rescateId,
+          parseInt(this.usuarioId),
+          this.nombreFoto,
+          this.descripcion,
+          this.ubicacion
+        )
+        .subscribe(
+          (response) => {
+            console.log('Foto agregada', response);
+          },
+          (error) => {
+            console.error('Error al agregar la foto', error);
+          }
+        );
     } else {
-      console.error('Formulario inválido');
+      console.log('Faltan datos');
     }
   }
 
   //No creo que use este metodo en el lo quitaré
-  submitForm() {
-    const fechaActual = new Date();
-    const fechaLegible = fechaActual.toLocaleDateString('es-ES');
-    console.log(fechaLegible);
+  // submitForm() {
+  //   const fechaActual = new Date();
+  //   const fechaLegible = fechaActual.toLocaleDateString('es-ES');
+  //   console.log(fechaLegible);
 
-    if (this.fotoForm.valid &&/* this.file &&*/ this.emailUsuario) {
-      const formData = new FormData();
-      //formData.append('archivo', this.file, 'foto.jpg'); // Archivo
-      formData.append('ubicacion', this.fotoForm.value.ubicacion);
-      formData.append('descripcion', this.fotoForm.value.descripcion);
-      formData.append('fecha_captura', this.fotoForm.value.fecha_captura);
-      formData.append('email_usuario', this.emailUsuario);
-      this.http.post('https://tuapi.com/fotos', formData).subscribe(
-
-      );
-    }
-  }
+  //   if (this.fotoForm.valid && /* this.file &&*/ this.emailUsuario) {
+  //     const formData = new FormData();
+  //     //formData.append('archivo', this.file, 'foto.jpg'); // Archivo
+  //     formData.append('ubicacion', this.fotoForm.value.ubicacion);
+  //     formData.append('descripcion', this.fotoForm.value.descripcion);
+  //     formData.append('fecha_captura', this.fotoForm.value.fecha_captura);
+  //     formData.append('email_usuario', this.emailUsuario);
+  //     this.http.post('https://tuapi.com/fotos', formData).subscribe();
+  //   }
+  // }
 }

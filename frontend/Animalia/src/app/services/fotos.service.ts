@@ -1,6 +1,5 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpHeaders } from '@capacitor/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -9,7 +8,12 @@ import { Observable } from 'rxjs';
 export class FotosService {
 private apiUrl = 'http://localhost:9000/api';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
+   token = sessionStorage.getItem('token');
+   headers = new HttpHeaders({
+    Authorization: `Bearer${this.token}`,
+  });
 
   getFotos(page: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/fotos?page=${page}`);
@@ -26,7 +30,16 @@ private apiUrl = 'http://localhost:9000/api';
   obtenerImagenUrl(nombreImagen: string): string {
     return `${this.apiUrl}/imagen/${nombreImagen}`;
   }
-  añadirFoto(foto: any) {
-    return this.http.post('http://localhost:9000/api/fotos', foto);
+  añadirFoto(rescateId: number, usuarioId: number, url_foto: string, descripcion: string, ubicacion: any) {
+    const body = {
+      rescate: { id: rescateId },
+      usuarios: { id: usuarioId },
+      url_foto: url_foto,
+      descripcion: descripcion,
+      ubicacion: ubicacion,
+      fecha_captura: new Date().toISOString().split('T')[0] // Fecha actual
+    };
+
+    return this.http.post('http://localhost:9000/api/fotos', body,{headers: this.headers});
   }
 }
