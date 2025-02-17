@@ -186,7 +186,8 @@ export class CamaraPage implements OnInit {
     );
     const token = sessionStorage.getItem('token'); // Obtener el token almacenado
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}` // Enviar el token en el header
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`, // Enviar el token en el header
     });
     this.fotosService
       .añadirFoto(
