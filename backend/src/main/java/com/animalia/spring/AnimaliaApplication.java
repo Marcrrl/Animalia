@@ -208,19 +208,19 @@ public class AnimaliaApplication {
                                 Rescates r1 = new Rescates(null, e5, u3, a2, "Calle Falsa 123",
                                                 Rescates.Estado.CANCELADO, Rescates.EstadoAnimal.LIBERADO,
                                                 LocalDate.now(), null);
-                                Rescates r2 = new Rescates(null, e1, u1, a1, "Calle Verdadera 456",
+                                Rescates r2 = new Rescates(null, e1, u1, a1, "Calle Falsa 123",
                                                 Rescates.Estado.EN_PROCESO, Rescates.EstadoAnimal.ENFERMO,
                                                 LocalDate.now(), null);
-                                Rescates r3 = new Rescates(null, e2, u2, a3, "Avenida Siempre Viva 789",
+                                Rescates r3 = new Rescates(null, e2, u2, a3, "Calle Falsa 123",
                                                 Rescates.Estado.FINALIZADO, Rescates.EstadoAnimal.SANO,
                                                 LocalDate.now(), null);
-                                Rescates r4 = new Rescates(null, e3, u4, a4, "Calle Luna 321",
+                                Rescates r4 = new Rescates(null, e3, u4, a4, "Calle Falsa 123",
                                                 Rescates.Estado.RECIBIDO, Rescates.EstadoAnimal.GRAVE,
                                                 LocalDate.now(), null);
-                                Rescates r5 = new Rescates(null, e4, u5, a5, "Avenida Sol 654",
+                                Rescates r5 = new Rescates(null, e4, u5, a5,"Calle Falsa 123",
                                                 Rescates.Estado.NO_RECIBIDO, Rescates.EstadoAnimal.CAPTURADO,
                                                 LocalDate.now(), null);
-                                Rescates r6 = new Rescates(null, e6, u6, a1, "Calle Estrella 987",
+                                Rescates r6 = new Rescates(null, e6, u6, a1, "Calle Falsa 123",
                                                 Rescates.Estado.NO_APLICA, Rescates.EstadoAnimal.DESCONOCIDO,
                                                 LocalDate.now(), null);
                                 // Guardar rescates

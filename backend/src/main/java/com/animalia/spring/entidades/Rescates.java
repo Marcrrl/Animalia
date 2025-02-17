@@ -19,10 +19,14 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "rescates")
@@ -34,7 +38,7 @@ public class Rescates {
 
     @ManyToOne
     @JsonManagedReference
-    @JoinColumn(name = "id_empresa", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "id_empresa", referencedColumnName = "id", nullable = true)
     private Empresas empresa;
 
     @ManyToOne

@@ -85,7 +85,7 @@ public class ControladorArchivos {
 
     @GetMapping("/{id}/fotos")
     @Operation(summary = "Obtener URLs de imágenes de un rescate", description = "Devuelve una lista de URLs de imágenes en base64 de un rescate")
-    public ResponseEntity<List<Map<String, String>>> obtenerImagenesBase64(@PathVariable long id) {
+    public ResponseEntity<List<Map<String, String>>> obtenerListaFotosBase64(@PathVariable long id) {
         Rescates rescate = rescatesServicio.obtenerRescatePorId(id);
         if (rescate == null) {
             throw new RescateNoEcontrada(id);
