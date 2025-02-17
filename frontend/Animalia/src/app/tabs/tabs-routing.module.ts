@@ -45,7 +45,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/Animales',
+        redirectTo: '/Inicio',
         pathMatch: 'full'
       }
     ]}

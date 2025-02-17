@@ -20,7 +20,7 @@ export class PerfilPage implements OnInit {
 
   cerrarSesion() {
     sessionStorage.clear();
-    window.location.href = '/Animales';
+    window.location.href = '/Inicio';
   }
 
   ngOnInit() {
@@ -30,7 +30,7 @@ export class PerfilPage implements OnInit {
         this.usuario = data;
         this.usuarioOriginal = { ...this.usuario };
         this.cargarImagenPerfil(this.usuario.url_foto_perfil);
-        this.actualizarBadgeRescates(this.usuario.cantidad_rescates); // Actualizar el badge
+        this.actualizarBadgeRescates(this.usuario.cantidad_rescates);
       });
     } else {
       console.error('No se encontró el id del usuario');
