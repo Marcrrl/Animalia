@@ -22,7 +22,7 @@ public class EmpresaDtoConverter {
         );
     }
 
-    public Empresas convertEmpresaDtoToEmpresaEntity(EmpresaDTO empresaDTO) {
+    public static Empresas convertEmpresaDtoToEmpresaEntity(EmpresaDTO empresaDTO) {
         Empresas empresa = new Empresas();
         empresa.setId(empresaDTO.getId());
         empresa.setNombre(empresaDTO.getNombre());

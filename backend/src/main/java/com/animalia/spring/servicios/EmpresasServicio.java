@@ -14,6 +14,7 @@ import com.animalia.spring.entidades.Empresas;
 import com.animalia.spring.entidades.Usuarios;
 import com.animalia.spring.entidades.DTO.EmpresaDTO;
 import com.animalia.spring.entidades.DTO.EmpresaRegistroDTO;
+import com.animalia.spring.entidades.converter.EmpresaDtoConverter;
 import com.animalia.spring.repositorio.EmpresasRepositorio;
 import com.animalia.spring.repositorio.UsuarioRepositorio;
 
@@ -34,7 +35,7 @@ public class EmpresasServicio {
     }
 
     public Empresas guardarEmpresa(EmpresaDTO empresaDTO) {
-        Empresas empresa = empresaDtoConverter.convertEmpresaDtoToEmpresaEntity(empresaDTO);
+        Empresas empresa = EmpresaDtoConverter.convertEmpresaDtoToEmpresaEntity(empresaDTO);
         Empresas savedEmpresa = empresasRepositorio.save(empresa);
 
         Usuarios usuario = new Usuarios();
