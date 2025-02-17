@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.animalia.spring.entidades.Animales;
 import com.animalia.spring.entidades.Empresas;
+import com.animalia.spring.entidades.Fotos;
 import com.animalia.spring.entidades.Rescates;
 import com.animalia.spring.entidades.Usuarios;
 import com.animalia.spring.entidades.DTO.RescateDTO;
@@ -83,5 +84,16 @@ public class RescatesServicio {
             return rescatesRepositorio.save(existingRescate);
         }
         return null;
+    }
+
+    public List<Fotos> obtenerFotosPorIdAnimal(long animalId) {
+        Animales animal = animalesRepositorio.findById(animalId).orElse(null);
+        if (animal != null) {
+            Rescates rescate = rescatesRepositorio.findByAnimal(animal);
+            if (rescate != null) {
+                return rescate.getFotos();
+            }
+        }
+        return List.of();
     }
 }
