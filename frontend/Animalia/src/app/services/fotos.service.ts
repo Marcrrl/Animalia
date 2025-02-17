@@ -10,10 +10,6 @@ private apiUrl = 'http://localhost:9000/api';
 
   constructor(private http: HttpClient) {
   }
-   token = sessionStorage.getItem('token');
-   headers = new HttpHeaders({
-    Authorization: `Bearer${this.token}`,
-  });
 
   getFotos(page: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/fotos?page=${page}`);
@@ -31,6 +27,11 @@ private apiUrl = 'http://localhost:9000/api';
     return `${this.apiUrl}/imagen/${nombreImagen}`;
   }
   añadirFoto(rescateId: number, usuarioId: number, url_foto: string, descripcion: string, ubicacion: any) {
+    const token = sessionStorage.getItem('token'); // Obtener el token almacenado
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}` // Enviar el token en el header
+    });
+    console.log('Headers:', headers);
     const body = {
       rescate: { id: rescateId },
       usuarios: { id: usuarioId },
@@ -39,7 +40,8 @@ private apiUrl = 'http://localhost:9000/api';
       ubicacion: ubicacion,
       fecha_captura: new Date().toISOString().split('T')[0] // Fecha actual
     };
+    console.log(body);
 
-    return this.http.post('http://localhost:9000/api/fotos', body,{headers: this.headers});
+    return this.http.post(`${this.apiUrl}/fotos`, body,{headers: headers});
   }
 }
