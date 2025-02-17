@@ -109,6 +109,7 @@
         <ion-button [color]="usuario.deleted ? 'danger' : 'success'" (click)="toggleUsuarioStatus(usuario)">
           {{ usuario.deleted ? 'Desactivado' : 'Activado' }}
         </ion-button>
+        <ion-button color="warning" (click)="resetPassword(usuario.id)">Restablecer Contraseña</ion-button>
       </ion-item>
     </ion-list>
   </div>

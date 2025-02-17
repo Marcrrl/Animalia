@@ -59,28 +59,35 @@
 
 <ion-content *ngIf="tipo === 'empresa'" [fullscreen]="true" class="bg-fennec">
   <div class="form-container">
-    <form (ngSubmit)="registerCompany()" class="p-2 custom-form">
+    <form (ngSubmit)="addEmpresa()" class="p-2 custom-form">
       <div class="d-flex justify-content-around w-100">
         <div class="form-floating mb-3 w-50 me-1">
-          <input type="text" class="form-control custom-input" id="nombre_empresa" placeholder="Nombre" [(ngModel)]="company.nombre" name="nombre_empresa">
+          <input type="text" class="form-control custom-input" id="nombre_empresa" placeholder="Nombre" [(ngModel)]="newEmpresa.nombre" name="nombre_empresa">
           <label for="nombre_empresa">Razón Social</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="text" class="form-control custom-input" id="telefono_empresa" placeholder="Teléfono" [(ngModel)]="company.telefono" name="telefono_empresa">
+          <input type="text" class="form-control custom-input" id="telefono_empresa" placeholder="Teléfono" [(ngModel)]="newEmpresa.telefono" name="telefono_empresa">
           <label for="telefono_empresa">Teléfono</label>
         </div>
       </div>
 
       <div class="form-floating mb-3">
-        <input type="text" class="form-control custom-input" id="direccion_empresa" placeholder="Dirección" [(ngModel)]="company.direccion" name="direccion_empresa">
-        <label for="direccion_empresa">Dirección</label>
-      </div>
-      <div class="form-floating mb-3">
-        <input type="email" class="form-control custom-input" id="email_empresa" placeholder="Email" [(ngModel)]="company.email" name="email_empresa">
+        <input type="email" class="form-control custom-input" id="email_empresa" placeholder="Email" [(ngModel)]="newEmpresa.email" name="email_empresa">
         <label for="email_empresa">Email</label>
       </div>
+
       <div class="form-floating mb-3">
-        <select class="form-select custom-input" id="tipo_empresa" [(ngModel)]="company.tipo" name="tipo_empresa">
+        <input type="password" class="form-control custom-input" id="password_empresa" placeholder="Password" [(ngModel)]="newEmpresa.password" name="password_empresa">
+        <label for="password_empresa">Contraseña</label>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control custom-input" id="direccion_empresa" placeholder="Dirección" [(ngModel)]="newEmpresa.direccion" name="direccion_empresa">
+        <label for="direccion_empresa">Dirección</label>
+      </div>
+      
+      <div class="form-floating mb-3">
+        <select class="form-select custom-input" id="tipo_empresa" [(ngModel)]="newEmpresa.tipo" name="tipo_empresa">
           <option value="CLINICA">CLINICA</option>
           <option value="REFUGIO">REFUGIO</option>
           <option value="HOSPITAL">HOSPITAL</option>
@@ -92,7 +99,7 @@
         <label for="tipo_empresa">Tipo de Empresa</label>
       </div>
       <div class="form-floating mb-3">
-        <input type="url" class="form-control custom-input" id="url_web_empresa" placeholder="URL Web" [(ngModel)]="company.urlWeb" name="url_web_empresa">
+        <input type="url" class="form-control custom-input" id="url_web_empresa" placeholder="URL Web" [(ngModel)]="newEmpresa.urlWeb" name="url_web_empresa">
         <label for="url_web_empresa">URL Web</label>
       </div>
       <button type="submit" class="btn btn-primary custom-button">Registrar Empresa</button>

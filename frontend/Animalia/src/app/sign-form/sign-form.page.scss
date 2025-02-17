@@ -182,9 +182,16 @@ body {
         outline: none;
         background-color: transparent;
         color: #243946;
+        border: #243946 1px solid;
         transition: transform 0.1s;
         border-radius: 30px;
         height: 25px;
+        font-weight: bold;
+
+        &:hover{
+            color: #fff;
+            background-color: #243946;
+        }
     }
 
     .center .register-button:active {
@@ -206,6 +213,12 @@ body {
         background-color: #243946;
         color: #fff;
         transition: transform 0.1s;
+
+        &:hover{
+            color: #243946;
+            background-color: transparent;
+            border: #243946 1px solid;
+        }
     }
 
     .center .login .login-button:active {
@@ -334,9 +347,16 @@ body {
         outline: none;
         background-color: transparent;
         color: #243946;
+        border: #243946 1px solid;
         transition: transform 0.1s;
         border-radius: 30px;
         height: 25px;
+        font-weight: bold;
+
+        &:hover{
+            color: #fff;
+            background-color: #243946;
+        }
     }
 
     .center .register-button:active {
@@ -358,6 +378,12 @@ body {
         background-color: #243946;
         color: #fff;
         transition: transform 0.1s;
+
+        &:hover{
+            color: #243946;
+            background-color: transparent;
+            border: #243946 1px solid;
+        }
     }
 
     .center .login .login-button:active {

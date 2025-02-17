@@ -44,8 +44,8 @@ public class Seguridad {
     protected SecurityFilterChain filter(HttpSecurity http) throws Exception {
 
         http
-                .cors()
-                .and()
+        .cors()
+        .and()
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(jwtAuthenticationEntryPoint))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth

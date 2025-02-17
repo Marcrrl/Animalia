@@ -40,6 +40,10 @@ const routes: Routes = [
         loadChildren: () => import('../rescates/rescates.module').then(m => m.RescatesPageModule)
       },
       {
+        path: 'Inicio',
+        loadChildren: () => import('../inicio/inicio.module').then(m => m.InicioPageModule)
+      },
+      {
         path: '',
         redirectTo: '/Animales',
         pathMatch: 'full'

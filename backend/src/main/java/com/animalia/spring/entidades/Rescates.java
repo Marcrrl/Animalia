@@ -67,8 +67,7 @@ public class Rescates {
     private EstadoAnimal estado_animal;
 
     public enum EstadoAnimal {
-        LEVE, MODERADO, GRAVE, CRITICO, FALLECIDO, DESCONOCIDO, NO_APLICA, CAPTURADO, LIBERADO, EN_PROCESO,
-        HOSPITALIZADO, EN_ADOPCION, ENFERMO, SANO
+        LEVE, MODERADO, GRAVE, FALLECIDO, DESCONOCIDO, SANO
     }
 
     @Column(nullable = true)
@@ -78,18 +77,6 @@ public class Rescates {
     @Column(nullable = true)
     @JsonManagedReference
     private List<Fotos> fotos;
-
-    // public Rescates(Long id, Empresas empresa, Usuarios usuario, Animales animal, String ubicacion, Estado estado_rescate, EstadoAnimal estado_animal, LocalDate fecha_rescate, List<Fotos> fotos) {
-    //     this.id = id;
-    //     this.empresa = empresa;
-    //     this.usuario = usuario;
-    //     this.animal = animal;
-    //     this.ubicacion = ubicacion;
-    //     this.estado_rescate = estado_rescate;
-    //     this.estado_animal = estado_animal;
-    //     this.fecha_rescate = fecha_rescate;
-    //     this.fotos = fotos;
-    // }
 
     @Override
     public boolean equals(Object o) {

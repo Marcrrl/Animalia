@@ -58,6 +58,7 @@ export class TabsPage implements OnInit {
     } else {
       this.tabs = [
         { title: 'Animales', route: '/Animales' },
+        { title: 'Inicio', route: '/inicio' },
       ];
     }
   }
