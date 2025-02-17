@@ -8,7 +8,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.geo.Point;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import com.animalia.spring.entidades.Animales;
 import com.animalia.spring.entidades.Empresas;
@@ -227,17 +226,17 @@ public class AnimaliaApplication {
                                 List<Rescates> rescates = Arrays.asList(r1, r2, r3, r4, r5, r6);
                                 rescatesRepositorio.saveAll(rescates);
 
-                                Fotos f1 = new Fotos(null, "perro.jpg", r1, u3, new Point(0, 0),
+                                Fotos f1 = new Fotos(null, "perro.jpg", r1, u3, "-13|10",
                                                 "Perro en la calle", LocalDate.now());
-                                Fotos f2 = new Fotos(null, "gato.jpg", r2, u2, new Point(0, 0),
+                                Fotos f2 = new Fotos(null, "gato.jpg", r2, u2, "-13|10",
                                                 "Gato en la calle", LocalDate.now());
-                                Fotos f3 = new Fotos(null, "caballo.jpg", r3, u2, new Point(0, 0),
+                                Fotos f3 = new Fotos(null, "caballo.jpg", r3, u2, "-13|10",
                                                 "Caballo en la calle", LocalDate.now());
-                                Fotos f4 = new Fotos(null, "leon1.jpg", r4, u2, new Point(0, 0),
+                                Fotos f4 = new Fotos(null, "leon1.jpg", r4, u2, "-13|10",
                                                 "León en la calle", LocalDate.now());
-                                Fotos f5 = new Fotos(null, "panda.jpg", r5, u2, new Point(0, 0),
+                                Fotos f5 = new Fotos(null, "panda.jpg", r5, u2, "-13|10",
                                                 "Panda en la calle", LocalDate.now());
-                                Fotos f6 = new Fotos(null, "leon.jpg", r6, u2, new Point(0, 0),
+                                Fotos f6 = new Fotos(null, "leon.jpg", r6, u2, "-13|10",
                                                 "Perro en la calle", LocalDate.now());
 
                                 // Guardar fotos
