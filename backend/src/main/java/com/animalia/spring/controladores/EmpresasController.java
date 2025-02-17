@@ -74,8 +74,9 @@ public class EmpresasController {
 
     @PostMapping
     @Operation(summary = "Guardar una empresa", description = "Guardar una nueva empresa en el sistema")
-    public ResponseEntity<Empresas> guardarEmpresa(@RequestBody Empresas empresa) {
-        return ResponseEntity.ok(empresasServicio.guardarEmpresa(empresa));
+    public ResponseEntity<Empresas> guardarEmpresa(@RequestBody EmpresaDTO empresaDTO) {
+        Empresas empresaGuardada = empresasServicio.guardarEmpresa(empresaDTO);
+        return ResponseEntity.ok(empresaGuardada);
     }
 
     @DeleteMapping("/{id}")
@@ -128,7 +129,4 @@ public class EmpresasController {
             return ResponseEntity.ok(usuarios);
         }
     }
-
-
-    //al crear empresa crear usuario para la empresa
 }

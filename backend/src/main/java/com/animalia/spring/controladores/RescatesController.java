@@ -120,4 +120,6 @@ public class RescatesController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    // hazer el dto del point a la hora de crear el rescate
 }

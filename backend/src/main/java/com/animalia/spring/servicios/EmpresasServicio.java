@@ -6,6 +6,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.animalia.spring.entidades.Empresas;
@@ -27,12 +28,34 @@ public class EmpresasServicio {
     @Autowired
     private EmpresaDtoConverter empresaDtoConverter;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public Empresas obtenerEmpresaPorId(long id) {
         return empresasRepositorio.findByIdActive(id).orElse(null);
     }
 
-    public Empresas guardarEmpresa(Empresas empresa) {
-        return empresasRepositorio.save(empresa);
+    public Empresas guardarEmpresa(EmpresaDTO empresaDTO) {
+        Empresas empresa = empresaDtoConverter.convertEmpresaDtoToEmpresaEntity(empresaDTO);
+        Empresas savedEmpresa = empresasRepositorio.save(empresa);
+
+        Usuarios usuario = new Usuarios();
+        usuario.setNombre(empresa.getNombre());
+        usuario.setApellido("");
+        usuario.setEmail(empresa.getEmail());
+        usuario.setPassword(passwordEncoder.encode(empresaDTO.getPassword()));
+        usuario.setTelefono(empresa.getTelefono());
+        usuario.setDireccion(empresa.getDireccion());
+        usuario.setUrl_foto_perfil("iconoBase.png");
+        usuario.setTipoUsuario(Usuarios.TipoUsuario.EMPRESA);
+        usuario.setFecha_registro(empresa.getFecha_creacion());
+        usuario.setCantidad_rescates(0);
+        usuario.setEmpresa(savedEmpresa);
+        usuario.setDeleted(false);
+
+        usuarioRepositorio.save(usuario);
+
+        return savedEmpresa;
     }
 
     public void eliminarEmpresa(long id) {
