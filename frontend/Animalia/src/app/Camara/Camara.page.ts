@@ -6,6 +6,7 @@ import { Geolocation } from '@capacitor/geolocation';
 import { AnimalesService } from '../services/animales.service';
 import { FotosService } from '../services/fotos.service';
 import { Point } from 'leaflet';
+import { set } from 'lodash';
 
 @Component({
   selector: 'app-Camara',
@@ -22,27 +23,29 @@ export class CamaraPage implements OnInit {
   results: any[] = [];
   animalSeleccionado: any = null;
   rescateId: number = 0;
-  usuarioId: string | null = null;
+  usuarioId: string = "";
   descripcion: string = '';
-  ubicacion: string='';
+  ubicacion: string = '';
+
+
   constructor(
     private http: HttpClient,
     private animalesService: AnimalesService,
     private fotosService: FotosService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.nombreFoto = '';
     this.descripcion = '';
     this.rescateId = 1;
-this.ubicacion = '';
+    this.ubicacion = '';
     this.animalSeleccionado = 1;
     this.animalesService.getTotalAnimales().subscribe((animales) => {
       this.animales = animales; // Guardar todos los animales en la lista principal
       this.results = [...this.animales];
     });
 
-    this.usuarioId = sessionStorage.getItem('id');
+    this.usuarioId = sessionStorage.getItem('id') || '';
     this.obtenerUbicacionPoint();
   }
 
@@ -74,7 +77,7 @@ this.ubicacion = '';
       // this.fotoForm.patchValue({
       //   ubicacion: point,
       // });
-      this.ubicacion = latitude+"|"+longitude;
+      this.ubicacion = latitude + "|" + longitude;
 
 
     } catch (error) {
@@ -104,36 +107,49 @@ this.ubicacion = '';
   }
 
   subirImagen() {
-    const token = sessionStorage.getItem('token');
-    console.log('Token:', token);
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-    const formData = new FormData();
+    if (
+      this.rescateId &&
+      this.usuarioId &&
+      this.nombreFoto &&
+      this.descripcion &&
+      this.ubicacion
+    ) {
+      const token = sessionStorage.getItem('token');
+      console.log('Token:', token);
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+      const formData = new FormData();
 
-    if (this.file) {
-      console.log('Subiendo archivo:', this.file);
-      formData.append('file', this.file);
+      if (this.file) {
+        console.log('Subiendo archivo:', this.file);
+        formData.append('file', this.file);
+      }
+
+      this.http
+        .post('http://localhost:9000/api/subir-imagen', formData, {
+          headers: headers,
+          observe: 'response',
+        })
+        .subscribe(
+          (response) => {
+            if (response.status === 200 && response.body) {
+              console.log('Foto guardada con éxito', response);
+            } else {
+              console.error('Error al subir la imagen:', response.statusText);
+            }
+          },
+          (error) => {
+            console.error('Error al subir la imagen:', error);
+          }
+        );
+        setTimeout(() => {this.enviarAnimalRescate();}, 1000);
+      
+    }
+    else {
+      console.log('Faltan datos');
     }
 
-    this.http
-      .post('http://localhost:9000/api/subir-imagen', formData, {
-        headers: headers,
-        observe: 'response',
-      })
-      .subscribe(
-        (response) => {
-          if (response.status === 200 && response.body) {
-            console.log('Foto guardada con éxito', response);
-          } else {
-            console.error('Error al subir la imagen:', response.statusText);
-          }
-        },
-        (error) => {
-          console.error('Error al subir la imagen:', error);
-        }
-      );
-    this.enviarAnimalRescate();
   }
 
   async convertToFile(webPath: string): Promise<File> {
@@ -147,14 +163,7 @@ this.ubicacion = '';
 
   enviarAnimalRescate() {
 
-    if (
-      this.rescateId &&
-      this.usuarioId &&
-      this.nombreFoto &&
-      this.descripcion &&
-      this.ubicacion
-    ) {
-console.log("Rescate:"+this.rescateId, "usuario:"+parseInt(this.usuarioId), this.nombreFoto, this.descripcion, this.ubicacion);
+      console.log("Rescate:" + this.rescateId, "usuario:" + parseInt(this.usuarioId), this.nombreFoto, this.descripcion, this.ubicacion);
       this.fotosService
         .añadirFoto(
           this.rescateId,
@@ -171,9 +180,7 @@ console.log("Rescate:"+this.rescateId, "usuario:"+parseInt(this.usuarioId), this
             console.error('Error al agregar la foto', error);
           }
         );
-    } else {
-      console.log('Faltan datos');
-    }
+
   }
 
   //No creo que use este metodo en el lo quitaré
