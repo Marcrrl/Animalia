@@ -1,6 +1,7 @@
 package com.animalia.spring.servicios;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -52,7 +53,11 @@ public class RescatesServicio {
         rescatesRepositorio.deleteById(id);
     }
 
-    public Rescates actualizarRescate(long id, Long empresaId, Long usuarioId, Long animalId, RescateDTO rescateDTO) {
+    public List<Rescates> obtenerRescatesPorUbicacionCercana(String ubicacion) {
+        return rescatesRepositorio.findByUbicacionCercana(ubicacion);
+    }
+
+    public Rescates actualizarRescateDetalleDTO(long id, Long empresaId, Long usuarioId, Long animalId, RescateDTO rescateDTO) {
         Rescates existingRescate = rescatesRepositorio.findById(id).orElse(null);
         if (existingRescate != null) {
             if (empresaId != null) {
@@ -83,5 +88,12 @@ public class RescatesServicio {
             return rescatesRepositorio.save(existingRescate);
         }
         return null;
+    }
+
+    public List<String> obtenerPuntosDeUbicacionPorUbicacionCercana(String ubicacion) {
+        List<Rescates> rescates = obtenerRescatesPorUbicacionCercana(ubicacion);
+        return rescates.stream()
+                .map(Rescates::getUbicacion)
+                .collect(Collectors.toList());
     }
 }
