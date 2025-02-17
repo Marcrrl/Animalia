@@ -20,7 +20,7 @@
       <ion-title>EMPRESA</ion-title>
     </ion-button>
   </div>
-  <img class="center-circle" src="../../assets/icon/logo1.jpg">
+  <img class="center-circle bg-light" src="../../assets/icon/Logo Fondoless.png">
 </ion-content>
 
 <ion-content *ngIf="tipo === 'usuario'" [fullscreen]="true" class="bg-fennec">
@@ -85,7 +85,7 @@
         <input type="text" class="form-control custom-input" id="direccion_empresa" placeholder="Dirección" [(ngModel)]="newEmpresa.direccion" name="direccion_empresa">
         <label for="direccion_empresa">Dirección</label>
       </div>
-      
+
       <div class="form-floating mb-3">
         <select class="form-select custom-input" id="tipo_empresa" [(ngModel)]="newEmpresa.tipo" name="tipo_empresa">
           <option value="CLINICA">CLINICA</option>
