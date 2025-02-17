@@ -67,8 +67,7 @@ public class Rescates {
     private EstadoAnimal estado_animal;
 
     public enum EstadoAnimal {
-        LEVE, MODERADO, GRAVE, CRITICO, FALLECIDO, DESCONOCIDO, NO_APLICA, CAPTURADO, LIBERADO, EN_PROCESO,
-        HOSPITALIZADO, EN_ADOPCION, ENFERMO, SANO
+        LEVE, MODERADO, GRAVE, FALLECIDO, DESCONOCIDO, SANO
     }
 
     @Column(nullable = true)
