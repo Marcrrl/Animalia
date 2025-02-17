@@ -24,10 +24,7 @@ export class CamaraPage implements OnInit {
   rescateId: number = 0;
   usuarioId: string | null = null;
   descripcion: string = '';
-  ubicacion: { type: string; coordinates: [number, number] } = {
-    type: 'Point',
-    coordinates: [0, 0], // Coordenadas por defecto (longitud, latitud)
-  };
+  ubicacion: string='';
   constructor(
     private http: HttpClient,
     private animalesService: AnimalesService,
@@ -38,6 +35,7 @@ export class CamaraPage implements OnInit {
     this.nombreFoto = '';
     this.descripcion = '';
     this.rescateId = 1;
+this.ubicacion = '';
     this.animalSeleccionado = 1;
     this.animalesService.getTotalAnimales().subscribe((animales) => {
       this.animales = animales; // Guardar todos los animales en la lista principal
@@ -70,24 +68,18 @@ export class CamaraPage implements OnInit {
         longitude = coordinates.coords.longitude;
       }
 
-      // Crear el Point en formato GeoJSON
-      const point: { type: string; coordinates: [number, number] } = {
-        type: 'Point',
-        coordinates: [longitude, latitude], // GeoJSON usa [longitud, latitud]
-      };
 
-      console.log('Ubicación obtenida:', point);
 
       // Actualizar el formulario con el nuevo punto
       // this.fotoForm.patchValue({
       //   ubicacion: point,
       // });
-      this.ubicacion = point;
+      this.ubicacion = latitude+"|"+longitude;
 
-      return point; // Puedes devolverlo para usarlo en tu API
+
     } catch (error) {
       console.error('Error obteniendo ubicación', error);
-      return null;
+
     }
   }
 
@@ -160,9 +152,9 @@ export class CamaraPage implements OnInit {
       this.usuarioId &&
       this.nombreFoto &&
       this.descripcion &&
-      this.ubicacion.coordinates[0] &&
-      this.ubicacion.coordinates[1]
+      this.ubicacion
     ) {
+console.log("Rescate:"+this.rescateId, "usuario:"+parseInt(this.usuarioId), this.nombreFoto, this.descripcion, this.ubicacion);
       this.fotosService
         .añadirFoto(
           this.rescateId,
