@@ -37,11 +37,11 @@ public class Fotos {
 
     @ManyToOne
     @JoinColumn(name = "rescate_id", nullable = false)
-    @JsonBackReference
+    @JsonBackReference(value = "rescate-fotos")
     private Rescates rescate;
 
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value = "usuario-fotos")
     @JoinColumn(name = "id_usuario", referencedColumnName = "id", nullable = false)
     private Usuarios usuarios;
 
