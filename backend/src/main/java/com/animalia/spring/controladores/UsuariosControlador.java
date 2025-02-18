@@ -92,7 +92,41 @@ public class UsuariosControlador {
         return ResponseEntity.ok(u);
     }
 
+<<<<<<< Updated upstream
     @Operation(summary = "Eliminar usuario por ID", description = "Elimina un usuario del sistema a partir de su ID")
+=======
+    @PostMapping("/subir-imagen")
+    public ResponseEntity<String> subirImagen(@RequestBody MultipartFile file) {
+        if (file == null || file.isEmpty()) {
+            return ResponseEntity.badRequest().body("El archivo está vacío o no se ha enviado.");
+        }
+        try {
+            String uploadDir = "backend/src/main/resources/static/img"; 
+            Path uploadPath = Paths.get(uploadDir);
+
+            // Crear el directorio si no existe
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+            }
+
+            Path path = uploadPath.resolve(file.getOriginalFilename());
+
+            // Guarda la imagen en la carpeta
+            Files.write(path, file.getBytes());
+
+            return ResponseEntity.ok("Imagen subida exitosamente: " + file.getOriginalFilename());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al subir la imagen");
+        }
+    }
+
+    @PostMapping
+    public ResponseEntity<Usuarios> guardarUsuario(@RequestBody Usuarios usuario) {
+        return ResponseEntity.ok(usuariosServicio.guardarUsuario(usuario));
+    }
+
+>>>>>>> Stashed changes
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarUsuario(@PathVariable long id) {
         usuariosServicio.eliminarUsuario(id);
