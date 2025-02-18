@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.animalia.spring.Excepciones.RescateNoEcontrada;
-import com.animalia.spring.entidades.Fotos;
 import com.animalia.spring.entidades.Rescates;
 import com.animalia.spring.entidades.DTO.RescateDTO;
 import com.animalia.spring.entidades.DTO.RescateDetalleDTO;
@@ -125,14 +124,18 @@ public class RescatesController {
         }
     }
 
-    @GetMapping("/fotos/{animalId}")
-    @Operation(summary = "Obtener fotos de un rescate por ID del animal", description = "Devuelve una lista de fotos de un rescate buscando por la ID del animal")
-    public ResponseEntity<List<Fotos>> obtenerFotosPorIdAnimal(@PathVariable long animalId) {
-        List<Fotos> fotos = rescatesServicio.obtenerFotosPorIdAnimal(animalId);
-        if (fotos.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.ok(fotos);
-        }
-    }
+    // @GetMapping("/ubicacion/cerca")
+    // @Operation(summary = "Mostrar puntos de ubicación de rescates por ubicación cercana", description = "Devuelve una lista de puntos de ubicación de rescates por ubicación cercana")
+    // public ResponseEntity<List<String>> obtenerPuntosDeUbicacionPorUbicacionCercana(
+    //         @RequestBody UbicacionDTO ubicacionDTO) {
+    //     String geoJson = convertirAJson(ubicacionDTO);
+    //     List<String> puntosDeUbicacion = rescatesServicio.obtenerPuntosDeUbicacionPorUbicacionCercana(geoJson);
+    //     return puntosDeUbicacion.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(puntosDeUbicacion);
+    // }
+
+    // private String convertirAJson(UbicacionDTO ubicacionDTO) {
+    //     return String.format("{\"type\":\"%s\",\"coordinates\":[%f,%f]}",
+    //             ubicacionDTO.getType(), ubicacionDTO.getCoordinates()[0], ubicacionDTO.getCoordinates()[1]);
+    // }
+
 }

@@ -14,7 +14,6 @@ import com.animalia.spring.entidades.Empresas;
 import com.animalia.spring.entidades.Usuarios;
 import com.animalia.spring.entidades.DTO.EmpresaDTO;
 import com.animalia.spring.entidades.DTO.EmpresaRegistroDTO;
-import com.animalia.spring.entidades.converter.EmpresaDtoConverter;
 import com.animalia.spring.repositorio.EmpresasRepositorio;
 import com.animalia.spring.repositorio.UsuarioRepositorio;
 
@@ -34,27 +33,8 @@ public class EmpresasServicio {
         return empresasRepositorio.findByIdActive(id).orElse(null);
     }
 
-    public Empresas guardarEmpresa(EmpresaDTO empresaDTO) {
-        Empresas empresa = EmpresaDtoConverter.convertEmpresaDtoToEmpresaEntity(empresaDTO);
-        Empresas savedEmpresa = empresasRepositorio.save(empresa);
-
-        Usuarios usuario = new Usuarios();
-        usuario.setNombre(empresa.getNombre());
-        usuario.setApellido("");
-        usuario.setEmail(empresa.getEmail());
-        usuario.setPassword(passwordEncoder.encode(empresaDTO.getPassword()));
-        usuario.setTelefono(empresa.getTelefono());
-        usuario.setDireccion(empresa.getDireccion());
-        usuario.setUrl_foto_perfil("iconoBase.png");
-        usuario.setTipoUsuario(Usuarios.TipoUsuario.EMPRESA);
-        usuario.setFecha_registro(empresa.getFecha_creacion());
-        usuario.setCantidad_rescates(0);
-        usuario.setEmpresa(savedEmpresa);
-        usuario.setDeleted(false);
-
-        usuarioRepositorio.save(usuario);
-
-        return savedEmpresa;
+    public Empresas guardarEmpresa(Empresas empresa) {
+        return empresasRepositorio.save(empresa);
     }
 
     public void eliminarEmpresa(long id) {

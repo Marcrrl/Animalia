@@ -2,7 +2,6 @@ package com.animalia.spring.controladores;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +12,6 @@ import org.springframework.data.web.PageableDefault;
 import com.animalia.spring.Excepciones.EmpresaNoEcontrada;
 import com.animalia.spring.Excepciones.FotosNoEcontrada;
 import com.animalia.spring.entidades.Fotos;
-import com.animalia.spring.entidades.DTO.FotoDTO;
 import com.animalia.spring.servicios.FotosServicio;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -55,21 +53,10 @@ public class FotosController {
         return ResponseEntity.ok(fotosServicio.obtenerFotoPorId(id));
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping
     @Operation(summary = "Guardar una foto", description = "Guardar una nueva foto en el sistema")
     public ResponseEntity<Fotos> guardarFoto(@RequestBody Fotos foto) {
         return ResponseEntity.ok(fotosServicio.guardarFoto(foto));
-    }
-
-    @PostMapping("/crear")
-    @Operation(summary = "Crear una foto con rescate y usuario", description = "Crear una nueva foto en el sistema asignando rescate y usuario por sus IDs")
-    public ResponseEntity<Fotos> crearFoto(@RequestBody FotoDTO fotoDTO) {
-        Fotos foto = fotosServicio.crearFoto(fotoDTO);
-        if (foto != null) {
-            return ResponseEntity.ok(foto);
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
     }
 
     @DeleteMapping("/{id}")
@@ -79,7 +66,7 @@ public class FotosController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping
     @Operation(summary = "Actualizar una foto", description = "Actualizar los datos de una foto en el sistema")
     public ResponseEntity<Fotos> actualizarFoto(@RequestBody Fotos foto) {
         return ResponseEntity.ok(fotosServicio.actualizarFoto(foto));
