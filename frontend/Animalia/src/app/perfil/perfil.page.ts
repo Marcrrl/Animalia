@@ -145,12 +145,13 @@ export class PerfilPage implements OnInit {
         'Authorization': `Bearer ${token}`
       });
 
-      this.http.put(`http://localhost:9000/api/usuarios/${userId}/cambiar-contrasena`, { nuevaContrasena }, { headers: headers })
+      this.http.put(`http://localhost:9000/api/usuarios/${userId}/cambiar-contrasena`, { nuevaContrasena: Number(nuevaContrasena) }, { headers: headers })
         .subscribe(response => {
-          console.log('Contraseña cambiada con éxito');
           this.mostrarCampoContrasena = false;
+          console.log(nuevaContrasena);
         }, error => {
           console.error('Error al cambiar la contraseña:', error);
+          console.log(nuevaContrasena);
         });
     }
   }

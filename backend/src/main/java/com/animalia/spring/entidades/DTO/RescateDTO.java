@@ -2,7 +2,6 @@ package com.animalia.spring.entidades.DTO;
 
 import java.time.LocalDate;
 
-
 import com.animalia.spring.entidades.Animales;
 import com.animalia.spring.entidades.Empresas;
 import com.animalia.spring.entidades.Usuarios;
