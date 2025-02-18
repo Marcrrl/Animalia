@@ -1,5 +1,5 @@
 <ion-header [translucent]="true">
-  <ion-toolbar class="ion-text-center">
+  <ion-toolbar class="ion-text-center custom-toolbar">
     <ion-buttons slot="start">
       <ion-button color="danger" (click)="cerrarSesion()">
         <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
@@ -24,18 +24,17 @@
 
 <ion-content [fullscreen]="true">
   <ion-content color="light" class="ion-text-center">
-    <div style="position: relative; display: inline-block; margin-top: 5%;">
-      <div style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden; position: relative;">
-        <img alt="Avatar" [src]="imagenPerfil"
-          style="width: 100%; height: 100%; object-fit: cover;" />
+    <div class="profile-container">
+      <div class="profile-image">
+        <img alt="Avatar" [src]="imagenPerfil" />
       </div>
-      <ion-button *ngIf="camposActivos" fill="clear" style="width: 150px; height: 150px; padding: 0; border-radius: 50%; overflow: hidden; position: absolute; top: 0; left: 0; margin: 0;">
-        <ion-icon name="cloud-upload-outline"
-          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.5; font-size: 50px;">
-        </ion-icon>
-        <input type="file" (change)="subirImagen($event)" style="opacity: 0; width: 100%; height: 100%; position: absolute; top: 0; left: 0;">
+      <ion-button *ngIf="camposActivos" fill="clear" class="upload-button">
+        <ion-icon name="cloud-upload-outline" class="upload-icon"></ion-icon>
+        <input type="file" (change)="subirImagen($event)" class="upload-input">
       </ion-button>
-      <ion-badge color="success" style="position: absolute; top: 0; right: 0; border-radius: 50%; padding: 7px 10px;">3</ion-badge>
+      <ion-badge color="success" class="rescues-badge">
+        {{ usuario?.cantidad_rescates }}
+      </ion-badge>
     </div>
 
     <ion-list [inset]="true">
@@ -60,7 +59,14 @@
       <ion-item>
         <ion-input id="direccion" labelPlacement="stacked" label="Dirección" [value]="usuario?.direccion" [disabled]="!camposActivos"></ion-input>
       </ion-item>
+      <ion-item *ngIf="mostrarCampoContrasena">
+        <ion-input id="nuevaContrasena" labelPlacement="stacked" label="Nueva Contraseña" type="password"></ion-input>
+      </ion-item>
     </ion-list>
+
+    <ion-button *ngIf="!mostrarCampoContrasena" color="warning" (click)="toggleCampoContrasena()">Cambiar Contraseña</ion-button>
+    <ion-button *ngIf="mostrarCampoContrasena" color="danger" (click)="toggleCampoContrasena()">Cancelar</ion-button>
+    <ion-button *ngIf="mostrarCampoContrasena" color="success" (click)="confirmarCambioContrasena()">Confirmar Cambio de Contraseña</ion-button>
 
     <ion-grid>
       <ion-row>

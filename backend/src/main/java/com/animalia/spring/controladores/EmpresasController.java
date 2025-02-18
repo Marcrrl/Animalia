@@ -14,6 +14,7 @@ import com.animalia.spring.Excepciones.EmpresaNoEcontrada;
 import com.animalia.spring.entidades.Empresas;
 import com.animalia.spring.entidades.Usuarios;
 import com.animalia.spring.entidades.DTO.EmpresaDTO;
+import com.animalia.spring.entidades.DTO.EmpresaRegistroDTO;
 import com.animalia.spring.servicios.EmpresasServicio;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -74,8 +75,21 @@ public class EmpresasController {
 
     @PostMapping
     @Operation(summary = "Guardar una empresa", description = "Guardar una nueva empresa en el sistema")
-    public ResponseEntity<Empresas> guardarEmpresa(@RequestBody Empresas empresa) {
-        return ResponseEntity.ok(empresasServicio.guardarEmpresa(empresa));
+    public ResponseEntity<Empresas> guardarEmpresa(@RequestBody EmpresaDTO empresaDTO) {
+        Empresas empresa = new Empresas();
+        // Assuming EmpresaDTO has appropriate getters
+        empresa.setNombre(empresaDTO.getNombre());
+        empresa.setDireccion(empresaDTO.getDireccion());
+        // Set other properties as needed
+        Empresas empresaGuardada = empresasServicio.guardarEmpresa(empresa);
+        return ResponseEntity.ok(empresaGuardada);
+    }
+
+    @PostMapping("/crear-con-usuario")
+    @Operation(summary = "Crear una empresa con un usuario", description = "Crear una nueva empresa y un usuario relacionado en el sistema")
+    public ResponseEntity<Empresas> crearEmpresaConUsuario(@RequestBody EmpresaRegistroDTO empresaRegistroDTO) {
+        Empresas empresa = empresasServicio.crearEmpresaConUsuario(empresaRegistroDTO);
+        return ResponseEntity.ok(empresa);
     }
 
     @DeleteMapping("/{id}")
@@ -128,7 +142,4 @@ public class EmpresasController {
             return ResponseEntity.ok(usuarios);
         }
     }
-
-
-    //al crear empresa crear usuario para la empresa
 }

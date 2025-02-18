@@ -14,12 +14,13 @@ export class PerfilPage implements OnInit {
   camposActivos: boolean = false;
   imagenPerfil: any;
   usuarioOriginal: any;
+  mostrarCampoContrasena: boolean = false;
 
   constructor(@Inject(UsuarioService) private usuarioService: UsuarioService, private http: HttpClient) {}
 
   cerrarSesion() {
     sessionStorage.clear();
-    window.location.href = '/Animales';
+    window.location.href = '/Inicio';
   }
 
   ngOnInit() {
@@ -29,6 +30,7 @@ export class PerfilPage implements OnInit {
         this.usuario = data;
         this.usuarioOriginal = { ...this.usuario };
         this.cargarImagenPerfil(this.usuario.url_foto_perfil);
+        this.actualizarBadgeRescates(this.usuario.cantidad_rescates);
       });
     } else {
       console.error('No se encontró el id del usuario');
@@ -120,6 +122,36 @@ export class PerfilPage implements OnInit {
       }, error => {
         console.error('Error al subir la imagen:', error);
       });
+    }
+  }
+
+  actualizarBadgeRescates(cantidad: number) {
+    const badge = document.querySelector('ion-badge');
+    if (badge) {
+      badge.textContent = cantidad.toString();
+    }
+  }
+
+  toggleCampoContrasena() {
+    this.mostrarCampoContrasena = !this.mostrarCampoContrasena;
+  }
+
+  confirmarCambioContrasena() {
+    const nuevaContrasena = (document.querySelector('#nuevaContrasena') as HTMLInputElement).value;
+    const userId = this.usuario?.id;
+    if (userId && nuevaContrasena) {
+      const token = sessionStorage.getItem('token');
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+
+      const jsonPayload = Number(nuevaContrasena);
+
+      this.http.put(`http://localhost:9000/api/usuarios/${userId}/cambiar-contrasena`, jsonPayload, { headers: headers })
+        .subscribe(response => {
+          this.mostrarCampoContrasena = false;
+        }, error => {
+        });
     }
   }
 }

@@ -1,5 +1,5 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar class="ion-text-center custom-toolbar">
     <ion-title>Rescates</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -11,5 +11,62 @@
     </ion-toolbar>
   </ion-header>
 
-  <h2>Prueba rescates</h2>
+  <div class="container mt-3">
+    <ul class="nav nav-tabs w-100">
+      <li class="nav-item w-50">
+        <a class="nav-link text-center" [class.active]="tabActual === 'todosRescates'" (click)="mostrarTab('todosRescates')" style="cursor: pointer;">Todos los Rescates</a>
+      </li>
+      <li class="nav-item w-50">
+        <a class="nav-link text-center" [class.active]="tabActual === 'rescatesAsignados'" (click)="mostrarTab('rescatesAsignados')" style="cursor: pointer;">Rescates Asignados</a>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <div id="todosRescates" class="container tab-pane" [class.active]="tabActual === 'todosRescates'"><br>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Todos los Rescates</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-list>
+              <ion-item *ngFor="let rescate of todosRescates">
+                <ion-label>
+                  <div><strong>Nombre Empresa:</strong> {{ rescate.nombreEmpresa }}</div>
+                  <div><strong>Nombre Usuario:</strong> {{ rescate.nombreUsuario }}</div>
+                  <div><strong>Nombre Animal:</strong> {{ rescate.nombreAnimal }}</div>
+                  <div><strong>Ubicación:</strong> {{ rescate.ubicacion }}</div>
+                  <div><strong>Estado Rescate:</strong> {{ rescate.estadoRescate }}</div>
+                  <div><strong>Estado Animal:</strong> {{ rescate.estadoAnimal }}</div>
+                  <div><strong>Fecha Rescate:</strong> {{ rescate.fechaRescate }}</div>
+                </ion-label>
+                <ion-button slot="end" *ngIf="!tieneEmpresaAsignada(rescate)" (click)="asignarRescate(rescate)">Asignar</ion-button>
+              </ion-item>
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+      </div>
+      <div id="rescatesAsignados" class="container tab-pane" [class.active]="tabActual === 'rescatesAsignados'"><br>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Rescates Asignados</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-list>
+              <ion-item *ngFor="let rescate of rescatesAsignados">
+                <ion-label>
+                  <div><strong>Nombre Empresa:</strong> {{ rescate.nombreEmpresa }}</div>
+                  <div><strong>Nombre Usuario:</strong> {{ rescate.nombreUsuario }}</div>
+                  <div><strong>Nombre Animal:</strong> {{ rescate.nombreAnimal }}</div>
+                  <div><strong>Ubicación:</strong> {{ rescate.ubicacion }}</div>
+                  <div><strong>Estado Rescate:</strong> {{ rescate.estadoRescate }}</div>
+                  <div><strong>Estado Animal:</strong> {{ rescate.estadoAnimal }}</div>
+                  <div><strong>Fecha Rescate:</strong> {{ rescate.fechaRescate }}</div>
+                </ion-label>
+              </ion-item>
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+  </div>
 </ion-content>

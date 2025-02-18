@@ -37,9 +37,14 @@ const routes: Routes = [
   {
     path: 'Gestion',
     loadChildren: () => import('./gestion/gestion.module').then(m => m.GestionPageModule)
-  },  {
+  },
+  {
     path: 'rescates',
     loadChildren: () => import('./rescates/rescates.module').then( m => m.RescatesPageModule)
+  },
+  {
+    path: 'inicio',
+    loadChildren: () => import('./inicio/inicio.module').then(m => m.InicioPageModule)
   }
 
 ];

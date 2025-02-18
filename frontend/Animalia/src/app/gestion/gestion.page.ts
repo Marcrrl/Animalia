@@ -119,7 +119,7 @@ export class GestionPage implements OnInit {
       cantidad_rescates: this.selectedUsuario.cantidad_rescates
     };
 
-    this.http.put(`http://localhost:9000/api/usuarios/todos`, usuarioActualizado, { headers }).subscribe(() => {
+    this.http.put(`http://localhost:9000/api/usuarios`, usuarioActualizado, { headers }).subscribe(() => {
       this.getUsuarios();
       this.showUpdateForm = false;
       this.errorMessage = '';
@@ -158,6 +158,19 @@ export class GestionPage implements OnInit {
       this.getUsuarios();
     }, error => {
       console.error('Error al cambiar el estado del usuario:', error);
+    });
+  }
+
+  resetPassword(id: number) {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.post(`http://localhost:9000/api/usuarios/${id}/restablecer-contrasena`, {}, { headers }).subscribe(() => {
+      this.getUsuarios();
+    }, error => {
+      console.error('Error al restablecer la contraseña:', error);
     });
   }
 
@@ -395,13 +408,15 @@ export class GestionPage implements OnInit {
       especie: this.selectedAnimal.especie,
       descripcion: this.selectedAnimal.descripcion,
       familia: this.selectedAnimal.familia,
-      estado_conservacion: this.selectedAnimal.estado_conservacion
+      estado_conservacion: this.selectedAnimal.estado_conservacion,
+      foto: this.selectedAnimal.foto
     };
 
     this.http.put(`http://localhost:9000/api/animales`, animalActualizado, { headers }).subscribe(() => {
       this.getAnimales();
       this.showUpdateAnimalForm = false;
       this.errorMessage = '';
+      location.reload();
     }, error => {
       console.error('Error al actualizar animal:', error);
       this.errorMessage = 'Error al actualizar animal. Por favor, inténtelo de nuevo.';

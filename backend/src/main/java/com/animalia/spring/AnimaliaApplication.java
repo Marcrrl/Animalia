@@ -8,7 +8,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.geo.Point;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import com.animalia.spring.entidades.Animales;
 import com.animalia.spring.entidades.Empresas;
@@ -102,39 +101,100 @@ public class AnimaliaApplication {
                                 List<Empresas> empresas = Arrays.asList(e1, e2, e3, e4, e5, e6);
 
                                 // Creación de usuarios
-                                Usuarios u1 = new Usuarios(null, "Juan", "Pérez", "juan.perez@example.com",
-                                                passwordEncoder.encode("123"), "123456789", "Calle Falsa 123",
-                                                "bardockNegro+.jpg", Usuarios.TipoUsuario.USER, LocalDate.now(), 0,
-                                                null, false);
-
-                                Usuarios u2 = new Usuarios(null, "Ana", "García", "ana.garcia@example.com",
-                                                passwordEncoder.encode("123"), "987654321", "Avenida Siempre Viva 456",
-                                                "iconoBase.png", Usuarios.TipoUsuario.ADMIN, LocalDate.now(), 10, null,
+                                Usuarios u1 = new Usuarios(null,
+                                                "Juan",
+                                                "Pérez",
+                                                "juan.perez@example.com",
+                                                passwordEncoder.encode("123"),
+                                                "123456789",
+                                                "Calle Falsa 123",
+                                                "bardockNegro+.jpg",
+                                                Usuarios.TipoUsuario.USER,
+                                                LocalDate.now(),
+                                                0,
+                                                null,
                                                 false);
 
-                                Usuarios u3 = new Usuarios(null, "Carlos", "Hernández", "carlos.hernandez@example.com",
-                                                passwordEncoder.encode("123"), "1122334455", "Calle Luna 789",
-                                                "iconoBase.png", Usuarios.TipoUsuario.EMPRESA, LocalDate.now(), 5, e5,
+                                Usuarios u2 = new Usuarios(null,
+                                                "Ana",
+                                                "García",
+                                                "ana.garcia@example.com",
+                                                passwordEncoder.encode("123"),
+                                                "987654321",
+                                                "Avenida Siempre Viva 456",
+                                                "iconoBase.png",
+                                                Usuarios.TipoUsuario.ADMIN,
+                                                LocalDate.now(),
+                                                10,
+                                                null,
                                                 false);
 
-                                Usuarios u4 = new Usuarios(null, "Lucía", "Martínez", "lucia.martinez@example.com",
-                                                passwordEncoder.encode("123"), "5566778899", "Avenida Sol 321",
-                                                "iconoBase.png", Usuarios.TipoUsuario.USER, LocalDate.now(), 8, null,
+                                Usuarios u3 = new Usuarios(null,
+                                                "Carlos",
+                                                "Hernández",
+                                                "carlos.hernandez@example.com",
+                                                passwordEncoder.encode("123"),
+                                                "1122334455",
+                                                "Calle Luna 789",
+                                                "iconoBase.png",
+                                                Usuarios.TipoUsuario.EMPRESA,
+                                                LocalDate.now(),
+                                                5, e5,
                                                 false);
 
-                                Usuarios u5 = new Usuarios(null, "Pedro", "Gómez", "pedro.gomez@example.com",
-                                                passwordEncoder.encode("123"), "9988776655", "Calle Estrella 654",
-                                                "iconoBase.png", Usuarios.TipoUsuario.ADMIN, LocalDate.now(), 15, null,
+                                Usuarios u4 = new Usuarios(null,
+                                                "Lucía",
+                                                "Martínez",
+                                                "lucia.martinez@example.com",
+                                                passwordEncoder.encode("123"),
+                                                "5566778899",
+                                                "Avenida Sol 321",
+                                                "iconoBase.png",
+                                                Usuarios.TipoUsuario.USER,
+                                                LocalDate.now(),
+                                                8,
+                                                null,
                                                 false);
 
-                                Usuarios u6 = new Usuarios(null, "Usuario", "6", "u6@example.com",
-                                                passwordEncoder.encode("123"), "telefono6", "Calle Estrella 654",
-                                                "iconoBase.png", Usuarios.TipoUsuario.ADMIN, LocalDate.now(), 15, null,
+                                Usuarios u5 = new Usuarios(null,
+                                                "Pedro",
+                                                "Gómez",
+                                                "pedro.gomez@example.com",
+                                                passwordEncoder.encode("123"),
+                                                "9988776655",
+                                                "Calle Estrella 654",
+                                                "iconoBase.png",
+                                                Usuarios.TipoUsuario.ADMIN,
+                                                LocalDate.now(),
+                                                15,
+                                                null,
                                                 false);
 
-                                Usuarios u7 = new Usuarios(null, "Usuario", "7", "u7@example.com",
-                                                passwordEncoder.encode("123"), "telefono7", "Calle Estrella 654",
-                                                "iconoBase.png", Usuarios.TipoUsuario.ADMIN, LocalDate.now(), 15, null,
+                                Usuarios u6 = new Usuarios(null,
+                                                "Usuario",
+                                                "6",
+                                                "u6@example.com",
+                                                passwordEncoder.encode("123"),
+                                                "telefono6",
+                                                "Calle Estrella 654",
+                                                "iconoBase.png",
+                                                Usuarios.TipoUsuario.ADMIN,
+                                                LocalDate.now(),
+                                                15,
+                                                null,
+                                                false);
+                                Usuarios u7 = new Usuarios(null,
+                                                "Usuario",
+                                                "7",
+                                                "u7@example.com",
+                                                passwordEncoder.encode("123"),
+                                                "telefono7",
+                                                "Calle Estrella 654",
+                                                "iconoBase.png",
+                                                Usuarios.TipoUsuario.ADMIN,
+                                                LocalDate.now(),
+                                                15,
+                                                null,
                                                 false);
                                 // Lista de usuarios
                                 List<Usuarios> usuarios = Arrays.asList(u1, u2, u3, u4, u5, u6, u7);
@@ -144,46 +204,39 @@ public class AnimaliaApplication {
                                 // Guardar empresas y usuarios
                                 empresasRepositorio.saveAll(empresas);
                                 usuariosRepositorio.saveAll(usuarios);
-
                                 Rescates r1 = new Rescates(null, e5, u3, a2, "Calle Falsa 123",
-                                                Rescates.Estado.CANCELADO, Rescates.EstadoAnimal.LIBERADO,
+                                                Rescates.Estado.CANCELADO, Rescates.EstadoAnimal.DESCONOCIDO,
                                                 LocalDate.now(), null);
-
                                 Rescates r2 = new Rescates(null, e1, u1, a1, "Calle Verdadera 456",
-                                                Rescates.Estado.EN_PROCESO, Rescates.EstadoAnimal.ENFERMO,
+                                                Rescates.Estado.EN_PROCESO, Rescates.EstadoAnimal.LEVE,
                                                 LocalDate.now(), null);
-
-                                Rescates r3 = new Rescates(null, e2, u2, a3, "Avenida Siempre Viva 789",
+                                Rescates r3 = new Rescates(null, e2, u2, a3, "Calle Falsa 123",
                                                 Rescates.Estado.FINALIZADO, Rescates.EstadoAnimal.SANO,
                                                 LocalDate.now(), null);
-
-                                Rescates r4 = new Rescates(null, e3, u4, a4, "Calle Luna 321",
+                                Rescates r4 = new Rescates(null, e3, u4, a4, "Calle Falsa 123",
                                                 Rescates.Estado.RECIBIDO, Rescates.EstadoAnimal.GRAVE,
                                                 LocalDate.now(), null);
-
                                 Rescates r5 = new Rescates(null, e4, u5, a5, "Avenida Sol 654",
-                                                Rescates.Estado.NO_RECIBIDO, Rescates.EstadoAnimal.CAPTURADO,
+                                                Rescates.Estado.NO_RECIBIDO, Rescates.EstadoAnimal.SANO,
                                                 LocalDate.now(), null);
-
-                                Rescates r6 = new Rescates(null, e6, u6, a1, "Calle Estrella 987",
+                                Rescates r6 = new Rescates(null, e6, u6, a1, "Calle Falsa 123",
                                                 Rescates.Estado.NO_APLICA, Rescates.EstadoAnimal.DESCONOCIDO,
                                                 LocalDate.now(), null);
-
                                 // Guardar rescates
                                 List<Rescates> rescates = Arrays.asList(r1, r2, r3, r4, r5, r6);
                                 rescatesRepositorio.saveAll(rescates);
 
-                                Fotos f1 = new Fotos(null, "perro.jpg", r1, u3, new Point(0, 0),
+                                Fotos f1 = new Fotos(null, "perro.jpg", r1, u3, "-13|10",
                                                 "Perro en la calle", LocalDate.now());
-                                Fotos f2 = new Fotos(null, "gato.jpg", r2, u2, new Point(0, 0),
+                                Fotos f2 = new Fotos(null, "gato.jpg", r2, u2, "-13|10",
                                                 "Gato en la calle", LocalDate.now());
-                                Fotos f3 = new Fotos(null, "caballo.jpg", r3, u2, new Point(0, 0),
+                                Fotos f3 = new Fotos(null, "caballo.jpg", r3, u2, "-13|10",
                                                 "Caballo en la calle", LocalDate.now());
-                                Fotos f4 = new Fotos(null, "leon1.jpg", r4, u2, new Point(0, 0),
+                                Fotos f4 = new Fotos(null, "leon1.jpg", r4, u2, "-13|10",
                                                 "León en la calle", LocalDate.now());
-                                Fotos f5 = new Fotos(null, "panda.jpg", r5, u2, new Point(0, 0),
+                                Fotos f5 = new Fotos(null, "panda.jpg", r5, u2, "-13|10",
                                                 "Panda en la calle", LocalDate.now());
-                                Fotos f6 = new Fotos(null, "leon.jpg", r6, u2, new Point(0, 0),
+                                Fotos f6 = new Fotos(null, "leon.jpg", r6, u2, "-13|10",
                                                 "Perro en la calle", LocalDate.now());
 
                                 // Guardar fotos
@@ -201,7 +254,6 @@ public class AnimaliaApplication {
                                 // Guardar rescates con fotos
                                 rescatesRepositorio.saveAll(Arrays.asList(r1, r2, r3, r4, r5, r6));
                         }
-
                 };
         }
 }

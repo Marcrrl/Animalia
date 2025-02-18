@@ -3,8 +3,6 @@ package com.animalia.spring.entidades;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import org.springframework.data.geo.Point;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
@@ -39,17 +37,16 @@ public class Fotos {
 
     @ManyToOne
     @JoinColumn(name = "rescate_id", nullable = false)
-    @JsonBackReference
-
+    @JsonBackReference(value = "rescate-fotos")
     private Rescates rescate;
 
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value = "usuario-fotos")
     @JoinColumn(name = "id_usuario", referencedColumnName = "id", nullable = false)
     private Usuarios usuarios;
 
     @Column(nullable = true)
-    private Point ubicacion;
+    private String ubicacion;
 
     @Column(nullable = true)
     private String descripcion;

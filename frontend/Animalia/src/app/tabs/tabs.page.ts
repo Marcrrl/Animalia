@@ -16,7 +16,7 @@ export class TabsPage implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.userRol = sessionStorage.getItem('rol'); // Retrieve user role from sessionStorage
+    this.userRol = sessionStorage.getItem('rol');
     this.setTabsBasedOnRol(this.userRol);
   }
 
@@ -58,6 +58,7 @@ export class TabsPage implements OnInit {
     } else {
       this.tabs = [
         { title: 'Animales', route: '/Animales' },
+        { title: 'Inicio', route: '/inicio' },
       ];
     }
   }
