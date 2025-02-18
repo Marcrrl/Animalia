@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.animalia.spring.Excepciones.RescateNoEcontrada;
-import com.animalia.spring.entidades.Fotos;
 import com.animalia.spring.entidades.Rescates;
 import com.animalia.spring.entidades.DTO.RescateDTO;
 import com.animalia.spring.entidades.DTO.RescateDetalleDTO;
@@ -120,28 +119,6 @@ public class RescatesController {
                 rescateDTO);
         if (rescateActualizado != null) {
             return ResponseEntity.ok(rescateActualizado);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @GetMapping("/animal/{animalId}/foto")
-    @Operation(summary = "Obtener ID de la foto relacionada a un rescate por ID del animal", description = "Devuelve la ID de la foto relacionada a un rescate buscando por la ID del animal")
-    public ResponseEntity<Long> obtenerFotoIdPorAnimalId(@PathVariable long animalId) {
-        Long fotoId = rescatesServicio.obtenerFotoIdPorAnimalId(animalId);
-        if (fotoId != null) {
-            return ResponseEntity.ok(fotoId);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @GetMapping("/animal/{animalId}")
-    @Operation(summary = "Obtener ID del rescate por ID del animal", description = "Devuelve la ID del rescate buscando por la ID del animal")
-    public ResponseEntity<Long> obtenerRescateIdPorAnimalId(@PathVariable long animalId) {
-        Long rescateId = rescatesServicio.obtenerRescateIdPorAnimalId(animalId);
-        if (rescateId != null) {
-            return ResponseEntity.ok(rescateId);
         } else {
             return ResponseEntity.notFound().build();
         }
