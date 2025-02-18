@@ -2,13 +2,10 @@ import { RescatesService } from './../services/rescates.service';
 import { UsuarioService } from './../services/usuario.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { Geolocation } from '@capacitor/geolocation';
 import { AnimalesService } from '../services/animales.service';
 import { FotosService } from '../services/fotos.service';
-import { Point } from 'leaflet';
-import { set } from 'lodash';
 
 @Component({
   selector: 'app-Camara',
