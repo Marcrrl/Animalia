@@ -39,14 +39,14 @@ body {
     background-image: linear-gradient(to top right, #f9a743, #f9db5f);
 }
 
-@media screen and (max-height: 500px) {
+/*@media screen and (max-height: 500px) {
     .center {
         transition: transform 0.5s;
         transform: translate(-50%, -50%) scale(0.8);
     }
-}
+}*/
 
-@media (min-width: 1024px) and (max-width: 2560px) {
+@media (min-width: 769px) and (max-width: 2560px) {
     .center {
         position: absolute;
         top: 56px;

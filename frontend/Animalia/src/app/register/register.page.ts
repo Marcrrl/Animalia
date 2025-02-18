@@ -55,7 +55,7 @@ export class RegisterPage implements OnInit {
   addEmpresa() {
     this.newEmpresa.tipoUsuario = 'EMPRESA';
     //this.newUsuario.fecha_registro = new Date().toISOString().split('T')[0]; // Set default fecha_registro
-    //console.log('Sending user data:', JSON.stringify(this.newUsuario)); // Log JSON data
+    console.log('Sending user data:', JSON.stringify(this.newEmpresa)); // Log JSON data
     this.http.post('http://localhost:9000/api/empresa', this.newEmpresa).subscribe(() => {
       this.errorMessage = '';
       this.newEmpresa = {}; // Reset form
