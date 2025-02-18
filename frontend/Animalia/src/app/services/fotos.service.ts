@@ -39,7 +39,7 @@ private apiUrl = 'http://localhost:9000/api';
     };
     console.log(body);
 
-    return this.http.post(`${this.apiUrl}/fotos`, body,{headers: headers,
+    return this.http.post(`${this.apiUrl}/fotos/crear`, body,{headers: headers,
       observe: 'response',});
   }
 }
