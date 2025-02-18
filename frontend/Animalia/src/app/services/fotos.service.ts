@@ -26,15 +26,12 @@ private apiUrl = 'http://localhost:9000/api';
   obtenerImagenUrl(nombreImagen: string): string {
     return `${this.apiUrl}/imagen/${nombreImagen}`;
   }
-  añadirFoto(rescateId: number, usuarioId: number, url_foto: string, descripcion: string, ubicacion: any) {
-    const token = sessionStorage.getItem('token'); // Obtener el token almacenado
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}` // Enviar el token en el header
-    });
+  añadirFoto(rescateId: any, usuario: any, url_foto: string, descripcion: string, ubicacion: any,headers:any) {
+
     console.log('Headers:', headers);
     const body = {
-      rescate: { id: rescateId },
-      usuarios: { id: usuarioId },
+      rescate: rescateId ,
+      usuarios:  usuario ,
       url_foto: url_foto,
       descripcion: descripcion,
       ubicacion: ubicacion,
@@ -42,6 +39,7 @@ private apiUrl = 'http://localhost:9000/api';
     };
     console.log(body);
 
-    return this.http.post(`${this.apiUrl}/fotos`, body,{headers: headers});
+    return this.http.post(`${this.apiUrl}/fotos`, body,{headers: headers,
+      observe: 'response',});
   }
 }
