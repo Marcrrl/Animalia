@@ -12,4 +12,17 @@ export class RescatesService {
 getById(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/rescates/${id}`);
   }
+  getTodosRescates(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/rescates/todos`);
+  }
+
+
+  añadirRescate(rescate: any,headers:any) {
+
+    console.log('Headers:', headers);
+    console.log(rescate);
+
+    return this.http.post(`${this.apiUrl}/rescates`, rescate,{headers: headers,
+      observe: 'response',});
+  }
 }

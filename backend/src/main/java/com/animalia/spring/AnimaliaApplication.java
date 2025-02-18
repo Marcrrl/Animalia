@@ -204,10 +204,10 @@ public class AnimaliaApplication {
                                 // Guardar empresas y usuarios
                                 empresasRepositorio.saveAll(empresas);
                                 usuariosRepositorio.saveAll(usuarios);
-                                Rescates r1 = new Rescates(null, e5, u3, a2, "Calle Falsa 123",
+                                Rescates r1 = new Rescates(null, e5, u3, a1, "Calle Falsa 123",
                                                 Rescates.Estado.CANCELADO, Rescates.EstadoAnimal.DESCONOCIDO,
                                                 LocalDate.now(), null);
-                                Rescates r2 = new Rescates(null, e1, u1, a1, "Calle Verdadera 456",
+                                Rescates r2 = new Rescates(null, e1, u1, a2, "Calle Verdadera 456",
                                                 Rescates.Estado.EN_PROCESO, Rescates.EstadoAnimal.LEVE,
                                                 LocalDate.now(), null);
                                 Rescates r3 = new Rescates(null, e2, u2, a3, "Calle Falsa 123",
@@ -219,7 +219,7 @@ public class AnimaliaApplication {
                                 Rescates r5 = new Rescates(null, e4, u5, a5, "Avenida Sol 654",
                                                 Rescates.Estado.NO_RECIBIDO, Rescates.EstadoAnimal.SANO,
                                                 LocalDate.now(), null);
-                                Rescates r6 = new Rescates(null, e6, u6, a1, "Calle Falsa 123",
+                                Rescates r6 = new Rescates(null, e6, u6, a5 , "Calle Falsa 123",
                                                 Rescates.Estado.NO_APLICA, Rescates.EstadoAnimal.DESCONOCIDO,
                                                 LocalDate.now(), null);
                                 // Guardar rescates
@@ -244,7 +244,7 @@ public class AnimaliaApplication {
                                 fotosRepositorio.saveAll(fotos);
 
                                 // Enlazar fotos con rescates
-                                r1.setFotos(Arrays.asList(f1, f6));
+                                r1.setFotos(Arrays.asList(f1));
                                 r2.setFotos(Arrays.asList(f2));
                                 r3.setFotos(Arrays.asList(f3));
                                 r4.setFotos(Arrays.asList(f4));
