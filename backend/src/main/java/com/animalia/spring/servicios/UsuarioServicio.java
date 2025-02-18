@@ -95,11 +95,13 @@ public class UsuarioServicio {
         Usuarios usuario = usuarioRepositorio.findById(id).orElse(null);
         if (usuario != null) {
             usuario.setPassword(passwordEncoder.encode(nuevaContrasena));
-            return userDtoConverter.convertUserEntityToUserDto(usuarioRepositorio.save(usuario));
+            String nueva = passwordEncoder.encode(nuevaContrasena);
+            usuarioRepositorio.save(usuario);
+            return userDtoConverter.convertUserEntityToUserDto(usuario);
         }
         return null;
     }
-
+    //recuerda comprobar la recogida contraseña
     // Method to reset the password to a default value
     public UsuarioDTO restablecerContrasena(long id) {
         Usuarios usuario = usuarioRepositorio.findById(id).orElse(null);

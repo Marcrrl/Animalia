@@ -12,6 +12,7 @@ import org.springframework.data.web.PageableDefault;
 import com.animalia.spring.Excepciones.EmpresaNoEcontrada;
 import com.animalia.spring.Excepciones.FotosNoEcontrada;
 import com.animalia.spring.entidades.Fotos;
+import com.animalia.spring.entidades.DTO.FotoDTO;
 import com.animalia.spring.servicios.FotosServicio;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -51,6 +52,17 @@ public class FotosController {
     @Operation(summary = "Buscar una foto por ID", description = "Buscar una foto a partir de su ID")
     public ResponseEntity<Fotos> obtenerFotoPorId(@PathVariable long id) {
         return ResponseEntity.ok(fotosServicio.obtenerFotoPorId(id));
+    }
+
+    @PostMapping("/crear")
+    @Operation(summary = "Crear una foto con rescate y usuario", description = "Crear una nueva foto en el sistema asignando rescate y usuario por sus IDs")
+    public ResponseEntity<Fotos> crearFoto(@RequestBody FotoDTO fotoDTO) {
+        Fotos foto = fotosServicio.crearFoto(fotoDTO);
+        if (foto != null) {
+            return ResponseEntity.ok(foto);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @PostMapping

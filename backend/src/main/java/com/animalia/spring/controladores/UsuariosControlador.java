@@ -92,7 +92,11 @@ public class UsuariosControlador {
         return ResponseEntity.ok(u);
     }
 
-    @Operation(summary = "Eliminar usuario por ID", description = "Elimina un usuario del sistema a partir de su ID")
+    @PostMapping
+    public ResponseEntity<UsuarioDTO> guardarUsuario(@RequestBody Usuarios usuario) {
+        return ResponseEntity.ok(usuariosServicio.guardarUsuario(usuario));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarUsuario(@PathVariable long id) {
         usuariosServicio.eliminarUsuario(id);

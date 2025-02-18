@@ -75,8 +75,14 @@ public class EmpresasController {
 
     @PostMapping
     @Operation(summary = "Guardar una empresa", description = "Guardar una nueva empresa en el sistema")
-    public ResponseEntity<Empresas> guardarEmpresa(@RequestBody Empresas empresa) {
-        return ResponseEntity.ok(empresasServicio.guardarEmpresa(empresa));
+    public ResponseEntity<Empresas> guardarEmpresa(@RequestBody EmpresaDTO empresaDTO) {
+        Empresas empresa = new Empresas();
+        // Assuming EmpresaDTO has appropriate getters
+        empresa.setNombre(empresaDTO.getNombre());
+        empresa.setDireccion(empresaDTO.getDireccion());
+        // Set other properties as needed
+        Empresas empresaGuardada = empresasServicio.guardarEmpresa(empresa);
+        return ResponseEntity.ok(empresaGuardada);
     }
 
     @PostMapping("/crear-con-usuario")
