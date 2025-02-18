@@ -77,7 +77,7 @@ public class EmpresasServicio {
         usuario.setNombre(empresaRegistroDTO.getNombre());
         usuario.setApellido("Corp");
         usuario.setEmail(empresaRegistroDTO.getEmail());
-        usuario.setPassword(passwordEncoder.encode(empresaRegistroDTO.getContraseña()));
+        usuario.setPassword(passwordEncoder.encode(empresaRegistroDTO.getContrasenia()));
         usuario.setTelefono(empresaRegistroDTO.getTelefono());
         usuario.setDireccion(empresaRegistroDTO.getDireccion());
         usuario.setUrl_foto_perfil("iconoBase.png");
