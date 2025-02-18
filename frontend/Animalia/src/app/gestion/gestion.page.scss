@@ -28,14 +28,8 @@ $primary: #4caf50;
   margin-right: 5px;
 }
 
-ion-button  {
-
-  .main-button{
-    color: white !important;
-    --background: linear-gradient(to bottom, #4caf50, #388e3c) !important;
-    
-  }
-  
-  
+ion-button.main-button {
+  color: white !important;
+  --background: linear-gradient(to bottom, #4caf50, #388e3c) !important;
 }
 
