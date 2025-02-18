@@ -5,12 +5,14 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.animalia.spring.entidades.Usuarios;
 import com.animalia.spring.entidades.Usuarios.TipoUsuario;
 
+@Repository
 public interface UsuarioRepositorio extends JpaRepository<Usuarios, Long> {
 
     Usuarios findByEmail(String email);

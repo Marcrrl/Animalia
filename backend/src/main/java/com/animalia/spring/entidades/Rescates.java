@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
@@ -37,7 +38,7 @@ public class Rescates {
     private Long id;
 
     @ManyToOne
-    @JsonManagedReference
+    @JsonBackReference(value = "empresa-rescates")
     @JoinColumn(name = "id_empresa", referencedColumnName = "id", nullable = true)
     private Empresas empresa;
 

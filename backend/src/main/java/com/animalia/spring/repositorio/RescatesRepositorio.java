@@ -1,10 +1,12 @@
 package com.animalia.spring.repositorio;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import com.animalia.spring.entidades.Animales;
 import com.animalia.spring.entidades.Rescates;
 
+@Repository
 public interface RescatesRepositorio extends JpaRepository<Rescates, Long> {
 
     Rescates findByAnimal(Animales animal);

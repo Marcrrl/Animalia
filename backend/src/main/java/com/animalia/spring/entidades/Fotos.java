@@ -54,14 +54,6 @@ public class Fotos {
     @Column(nullable = false)
     private LocalDate fecha_captura;
 
-    /*
-     * La ubicacion y descripcion pueden ser nulables porque exite la
-     * posibilidad de que no se quiera poner una ubicacion o descripcion ya que
-     * exiten dos posibilidades que inflingen alguna ley de privacidad o seguridad
-     * o tambien puede ser que el usuario se enceuntre en algun sitio remoto
-     * donde no se pueda obtener la ubicacion exacta de donde se tomo la foto
-     */
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
