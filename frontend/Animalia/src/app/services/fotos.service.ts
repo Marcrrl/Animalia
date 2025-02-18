@@ -30,8 +30,8 @@ private apiUrl = 'http://localhost:9000/api';
 
     console.log('Headers:', headers);
     const body = {
-      rescate: rescateId ,
-      usuarios:  usuario ,
+      rescateId: rescateId.id ,
+      usuarioId:  usuario.id ,
       url_foto: url_foto,
       descripcion: descripcion,
       ubicacion: ubicacion,
