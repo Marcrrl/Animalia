@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.animalia.spring.Excepciones.RescateNoEcontrada;
-import com.animalia.spring.entidades.Fotos;
 import com.animalia.spring.entidades.Rescates;
 import com.animalia.spring.entidades.DTO.RescateDTO;
 import com.animalia.spring.entidades.DTO.RescateDetalleDTO;
