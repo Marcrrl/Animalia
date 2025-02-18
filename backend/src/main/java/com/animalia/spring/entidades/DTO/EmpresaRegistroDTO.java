@@ -16,5 +16,5 @@ public class EmpresaRegistroDTO {
     private String email;
     private TipoEmpresa tipo;
     private String url_web;
-    private String contraseña;
+    private String contrasenia;
 }

@@ -96,4 +96,26 @@ public class RescatesServicio {
         }
         return List.of();
     }
+
+    public Long obtenerFotoIdPorAnimalId(long animalId) {
+        Animales animal = animalesRepositorio.findById(animalId).orElse(null);
+        if (animal != null) {
+            Rescates rescate = rescatesRepositorio.findByAnimal(animal);
+            if (rescate != null && rescate.getFotos() != null && !rescate.getFotos().isEmpty()) {
+                return rescate.getFotos().get(0).getId();
+            }
+        }
+        return null;
+    }
+
+    public Long obtenerRescateIdPorAnimalId(long animalId) {
+        Animales animal = animalesRepositorio.findById(animalId).orElse(null);
+        if (animal != null) {
+            Rescates rescate = rescatesRepositorio.findByAnimal(animal);
+            if (rescate != null) {
+                return rescate.getId();
+            }
+        }
+        return null;
+    }
 }

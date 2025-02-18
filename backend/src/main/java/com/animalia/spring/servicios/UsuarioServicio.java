@@ -95,7 +95,6 @@ public class UsuarioServicio {
         Usuarios usuario = usuarioRepositorio.findById(id).orElse(null);
         if (usuario != null) {
             usuario.setPassword(passwordEncoder.encode(nuevaContrasena));
-            String nueva = passwordEncoder.encode(nuevaContrasena);
             usuarioRepositorio.save(usuario);
             return userDtoConverter.convertUserEntityToUserDto(usuario);
         }
