@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MapaPage } from './mapa.page';
+import { MapaPage } from './Mapa.page';
 
 describe('MapaPage', () => {
   let component: MapaPage;

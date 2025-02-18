@@ -7,8 +7,8 @@ import { AnimalesService } from '../services/animales.service';
 
 @Component({
   selector: 'app-mapa',
-  templateUrl: './mapa.page.html',
-  styleUrls: ['./mapa.page.scss'],
+  templateUrl: './Mapa.page.html',
+  styleUrls: ['./Mapa.page.scss'],
   standalone: false,
 })
 export class MapaPage {
