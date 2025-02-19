@@ -22,7 +22,7 @@ getById(id: number): Observable<any> {
     console.log('Headers:', headers);
     console.log(rescate);
 
-    return this.http.post(`${this.apiUrl}/rescates`, rescate,{headers: headers,
+    return this.http.post(`${this.apiUrl}/rescates/crear`, rescate,{headers: headers,
       observe: 'response',});
   }
 }

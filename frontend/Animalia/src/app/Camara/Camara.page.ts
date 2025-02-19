@@ -20,7 +20,7 @@ export class CamaraPage implements OnInit {
   nombreFoto: string = '';
   public animales: any[] = [];
   results: any[] = [];
-  animalSeleccionado: any = null;
+  animalSeleccionadoId: any = null;
   rescateId: number = 0;
   usuarioId: string = '';
   descripcion: string = '';
@@ -48,7 +48,6 @@ export class CamaraPage implements OnInit {
     this.descripcion = '';
     this.rescateId = 1;
     this.ubicacion = '';
-    this.animalSeleccionado = 1;
     this.animalesService.getTotalAnimales().subscribe((animales) => {
       this.animales = animales; // Guardar todos los animales en la lista principal
       this.results = [...this.animales];
@@ -88,11 +87,11 @@ export class CamaraPage implements OnInit {
   }
 
   onAnimalChange() {
-    if (this.animalSeleccionado) {
-      console.log('Animal seleccionado:', this.animalSeleccionado);
+    if (this.animalSeleccionadoId) {
+      console.log('Animal seleccionado:', this.animalSeleccionadoId);
       // Filtrar rescates en memoria sin hacer nuevas peticiones
       this.rescatesFiltrados = this.rescates.filter(
-        rescate => rescate.animal.id === this.animalSeleccionado.id && rescate.estado_rescate === 'EN PROCESO'
+        rescate => rescate.animal.id === this.animalSeleccionadoId && rescate.estado_rescate === 'EN_PROCESO'
       );
 
       console.log('Rescates filtrados:', this.rescatesFiltrados);
@@ -110,7 +109,7 @@ export class CamaraPage implements OnInit {
 
   nuevoRescate() {
 
-    if (this.animalSeleccionado && this.estadoAnimal && this.ubicacion && this.usuario) {
+    if (this.animalSeleccionadoId && this.estadoAnimal && this.ubicacion && this.usuario) {
 
       const token = sessionStorage.getItem('token'); // Obtener el token almacenado
       const headers = new HttpHeaders({
@@ -119,14 +118,14 @@ export class CamaraPage implements OnInit {
       });
       // Crear un nuevo rescate
       const nuevoRescate = {
-        animal: this.animalSeleccionado.id,  // Asegúrate de que el animal esté asignado correctamente
-        estado_rescate: 'EN PROCESO',     // El estado inicial puede ser "EN PROCESO" o lo que prefieras
-        estado_animal: this.estadoAnimal,     // Asigna el estado adecuado para el animal
+        animalId: this.animalSeleccionadoId,  // Asegúrate de que el animal esté asignado correctamente
+        //estado_rescate: 'EN PROCESO',     // El estado inicial puede ser "EN PROCESO" o lo que prefieras
+        estadoAnimal: this.estadoAnimal,     // Asigna el estado adecuado para el animal
         //fecha_rescate: null,       // Usa la fecha actual
         //fotos: [],                       // Agrega las fotos si es necesario
         ubicacion: this.ubicacion, // Ubicación por defecto
-        usuario: this.usuario.id,  // Información de usuario
-        empresa: null // Información de la empresa
+        usuarioId: this.usuario.id,  // Información de usuario
+        //empresa: null // Información de la empresa
       };
 
       this.rescatesService.añadirRescate(nuevoRescate, headers).subscribe({
