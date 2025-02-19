@@ -47,6 +47,7 @@ body {
 }
 
 @media (min-width: 769px) and (max-width: 2560px) {
+@media (min-width: 769px) and (max-width: 2560px) {
     .center {
         position: absolute;
         top: 56px;
@@ -191,6 +192,14 @@ body {
             color: #fff;
             font-weight: bold;
         }
+        border: #243946 1px solid;
+        font-weight: bold;
+
+        &:hover{
+            background-color: #243946;
+            color: #fff;
+            font-weight: bold;
+        }
     }
 
     .center .register-button:active {
@@ -212,6 +221,12 @@ body {
         background-color: #243946;
         color: #fff;
         transition: transform 0.1s;
+
+        &:hover{
+            background-color: transparent;
+            color: #243946;
+            border: #243946 1px solid;
+        }
 
         &:hover{
             background-color: transparent;
@@ -346,6 +361,14 @@ body {
         color: #243946;
         transition: transform 0.1s;
         border-radius: 30px;
+        border: #243946 1px solid;
+        font-weight: bold;
+
+        &:hover{
+            background-color: #243946;
+            color: #fff;
+            font-weight: bold;
+        }
         border: #243946 1px solid;
         font-weight: bold;
 
