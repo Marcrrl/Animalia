@@ -53,7 +53,7 @@ export class CamaraPage implements OnInit {
     this.nombreFoto = '';
     this.descripcion = '';
     this.ubicacion = '';
-    this.animalSeleccionadoId = 1;
+    this.animalSeleccionadoId = null;
     this.animalesService.getTotalAnimales().subscribe((animales) => {
       this.animales = animales; // Guardar todos los animales en la lista principal
       this.results = [...this.animales];
@@ -74,6 +74,7 @@ export class CamaraPage implements OnInit {
     });
     this.animalesService.getTotalAnimales().subscribe((animales) => {
       this.animales = animales; // Guardar todos los animales en la lista principal
+console.log('Animales:', this.animales);
     });
 
     // if (this.rescateId) {
@@ -135,7 +136,28 @@ export class CamaraPage implements OnInit {
         rescate.animal.id === this.animalSeleccionadoId &&
         rescate.estado_rescate === 'NO_ASIGNADO'
     );
+
+
+
+    // Ahora, añadimos la última foto a cada rescate
+    // this.rescatesFiltrados = this.rescatesFiltrados.map((rescate) => {
+    //   const ultimaFoto =
+    //     rescate.fotos && rescate.fotos.length > 0
+    //       ? rescate.fotos[rescate.fotos.length - 1]
+    //       : null;
+    //   return {
+    //     ...rescate,
+    //     ultimaFoto,
+    //   };
+    // });
+
     console.log('Rescates filtrados:', this.rescatesFiltrados);
+    // this.rescatesFiltrados.forEach((rescate) => {
+    //   this.rescatesService.getFotosIdRescate(rescate.id).subscribe((fotos) => {
+    //     rescate.fotos = fotos;
+    //     fotos.push(...fotos); // Agregar las fotos al array general
+    //   });
+    // });
 
     console.log('Fotos:', this.fotos);
   }

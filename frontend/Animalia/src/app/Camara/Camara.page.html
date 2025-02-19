@@ -91,17 +91,21 @@
   </ion-item>
 </ion-list>-->
 
-<ion-item *ngFor="let foto of fotos" (click)="onFotoClick(foto.rescate_id)">
+
+
+
+<!-- <ion-item *ngFor="let rescate of rescatesFiltrados" (click)="onFotoClick(rescate.id)">
   <ion-thumbnail slot="start">
-    <img [src]="getImagen(foto)" alt="Foto del rescate" />
+    <img *ngIf="rescate.ultimaFoto" [src]="getImagen(rescate.ultimaFoto)" alt="Foto del rescate" />
   </ion-thumbnail>
   <ion-label>
-    <p>Fecha: {{ foto.fecha_captura }}</p>
-    <p>Foto: {{ foto.url_foto }}</p>
-    <p>Ubicación: {{ foto.ubicacion }}</p>
-    <p ><strong>ID Rescate:</strong> {{ getRescatePorIdFoto(foto.id) }}</p>
+    <p>Fecha: {{ rescate.ultimaFoto?.fecha_captura }}</p>
+    <p>Foto: {{ rescate.ultimaFoto?.url_foto }}</p>
+    <p>Ubicación: {{ rescate.ultimaFoto?.ubicacion }}</p>
+    <p><strong>ID Rescate:</strong> {{ getRescatePorIdFoto(rescate.ultimaFoto?.id) }}</p>
   </ion-label>
-</ion-item>
+</ion-item> -->
+
 
 
 <ion-button expand="full" *ngIf="rescateId" (click)="resetRescateSeleccionadoId()" color="danger">
