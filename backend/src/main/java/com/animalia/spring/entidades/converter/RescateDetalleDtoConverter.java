@@ -9,9 +9,16 @@ import com.animalia.spring.entidades.DTO.RescateDetalleDTO;
 public class RescateDetalleDtoConverter {
 
     public RescateDetalleDTO convertRescateEntityToRescateDetalleDto(Rescates rescate) {
+        String nombreEmpresa;
+        if (rescate.getEmpresa() == null) {
+            nombreEmpresa = "";
+        } else {
+            nombreEmpresa = rescate.getEmpresa().getNombre();
+            
+        }
         return new RescateDetalleDTO(
                 rescate.getId(),
-                rescate.getEmpresa().getNombre(),
+                nombreEmpresa,
                 rescate.getUsuario().getNombre(),
                 rescate.getAnimal().getNombre_comun(),
                 rescate.getUbicacion(),
