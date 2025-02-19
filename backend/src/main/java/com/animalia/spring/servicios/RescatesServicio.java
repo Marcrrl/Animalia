@@ -85,5 +85,8 @@ public class RescatesServicio {
         return null;
     }
 
+    public List<Rescates> obtenerRescatesPorEmpresa(Long empresaId) {
+        return rescatesRepositorio.findByEmpresaId(empresaId);
+    }
 
 }

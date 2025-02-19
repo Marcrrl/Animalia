@@ -1,9 +1,13 @@
 package com.animalia.spring.repositorio;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.animalia.spring.entidades.Rescates;
 
 public interface RescatesRepositorio extends JpaRepository<Rescates, Long> {
+
+    List<Rescates> findByEmpresaId(Long empresaId);
 
     // List<Rescates> findByEstado_rescate(Estado estado_rescate);
 
