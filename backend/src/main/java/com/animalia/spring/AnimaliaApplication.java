@@ -109,7 +109,6 @@ public class AnimaliaApplication {
                                 animales.forEach(animal -> {
                                         animalesRepositorio.save(animal);
                                 });
-
                                 Empresas e1 = new Empresas(null, "Clínica veterinaria",
                                                 "C. Venezuela, 12, 03010 Alicante (Alacant), Alicante",
                                                 "12345678",
