@@ -176,26 +176,4 @@ public class RescatesController {
             return ResponseEntity.notFound().build();
         }
     }
-
-    @GetMapping("/animal/{animalId}/foto")
-    @Operation(summary = "Obtener ID de la foto relacionada a un rescate por ID del animal", description = "Devuelve la ID de la foto relacionada a un rescate buscando por la ID del animal")
-    public ResponseEntity<Long> obtenerFotoIdPorAnimalId(@PathVariable long animalId) {
-        Long fotoId = rescatesServicio.obtenerFotoIdPorAnimalId(animalId);
-        if (fotoId != null) {
-            return ResponseEntity.ok(fotoId);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @GetMapping("/animal/{animalId}")
-    @Operation(summary = "Obtener ID del rescate por ID del animal", description = "Devuelve la ID del rescate buscando por la ID del animal")
-    public ResponseEntity<Long> obtenerRescateIdPorAnimalId(@PathVariable long animalId) {
-        Long rescateId = rescatesServicio.obtenerRescateIdPorAnimalId(animalId);
-        if (rescateId != null) {
-            return ResponseEntity.ok(rescateId);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
 }
