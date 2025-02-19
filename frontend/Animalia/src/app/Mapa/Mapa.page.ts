@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EmpresasService } from '../services/empresas.service';
 import { HttpClient } from '@angular/common/http';
 import { AnimalesService } from '../services/animales.service';
+import { FotosService } from '../services/fotos.service';
 
 @Component({
   selector: 'app-mapa',
@@ -24,8 +25,9 @@ export class MapaPage {
     private empresaService: EmpresasService,
     private http: HttpClient,
     private route: ActivatedRoute,
-    private animalesService: AnimalesService
-  ) {}
+    private animalesService: AnimalesService,
+    private fotosService: FotosService
+  ) { }
 
   ionViewWillEnter() {
     this.cargarEmpresas();
@@ -50,8 +52,25 @@ export class MapaPage {
               }
             })
           );
+          console.log(this.datos);
         }
       } else if (this.tipo == 'animales') {
+        data = await this.fotosService.getTotalFotos().toPromise();
+        {
+          this.datos = await Promise.all(
+            data.map(async (dato: any) => {
+              try {
+                // Dividir el valor de ubicacion en latitud y longitud
+                const [lat, lon] = dato.ubicacion.split('|').map(Number); // convierte las coordenadas a números
+                return { ...dato, latitud: lat, longitud: lon };
+              } catch (error) {
+                console.error(`Error al geocodificar ${dato.nombre}:`, error);
+                return null; // Si falla la geocodificación, no se agrega
+              }
+            })
+          );
+          console.log(this.datos);
+        }
         //falta meter el servicio de fotos
         /*data = await this.animalesService.getAnimales().toPromise();
         {
@@ -105,7 +124,7 @@ export class MapaPage {
     if (!this.mapInitialized) {
       this.map = L.map(this.mapContainerId).setView(
         [this.datos[0].latitud, this.datos[0].longitud],
-         14
+        14
       );
 
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -132,6 +151,7 @@ export class MapaPage {
       });
       // Agregar marcadores
       this.datos.forEach((dato) => {
+        console.log(dato.latitud, dato.longitud);
         const marker = L.marker([dato.latitud, dato.longitud], {
           icon: customIcon,
         })

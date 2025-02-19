@@ -28,7 +28,7 @@ private apiUrl = 'http://localhost:9000/api';
   }
 
   obtenerRescatePorIdFoto(id: number) {
-    return this.http.get<number>(`${this.apiUrl}/fotos/${id}/rescate`);
+    return this.http.get<string>(`${this.apiUrl}/fotos/${id}/rescate`);
   }
   añadirFoto(rescateId: any, usuarioId: any, url_foto: string, descripcion: string, ubicacion: any,headers:any) {
 

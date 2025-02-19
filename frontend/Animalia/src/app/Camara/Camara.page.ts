@@ -1,12 +1,14 @@
 import { RescatesService } from './../services/rescates.service';
 import { UsuarioService } from './../services/usuario.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { Geolocation } from '@capacitor/geolocation';
 import { AnimalesService } from '../services/animales.service';
 import { FotosService } from '../services/fotos.service';
 import { set } from 'lodash';
+import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-Camara',
@@ -18,7 +20,7 @@ export class CamaraPage implements OnInit {
   //variablkes nuevas
   rescates: any[] = [];
   rescatesFiltrados: any[] = [];
-  fotos: any[] = [];
+  fotosFiltradas: any[] = [];
   estadoAnimal: string = '';
   rescateId: any;
   nombreFoto: string = '';
@@ -39,15 +41,16 @@ export class CamaraPage implements OnInit {
     'DESCONOCIDO',
     'SANO',
   ];
-  anteriorAnimalSeleccionadoId: any;
 
   constructor(
     private http: HttpClient,
     private animalesService: AnimalesService,
     private fotosService: FotosService,
     private usuarioService: UsuarioService,
-    private rescatesService: RescatesService
-  ) {}
+    private rescatesService: RescatesService,
+    private router: Router,
+    private toastController: ToastController
+  ) { }
 
   ngOnInit() {
     this.nombreFoto = '';
@@ -74,7 +77,7 @@ export class CamaraPage implements OnInit {
     });
     this.animalesService.getTotalAnimales().subscribe((animales) => {
       this.animales = animales; // Guardar todos los animales en la lista principal
-console.log('Animales:', this.animales);
+      console.log('Animales:', this.animales);
     });
 
     // if (this.rescateId) {
@@ -89,13 +92,16 @@ console.log('Animales:', this.animales);
     this.obtenerUbicacionPoint();
   }
 
-  onFotoClick(rescateId: number) {
+
+
+
+  onRescateClick(rescateId: number) {
     this.rescateId = rescateId;
     console.log('Rescate seleccionado:', this.rescateId);
   }
 
   getImagen(foto: any): string {
-    console.log('Foto:', foto.url_foto);
+    //console.log('Foto:', foto.url_foto);
     return this.fotosService.obtenerImagenUrl(foto.url_foto);
   }
 
@@ -108,27 +114,28 @@ console.log('Animales:', this.animales);
       error: (err) => console.error('Error obteniendo el ID del rescate', err),
     });
   }
-
-  onAnimalChange() {
-    if (this.animalSeleccionadoId !== this.anteriorAnimalSeleccionadoId) {
-      this.anteriorAnimalSeleccionadoId = this.animalSeleccionadoId;
-      console.log('Animal seleccionado:', this.animalSeleccionadoId);
-
-      this.rescatesFiltrados = this.rescates.filter(
-        (rescate) =>
-          rescate.animal.id === this.animalSeleccionadoId &&
-          rescate.estado_rescate === 'NO_ASIGNADO'
-      );
-
-      console.log('Rescates filtrados:', this.rescatesFiltrados);
-
-      this.fotos = this.rescatesFiltrados.flatMap((rescate) => {
-        rescate.fotos;
-      });
-
-      console.log('Fotos:', this.fotos);
-    }
-  }
+  /*
+    onAnimalChange() {
+  
+  
+      if (this.animalSeleccionadoId) {
+        console.log('Animal seleccionado:', this.animalSeleccionadoId);
+  
+        this.rescatesFiltrados = this.rescates.filter(
+          (rescate) =>
+            rescate.animal.id === this.animalSeleccionadoId &&
+            rescate.estado_rescate === 'NO_ASIGNADO'
+        );
+  
+        console.log('Rescates filtrados:', this.rescatesFiltrados);
+  
+        this.fotos = this.rescatesFiltrados.flatMap((rescate) => {
+          rescate.fotos;
+        });
+  
+        console.log('Fotos:', this.fotos);
+      }
+    }*/
 
   filtrarRescates() {
     this.rescatesFiltrados = this.rescates.filter(
@@ -137,29 +144,19 @@ console.log('Animales:', this.animales);
         rescate.estado_rescate === 'NO_ASIGNADO'
     );
 
+    console.log('Rescates :', this.rescatesFiltrados);
+    /*no estoy usando esta lista , pero no quitarla*/
+    this.fotosFiltradas = this.rescatesFiltrados.flatMap(rescate =>
+      rescate.fotos.map((foto: any) => ({
+        ...foto,
+        url: this.fotosService.obtenerImagenUrl(foto.url_foto)  // Guardamos la URL aquí
+      }))
+    );
+
+    console.log('Fotos filtradas:', this.fotosFiltradas);
 
 
-    // Ahora, añadimos la última foto a cada rescate
-    // this.rescatesFiltrados = this.rescatesFiltrados.map((rescate) => {
-    //   const ultimaFoto =
-    //     rescate.fotos && rescate.fotos.length > 0
-    //       ? rescate.fotos[rescate.fotos.length - 1]
-    //       : null;
-    //   return {
-    //     ...rescate,
-    //     ultimaFoto,
-    //   };
-    // });
 
-    console.log('Rescates filtrados:', this.rescatesFiltrados);
-    // this.rescatesFiltrados.forEach((rescate) => {
-    //   this.rescatesService.getFotosIdRescate(rescate.id).subscribe((fotos) => {
-    //     rescate.fotos = fotos;
-    //     fotos.push(...fotos); // Agregar las fotos al array general
-    //   });
-    // });
-
-    console.log('Fotos:', this.fotos);
   }
 
   resetRescateSeleccionadoId() {
@@ -184,62 +181,96 @@ console.log('Animales:', this.animales);
         },
         complete: () => {
           console.log('Proceso de editar rescate completado.');
+
         },
       });
   }
+
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000,
+      icon: 'alert-outline',
+    });
+    toast.present();
+  }
+
   subirRescate() {
-    /*PUT*/
-    if (this.rescateId && this.foto) {
-      console.log('Editando Rescate');
-      this.subirImagen();
-      this.editarRescate();
-    } else {
-      console.log('Añadiendo Rescate');
-      /*POST*/
-      if (
-        this.animalSeleccionadoId &&
-        this.estadoAnimal &&
-        this.ubicacion &&
-        this.usuarioOriginal &&
-        this.foto
-      ) {
-        const token = sessionStorage.getItem('token'); // Obtener el token almacenado
-        const headers = new HttpHeaders({
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`, // Enviar el token en el header
-        });
-        // Crear un nuevo rescate
-        const nuevoRescate = {
-          animalId: this.animalSeleccionadoId, // Asegúrate de que el animal esté asignado correctamente
-          //estado_rescate: 'EN PROCESO',     // El estado inicial puede ser "EN PROCESO" o lo que prefieras
-          estadoAnimal: this.estadoAnimal, // Asigna el estado adecuado para el animal
-          //fecha_rescate: null,       // Usa la fecha actual
-          //fotos: [],                       // Agrega las fotos si es necesario
-          ubicacion: this.ubicacion, // Ubicación por defecto
-          usuarioId: this.usuarioOriginal.id, // Información de usuario
-          //empresa: null // Información de la empresa
-        };
+    let rescateOk = false;
 
-        this.rescatesService.añadirRescate(nuevoRescate, headers).subscribe({
-          next: (response) => {
-            this.rescateId = (response.body as any).id; // Aquí accedes al ID dentro del objeto completo
-            console.log('Rescate agregado con ID:', this.rescateId);
+    if (this.foto && this.usuarioOriginal && this.nombreFoto && this.descripcion && this.ubicacion && this.estadoAnimal) {
 
-            setTimeout(() => {
-              this.subirImagen();
-            }, 2000);
-          },
-          error: (error) => {
-            console.error('Error al agregar el rescate', error);
-          },
-          complete: () => {
-            console.log('Proceso de añadir rescate completado.');
-          },
-        });
+
+      /*PUT*/
+      if (this.rescateId) {
+        console.log('Editando Rescate');
+        this.subirImagen();
+        this.editarRescate();
+        rescateOk = true;
       } else {
-        console.log('Faltan datos');
+        console.log('Añadiendo Rescate');
+        /*POST*/
+        if (
+          this.animalSeleccionadoId &&
+          this.estadoAnimal &&
+          this.ubicacion &&
+          this.usuarioOriginal &&
+          this.foto
+        ) {
+          const token = sessionStorage.getItem('token'); // Obtener el token almacenado
+          const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`, // Enviar el token en el header
+          });
+          // Crear un nuevo rescate
+          const nuevoRescate = {
+            animalId: this.animalSeleccionadoId, // Asegúrate de que el animal esté asignado correctamente
+            //estado_rescate: 'EN PROCESO',     // El estado inicial puede ser "EN PROCESO" o lo que prefieras
+            estadoAnimal: this.estadoAnimal, // Asigna el estado adecuado para el animal
+            //fecha_rescate: null,       // Usa la fecha actual
+            //fotos: [],                       // Agrega las fotos si es necesario
+            ubicacion: this.ubicacion, // Ubicación por defecto
+            usuarioId: this.usuarioOriginal.id, // Información de usuario
+            //empresa: null // Información de la empresa
+          };
+
+          this.rescatesService.añadirRescate(nuevoRescate, headers).subscribe({
+            next: (response) => {
+              this.rescateId = (response.body as any).id; // Aquí accedes al ID dentro del objeto completo
+              console.log('Rescate agregado con ID:', this.rescateId);
+
+
+              this.subirImagen();
+
+              rescateOk = true;
+
+            },
+            error: (error) => {
+              console.error('Error al agregar el rescate', error);
+            },
+            complete: () => {
+              console.log('Proceso de añadir rescate completado.');
+
+
+            },
+          });
+        } else {
+          this.presentToast('Falta algun dato');
+          console.log('Faltan datos');
+        }
       }
+    } else {
+      this.presentToast('Falta algun dato');
+      console.log('Faltan datos');
     }
+    if (rescateOk) {
+      setTimeout(() => { window.location.reload();  }, 1000);
+
+
+
+    }
+
+
   }
 
   async obtenerUbicacionPoint() {
@@ -386,6 +417,7 @@ console.log('Animales:', this.animales);
         },
         complete: () => {
           console.log('Proceso de añadir foto completado.');
+
         },
       });
   }

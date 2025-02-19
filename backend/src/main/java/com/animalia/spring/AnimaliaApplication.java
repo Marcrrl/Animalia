@@ -226,17 +226,17 @@ public class AnimaliaApplication {
                                 List<Rescates> rescates = Arrays.asList(r1, r2, r3, r4, r5, r6);
                                 rescatesRepositorio.saveAll(rescates);
 
-                                Fotos f1 = new Fotos(null, "perro.jpg", r1, u3, "-13|10",
+                                Fotos f1 = new Fotos(null, "perro.jpg", r1, u3, "38.361561|-0.491348",
                                                 "Perro en la calle", LocalDate.now());
-                                Fotos f2 = new Fotos(null, "gato.jpg", r2, u2, "-13|10",
+                                Fotos f2 = new Fotos(null, "gato.jpg", r2, u2, "38.362822|-0.491400",
                                                 "Gato en la calle", LocalDate.now());
-                                Fotos f3 = new Fotos(null, "caballo.jpg", r3, u2, "-13|10",
+                                Fotos f3 = new Fotos(null, "caballo.jpg", r3, u2, "38.361081|-0.495176",
                                                 "Caballo en la calle", LocalDate.now());
-                                Fotos f4 = new Fotos(null, "leon1.jpg", r4, u2, "-13|10",
+                                Fotos f4 = new Fotos(null, "leon1.jpg", r4, u2, "38.357874|-0.492279",
                                                 "León en la calle", LocalDate.now());
-                                Fotos f5 = new Fotos(null, "panda.jpg", r5, u2, "-13|10",
+                                Fotos f5 = new Fotos(null, "panda.jpg", r5, u2, "38.361850|-0.488598",
                                                 "Panda en la calle", LocalDate.now());
-                                Fotos f6 = new Fotos(null, "leon.jpg", r6, u2, "-13|10",
+                                Fotos f6 = new Fotos(null, "leon.jpg", r6, u2, "38.360345|-0.490459",
                                                 "Perro en la calle", LocalDate.now());
 
                                 // Guardar fotos
