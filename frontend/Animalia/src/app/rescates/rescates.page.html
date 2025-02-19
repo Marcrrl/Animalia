@@ -28,7 +28,7 @@
             <ion-card-title>Todos los Rescates</ion-card-title>
           </ion-card-header>
           <ion-card-content>
-            <ion-list>
+            <ion-list style="max-height: 500px; overflow-y: auto;">
               <ion-item *ngFor="let rescate of todosRescates">
                 <ion-label>
                   <div><strong>Nombre Empresa:</strong> {{ tieneEmpresaAsignada(rescate) }}</div>
@@ -51,7 +51,7 @@
             <ion-card-title>Rescates Asignados</ion-card-title>
           </ion-card-header>
           <ion-card-content>
-            <ion-list>
+            <ion-list style="max-height: 800px; overflow-y: auto;">
               <ion-item *ngFor="let rescate of rescatesAsignados">
                 <ion-label>
                   <div><strong>Nombre Empresa:</strong> {{ tieneEmpresaAsignada(rescate) }}</div>
