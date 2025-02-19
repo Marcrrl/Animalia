@@ -31,6 +31,15 @@ export class CamaraPage implements OnInit {
   ubicacion: string = '';
   usuario: any;
   usuarioOriginal: any;
+  estadoOpciones: string[] = [
+    'LEVE',
+    'MODERADO',
+    'GRAVE',
+    'FALLECIDO',
+    'DESCONOCIDO',
+    'SANO',
+  ];
+  anteriorAnimalSeleccionadoId: any;
 
   constructor(
     private http: HttpClient,
@@ -44,6 +53,7 @@ export class CamaraPage implements OnInit {
     this.nombreFoto = '';
     this.descripcion = '';
     this.ubicacion = '';
+    this.animalSeleccionadoId = 1;
     this.animalesService.getTotalAnimales().subscribe((animales) => {
       this.animales = animales; // Guardar todos los animales en la lista principal
       this.results = [...this.animales];
@@ -77,9 +87,6 @@ export class CamaraPage implements OnInit {
 
     this.obtenerUbicacionPoint();
   }
-  getRescateById(id: number) {
-    return this.rescatesFiltrados.find(rescate => rescate.id === id);
-  }
 
   onFotoClick(rescateId: number) {
     this.rescateId = rescateId;
@@ -91,10 +98,21 @@ export class CamaraPage implements OnInit {
     return this.fotosService.obtenerImagenUrl(foto.url_foto);
   }
 
+  getRescatePorIdFoto(idFoto: number) {
+    this.fotosService.obtenerRescatePorIdFoto(idFoto).subscribe({
+      next: (id) => {
+        this.rescateId = id;
+        console.log('ID del rescate:', id);
+      },
+      error: (err) => console.error('Error obteniendo el ID del rescate', err),
+    });
+  }
+
   onAnimalChange() {
-    if (this.animalSeleccionadoId) {
+    if (this.animalSeleccionadoId !== this.anteriorAnimalSeleccionadoId) {
+      this.anteriorAnimalSeleccionadoId = this.animalSeleccionadoId;
       console.log('Animal seleccionado:', this.animalSeleccionadoId);
-      // Filtrar rescates en memoria sin hacer nuevas peticiones
+
       this.rescatesFiltrados = this.rescates.filter(
         (rescate) =>
           rescate.animal.id === this.animalSeleccionadoId &&
@@ -103,24 +121,23 @@ export class CamaraPage implements OnInit {
 
       console.log('Rescates filtrados:', this.rescatesFiltrados);
 
-      // Extraer todas las fotos de los rescates filtrados
-      this.fotos = [
-        ...new Set(
-          this.rescatesFiltrados.map((rescate) => rescate.fotos).flat()
-        ),
-      ];
+      this.fotos = this.rescatesFiltrados.flatMap((rescate) => {
+        rescate.fotos;
+      });
+
       console.log('Fotos:', this.fotos);
-
-      // Obtener solo la última foto de cada rescate ( mirar si ponerlo o no )
-      // this.fotos = this.rescatesFiltrados
-      //   .map((rescate) => rescate.fotos.slice(-1)[0]) // Obtener la última foto de cada rescate
-      //   .filter(Boolean); // Eliminar valores undefined si algún rescate no tiene fotos
-
-      // console.log('Últimas fotos:', this.fotos);
-    } else {
-      this.rescatesFiltrados = [];
-      this.fotos = [];
     }
+  }
+
+  filtrarRescates() {
+    this.rescatesFiltrados = this.rescates.filter(
+      (rescate) =>
+        rescate.animal.id === this.animalSeleccionadoId &&
+        rescate.estado_rescate === 'NO_ASIGNADO'
+    );
+    console.log('Rescates filtrados:', this.rescatesFiltrados);
+
+    console.log('Fotos:', this.fotos);
   }
 
   resetRescateSeleccionadoId() {
@@ -161,7 +178,8 @@ export class CamaraPage implements OnInit {
         this.animalSeleccionadoId &&
         this.estadoAnimal &&
         this.ubicacion &&
-        this.usuarioOriginal&&this.foto
+        this.usuarioOriginal &&
+        this.foto
       ) {
         const token = sessionStorage.getItem('token'); // Obtener el token almacenado
         const headers = new HttpHeaders({
@@ -185,11 +203,9 @@ export class CamaraPage implements OnInit {
             this.rescateId = (response.body as any).id; // Aquí accedes al ID dentro del objeto completo
             console.log('Rescate agregado con ID:', this.rescateId);
 
-setTimeout(() => {
-
-this.subirImagen();
-}, 2000);
-
+            setTimeout(() => {
+              this.subirImagen();
+            }, 2000);
           },
           error: (error) => {
             console.error('Error al agregar el rescate', error);
