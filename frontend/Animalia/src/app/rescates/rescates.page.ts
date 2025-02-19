@@ -42,7 +42,7 @@ export class RescatesPage implements OnInit {
     this.tabActual = tab;
   }
 
-  tieneEmpresaAsignada(rescate: any): boolean {
-    return rescate.nombreEmpresa && rescate.nombreEmpresa.trim() !== '';
+  tieneEmpresaAsignada(rescate: any): string {
+    return rescate.nombreEmpresa && rescate.nombreEmpresa.trim() !== '' ? rescate.nombreEmpresa : '(Sin asignar)';
   }
 }

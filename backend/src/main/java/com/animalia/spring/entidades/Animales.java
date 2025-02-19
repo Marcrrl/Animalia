@@ -47,7 +47,7 @@ public class Animales {
 
     
     public enum EstadoConservacion {
-        EXTINTO,  BAJO_RIESGO, PELIGRO_EXTINCION, SIN_RIESGO
+        EXTINTO, BAJO_RIESGO, PELIGRO_EXTINCION, SIN_RIESGO
     }
 
     @Column(nullable = true)

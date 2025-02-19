@@ -319,11 +319,24 @@
         </ion-item>
         <ion-item>
           <ion-label position="floating">Estado Rescate</ion-label>
-          <ion-input [(ngModel)]="selectedRescate.estadoRescate" name="estadoRescate" required></ion-input>
+          <ion-select [(ngModel)]="selectedRescate.estadoRescate" name="estadoRescate" required>
+            <ion-select-option value="EN_PROCESO">EN PROCESO</ion-select-option>
+            <ion-select-option value="FINALIZADO">FINALIZADO</ion-select-option>
+            <ion-select-option value="DESCONOCIDO">DESCONOCIDO</ion-select-option>
+            <ion-select-option value="NO_ASIGNADO">NO ASIGNADO</ion-select-option>
+            <ion-select-option value="ASIGNADO">ASIGNADO</ion-select-option>
+          </ion-select>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Estado Animal</ion-label>
-          <ion-input [(ngModel)]="selectedRescate.estadoAnimal" name="estadoAnimal" required></ion-input>
+          <ion-select [(ngModel)]="selectedRescate.estadoAnimal" name="estadoAnimal" required>
+            <ion-select-option value="LEVE">LEVE</ion-select-option>
+            <ion-select-option value="MODERADO">MODERADO</ion-select-option>
+            <ion-select-option value="GRAVE">GRAVE</ion-select-option>
+            <ion-select-option value="FALLECIDO">FALLECIDO</ion-select-option>
+            <ion-select-option value="DESCONOCIDO">DESCONOCIDO</ion-select-option>
+            <ion-select-option value="SANO">SANO</ion-select-option>
+          </ion-select>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Fecha Rescate</ion-label>

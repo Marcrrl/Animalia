@@ -31,7 +31,7 @@
             <ion-list>
               <ion-item *ngFor="let rescate of todosRescates">
                 <ion-label>
-                  <div><strong>Nombre Empresa:</strong> {{ rescate.nombreEmpresa }}</div>
+                  <div><strong>Nombre Empresa:</strong> {{ tieneEmpresaAsignada(rescate) }}</div>
                   <div><strong>Nombre Usuario:</strong> {{ rescate.nombreUsuario }}</div>
                   <div><strong>Nombre Animal:</strong> {{ rescate.nombreAnimal }}</div>
                   <div><strong>Ubicación:</strong> {{ rescate.ubicacion }}</div>
@@ -54,7 +54,7 @@
             <ion-list>
               <ion-item *ngFor="let rescate of rescatesAsignados">
                 <ion-label>
-                  <div><strong>Nombre Empresa:</strong> {{ rescate.nombreEmpresa }}</div>
+                  <div><strong>Nombre Empresa:</strong> {{ tieneEmpresaAsignada(rescate) }}</div>
                   <div><strong>Nombre Usuario:</strong> {{ rescate.nombreUsuario }}</div>
                   <div><strong>Nombre Animal:</strong> {{ rescate.nombreAnimal }}</div>
                   <div><strong>Ubicación:</strong> {{ rescate.ubicacion }}</div>

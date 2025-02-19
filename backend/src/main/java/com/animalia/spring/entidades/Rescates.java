@@ -60,7 +60,7 @@ public class Rescates {
     private Estado estado_rescate;
 
     public enum Estado {
-        NO_RECIBIDO, RECIBIDO, EN_PROCESO, FINALIZADO, CANCELADO, NO_APLICA, DESCONOCIDO
+        ASIGNADO, FINALIZADO, DESCONOCIDO, NO_ASIGNADO
     }
 
     @Column(nullable = true)
