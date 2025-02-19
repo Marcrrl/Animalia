@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.animalia.spring.Excepciones.RescateNoEcontrada;
-import com.animalia.spring.Excepciones.UsuarioNoEncontrado;
-import com.animalia.spring.entidades.Rescates;
 import com.animalia.spring.entidades.Usuarios;
 import com.animalia.spring.entidades.DTO.UsuarioDTO;
 import com.animalia.spring.entidades.Usuarios.TipoUsuario;
@@ -86,14 +83,14 @@ public class UsuariosControlador {
     }
 
     @GetMapping("/{id}/empresa")
-    @Operation(summary = "Buscar un rescate por ID", description = "Buscar un rescate a partir de su ID")
+    @Operation(summary = "Buscar la empresa de un usuario por ID", description = "Buscar la empresa de un usuario a partir de su ID")
     public ResponseEntity<Long> obtenerEmpresaPorId(@PathVariable long id) {
         Usuarios usuario = usuariosServicio.obtenerUsuarioPorId(id);
-        Long idEmpresa = usuario.getEmpresa().getId();
-        if (idEmpresa == null) {
-            throw new UsuarioNoEncontrado(usuario.getId());
-        } else {
+        if (usuario != null && usuario.getEmpresa() != null) {
+            Long idEmpresa = usuario.getEmpresa().getId();
             return ResponseEntity.ok(idEmpresa);
+        } else {
+            return ResponseEntity.ok(0L);
         }
     }
 
@@ -153,6 +150,7 @@ public class UsuariosControlador {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<String> handleDataIntegrityViolationException(DataIntegrityViolationException e) {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body("Duplicate entry: " + e.getMostSpecificCause().getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body("Duplicate entry: " + e.getMostSpecificCause().getMessage());
     }
 }
