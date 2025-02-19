@@ -188,4 +188,18 @@ public class RescatesController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/empresa/{empresaId}/rescates")
+    @Operation(summary = "Obtener rescates asignados a una empresa", description = "Devuelve una lista de rescates con detalles asignados a una empresa específica")
+    public ResponseEntity<List<RescateDetalleDTO>> obtenerRescatesPorEmpresa(@PathVariable Long empresaId) {
+        List<Rescates> rescates = rescatesServicio.obtenerRescatesPorEmpresa(empresaId);
+        if (rescates.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            List<RescateDetalleDTO> rescateDetalleDTOs = rescates.stream()
+                    .map(rescateDetalleDtoConverter::convertRescateEntityToRescateDetalleDto)
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok(rescateDetalleDTOs);
+        }
+    }
 }

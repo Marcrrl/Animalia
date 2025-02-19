@@ -39,7 +39,7 @@
                   <div><strong>Estado Animal:</strong> {{ rescate.estadoAnimal }}</div>
                   <div><strong>Fecha Rescate:</strong> {{ rescate.fechaRescate }}</div>
                 </ion-label>
-                <ion-button slot="end" *ngIf="!tieneEmpresaAsignada(rescate)" (click)="asignarRescate(rescate)">Asignar</ion-button>
+                <ion-button slot="end" *ngIf="!rescate.nombreEmpresa || rescate.nombreEmpresa.trim() === ''" (click)="asignarEmpresa(rescate.id, empresaId)">Asignar</ion-button>
               </ion-item>
             </ion-list>
           </ion-card-content>
