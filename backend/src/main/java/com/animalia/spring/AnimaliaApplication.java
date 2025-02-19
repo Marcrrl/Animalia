@@ -60,7 +60,7 @@ public class AnimaliaApplication {
                                                 "panda.jpg", EstadoConservacion.PELIGRO_EXTINCION,
                                                 Familia.REPTIL, false);
                                 Animales a6 = new Animales(null, "Aquila adalberti", "Águila Imperial Ibérica",
-                                                "Es una de las aves endémicas de la península ibérica.", "aguila_imperial_iberica. jpg", EstadoConservacion.BAJO_RIESGO, Familia.AVES, false);
+                                                "Es una de las aves endémicas de la península ibérica.", "aguila.jpg", EstadoConservacion.BAJO_RIESGO, Familia.AVES, false);
                                 Animales a7 = new Animales(null, "Ambystoma mexicanum", "Ajolote",
                                                 "El ajolote​ es una especie de anfibio relacionado con la salamandra tigre.​​",
                                                 "ajolote.jpg", EstadoConservacion.PELIGRO_EXTINCION,
