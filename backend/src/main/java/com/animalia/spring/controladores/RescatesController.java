@@ -1,5 +1,6 @@
 package com.animalia.spring.controladores;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -134,6 +135,8 @@ public class RescatesController {
         Rescates rescate = rescateCreacionDtoConverter.convertRescateCreacionDtoToRescateEntity(rescateCreacionDTO);
         rescate.setEmpresa(null);
         rescate.setFotos(null);
+        rescate.setEstado_rescate(Rescates.Estado.NO_ASIGNADO);
+        rescate.setFecha_rescate(LocalDate.now());
         return ResponseEntity.ok(rescatesServicio.guardarRescate(rescate));
     }
 
