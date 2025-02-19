@@ -75,20 +75,42 @@
   <ion-item *ngIf="rescatesFiltrados.length === 0 && animalSeleccionadoId">
     <ion-label>No hay rescates para este animal.</ion-label>
   </ion-item>
-  <!-- Lista de fotos del rescate -->
-  <ion-list *ngIf="fotos.length > 0">
-    <ion-item *ngFor="let foto of fotos">
-      <ion-thumbnail slot="start">
-        <img [src]="getImagen(foto)" alt="Foto del rescate" />
-      </ion-thumbnail>
-      <ion-label>
-        <p>Fecha: {{ foto.fecha_captura }}</p>
-        <p>Ubicación: {{ foto.ubicacion }}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
-  <ion-button expand="full"  (click)="nuevoRescate()">
-    Enviar rescate
+
+<!-- Lista de fotos del rescate
+<ion-list *ngIf="fotos.length > 0">
+  <ion-item *ngFor="let foto of fotos; let i = index" (click)="onFotoClick(rescatesFiltrados[i].id)">
+    <ion-thumbnail slot="start">
+      <img [src]="getImagen(foto)" alt="Foto del rescate" />
+    </ion-thumbnail>
+    <ion-label>
+      <p>Fecha: {{ foto.fecha_captura }}</p>
+      <p>Fecha: {{ foto.url_foto }}</p>
+      <p>Ubicación: {{ foto.ubicacion }}</p>
+      <p><strong>ID Rescate:</strong> {{ rescatesFiltrados[i].id }}</p>
+    </ion-label>
+  </ion-item>
+</ion-list>-->
+
+<ion-item *ngFor="let foto of fotos" (click)="onFotoClick(foto.rescate_id)">
+  <ion-thumbnail slot="start">
+    <img [src]="getImagen(foto)" alt="Foto del rescate" />
+  </ion-thumbnail>
+  <ion-label>
+    <p>Fecha: {{ foto.fecha_captura }}</p>
+    <p>Foto: {{ foto.url_foto }}</p>
+    <p>Ubicación: {{ foto.ubicacion }}</p>
+    <p *ngIf="getRescateById(foto.rescate_id)"><strong>ID Rescate:</strong> {{ foto.rescate_id }}</p>
+  </ion-label>
+</ion-item>
+
+
+<ion-button expand="full" *ngIf="rescateId" (click)="resetRescateSeleccionadoId()" color="danger">
+  Eliminar Seleccion
+</ion-button>
+
+<p>Rescate a editar: {{ rescateId }}</p>
+  <ion-button expand="full"  (click)="subirRescate()">
+    Subir rescate
   </ion-button>
 </ion-content>
 
