@@ -103,8 +103,13 @@ ion-button {
   cursor: pointer;
   transition: background-color 0.3s;
   width: 100%;
+  background-color: #4caf50;
 }
 
 .custom-button:hover {
   background-color: #0056b3;
+}
+
+.form-floating{
+  color: #000000;
 }
