@@ -18,14 +18,14 @@
 
 
   <!-- Seleccion tipo animal foto -->
-    <ion-item>
-      <ion-label position="floating">Seleccione un animal</ion-label>
-      <ion-select [(ngModel)]="animalSeleccionado" (ionChange)="onAnimalChange()">
-        <ion-select-option *ngFor="let option of animales" [value]="option">
-          {{ option.nombre_comun }}{{ option.id }}
-        </ion-select-option>
-      </ion-select>
-    </ion-item>
+  <ion-item>
+    <ion-label position="floating">Seleccione un animal</ion-label>
+    <ion-select [(ngModel)]="animalSeleccionadoId" (ionChange)="onAnimalChange()">
+      <ion-select-option *ngFor="let option of animales" [value]="option.id">
+        {{ option.nombre_comun }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
 
 
 
@@ -49,7 +49,7 @@
         </ion-select-option>
       </ion-select>
     </ion-item>
-    
+
     <p>Estado seleccionado: {{ estadoAnimal }}</p>
 
     <!-- Fecha de Captura
@@ -72,7 +72,7 @@
     </ion-item>
   </ion-list>
 
-  <ion-item *ngIf="rescatesFiltrados.length === 0 && animalSeleccionado">
+  <ion-item *ngIf="rescatesFiltrados.length === 0 && animalSeleccionadoId">
     <ion-label>No hay rescates para este animal.</ion-label>
   </ion-item>
   <!-- Lista de fotos del rescate -->
