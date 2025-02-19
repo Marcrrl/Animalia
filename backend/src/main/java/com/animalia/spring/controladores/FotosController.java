@@ -48,6 +48,17 @@ public class FotosController {
         }
     }
 
+    @GetMapping("{id}/rescate")
+    @Operation(summary = "Mostrar todas las fotos del sistema paginadas", description = "Devuelve una lista paginada con todas las fotos del sistema")
+    public ResponseEntity<Long> obtenerIdRescates(@PathVariable long id) {
+        Fotos f = fotosServicio.obtenerFotoPorId(id);
+        Long idFotos = f.getRescate().getId();
+
+        return ResponseEntity.ok(idFotos);
+        
+        
+    }
+
     @GetMapping("/{id}")
     @Operation(summary = "Buscar una foto por ID", description = "Buscar una foto a partir de su ID")
     public ResponseEntity<Fotos> obtenerFotoPorId(@PathVariable long id) {
