@@ -20,7 +20,7 @@
   <!-- Seleccion tipo animal foto -->
   <ion-item>
     <ion-label position="floating">Seleccione un animal</ion-label>
-    <ion-select [(ngModel)]="animalSeleccionadoId" (ionChange)="onAnimalChange()">
+    <ion-select [(ngModel)]="animalSeleccionadoId" (ionChange)="filtrarRescates()">
       <ion-select-option *ngFor="let option of animales" [value]="option.id">
         {{ option.nombre_comun }}
       </ion-select-option>
@@ -44,7 +44,7 @@
     <ion-item>
       <ion-label position="floating">Estado del Animal</ion-label>
       <ion-select [(ngModel)]="estadoAnimal">
-        <ion-select-option *ngFor="let option of (['LEVE', 'MODERADO', 'GRAVE', 'FALLECIDO', 'DESCONOCIDO', 'SANO'])" [value]="option">
+        <ion-select-option *ngFor="let option of estadoOpciones" [value]="option">
           {{ option }}
         </ion-select-option>
       </ion-select>
@@ -99,7 +99,7 @@
     <p>Fecha: {{ foto.fecha_captura }}</p>
     <p>Foto: {{ foto.url_foto }}</p>
     <p>Ubicación: {{ foto.ubicacion }}</p>
-    <p *ngIf="getRescateById(foto.rescate_id)"><strong>ID Rescate:</strong> {{ foto.rescate_id }}</p>
+    <p ><strong>ID Rescate:</strong> {{ getRescatePorIdFoto(foto.id) }}</p>
   </ion-label>
 </ion-item>
 

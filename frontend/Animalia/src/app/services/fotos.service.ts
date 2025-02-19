@@ -26,6 +26,10 @@ private apiUrl = 'http://localhost:9000/api';
   obtenerImagenUrl(nombreImagen: string): string {
     return `${this.apiUrl}/imagen/${nombreImagen}`;
   }
+
+  obtenerRescatePorIdFoto(id: number) {
+    return this.http.get<number>(`${this.apiUrl}/fotos/${id}/rescate`);
+  }
   añadirFoto(rescateId: any, usuarioId: any, url_foto: string, descripcion: string, ubicacion: any,headers:any) {
 
     console.log('Headers:', headers);
