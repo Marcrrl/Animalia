@@ -16,7 +16,6 @@ export class RescatesPage implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    // Inicializar las listas de rescates
     this.obtenerTodosRescates();
     this.rescatesAsignados = this.obtenerRescatesAsignados();
   }

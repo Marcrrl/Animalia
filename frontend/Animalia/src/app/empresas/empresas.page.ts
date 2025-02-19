@@ -146,7 +146,6 @@ export class EmpresasPage implements OnInit {
     this.actualizarPagina();
   }
 
-
   makeCall(number: string) {
     window.open(`tel:${number}`, '_system');
   }

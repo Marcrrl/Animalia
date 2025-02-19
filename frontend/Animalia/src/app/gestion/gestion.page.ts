@@ -193,7 +193,12 @@ export class GestionPage implements OnInit {
 
   displayUpdateRescateForm(rescate: any) {
     this.showUpdateRescateForm = true;
-    this.selectedRescate = { ...rescate };
+    this.selectedRescate = {
+      ...rescate,
+      empresaId: this.empresas.find(empresa => empresa.nombre === rescate.nombreEmpresa)?.id,
+      usuarioId: this.usuarios.find(usuario => usuario.nombre === rescate.nombreUsuario)?.id,
+      animalId: this.animales.find(animal => animal.nombre_comun === rescate.nombreAnimal)?.id
+    };
   }
 
   cancelUpdateRescate() {
