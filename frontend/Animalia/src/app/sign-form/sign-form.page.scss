@@ -47,7 +47,9 @@ body {
 }
 
 @media (min-width: 769px) and (max-width: 2560px) {
+
 @media (min-width: 769px) and (max-width: 2560px) {
+
     .center {
         position: absolute;
         top: 56px;
@@ -192,6 +194,7 @@ body {
             color: #fff;
             font-weight: bold;
         }
+
         border: #243946 1px solid;
         font-weight: bold;
 
@@ -200,6 +203,7 @@ body {
             color: #fff;
             font-weight: bold;
         }
+
     }
 
     .center .register-button:active {
@@ -228,11 +232,14 @@ body {
             border: #243946 1px solid;
         }
 
+
         &:hover{
             background-color: transparent;
             color: #243946;
             border: #243946 1px solid;
         }
+
+
     }
 
     .center .login .login-button:active {
@@ -369,6 +376,7 @@ body {
             color: #fff;
             font-weight: bold;
         }
+
         border: #243946 1px solid;
         font-weight: bold;
 
@@ -377,6 +385,7 @@ body {
             color: #fff;
             font-weight: bold;
         }
+
     }
 
     .center .register-button:active {
@@ -400,9 +409,14 @@ body {
         transition: transform 0.1s;
 
         &:hover{
+
             background-color: transparent;
             color: #243946;
             border: #243946 1px solid;
+
+            background-color: #fff;
+            color: #243946;
+
         }
     }
 
