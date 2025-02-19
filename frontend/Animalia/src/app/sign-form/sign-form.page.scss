@@ -229,15 +229,6 @@ body {
             color: #243946;
             border: #243946 1px solid;
         }
-
-
-        &:hover{
-            background-color: transparent;
-            color: #243946;
-            border: #243946 1px solid;
-        }
-
-
     }
 
     .center .login .login-button:active {
@@ -407,14 +398,9 @@ body {
         transition: transform 0.1s;
 
         &:hover{
-
             background-color: transparent;
             color: #243946;
             border: #243946 1px solid;
-
-            background-color: #fff;
-            color: #243946;
-
         }
     }
 
