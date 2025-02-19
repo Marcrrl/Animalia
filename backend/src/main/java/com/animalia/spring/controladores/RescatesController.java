@@ -107,6 +107,18 @@ public class RescatesController {
         }
     }
 
+    @GetMapping("/{id}/fotos")
+    @Operation(summary = "Obtener lista de fotos por ID de rescate", description = "Devuelve una lista de fotos asociadas a un rescate por su ID")
+    public ResponseEntity<List<Fotos>> obtenerFotosPorRescateId(@PathVariable long id) {
+        Rescates rescate = rescatesServicio.obtenerRescatePorId(id);
+        if (rescate != null) {
+            List<Fotos> fotos = rescate.getFotos();
+            return ResponseEntity.ok(fotos);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping
     @Operation(summary = "Guardar un rescate", description = "Guardar un nuevo rescate en el sistema")
     public ResponseEntity<Rescates> guardarRescate(@RequestBody Rescates rescate) {
