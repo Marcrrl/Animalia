@@ -11,31 +11,26 @@ export class RescatesPage implements OnInit {
   todosRescates: any[] = [];
   rescatesAsignados: any[] = [];
   tabActual: string = 'todosRescates';
-  idEmpresaUsuario: number = 1;
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.obtenerTodosRescates();
-    this.rescatesAsignados = this.obtenerRescatesAsignados();
+    this.cargarTodosRescates();
+    this.cargarRescatesAsignados();
   }
 
-  obtenerTodosRescates() {
-    this.http.get<any[]>('http://localhost:9000/api/rescates/detalle')
-      .subscribe(rescates => {
-        this.todosRescates = rescates;
-      }, error => {
-        console.error('Error al obtener los rescates:', error);
-      });
+  cargarTodosRescates() {
+    this.http.get('http://localhost:9000/api/rescates/detalle').subscribe((data: any) => {
+      this.todosRescates = data;
+    });
   }
 
-  obtenerRescatesAsignados() {
-    return this.todosRescates.filter(rescate => rescate.idEmpresa === this.idEmpresaUsuario);
-  }
-
-  asignarRescate(rescate: any) {
-    this.rescatesAsignados.push(rescate);
-    this.todosRescates = this.todosRescates.filter(r => r !== rescate);
+  cargarRescatesAsignados() {
+    const usuarioId = sessionStorage.getItem('id');
+    this.http.get(`http://localhost:9000/api/usuarios/${usuarioId}/empresa`).subscribe((empresa: any) => {
+      const empresaId = empresa.id;
+      this.rescatesAsignados = this.todosRescates.filter(rescate => rescate.empresaId === empresaId);
+    });
   }
 
   mostrarTab(tab: string) {
