@@ -59,7 +59,53 @@ public class AnimaliaApplication {
                                                 "Oso de China, famoso por su color blanco y negro",
                                                 "panda.jpg", EstadoConservacion.PELIGRO_EXTINCION,
                                                 Familia.REPTIL, false);
-                                List<Animales> animales = Arrays.asList(a1, a2, a3, a4, a5);
+                                Animales a6 = new Animales(null, "Aquila adalberti", "Águila Imperial Ibérica",
+                                                "Es una de las aves endémicas de la península ibérica.", "aguila_imperial_iberica. jpg", EstadoConservacion.BAJO_RIESGO, Familia.AVES, false);
+                                Animales a7 = new Animales(null, "Ambystoma mexicanum", "Ajolote",
+                                                "El ajolote​ es una especie de anfibio relacionado con la salamandra tigre.​​",
+                                                "ajolote.jpg", EstadoConservacion.PELIGRO_EXTINCION,
+                                                Familia.ANFIBIO, false);
+                                Animales a8 = new Animales(null, "Capra aegagrus hircus", "Cabra",
+                                                "La cabra es un mamífero que fue domesticado alrededor del octavo milenio a.C..​​",
+                                                "cabra.jpg", EstadoConservacion.SIN_RIESGO,
+                                                Familia.MAMIFERO, false);
+                                Animales a9 = new Animales(null, "Sus scrofa domesticus", "Cerdo",
+                                                "Es un animal doméstico usado en la alimentación humana por muchos pueblos.​​",
+                                                "cerdo.jpg", EstadoConservacion.SIN_RIESGO,
+                                                Familia.MAMIFERO, false);
+                                Animales a10 = new Animales(null, "Acipenser sturio", "Estution Europeo",
+                                                "Presenta cuatro barbillas y un hocico muy prominente. El dorso es marrón o gris oscuro más pálido sobre los costados y el vientre blanco.​",
+                                                "esturion_europeo.jpg", EstadoConservacion.PELIGRO_EXTINCION,
+                                                Familia.PECES, false);
+                                Animales a11 = new Animales(null, "Lynx pardinus", "Lince Ibérico",
+                                                "El lince ibérico es una especie de mamífero endémico de la península ibérica.​",
+                                                "lince_iberico.jpg", EstadoConservacion.PELIGRO_EXTINCION,
+                                                Familia.PECES, false);
+                                Animales a12 = new Animales(null, "Gallotia simonyi", "Lagarto Gigante de El Hierro",
+                                                "El lagarto gigante se considera, según una ley del Gobierno de Canarias, el símbolo natural de la isla de El Hierro​.",
+                                                "lagarto_gigante_de_el_hierro.jpg", EstadoConservacion.PELIGRO_EXTINCION,
+                                                Familia.REPTIL, false);
+                                Animales a13 = new Animales(null, "Ovis orientalis", "Oveja",
+                                                "La oveja ​ es un mamífero cuadrúpedo ungulado doméstico, utilizado como ganado​.",
+                                                "oveja.jpg", EstadoConservacion.SIN_RIESGO,
+                                                Familia.MAMIFERO, false);
+                                Animales a14 = new Animales(null, "Balaeniceps rex", "Picozapato",
+                                                "El picozapato​ es una especie de ave el cual su nombre común alude a la forma de su enorme pico.",
+                                                "picozapato.jpg",EstadoConservacion.BAJO_RIESGO,
+                                                Familia.AVES, false);
+                                Animales a15 = new Animales(null, "Bos taurus", "Toro",
+                                                "Se caracteriza por su cuerpo robusto, cubierto de pelo corto, y por sus cuernos.",
+                                                "toro.jpg",EstadoConservacion.SIN_RIESGO,
+                                                Familia.AVES, false);
+                                Animales a16 = new Animales(null, "Gypaetus barbatus", "Quebrantahuesos",
+                                                "Es un buitre notablemente distinto de otras aves de presa parecidas.",
+                                                "quebrantahuesos.jpg",EstadoConservacion.BAJO_RIESGO,
+                                                Familia.AVES, false);
+                                Animales a17 = new Animales(null, "Bos taurus", "Vaca",
+                                                "Tiene el cuerpo cubierto de pelo, tiene cuatro patas y rabo.",
+                                                "vaca.jpg",EstadoConservacion.BAJO_RIESGO,
+                                                Familia.AVES, false);
+                                List<Animales> animales = Arrays.asList(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17);
                                 animales.forEach(animal -> {
                                         animalesRepositorio.save(animal);
                                 });
@@ -86,7 +132,7 @@ public class AnimaliaApplication {
                                                 LocalDate.of(1999, 12, 6), false, new HashSet<>());
 
                                 Empresas e5 = new Empresas(null, "Refugio Don Fabro",
-                                                "C. Escritor Dámaso Alonso, 03011 Alicante (Alacant), Alicante",
+                                                "C. Maravilla Damasco Fierro, 03011 Alicante (Alacant), Alicante",
                                                 "45678901",
                                                 "fabro234@example.com", TipoEmpresa.REFUGIO,
                                                 "https://www.youtube.com/channel/UCe_vi8ZY603vDSYEVMayV0A",
@@ -102,12 +148,12 @@ public class AnimaliaApplication {
 
                                 // Creación de usuarios
                                 Usuarios u1 = new Usuarios(null,
-                                                "Juan",
-                                                "Pérez",
-                                                "juan.perez@example.com",
+                                                "Ruven",
+                                                "Rrata",
+                                                "usuario@animalia.com",
                                                 passwordEncoder.encode("123"),
                                                 "123456789",
-                                                "Calle Falsa 123",
+                                                "Calle Pageable 123",
                                                 "bardockNegro+.jpg",
                                                 Usuarios.TipoUsuario.USER,
                                                 LocalDate.now(),
@@ -116,9 +162,9 @@ public class AnimaliaApplication {
                                                 false);
 
                                 Usuarios u2 = new Usuarios(null,
-                                                "Ana",
-                                                "García",
-                                                "ana.garcia@example.com",
+                                                "Marc",
+                                                "Irramón",
+                                                "admin@animalia.com",
                                                 passwordEncoder.encode("123"),
                                                 "987654321",
                                                 "Avenida Siempre Viva 456",
@@ -130,74 +176,33 @@ public class AnimaliaApplication {
                                                 false);
 
                                 Usuarios u3 = new Usuarios(null,
-                                                "Carlos",
-                                                "Hernández",
-                                                "carlos.hernandez@example.com",
+                                                "Jorge",
+                                                "Faggot",
+                                                "empresa@animalia.com",
                                                 passwordEncoder.encode("123"),
-                                                "1122334455",
-                                                "Calle Luna 789",
+                                                "123450324",
+                                                "Calle de la Moneda 324",
                                                 "iconoBase.png",
                                                 Usuarios.TipoUsuario.EMPRESA,
                                                 LocalDate.now(),
                                                 5, e5,
                                                 false);
-
+                                
                                 Usuarios u4 = new Usuarios(null,
-                                                "Lucía",
-                                                "Martínez",
-                                                "lucia.martinez@example.com",
+                                                "David",
+                                                "Cascala",
+                                                "usuario2@animalia.com",
                                                 passwordEncoder.encode("123"),
-                                                "5566778899",
-                                                "Avenida Sol 321",
-                                                "iconoBase.png",
+                                                "123456788",
+                                                "Calle Peichbol 404",
+                                                "bardockNegro+.jpg",
                                                 Usuarios.TipoUsuario.USER,
                                                 LocalDate.now(),
-                                                8,
-                                                null,
-                                                false);
-
-                                Usuarios u5 = new Usuarios(null,
-                                                "Pedro",
-                                                "Gómez",
-                                                "pedro.gomez@example.com",
-                                                passwordEncoder.encode("123"),
-                                                "9988776655",
-                                                "Calle Estrella 654",
-                                                "iconoBase.png",
-                                                Usuarios.TipoUsuario.ADMIN,
-                                                LocalDate.now(),
-                                                15,
-                                                null,
-                                                false);
-
-                                Usuarios u6 = new Usuarios(null,
-                                                "Usuario",
-                                                "6",
-                                                "u6@example.com",
-                                                passwordEncoder.encode("123"),
-                                                "telefono6",
-                                                "Calle Estrella 654",
-                                                "iconoBase.png",
-                                                Usuarios.TipoUsuario.ADMIN,
-                                                LocalDate.now(),
-                                                15,
-                                                null,
-                                                false);
-                                Usuarios u7 = new Usuarios(null,
-                                                "Usuario",
-                                                "7",
-                                                "u7@example.com",
-                                                passwordEncoder.encode("123"),
-                                                "telefono7",
-                                                "Calle Estrella 654",
-                                                "iconoBase.png",
-                                                Usuarios.TipoUsuario.ADMIN,
-                                                LocalDate.now(),
-                                                15,
+                                                0,
                                                 null,
                                                 false);
                                 // Lista de usuarios
-                                List<Usuarios> usuarios = Arrays.asList(u1, u2, u3, u4, u5, u6, u7);
+                                List<Usuarios> usuarios = Arrays.asList(u1, u2, u3, u4);
 
                                 e5.getUsuarios().add(u3);
 
@@ -210,16 +215,16 @@ public class AnimaliaApplication {
                                 Rescates r2 = new Rescates(null, e1, u1, a2, "Calle Verdadera 456",
                                                 Rescates.Estado.NO_ASIGNADO, Rescates.EstadoAnimal.LEVE,
                                                 LocalDate.now(), null);
-                                Rescates r3 = new Rescates(null, e2, u2, a3, "Calle Falsa 123",
+                                Rescates r3 = new Rescates(null, e2, u1, a3, "Calle Falsa 123",
                                                 Rescates.Estado.FINALIZADO, Rescates.EstadoAnimal.SANO,
                                                 LocalDate.now(), null);
                                 Rescates r4 = new Rescates(null, e3, u4, a4, "Calle Falsa 123",
                                                 Rescates.Estado.FINALIZADO, Rescates.EstadoAnimal.GRAVE,
                                                 LocalDate.now(), null);
-                                Rescates r5 = new Rescates(null, e4, u5, a5, "Avenida Sol 654",
+                                Rescates r5 = new Rescates(null, e4, u4, a5, "Avenida Sol 654",
                                                 Rescates.Estado.DESCONOCIDO, Rescates.EstadoAnimal.SANO,
                                                 LocalDate.now(), null);
-                                Rescates r6 = new Rescates(null, e6, u6, a5, "Calle Falsa 123",
+                                Rescates r6 = new Rescates(null, e6, u3, a5, "Calle Falsa 123",
                                                 Rescates.Estado.NO_ASIGNADO, Rescates.EstadoAnimal.DESCONOCIDO,
                                                 LocalDate.now(), null);
                                 // Guardar rescates
