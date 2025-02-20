@@ -11,9 +11,9 @@ import { HttpClient } from '@angular/common/http';
   standalone: false,
 })
 export class DetallesEmpresaPage implements OnInit {
-  id: number | null = null; // Aquí se guardará el id de la empresa
-  empresa: any; // Aquí se guardarán los datos de la empresa
-  public mapInitialized: boolean = false; // Control para saber si el mapa ya ha sido inicializado
+  id: number | null = null;
+  empresa: any;
+  public mapInitialized: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -22,10 +22,8 @@ export class DetallesEmpresaPage implements OnInit {
 
 
   ngOnInit() {
-    // Capturar el id desde la ruta
     this.id = Number(this.route.snapshot.paramMap.get('id'));
 
-    // Buscar los datos de la empresa con el id
     this.empresasService.getById(this.id).subscribe(
       (data) => {
         this.empresa = data;

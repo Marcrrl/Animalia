@@ -43,13 +43,15 @@ export class AnimalesPage implements OnInit {
 
   ngOnInit() {
     // Obtener todos los animales al iniciar
-    this.animalesService.getTotalAnimales().subscribe((animales) => {
-      this.animales = animales; // Guardar todos los animales en la lista principal
-      this.filteredAnimals = [...this.animales]; // Inicialmente, `filteredAnimals` tiene todos los animales
+    this.animalesService.getTotalAnimales().subscribe((animales: any[]) => {
+      this.animales = animales.map((animal: any) => ({
+        ...animal,
+        estado_conservacion: animal.estado_conservacion.replace(/_/g, ' ')
+      }));
+      this.filteredAnimals = [...this.animales];
       this.totalAnimales = this.filteredAnimals.length;
-      this.totalPages = Math.ceil(this.totalAnimales / this.itemsPerPage); // Calcular total de páginas
+      this.totalPages = Math.ceil(this.totalAnimales / this.itemsPerPage);
 
-      // Cargar la primera página
       this.currentPage = 0;
       this.currentPagehtml = 1;
       this.actualizarPagina();
@@ -62,7 +64,7 @@ export class AnimalesPage implements OnInit {
       this.animales = animales;
 
       if (event) {
-        event.target.complete(); // Finaliza el infinite scroll si se está usando
+        event.target.complete();
       }
     });
   }
@@ -70,7 +72,7 @@ export class AnimalesPage implements OnInit {
   nextPage() {
     if (this.currentPage < this.totalPages - 1) {
       this.currentPage++;
-      this.currentPagehtml++;  // Aumentamos la página para la vista
+      this.currentPagehtml++;
       this.actualizarPagina();
     }
   }
@@ -78,7 +80,7 @@ export class AnimalesPage implements OnInit {
   prevPage() {
     if (this.currentPage > 0) {
       this.currentPage--;
-      this.currentPagehtml--;  // Disminuimos la página para la vista
+      this.currentPagehtml--;
       this.actualizarPagina();
     }
   }
@@ -96,15 +98,15 @@ export class AnimalesPage implements OnInit {
   handleSearchbarClick() {
     const searchbar = document.querySelector('ion-searchbar');
     const query = searchbar?.value?.trim().toLowerCase() || '';
-  
+
     this.searchAnimals(query);
   }
 
 
   searchAnimals(query: string) {
-    this.currentPage = 0; // Reiniciar a la primera página (0) en cada búsqueda
+    this.currentPage = 0;
     if (query === '') {
-      this.filteredAnimals = [...this.animales]; // Mostrar todos los animales si el query está vacío
+      this.filteredAnimals = [...this.animales];
     } else {
       this.filteredAnimals = this.animales.filter((d: any) =>
         d.nombre_comun.toLowerCase().includes(query)
@@ -118,7 +120,7 @@ export class AnimalesPage implements OnInit {
   }
 
   haciaDatosAnimal(id_animal: number) {
-    this.router.navigate(['/detalles-animal', id_animal]);
+    this.router.navigate(['/detalles-animal', id_animal,"animal"]);
     console.log('ID del animal:', id_animal);
   }
 
@@ -128,20 +130,19 @@ export class AnimalesPage implements OnInit {
 
   cambioFamilia(familia: string | null) {
     if (this.selectedFamilia === familia) {
-      
+
       this.selectedFamilia = null;
-      this.filteredAnimals = [...this.animales]; // Restaurar todos los animales
+      this.filteredAnimals = [...this.animales];
     } else {
       console.log('Familia seleccionada:', familia);
       this.selectedFamilia = familia;
       this.filteredAnimals = this.animales.filter((animal: any) => animal.familia === familia);
     }
-  
-    // Actualizar el total de animales y páginas
+
+
     this.totalAnimales = this.filteredAnimals.length;
     this.totalPages = Math.ceil(this.totalAnimales / this.itemsPerPage);
-  
-    // Reiniciar la paginación cuando cambia el filtro
+
     this.currentPage = 0;
     this.currentPagehtml = 1;
     this.actualizarPagina();

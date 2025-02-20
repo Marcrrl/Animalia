@@ -14,10 +14,10 @@ import { FotosService } from '../services/fotos.service';
 })
 export class MapaPage {
   private map!: L.Map;
-  private mapContainerId = 'map'; // ID del contenedor del mapa
+  private mapContainerId = 'map';
   datos: any[] = [];
-  private markers: L.Marker[] = []; // Lista de marcadores para limpiar en cada actualización
-  public mapInitialized: boolean = false; // Control para saber si el mapa ya ha sido inicializado
+  private markers: L.Marker[] = [];
+  public mapInitialized: boolean = false;
   tipo: string = '';
 
   constructor(
@@ -34,7 +34,7 @@ export class MapaPage {
   }
 
   async cargarEmpresas() {
-    // Capturar el id_animal desde la ruta
+
     this.tipo = String(this.route.snapshot.paramMap.get('tipo'));
     let data: any[] = [];
     try {
@@ -48,7 +48,7 @@ export class MapaPage {
                 return { ...dato, latitud: coords.lat, longitud: coords.lon };
               } catch (error) {
                 console.error(`Error al geocodificar ${dato.nombre}:`, error);
-                return null; // Si falla la geocodificación, no se agrega
+                return null;
               }
             })
           );
@@ -60,32 +60,18 @@ export class MapaPage {
           this.datos = await Promise.all(
             data.map(async (dato: any) => {
               try {
-                // Dividir el valor de ubicacion en latitud y longitud
-                const [lat, lon] = dato.ubicacion.split('|').map(Number); // convierte las coordenadas a números
+
+                const [lat, lon] = dato.ubicacion.split('|').map(Number);
                 return { ...dato, latitud: lat, longitud: lon };
               } catch (error) {
                 console.error(`Error al geocodificar ${dato.nombre}:`, error);
-                return null; // Si falla la geocodificación, no se agrega
+                return null;
               }
             })
           );
           console.log(this.datos);
         }
-        //falta meter el servicio de fotos
-        /*data = await this.animalesService.getAnimales().toPromise();
-        {
-          this.datos = await Promise.all(
-            data.map(async (dato: any) => {
-              try {
-                const coords = await this.geocodificarDireccion(dato.direccion);
-                return { ...dato, latitud: coords.lat, longitud: coords.lon };
-              } catch (error) {
-                console.error(`Error al geocodificar ${dato.nombre}:`, error);
-                return null; // Si falla la geocodificación, no se agrega
-              }
-            })
-          );
-        }*/
+
       }
       this.datos = this.datos.filter((e) => e !== null);
       this.ionViewDidEnter();
@@ -145,9 +131,9 @@ export class MapaPage {
     let customIcon: L.Icon;
     if (this.tipo == 'animales') {
       customIcon = L.icon({
-        iconUrl: 'assets/icon/animalMap.png', // Ruta de la imagen dentro de assets
-        iconSize: [60, 60], // Tamaño del icono
-        iconAnchor: [16, 32], // Punto del icono que se ubicará en la coordenada
+        iconUrl: 'assets/icon/animalMap.png',
+        iconSize: [60, 60],
+        iconAnchor: [16, 32],
       });
       // Agregar marcadores
       this.datos.forEach((dato) => {
@@ -156,22 +142,21 @@ export class MapaPage {
           icon: customIcon,
         })
           .addTo(this.map)
-          // .bindPopup(`<b>${empresa.nombre}</b><br>${empresa.direccion}`)
           .bindTooltip(`<b>${dato.descripcion} </b>`, {
             permanent: false,
             direction: 'top',
-            offset: [13.5, -30], // Centrado y arriba del icono
+            offset: [13.5, -30],
           });
 
         marker.on('click', () => {
-          this.router.navigate(['/detalles-animal', dato.id]); // Cambia la ruta según tu necesidad
+          this.router.navigate(['/detalles-animal', dato.id,"foto"]);
         });
       });
     } else if (this.tipo == 'empresas') {
       customIcon = L.icon({
-        iconUrl: 'assets/icon/empresaMap.png', // Ruta de la imagen dentro de assets
-        iconSize: [60, 60], // Tamaño del icono
-        iconAnchor: [16, 32], // Punto del icono que se ubicará en la coordenada
+        iconUrl: 'assets/icon/empresaMap.png',
+        iconSize: [60, 60],
+        iconAnchor: [16, 32],
       });
       // Agregar marcadores
       this.datos.forEach((dato) => {
@@ -179,14 +164,14 @@ export class MapaPage {
           icon: customIcon,
         })
           .addTo(this.map)
-          // .bindPopup(`<b>${empresa.nombre}</b><br>${empresa.direccion}`)
+
           .bindTooltip(`<b>${dato.nombre}</b><br>${dato.direccion}`, {
             permanent: false,
             direction: 'top',
-            offset: [13.5, -30], // Centrado y arriba del icono
+            offset: [13.5, -30],
           });
         marker.on('click', () => {
-          this.router.navigate(['/detalles-empresa', dato.id]); // Cambia la ruta según tu necesidad
+          this.router.navigate(['/detalles-empresa', dato.id]);
         });
       });
     }
@@ -196,62 +181,6 @@ export class MapaPage {
       this.map?.invalidateSize();
     }, 300);
 
-    /*
-    this.map = L.map('map').setView([38.362356, -0.491125], 15);
-
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution:
-        '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-    }).addTo(this.map);
-
-
-
-    // Define el icono con la imagen personalizada
-    const customIcon = L.icon({
-      iconUrl: 'assets/icon/empresaMap.png', // Ruta de la imagen dentro de assets
-      iconSize: [40, 40], // Tamaño del icono
-      iconAnchor: [16, 32], // Punto del icono que se ubicará en la coordenada
-
-    });
-
-    const marker = L.marker([38.362356, -0.491125],{icon:customIcon}).addTo(this.map);
-
-    // Tooltip que aparece al hacer hover
-    marker
-      .bindTooltip('Ver detalles del animal', {
-        permanent: false,
-        direction: 'top',
-        offset: [ -2,-35] // Centrado y arriba del icono
-      })
-      .openTooltip();
-
-
- //Marcador de animal
-// Define el icono con la imagen personalizada
-const customIcon = L.icon({
-  iconUrl: 'assets/icon/animalMap.png', // Ruta de la imagen dentro de assets
-  iconSize: [40, 40], // Tamaño del icono
-  iconAnchor: [16, 32], // Punto del icono que se ubicará en la coordenada
-
-});
-
-const marker = L.marker([38.362356, -0.491125],{icon:customIcon}).addTo(this.map);
-
-// Tooltip que aparece al hacer hover
-marker
-  .bindTooltip('Ver detalles del animal', {
-    permanent: false,
-    direction: 'top',
-    offset: [ 5,-35] // Centrado y arriba del icono
-  })
-  .openTooltip();
-
-    marker.on('click', () => {
-      this.router.navigate(['/detalles-animal', 1]); // Cambia la ruta según tu necesidad
-    });
-*/
-    // Mueve los controles de zoom a la parte superior izquierda
     this.map.zoomControl.setPosition('topleft');
   }
 }
