@@ -49,7 +49,7 @@ public class AnimaliaApplication {
                                                 Animales.Familia.MAMIFERO, false);
                                 Animales a3 = new Animales(null, "Equus ferus caballus", "Caballo",
                                                 "Animal de granja atrapado en una terraza",
-                                                "caballo.webp", EstadoConservacion.EXTINTO,
+                                                "caballo.jpg", EstadoConservacion.EXTINTO,
                                                 Familia.MAMIFERO, false);
                                 Animales a4 = new Animales(null, "Panthera leo", "León",
                                                 "Gran felino conocido como el rey de la selva",

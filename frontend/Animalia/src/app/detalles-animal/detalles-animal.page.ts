@@ -15,13 +15,13 @@ export class DetallesAnimalPage implements OnInit {
   animal: any;
   tipo: any;
   rescateId: any;
-rescate: any;
+  rescate: any;
   public imagen: string | null = null;
   constructor(
     private route: ActivatedRoute,
     private animalesService: AnimalesService,
     private fotosService: FotosService,
-private rescateService: RescatesService
+    private rescateService: RescatesService
   ) {}
 
   ngOnInit() {
@@ -29,6 +29,7 @@ private rescateService: RescatesService
     this.id = Number(this.route.snapshot.paramMap.get('id'));
     this.tipo = this.route.snapshot.paramMap.get('tipo') || '';
     if (this.tipo == 'animal') {
+      console.log(this.tipo);
       this.animalesService.getById(this.id).subscribe(
         (data) => {
           this.animal = {
@@ -44,22 +45,55 @@ private rescateService: RescatesService
       );
     } else if (this.tipo == 'foto') {
 
+console.log(this.tipo);
+      this.fotosService.getById(this.id).subscribe((data) => {
+        this.imagen = this.fotosService.obtenerImagenUrl(data.url_foto);
 
-this.fotosService.obtenerRescatePorIdFoto(this.id).subscribe(
+      });
+
+      this.fotosService.obtenerRescatePorIdFoto(this.id).subscribe(
         (data) => {
           this.rescateId = data;
+
           this.rescateService.getById(this.rescateId).subscribe(
-            (data) => {
-              this.rescate = data;
+            (rescateData) => {
+              this.rescate = rescateData;
+              console.log(this.rescate);
+
+              if (this.rescate?.animal?.id) {
+                this.animalesService
+                  .getById(this.rescate.animal.id)
+                  .subscribe(
+                    (animalData) => {
+                      this.animal = {
+                        ...animalData,
+                        estado_conservacion:
+                          animalData.estado_conservacion.replace(/_/g, ' '),
+                      };
+                    },
+                    (error) => {
+                      console.error(
+                        'Error al obtener los detalles del animal:',
+                        error
+                      );
+                    }
+                  );
+              } else {
+                console.error('El rescate no tiene un animal asociado.');
+              }
             },
             (error) => {
-              console.error('Error fetching rescue details:', error);
+              console.error(
+                'Error al obtener los detalles del rescate:',
+                error
+              );
             }
           );
         },
         (error) => {
-          console.error('Error fetching rescue id:', error);
-        });
+          console.error('Error al obtener el ID del rescate:', error);
+        }
+      );
     }
   }
 }
