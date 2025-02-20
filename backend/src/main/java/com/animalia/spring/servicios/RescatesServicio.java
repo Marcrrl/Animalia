@@ -89,4 +89,12 @@ public class RescatesServicio {
         return rescatesRepositorio.findByEmpresaId(empresaId);
     }
 
+    public List<Rescates> obtenerRescatesPorUsuario(Long usuarioId) {
+        Usuarios usuario = usuarioRepositorio.findById(usuarioId).orElse(null);
+        if (usuario != null) {
+            return rescatesRepositorio.findByUsuario(usuario);
+        }
+        return List.of();
+    }
+
 }
