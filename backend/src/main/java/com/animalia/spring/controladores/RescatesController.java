@@ -205,4 +205,15 @@ public class RescatesController {
             return ResponseEntity.ok(rescateDetalleDTOs);
         }
     }
+
+    @GetMapping("/{id}/animal")
+    @Operation(summary = "Obtener ID del animal asignado a un rescate", description = "Devuelve el ID del animal asignado a un rescate por su ID")
+    public ResponseEntity<Long> obtenerAnimalIdPorRescateId(@PathVariable long id) {
+        Rescates rescate = rescatesServicio.obtenerRescatePorId(id);
+        if (rescate != null && rescate.getAnimal() != null) {
+            return ResponseEntity.ok(rescate.getAnimal().getId());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
