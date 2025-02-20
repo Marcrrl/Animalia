@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from '../../environments/environment';
 @Component({
   selector: 'app-rescates',
   templateUrl: './rescates.page.html',
@@ -22,7 +22,7 @@ export class RescatesPage implements OnInit {
   }
 
   cargarTodosRescates() {
-    this.http.get('http://localhost:9000/api/rescates/detalle').subscribe((data: any) => {
+    this.http.get('${environment.apiUrl}/api/rescates/detalle').subscribe((data: any) => {
       this.todosRescates = data;
       this.todosRescates.forEach(rescate => {
       });
@@ -33,9 +33,9 @@ export class RescatesPage implements OnInit {
   cargarRescatesAsignados() {
     const usuarioId = sessionStorage.getItem('id');
     if (usuarioId) {
-      this.http.get(`http://localhost:9000/api/usuarios/${usuarioId}/empresa`, { responseType: 'text' }).subscribe((response: string) => {
+      this.http.get(`${environment.apiUrl}/api/usuarios/${usuarioId}/empresa`, { responseType: 'text' }).subscribe((response: string) => {
         const empresaId = Number(response);
-        this.http.get(`http://localhost:9000/api/rescates/empresa/${empresaId}/rescates`).subscribe((data: any) => {
+        this.http.get(`${environment.apiUrl}/api/rescates/empresa/${empresaId}/rescates`).subscribe((data: any) => {
           this.rescatesAsignados = data;
         });
       });
@@ -60,8 +60,8 @@ export class RescatesPage implements OnInit {
     }
     const rescate = this.todosRescates.find(r => r.id === rescateId);
 
-    this.http.get<any[]>(`http://localhost:9000/api/empresas/todos`).subscribe((empresas) => {
-      this.http.get(`http://localhost:9000/api/usuarios/${usuarioId}/empresa`, { responseType: 'text' }).subscribe((response: string) => {
+    this.http.get<any[]>(`${environment.apiUrl}/api/empresas/todos`).subscribe((empresas) => {
+      this.http.get(`${environment.apiUrl}/api/usuarios/${usuarioId}/empresa`, { responseType: 'text' }).subscribe((response: string) => {
         const empresaIdUsuario = Number(response);
         const empresa = empresas.find(e => e.id === empresaIdUsuario);
         if (empresa) {
@@ -76,7 +76,7 @@ export class RescatesPage implements OnInit {
             fechaRescate: rescate.fechaRescate
           };
 
-          const url = `http://localhost:9000/api/rescates/${rescateId}?empresaId=${empresa.id}&usuarioId=${usuarioId}`;
+          const url = `${environment.apiUrl}/api/rescates/${rescateId}?empresaId=${empresa.id}&usuarioId=${usuarioId}`;
 
           this.http.put(url, body).subscribe(() => {
             location.reload();
@@ -87,7 +87,7 @@ export class RescatesPage implements OnInit {
   }
 
   abrirModal(idRescate: number) {
-    this.http.get<any[]>(`http://localhost:9000/api/rescates/${idRescate}/fotos`).subscribe((data: any[]) => {
+    this.http.get<any[]>(`${environment.apiUrl}/api/rescates/${idRescate}/fotos`).subscribe((data: any[]) => {
       this.fotosRescate = data;
       this.isModalOpen = true;
     });

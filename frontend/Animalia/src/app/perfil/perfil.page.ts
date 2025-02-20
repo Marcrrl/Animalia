@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { UsuarioService } from '../services/usuario.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MenuController, IonButtons, IonContent, IonHeader, IonMenu, IonMenuButton, IonTitle, IonToolbar, IonTab } from '@ionic/angular';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-perfil',
@@ -77,7 +78,7 @@ export class PerfilPage implements OnInit {
       'Authorization': `Bearer ${token}`
     });
 
-    this.http.put('http://localhost:9000/api/usuarios', JSON.stringify(datosUsuario), {
+    this.http.put('${environment.apiUrl}/api/usuarios', JSON.stringify(datosUsuario), {
       headers: headers
     }).subscribe(response => {
       this.camposActivos = false;
@@ -102,7 +103,7 @@ export class PerfilPage implements OnInit {
       this.imagenesUsuario = imagenes.map(imagen => {
         return {
           ...imagen,
-          url: `http://localhost:9000/api/imagen/${imagen.nombre}`
+          url: `${environment.apiUrl}/api/imagen/${imagen.nombre}`
         };
       });
     }, error => {
@@ -121,7 +122,7 @@ export class PerfilPage implements OnInit {
       const formData = new FormData();
       formData.append('file', file);
 
-      this.http.post<{ url_foto_perfil: string }>('http://localhost:9000/api/subir-imagen', formData, {
+      this.http.post<{ url_foto_perfil: string }>('${environment.apiUrl}/api/subir-imagen', formData, {
         headers: headers,
         observe: 'response'
       }).subscribe(response => {
@@ -162,7 +163,7 @@ export class PerfilPage implements OnInit {
 
       const jsonPayload = Number(nuevaContrasena);
 
-      this.http.put(`http://localhost:9000/api/usuarios/${userId}/cambiar-contrasena`, jsonPayload, { headers: headers })
+      this.http.put(`${environment.apiUrl}/api/usuarios/${userId}/cambiar-contrasena`, jsonPayload, { headers: headers })
         .subscribe(response => {
           this.mostrarCampoContrasena = false;
         }, error => {

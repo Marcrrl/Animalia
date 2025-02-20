@@ -337,7 +337,7 @@ estadoAnimal:this.estadoAnimal
         }
 
         this.http
-          .post('http://localhost:9000/api/subir-imagen', formData, {
+          .post('${environment.apiUrl}/api/subir-imagen', formData, {
             headers: headers,
             observe: 'response',
           })

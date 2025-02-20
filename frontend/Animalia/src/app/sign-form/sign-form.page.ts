@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import * as _ from 'lodash';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-
+import { environment } from '../../environments/environment';
 @Component({
   selector: 'app-sign-form',
   templateUrl: './sign-form.page.html',
@@ -107,7 +107,7 @@ export class SignFormPage implements OnInit, AfterViewInit {
       password: this.password
     };
 
-    this.http.post<any>('http://localhost:9000/auth/login', loginRequest).subscribe(
+    this.http.post<any>(`${environment.apiUrl}/auth/login`, loginRequest).subscribe(
       response => {
         /*sessionStorage.setItem('token', response.token);
         sessionStorage.setItem('rol', response.roles);*/
