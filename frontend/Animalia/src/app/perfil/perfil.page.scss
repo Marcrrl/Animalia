@@ -1,3 +1,5 @@
+$primary: #4caf50; 
+
 .custom-toolbar {
     position: relative;
     ion-title {
@@ -64,4 +66,9 @@
   right: 0;
   border-radius: 50%;
   padding: 7px 10px;
+}
+
+ion-button{
+  --background: #4caf50;
+  --color: white;
 }

@@ -154,4 +154,10 @@ export class PerfilPage implements OnInit {
         });
     }
   }
+
+  isModalOpen = false;
+
+  setOpen(isOpen: boolean) {
+    this.isModalOpen = isOpen;
+  }
 }
