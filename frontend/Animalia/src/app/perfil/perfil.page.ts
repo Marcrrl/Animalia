@@ -15,6 +15,7 @@ export class PerfilPage implements OnInit {
   imagenPerfil: any;
   usuarioOriginal: any;
   mostrarCampoContrasena: boolean = false;
+  imagenesUsuario: any[] = [];
 
   constructor(@Inject(UsuarioService) private usuarioService: UsuarioService, private http: HttpClient) {}
 
@@ -32,6 +33,7 @@ export class PerfilPage implements OnInit {
         this.cargarImagenPerfil(this.usuario.url_foto_perfil);
         this.actualizarBadgeRescates(this.usuario.cantidad_rescates);
       });
+      this.cargarImagenesUsuario(userId);
     } else {
       console.error('No se encontró el id del usuario');
     }
@@ -92,6 +94,19 @@ export class PerfilPage implements OnInit {
         this.imagenPerfil = e.target.result;
       };
       reader.readAsDataURL(imagen);
+    });
+  }
+
+  cargarImagenesUsuario(userId: string) {
+    this.usuarioService.getImagenesUsuario(userId).subscribe((imagenes: any[]) => {
+      this.imagenesUsuario = imagenes.map(imagen => {
+        return {
+          ...imagen,
+          url: `data:image/jpeg;base64,${imagen.base64}`
+        };
+      });
+    }, error => {
+      console.error('Error al cargar las imágenes del usuario:', error);
     });
   }
 
