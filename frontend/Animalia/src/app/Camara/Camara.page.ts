@@ -139,8 +139,13 @@ export class CamaraPage implements OnInit {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     });
+
+const body={
+ubicacion:this.ubicacion,
+estadoAnimal:this.estadoAnimal
+}
     this.rescatesService
-      .editarRescate(this.rescateId, this.ubicacion, headers)
+      .editarRescate(this.rescateId, body/*this.ubicacion*/, headers)
       .subscribe({
         next: (response) => {
           console.log('Rescate editado', response);

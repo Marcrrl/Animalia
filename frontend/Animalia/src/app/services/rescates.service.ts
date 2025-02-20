@@ -29,8 +29,8 @@ export class RescatesService {
     });
   }
 
-  editarRescate(id: any, ubicacion: any, headers: any) {
-    return this.http.put(`${this.apiUrl}/rescates/${id}/ubicacion`, ubicacion, {
+  editarRescate(id: any, datos: any, headers: any) {
+    return this.http.put(`${this.apiUrl}/rescates/${id}/ubicacion-estado`, datos, {
       headers: headers,
       observe: 'response',
     });
