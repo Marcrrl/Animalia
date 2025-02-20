@@ -23,6 +23,33 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Mis Fotos</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="setOpen(false)"><ion-icon name="close"></ion-icon></ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-card>
+          <ion-img src="https://cdn.pixabay.com/photo/2023/02/09/16/43/cat-7779237_1280.jpg" alt="Imagen 1"></ion-img>
+        </ion-card>
+        <ion-card>
+          <ion-img src="https://cdn.pixabay.com/photo/2023/02/09/16/43/cat-7779237_1280.jpg" alt="Imagen 2"></ion-img>
+        </ion-card>
+        <ion-card >
+          <ion-img src="https://cdn.pixabay.com/photo/2023/02/09/16/43/cat-7779237_1280.jpg" alt="Imagen 3"></ion-img>
+        </ion-card>
+        <ion-card>
+          <ion-img src="https://cdn.pixabay.com/photo/2023/02/09/16/43/cat-7779237_1280.jpg" alt="Imagen 4"></ion-img>
+        </ion-card>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
   <ion-content color="light" class="ion-text-center">
     <div class="profile-container">
       <div class="profile-image">
@@ -42,31 +69,38 @@
         <ion-grid>
           <ion-row>
             <ion-col size="6">
-              <ion-input id="nombre" labelPlacement="stacked" label="Nombre" [value]="usuario?.nombre" [disabled]="!camposActivos"></ion-input>
+              <ion-input id="nombre" labelPlacement="stacked" label="Nombre" [value]="usuario?.nombre"
+                [disabled]="!camposActivos"></ion-input>
             </ion-col>
             <ion-col size="6">
-              <ion-input id="apellido" labelPlacement="stacked" label="Apellidos" [value]="usuario?.apellido" [disabled]="!camposActivos"></ion-input>
+              <ion-input id="apellido" labelPlacement="stacked" label="Apellidos" [value]="usuario?.apellido"
+                [disabled]="!camposActivos"></ion-input>
             </ion-col>
           </ion-row>
         </ion-grid>
       </ion-item>
       <ion-item>
-        <ion-input id="email" labelPlacement="stacked" label="Email" [value]="usuario?.email" [disabled]="!camposActivos"></ion-input>
+        <ion-input id="email" labelPlacement="stacked" label="Email" [value]="usuario?.email"
+          [disabled]="!camposActivos"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input id="telefono" labelPlacement="stacked" label="Teléfono" [value]="usuario?.telefono" [disabled]="!camposActivos"></ion-input>
+        <ion-input id="telefono" labelPlacement="stacked" label="Teléfono" [value]="usuario?.telefono"
+          [disabled]="!camposActivos"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input id="direccion" labelPlacement="stacked" label="Dirección" [value]="usuario?.direccion" [disabled]="!camposActivos"></ion-input>
+        <ion-input id="direccion" labelPlacement="stacked" label="Dirección" [value]="usuario?.direccion"
+          [disabled]="!camposActivos"></ion-input>
       </ion-item>
       <ion-item *ngIf="mostrarCampoContrasena">
         <ion-input id="nuevaContrasena" labelPlacement="stacked" label="Nueva Contraseña" type="password"></ion-input>
       </ion-item>
     </ion-list>
 
-    <ion-button *ngIf="!mostrarCampoContrasena" color="warning" (click)="toggleCampoContrasena()">Cambiar Contraseña</ion-button>
+    <ion-button *ngIf="!mostrarCampoContrasena" color="warning" (click)="toggleCampoContrasena()">Cambiar
+      Contraseña</ion-button>
     <ion-button *ngIf="mostrarCampoContrasena" color="danger" (click)="toggleCampoContrasena()">Cancelar</ion-button>
-    <ion-button *ngIf="mostrarCampoContrasena" color="success" (click)="confirmarCambioContrasena()">Confirmar Cambio de Contraseña</ion-button>
+    <ion-button *ngIf="mostrarCampoContrasena" color="success" (click)="confirmarCambioContrasena()">Confirmar Cambio de
+      Contraseña</ion-button>
 
     <ion-grid>
       <ion-row>
@@ -95,8 +129,8 @@
       </ion-row>
     </ion-grid>
 
-    <ion-button expand="block" shape="round" style="margin-top: 20px;">
-      Ver más
+    <ion-button (click)="setOpen(true)" expand="block" shape="round" style="margin-top: 20px;">
+      Ver más fotos
     </ion-button>
 
   </ion-content>
