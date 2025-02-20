@@ -157,7 +157,7 @@ export class MapaPage {
         })
           .addTo(this.map)
           // .bindPopup(`<b>${empresa.nombre}</b><br>${empresa.direccion}`)
-          .bindTooltip(`<b>${dato.nombre}</b>`, {
+          .bindTooltip(`<b>${dato.descripcion} </b>`, {
             permanent: false,
             direction: 'top',
             offset: [13.5, -30], // Centrado y arriba del icono

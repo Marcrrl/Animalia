@@ -223,7 +223,7 @@ public class AnimaliaApplication {
                                 Rescates r5 = new Rescates(null, e4, u4, a5, "Avenida Sol 654",
                                                 Rescates.Estado.DESCONOCIDO, Rescates.EstadoAnimal.SANO,
                                                 LocalDate.now(), null);
-                                Rescates r6 = new Rescates(null, e6, u3, a5, "Calle Falsa 123",
+                                Rescates r6 = new Rescates(null, e6, u3, a6, "Calle Falsa 123",
                                                 Rescates.Estado.NO_ASIGNADO, Rescates.EstadoAnimal.DESCONOCIDO,
                                                 LocalDate.now(), null);
                                 // Guardar rescates
@@ -236,12 +236,12 @@ public class AnimaliaApplication {
                                                 "Gato en la calle", LocalDate.now());
                                 Fotos f3 = new Fotos(null, "caballo.jpg", r3, u2, "38.361081|-0.495176",
                                                 "Caballo en la calle", LocalDate.now());
-                                Fotos f4 = new Fotos(null, "leon1.jpg", r4, u2, "38.357874|-0.492279",
+                                Fotos f4 = new Fotos(null, "leon.jpg", r4, u2, "38.357874|-0.492279",
                                                 "León en la calle", LocalDate.now());
                                 Fotos f5 = new Fotos(null, "panda.jpg", r5, u2, "38.361850|-0.488598",
                                                 "Panda en la calle", LocalDate.now());
-                                Fotos f6 = new Fotos(null, "leon.jpg", r6, u2, "38.360345|-0.490459",
-                                                "Perro en la calle", LocalDate.now());
+                                Fotos f6 = new Fotos(null, "aguila.jpg", r6, u2, "38.360345|-0.490459",
+                                                "Águila volando", LocalDate.now());
 
                                 // Guardar fotos
                                 List<Fotos> fotos = Arrays.asList(f1, f2, f3, f4, f5, f6);
