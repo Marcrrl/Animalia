@@ -35,17 +35,8 @@
         </ion-toolbar>
       </ion-header>
       <ion-content class="ion-padding">
-        <ion-card>
-          <ion-img src="https://cdn.pixabay.com/photo/2023/02/09/16/43/cat-7779237_1280.jpg" alt="Imagen 1"></ion-img>
-        </ion-card>
-        <ion-card>
-          <ion-img src="https://cdn.pixabay.com/photo/2023/02/09/16/43/cat-7779237_1280.jpg" alt="Imagen 2"></ion-img>
-        </ion-card>
-        <ion-card >
-          <ion-img src="https://cdn.pixabay.com/photo/2023/02/09/16/43/cat-7779237_1280.jpg" alt="Imagen 3"></ion-img>
-        </ion-card>
-        <ion-card>
-          <ion-img src="https://cdn.pixabay.com/photo/2023/02/09/16/43/cat-7779237_1280.jpg" alt="Imagen 4"></ion-img>
+        <ion-card *ngFor="let imagen of imagenesUsuario">
+          <ion-img [src]="imagen.url" [alt]="imagen.descripcion || 'Imagen de usuario'"></ion-img>
         </ion-card>
       </ion-content>
     </ng-template>
@@ -112,9 +103,9 @@
       </ion-row>
     </ion-grid>
 
-    <ion-button (click)="setOpen(true)" expand="block" shape="round" style="margin-top: 20px;">
+    <!--<ion-button (click)="setOpen(true)" expand="block" shape="round" style="margin-top: 20px;">
       Ver más fotos
-    </ion-button>
+    </ion-button>-->
 
   </ion-content>
 </ion-content>

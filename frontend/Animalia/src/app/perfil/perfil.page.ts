@@ -102,7 +102,7 @@ export class PerfilPage implements OnInit {
       this.imagenesUsuario = imagenes.map(imagen => {
         return {
           ...imagen,
-          url: `data:image/jpeg;base64,${imagen.base64}`
+          url: `http://localhost:9000/api/imagen/${imagen.nombre}`
         };
       });
     }, error => {
