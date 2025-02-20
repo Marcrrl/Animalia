@@ -18,10 +18,10 @@ export class EmpresasPage implements OnInit {
 
   totalEmpresas: number = 0;
   totalPages: number = 0;
-  currentPage: number = 0; // Página para el backend
-  currentPagehtml: number = 1; // Página que se mostrará en el HTML (empieza desde 1)
+  currentPage: number = 0;
+  currentPagehtml: number = 1;
   itemsPerPage: number = 5;
-  paginaActual: any[] = [];  // Página para el backend
+  paginaActual: any[] = [];
 
 
   public showList = false;
@@ -37,14 +37,12 @@ export class EmpresasPage implements OnInit {
 
   ngOnInit() {
 
-    // Obtener todos las empresas al iniciar
     this.empresasService.getTotalEmpresas().subscribe((empresas) => {
-      this.empresas = empresas; // Guardar todos los animales en la lista principal
-      this.filteredEmpresas = [...this.empresas]; // Inicialmente, `filteredEmpresas` tiene todos los animales
+      this.empresas = empresas;
+      this.filteredEmpresas = [...this.empresas];
       this.totalEmpresas = this.filteredEmpresas.length;
-      this.totalPages = Math.ceil(this.totalEmpresas / this.itemsPerPage); // Calcular total de páginas
+      this.totalPages = Math.ceil(this.totalEmpresas / this.itemsPerPage);
 
-      // Cargar la primera página
       this.currentPage = 0;
       this.currentPagehtml = 1;
       this.actualizarPagina();
@@ -58,18 +56,18 @@ export class EmpresasPage implements OnInit {
     this.searchEmpresas(query);
   }
 
-  
+
   handleSearchbarClick() {
     const searchbar = document.querySelector('ion-searchbar');
     const query = searchbar?.value?.trim().toLowerCase() || '';
-  
+
     this.searchEmpresas(query);
   }
 
   searchEmpresas(query: string) {
-    this.currentPage = 0; // Reiniciar a la primera página (0) en cada búsqueda
+    this.currentPage = 0;
     if (query === '') {
-      this.filteredEmpresas = [...this.empresas]; // Mostrar todos los animales si el query está vacío
+      this.filteredEmpresas = [...this.empresas];
     } else {
       this.filteredEmpresas = this.empresas.filter((d: any) =>
         d.nombre.toLowerCase().includes(query)
@@ -124,25 +122,18 @@ export class EmpresasPage implements OnInit {
     this.ngOnInit();
   }
 
-  // cambioTipo(tipo: string) {
-  //   if (this.selectedTipo === tipo) {
-  //     this.selectedTipo = null;
-  //     this.showAllEmpresas();
-  //   } else {
-  //     this.selectedTipo = tipo;
-  //     this.filteredEmpresas = this.empresas.filter((d: any) => d.tipo === tipo);
-  //   }
-  // }
+
+
 
   cambioTipo(tipo: string) {
     if (this.selectedTipo === tipo) {
       this.selectedTipo = null;
-      this.showAllEmpresas(); // Mostrar todas las empresas si no se ha seleccionado tipo
+      this.showAllEmpresas();
     } else {
       this.selectedTipo = tipo;
       this.filteredEmpresas = this.empresas.filter((d: any) => d.tipo === tipo);
     }
-    this.currentPage = 0; // Reiniciar la página a 0 cuando se cambia el tipo
+    this.currentPage = 0;
     this.actualizarPagina();
   }
 
@@ -157,7 +148,7 @@ export class EmpresasPage implements OnInit {
         this.empresas = empresas;
 
         if (event) {
-          event.target.complete(); // Finaliza el infinite scroll si se está usando
+          event.target.complete();
         }
       });
   }
@@ -165,7 +156,7 @@ export class EmpresasPage implements OnInit {
   nextPage() {
     if (this.currentPage < this.totalPages - 1) {
       this.currentPage++;
-      this.currentPagehtml++; // Aumentamos la página para la vista
+      this.currentPagehtml++;
       this.actualizarPagina();
     }
   }
@@ -173,7 +164,7 @@ export class EmpresasPage implements OnInit {
   prevPage() {
     if (this.currentPage > 0) {
       this.currentPage--;
-      this.currentPagehtml--; // Disminuimos la página para la vista
+      this.currentPagehtml--;
       this.actualizarPagina();
     }
   }
