@@ -24,6 +24,10 @@ export class UsuarioService {
     return this.http.get(url, { responseType: 'blob' });
   }
 
+  getImagenesUsuario(userId: string) {
+    return this.http.get<any[]>(`http://localhost:9000/api/fotos/usuario/${userId}/base64`);
+  }
+
   subirImagenPerfil(file: File, headers: HttpHeaders): Observable<any> {
     const formData = new FormData();
     formData.append('imagen', file);
