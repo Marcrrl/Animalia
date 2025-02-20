@@ -21,11 +21,12 @@
     </ion-card-header>
 <ion-card>
     <ion-card-content>
-      <ion-card-title>Descripción:<br> </ion-card-title>
-      <ion-card-subtitle>{{ animal.descripcion }}</ion-card-subtitle>
+      <ion-card-title >Descripción:<br> </ion-card-title>
+      <ion-card-subtitle *ngIf="this.tipo=='animal'">{{ animal.descripcion }}</ion-card-subtitle>
+      <ion-card-subtitle *ngIf="this.tipo=='foto'">{{ foto.descripcion }}</ion-card-subtitle>
     <br>
-      <ion-card-title>Estado Conservación:<br> </ion-card-title>
-      <ion-card-subtitle>{{ animal.estado_conservacion }}</ion-card-subtitle>
+      <ion-card-title >Estado Conservación:<br> </ion-card-title>
+      <ion-card-subtitle >{{ animal.estado_conservacion }}</ion-card-subtitle>
     </ion-card-content>
   </ion-card>
 

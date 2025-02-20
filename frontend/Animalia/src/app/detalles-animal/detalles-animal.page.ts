@@ -16,6 +16,7 @@ export class DetallesAnimalPage implements OnInit {
   tipo: any;
   rescateId: any;
   rescate: any;
+foto:any;
   public imagen: string | null = null;
   constructor(
     private route: ActivatedRoute,
@@ -47,6 +48,7 @@ export class DetallesAnimalPage implements OnInit {
 
 console.log(this.tipo);
       this.fotosService.getById(this.id).subscribe((data) => {
+this.foto=data;
         this.imagen = this.fotosService.obtenerImagenUrl(data.url_foto);
 
       });
