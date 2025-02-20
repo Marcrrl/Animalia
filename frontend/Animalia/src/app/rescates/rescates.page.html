@@ -14,10 +14,10 @@
   <div class="container mt-3">
     <ul class="nav nav-tabs w-100">
       <li class="nav-item w-50">
-        <a class="nav-link text-center" [class.active]="tabActual === 'todosRescates'" (click)="mostrarTab('todosRescates')" style="cursor: pointer;">Todos los Rescates</a>
+        <a class="nav-link text-center" [class.active]="tabActual === 'todosRescates'" [ngClass]="{'bg-white': tabActual !== 'todosRescates'}" (click)="mostrarTab('todosRescates')" style="cursor: pointer;">Todos los Rescates</a>
       </li>
       <li class="nav-item w-50">
-        <a class="nav-link text-center" [class.active]="tabActual === 'rescatesAsignados'" (click)="mostrarTab('rescatesAsignados')" style="cursor: pointer;">Rescates Asignados</a>
+        <a class="nav-link text-center" [class.active]="tabActual === 'rescatesAsignados'" [ngClass]="{'bg-white': tabActual !== 'rescatesAsignados'}" (click)="mostrarTab('rescatesAsignados')" style="cursor: pointer;">Rescates Asignados</a>
       </li>
     </ul>
 
@@ -39,8 +39,8 @@
                   <div><strong>Estado del Animal:</strong> {{ rescate.estadoAnimal }}</div>
                   <div><strong>Fecha del Rescate:</strong> {{ rescate.fechaRescate }}</div>
                 </ion-label>
-                <ion-button slot="end" *ngIf="!rescate.nombreEmpresa || rescate.nombreEmpresa.trim() === ''" (click)="asignarEmpresa(rescate.id, empresaId)">Asignar</ion-button>
-                <ion-button slot="end" (click)="abrirModal(rescate.id)">Ver Fotos</ion-button>
+                <ion-button color-button slot="end" *ngIf="!rescate.nombreEmpresa || rescate.nombreEmpresa.trim() === ''" (click)="asignarEmpresa(rescate.id, empresaId)">Asignar</ion-button>
+                <ion-button class="color-button btn-sm" slot="end" (click)="abrirModal(rescate.id)">Ver Fotos</ion-button>
               </ion-item>
             </ion-list>
           </ion-card-content>
@@ -74,6 +74,14 @@
   <ion-modal [isOpen]="isModalOpen" (didDismiss)="cerrarModal()">
     <ng-template>
       <ion-content>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Mis Fotos</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="cerrarModal()"><ion-icon name="close"></ion-icon></ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
         <ion-list>
           <ion-item *ngFor="let foto of fotosRescate">
             <img [src]="'http://localhost:9000/api/imagen/' + foto.url_foto" class="rescate-img" />

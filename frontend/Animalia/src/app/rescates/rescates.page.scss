@@ -14,7 +14,7 @@
 }
 
 .nav-link.active {
-    background-color: #007bff;
+    background-color: #28a745;
     color: white;
 }
 
@@ -29,4 +29,20 @@
 
 .rescate-info {
   text-align: right;
+}
+
+.nav-link{
+    background-color: #28a745;
+    color: white;
+}
+
+.bg-white {
+  background-color: white !important;
+  border: #28a745 1px solid;
+  color: #28a745;
+}
+
+.color-button{
+    color: white;
+    background-color: #28a745;
 }
