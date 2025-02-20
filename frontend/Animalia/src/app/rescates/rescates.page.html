@@ -31,15 +31,16 @@
             <ion-list style="max-height: 500px; overflow-y: auto;">
               <ion-item *ngFor="let rescate of todosRescates">
                 <ion-label>
-                  <div><strong>Nombre Empresa:</strong> {{ tieneEmpresaAsignada(rescate) }}</div>
-                  <div><strong>Nombre Usuario:</strong> {{ rescate.nombreUsuario }}</div>
-                  <div><strong>Nombre Animal:</strong> {{ rescate.nombreAnimal }}</div>
+                  <div><strong>Empresa:</strong> {{ tieneEmpresaAsignada(rescate) }}</div>
+                  <div><strong>Usuario:</strong> {{ rescate.nombreUsuario }}</div>
+                  <div><strong>Animal:</strong> {{ rescate.nombreAnimal }}</div>
                   <div><strong>Ubicación:</strong> {{ rescate.ubicacion }}</div>
-                  <div><strong>Estado Rescate:</strong> {{ rescate.estadoRescate }}</div>
-                  <div><strong>Estado Animal:</strong> {{ rescate.estadoAnimal }}</div>
-                  <div><strong>Fecha Rescate:</strong> {{ rescate.fechaRescate }}</div>
+                  <div><strong>Estado del Rescate:</strong> {{ rescate.estadoRescate }}</div>
+                  <div><strong>Estado del Animal:</strong> {{ rescate.estadoAnimal }}</div>
+                  <div><strong>Fecha del Rescate:</strong> {{ rescate.fechaRescate }}</div>
                 </ion-label>
                 <ion-button slot="end" *ngIf="!rescate.nombreEmpresa || rescate.nombreEmpresa.trim() === ''" (click)="asignarEmpresa(rescate.id, empresaId)">Asignar</ion-button>
+                <ion-button slot="end" (click)="abrirModal(rescate.id)">Ver Fotos</ion-button>
               </ion-item>
             </ion-list>
           </ion-card-content>
@@ -51,17 +52,18 @@
             <ion-card-title>Rescates Asignados</ion-card-title>
           </ion-card-header>
           <ion-card-content>
-            <ion-list style="max-height: 800px; overflow-y: auto;">
+            <ion-list style="max-height: 500px; overflow-y: auto;">
               <ion-item *ngFor="let rescate of rescatesAsignados">
                 <ion-label>
-                  <div><strong>Nombre Empresa:</strong> {{ tieneEmpresaAsignada(rescate) }}</div>
-                  <div><strong>Nombre Usuario:</strong> {{ rescate.nombreUsuario }}</div>
-                  <div><strong>Nombre Animal:</strong> {{ rescate.nombreAnimal }}</div>
-                  <div><strong>Ubicación:</strong> {{ rescate.ubicacion }}</div>
-                  <div><strong>Estado Rescate:</strong> {{ rescate.estadoRescate }}</div>
-                  <div><strong>Estado Animal:</strong> {{ rescate.estadoAnimal }}</div>
-                  <div><strong>Fecha Rescate:</strong> {{ rescate.fechaRescate }}</div>
+                  <div><strong>Empresa:</strong> {{ tieneEmpresaAsignada(rescate) }}</div>
+                  <div><strong>Usuario:</strong> {{ rescate.nombreUsuario }}</div>
+                  <div><strong>Animal:</strong> {{ rescate.nombreAnimal }}</div>
+                  <div><strong>Última ubicación:</strong> {{ rescate.ubicacion }}</div>
+                  <div><strong>Estado del Rescate:</strong> {{ rescate.estadoRescate }}</div>
+                  <div><strong>Estado del Animal:</strong> {{ rescate.estadoAnimal }}</div>
+                  <div><strong>Fecha del Rescate:</strong> {{ rescate.fechaRescate }}</div>
                 </ion-label>
+                <ion-button slot="end" (click)="abrirModal(rescate.id)">Ver Fotos</ion-button>
               </ion-item>
             </ion-list>
           </ion-card-content>
@@ -69,4 +71,20 @@
       </div>
     </div>
   </div>
+  <ion-modal [isOpen]="isModalOpen" (didDismiss)="cerrarModal()">
+    <ng-template>
+      <ion-content>
+        <ion-list>
+          <ion-item *ngFor="let foto of fotosRescate">
+            <img [src]="'http://localhost:9000/api/imagen/' + foto.url_foto" class="rescate-img" />
+            <ion-label class="rescate-info">
+              <div><strong>Ubicación: </strong> <a [href]="'https://www.google.com/maps?q=' + foto.ubicacion.replace('|', ', ')" target="_blank">{{ "Ver en Google Maps" }}</a></div>
+              <div><strong>Descripción:</strong> {{ foto.descripcion }}</div>
+              <div><strong>Fecha de la foto:</strong> {{ foto.fecha_captura }}</div>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>

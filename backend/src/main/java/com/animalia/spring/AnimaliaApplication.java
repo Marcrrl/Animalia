@@ -162,7 +162,7 @@ public class AnimaliaApplication {
 
                                 Usuarios u2 = new Usuarios(null,
                                                 "Marc",
-                                                "Irramón",
+                                                "Ramón",
                                                 "admin@animalia.com",
                                                 passwordEncoder.encode("123"),
                                                 "987654321",
@@ -176,7 +176,7 @@ public class AnimaliaApplication {
 
                                 Usuarios u3 = new Usuarios(null,
                                                 "Jorge",
-                                                "Faggot",
+                                                "Fabro",
                                                 "empresa@animalia.com",
                                                 passwordEncoder.encode("123"),
                                                 "123450324",

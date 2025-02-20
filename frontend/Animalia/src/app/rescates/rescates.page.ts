@@ -12,6 +12,8 @@ export class RescatesPage implements OnInit {
   rescatesAsignados: any[] = [];
   tabActual: string = 'todosRescates';
   empresaId: number = 0;
+  isModalOpen: boolean = false;
+  fotosRescate: any[] = [];
 
   constructor(private http: HttpClient) { }
 
@@ -30,12 +32,16 @@ export class RescatesPage implements OnInit {
 
   cargarRescatesAsignados() {
     const usuarioId = sessionStorage.getItem('id');
-    this.http.get(`http://localhost:9000/api/usuarios/${usuarioId}/empresa`, { responseType: 'text' }).subscribe((response: string) => {
-      const empresaId = Number(response);
-      this.http.get(`http://localhost:9000/api/rescates/empresa/${empresaId}/rescates`).subscribe((data: any) => {
-        this.rescatesAsignados = data;
+    if (usuarioId) {
+      this.http.get(`http://localhost:9000/api/usuarios/${usuarioId}/empresa`, { responseType: 'text' }).subscribe((response: string) => {
+        const empresaId = Number(response);
+        this.http.get(`http://localhost:9000/api/rescates/empresa/${empresaId}/rescates`).subscribe((data: any) => {
+          this.rescatesAsignados = data;
+        });
       });
-    });
+    } else {
+      console.error('Usuario no identificado');
+    }
   }
 
   mostrarTab(tab: string) {
@@ -78,5 +84,17 @@ export class RescatesPage implements OnInit {
         }
       });
     });
+  }
+
+  abrirModal(idRescate: number) {
+    this.http.get<any[]>(`http://localhost:9000/api/rescates/${idRescate}/fotos`).subscribe((data: any[]) => {
+      this.fotosRescate = data;
+      this.isModalOpen = true;
+    });
+  }
+
+  cerrarModal() {
+    this.isModalOpen = false;
+    this.fotosRescate = [];
   }
 }
