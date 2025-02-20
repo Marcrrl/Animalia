@@ -78,7 +78,7 @@ export class PerfilPage implements OnInit {
       'Authorization': `Bearer ${token}`
     });
 
-    this.http.put('${environment.apiUrl}/api/usuarios', JSON.stringify(datosUsuario), {
+    this.http.put(`${environment.apiUrl}/usuarios`, JSON.stringify(datosUsuario), {
       headers: headers
     }).subscribe(response => {
       this.camposActivos = false;
@@ -103,7 +103,7 @@ export class PerfilPage implements OnInit {
       this.imagenesUsuario = imagenes.map(imagen => {
         return {
           ...imagen,
-          url: `${environment.apiUrl}/api/imagen/${imagen.nombre}`
+          url: `${environment.apiUrl}/imagen/${imagen.nombre}`
         };
       });
     }, error => {
@@ -122,13 +122,13 @@ export class PerfilPage implements OnInit {
       const formData = new FormData();
       formData.append('file', file);
 
-      this.http.post<{ url_foto_perfil: string }>('${environment.apiUrl}/api/subir-imagen', formData, {
+      this.http.post<{ url_foto_perfil: string }>(`${environment.apiUrl}/subir-imagen`, formData, {
         headers: headers,
         observe: 'response'
       }).subscribe(response => {
         if (response.status === 200 && response.body) {
           const url_foto_perfil = response.body.url_foto_perfil;
-          this.usuario.url_foto_perfil = url_foto_perfil.replace('/api/imagen/', '');
+          this.usuario.url_foto_perfil = url_foto_perfil.replace('/imagen/', '');
           setTimeout(() => {
             this.cargarImagenPerfil(this.usuario.url_foto_perfil);
           }, 1000);
@@ -163,7 +163,7 @@ export class PerfilPage implements OnInit {
 
       const jsonPayload = Number(nuevaContrasena);
 
-      this.http.put(`${environment.apiUrl}/api/usuarios/${userId}/cambiar-contrasena`, jsonPayload, { headers: headers })
+      this.http.put(`${environment.apiUrl}/usuarios/${userId}/cambiar-contrasena`, jsonPayload, { headers: headers })
         .subscribe(response => {
           this.mostrarCampoContrasena = false;
         }, error => {

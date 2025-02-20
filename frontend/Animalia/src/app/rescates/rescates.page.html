@@ -84,7 +84,7 @@
         </ion-header>
         <ion-list>
           <ion-item *ngFor="let foto of fotosRescate">
-            <img [src]="'${environment.apiUrl}/api/imagen/' + foto.url_foto" class="rescate-img" />
+            <img [src]="environment.apiUrl + '/imagen/' + foto.url_foto" class="rescate-img" />
             <ion-label class="rescate-info">
               <div><strong>Ubicación: </strong> <a [href]="'https://www.google.com/maps?q=' + foto.ubicacion.replace('|', ', ')" target="_blank">{{ "Ver en Google Maps" }}</a></div>
               <div><strong>Descripción:</strong> {{ foto.descripcion }}</div>

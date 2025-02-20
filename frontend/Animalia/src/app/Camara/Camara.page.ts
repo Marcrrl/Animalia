@@ -10,7 +10,7 @@ import { set } from 'lodash';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { firstValueFrom, Observable } from 'rxjs';
-
+import { environment } from '../../environments/environment';
 @Component({
   selector: 'app-Camara',
   templateUrl: 'Camara.page.html',
@@ -337,7 +337,7 @@ estadoAnimal:this.estadoAnimal
         }
 
         this.http
-          .post('${environment.apiUrl}/api/subir-imagen', formData, {
+          .post(`${environment.apiUrl}/subir-imagen`, formData, {
             headers: headers,
             observe: 'response',
           })

@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class RescatesService {
-  private apiUrl = `${environment.apiUrl}/api`;
+  private apiUrl = `${environment.apiUrl}`;
   constructor(private http: HttpClient) {}
   getById(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/rescates/${id}`);

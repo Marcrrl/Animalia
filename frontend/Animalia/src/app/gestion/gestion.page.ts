@@ -72,7 +72,7 @@ export class GestionPage implements OnInit {
   }
 
   getUsuarios() {
-    this.http.get<any[]>('${environment.apiUrl}/api/usuarios/todos-incluidos-eliminados').subscribe(data => {
+    this.http.get<any[]>(`${environment.apiUrl}/usuarios/todos-incluidos-eliminados`).subscribe(data => {
       this.usuarios = data.filter(usuario => usuario.id !== this.loggedInUserId);
     }, error => {
       console.error('Error al obtener usuarios:', error);
@@ -85,7 +85,7 @@ export class GestionPage implements OnInit {
       'Authorization': `Bearer ${token}`
     });
 
-    this.http.post('${environment.apiUrl}/auth/add', this.newUsuario, { headers }).subscribe(() => {
+    this.http.post(`${environment.apiUrl}/auth/add`, this.newUsuario, { headers }).subscribe(() => {
       this.getUsuarios();
       this.showForm = false;
       this.errorMessage = '';
@@ -119,7 +119,7 @@ export class GestionPage implements OnInit {
       cantidad_rescates: this.selectedUsuario.cantidad_rescates
     };
 
-    this.http.put(`${environment.apiUrl}/api/usuarios`, usuarioActualizado, { headers }).subscribe(() => {
+    this.http.put(`${environment.apiUrl}/usuarios`, usuarioActualizado, { headers }).subscribe(() => {
       this.getUsuarios();
       this.showUpdateForm = false;
       this.errorMessage = '';
@@ -139,7 +139,7 @@ export class GestionPage implements OnInit {
       'Authorization': `Bearer ${token}`
     });
 
-    this.http.delete(`${environment.apiUrl}/api/usuarios/${id}`, { headers }).subscribe(() => {
+    this.http.delete(`${environment.apiUrl}/usuarios/${id}`, { headers }).subscribe(() => {
       this.getUsuarios();
     }, error => {
       console.error('Error al eliminar usuario:', error);
@@ -154,7 +154,7 @@ export class GestionPage implements OnInit {
 
     const updatedUsuario = { ...usuario, deleted: !usuario.deleted };
 
-    this.http.put(`${environment.apiUrl}/api/usuarios`, updatedUsuario, { headers }).subscribe(() => {
+    this.http.put(`${environment.apiUrl}/usuarios`, updatedUsuario, { headers }).subscribe(() => {
       this.getUsuarios();
     }, error => {
       console.error('Error al cambiar el estado del usuario:', error);
@@ -167,7 +167,7 @@ export class GestionPage implements OnInit {
       'Authorization': `Bearer ${token}`
     });
 
-    this.http.post(`${environment.apiUrl}/api/usuarios/${id}/restablecer-contrasena`, {}, { headers }).subscribe(() => {
+    this.http.post(`${environment.apiUrl}/usuarios/${id}/restablecer-contrasena`, {}, { headers }).subscribe(() => {
       this.getUsuarios();
     }, error => {
       console.error('Error al restablecer la contraseña:', error);
@@ -175,7 +175,7 @@ export class GestionPage implements OnInit {
   }
 
   getRescates() {
-    this.http.get<any[]>('${environment.apiUrl}/api/rescates/detalle').subscribe(data => {
+    this.http.get<any[]>(`${environment.apiUrl}/rescates/detalle`).subscribe(data => {
       this.rescates = data.map(rescate => ({
         id: rescate.id,
         nombreEmpresa: rescate.nombreEmpresa,
@@ -228,7 +228,7 @@ export class GestionPage implements OnInit {
       fechaRescate: this.selectedRescate.fechaRescate
     };
 
-    this.http.put(`${environment.apiUrl}/api/rescates/${rescateActualizado.id}`, rescateActualizado, { headers, params }).subscribe(() => {
+    this.http.put(`${environment.apiUrl}/rescates/${rescateActualizado.id}`, rescateActualizado, { headers, params }).subscribe(() => {
       this.getRescates();
       this.showUpdateRescateForm = false;
       this.errorMessage = '';
@@ -239,7 +239,7 @@ export class GestionPage implements OnInit {
   }
 
   getEmpresas() {
-    this.http.get<any[]>('${environment.apiUrl}/api/empresas/todos-incluidas-eliminadas').subscribe(data => {
+    this.http.get<any[]>(`${environment.apiUrl}/empresas/todos-incluidas-eliminadas`).subscribe(data => {
       this.empresas = data;
     }, error => {
       console.error('Error al obtener empresas:', error);
@@ -283,7 +283,7 @@ export class GestionPage implements OnInit {
       usuarios: []
     };
 
-    this.http.post('${environment.apiUrl}/api/empresas', nuevaEmpresa, { headers }).subscribe(() => {
+    this.http.post(`${environment.apiUrl}/empresas`, nuevaEmpresa, { headers }).subscribe(() => {
       this.getEmpresas();
       this.showEmpresaForm = false;
       this.errorMessage = '';
@@ -311,7 +311,7 @@ export class GestionPage implements OnInit {
       usuarios: this.selectedEmpresa.usuarios
     };
 
-    this.http.put(`${environment.apiUrl}/api/empresas`, empresaActualizada, { headers }).subscribe(() => {
+    this.http.put(`${environment.apiUrl}/empresas`, empresaActualizada, { headers }).subscribe(() => {
       this.getEmpresas();
       this.showUpdateEmpresaForm = false;
       this.errorMessage = '';
@@ -327,7 +327,7 @@ export class GestionPage implements OnInit {
       'Authorization': `Bearer ${token}`
     });
 
-    this.http.delete(`${environment.apiUrl}/api/empresas/${id}`, { headers }).subscribe(() => {
+    this.http.delete(`${environment.apiUrl}/empresas/${id}`, { headers }).subscribe(() => {
       this.getEmpresas();
     }, error => {
       console.error('Error al eliminar empresa:', error);
@@ -342,7 +342,7 @@ export class GestionPage implements OnInit {
 
     const updatedEmpresa = { ...empresa, deleted: !empresa.deleted };
 
-    this.http.put(`${environment.apiUrl}/api/empresas`, updatedEmpresa, { headers }).subscribe(() => {
+    this.http.put(`${environment.apiUrl}/empresas`, updatedEmpresa, { headers }).subscribe(() => {
       this.getEmpresas();
     }, error => {
       console.error('Error al cambiar el estado de la empresa:', error);
@@ -350,7 +350,7 @@ export class GestionPage implements OnInit {
   }
 
   getAnimales() {
-    this.http.get<any[]>('${environment.apiUrl}/api/animales/todos-incluidos-eliminados').subscribe(data => {
+    this.http.get<any[]>(`${environment.apiUrl}/animales/todos-incluidos-eliminados`).subscribe(data => {
       this.animales = data;
     }, error => {
       console.error('Error al obtener animales:', error);
@@ -391,7 +391,7 @@ export class GestionPage implements OnInit {
       estado_conservacion: this.newAnimal.estado_conservacion
     };
 
-    this.http.post('${environment.apiUrl}/api/animales', nuevoAnimal, { headers }).subscribe(() => {
+    this.http.post(`${environment.apiUrl}/animales`, nuevoAnimal, { headers }).subscribe(() => {
       this.getAnimales();
       this.showAnimalForm = false;
       this.errorMessage = '';
@@ -417,7 +417,7 @@ export class GestionPage implements OnInit {
       foto: this.selectedAnimal.foto
     };
 
-    this.http.put(`${environment.apiUrl}/api/animales`, animalActualizado, { headers }).subscribe(() => {
+    this.http.put(`${environment.apiUrl}/animales`, animalActualizado, { headers }).subscribe(() => {
       this.getAnimales();
       this.showUpdateAnimalForm = false;
       this.errorMessage = '';
@@ -434,7 +434,7 @@ export class GestionPage implements OnInit {
       'Authorization': `Bearer ${token}`
     });
 
-    this.http.delete(`${environment.apiUrl}/api/animales/${id}`, { headers }).subscribe(() => {
+    this.http.delete(`${environment.apiUrl}/animales/${id}`, { headers }).subscribe(() => {
       this.getAnimales();
     }, error => {
       console.error('Error al eliminar animal:', error);
@@ -449,7 +449,7 @@ export class GestionPage implements OnInit {
 
     const updatedAnimal = { ...animal, deleted: !animal.deleted };
 
-    this.http.put(`${environment.apiUrl}/api/animales`, updatedAnimal, { headers }).subscribe(() => {
+    this.http.put(`${environment.apiUrl}/animales`, updatedAnimal, { headers }).subscribe(() => {
       this.getAnimales();
     }, error => {
       console.error('Error al cambiar el estado del animal:', error);
@@ -461,7 +461,7 @@ export class GestionPage implements OnInit {
     const formData = new FormData();
     formData.append('imagen', file);
 
-    this.http.post<{ url: string }>('${environment.apiUrl}/api/subir-imagen', formData).subscribe(response => {
+    this.http.post<{ url: string }>(`${environment.apiUrl}/subir-imagen`, formData).subscribe(response => {
       this.newAnimal.foto = response.url;
     }, error => {
       console.error('Error al subir imagen:', error);

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
-
+import { environment } from '../../environments/environment';
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
@@ -38,7 +38,7 @@ export class RegisterPage implements OnInit {
     this.newUsuario.tipoUsuario = 'USER';
     //this.newUsuario.fecha_registro = new Date().toISOString().split('T')[0]; // Set default fecha_registro
     //console.log('Sending user data:', JSON.stringify(this.newUsuario)); // Log JSON data
-    this.http.post('${environment.apiUrl}/auth/add', this.newUsuario).subscribe(() => {
+    this.http.post(`${environment.apiUrl}/auth/add`, this.newUsuario).subscribe(() => {
       this.errorMessage = '';
       this.newUsuario = {}; // Reset form
       this.presentToast('Usuario creado exitosamente');
@@ -56,7 +56,7 @@ export class RegisterPage implements OnInit {
     //this.newEmpresa.tipoUsuario = 'EMPRESA';
     //this.newUsuario.fecha_registro = new Date().toISOString().split('T')[0]; // Set default fecha_registro
     console.log('Sending user data:', JSON.stringify(this.newEmpresa)); // Log JSON data
-    this.http.post('${environment.apiUrl}/api/empresas/crear-con-usuario', this.newEmpresa).subscribe(() => {
+    this.http.post(`${environment.apiUrl}/empresas/crear-con-usuario`, this.newEmpresa).subscribe(() => {
       this.errorMessage = '';
       this.newEmpresa = {}; // Reset form
       this.presentToast('Empresa creada exitosamente');

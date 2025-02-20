@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class FotosService {
-private apiUrl = `${environment.apiUrl}/api`;
+private apiUrl = `${environment.apiUrl}`;
 
   constructor(private http: HttpClient) {
   }
