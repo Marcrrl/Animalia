@@ -14,18 +14,6 @@
   </ion-item>
   <img *ngIf="foto" [src]="foto" class="preview-image" />
 
-  <ion-button *ngIf="file" expand="full" (click)="subirImagen()">Subir Foto</ion-button>
-
-
-  <!-- Seleccion tipo animal foto -->
-  <!-- <ion-item>
-    <ion-label position="floating">Seleccione un animal</ion-label>
-    <ion-select [(ngModel)]="animalSeleccionadoId" (ionChange)="filtrarRescates()">
-      <ion-select-option *ngFor="let option of animales" [value]="option.id">
-        {{ option.nombre_comun }}
-      </ion-select-option>
-    </ion-select>
-  </ion-item> -->
 
   <!-- Select para cambiar el ID del animal -->
   <ion-item>
@@ -46,10 +34,11 @@
   </ion-item>
 
   <!-- Ubicación -->
-  <ion-item>
+  <!-- <ion-item>
     <ion-label position="stacked">Ubicación</ion-label>
     <ion-textarea [(ngModel)]="ubicacion"></ion-textarea>
-  </ion-item>
+  </ion-item> -->
+
   <!-- Estado del animal -->
   <ion-item>
     <ion-label position="floating">Estado del Animal</ion-label>
@@ -60,41 +49,6 @@
     </ion-select>
   </ion-item>
 
-  <p>Estado seleccionado: {{ estadoAnimal }}</p>
-
-  <!-- Fecha de Captura
-    <ion-item>
-      <ion-label position="stacked">Fecha de Captura</ion-label>
-      <ion-datetime formControlName="fecha_captura"></ion-datetime>
-    </ion-item>-->
-
-  <ion-button expand="full" (click)="enviarAnimalRescate()">
-    Buscar rescates con este animal
-  </ion-button>
-
-  <!-- Mostrar los rescates filtrados -->
-  <!-- <ion-list *ngIf="rescatesFiltrados.length > 0">
-    <ion-item *ngFor="let rescate of rescatesFiltrados">
-      <ion-label>
-        <h2>{{ rescate.estado_rescate }}</h2>
-      </ion-label>
-    </ion-item>
-  </ion-list> -->
-
-
-  <!-- Mostrar todas las fotos de los rescates filtrados -->
-  <!-- <ion-card *ngIf="fotosFiltradas.length > 0">
-    <ion-card-header>
-      <ion-card-title>Fotos de los Rescates</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <div class="contenedor-fotos">
-        <img *ngFor="let foto of fotosFiltradas" [src]="foto.url" [alt]="foto.descripcion" class="foto-rescate" />
-        
-      </div>
-    </ion-card-content>
-
-  </ion-card> -->
 
 
   <!-- Mostrar los rescates filtrados con sus fotos -->
@@ -126,51 +80,16 @@
 
 
 
-  <!-- Lista de fotos del rescate
-<ion-list *ngIf="fotos.length > 0">
-  <ion-item *ngFor="let foto of fotos; let i = index" (click)="onFotoClick(rescatesFiltrados[i].id)">
-    <ion-thumbnail slot="start">
-      <img [src]="getImagen(foto)" alt="Foto del rescate" />
-    </ion-thumbnail>
-    <ion-label>
-      <p>Fecha: {{ foto.fecha_captura }}</p>
-      <p>Fecha: {{ foto.url_foto }}</p>
-      <p>Ubicación: {{ foto.ubicacion }}</p>
-      <p><strong>ID Rescate:</strong> {{ rescatesFiltrados[i].id }}</p>
-    </ion-label>
-  </ion-item>
-</ion-list>-->
-
-
-
-
-
-
-  <!-- <ion-item *ngFor="let rescate of rescatesFiltrados" (click)="onFotoClick(rescate.id)">
-  <ion-thumbnail slot="start">
-    <img *ngIf="rescate.ultimaFoto" [src]="getImagen(rescate.ultimaFoto)" alt="Foto del rescate" />
-  </ion-thumbnail>
-  <ion-label>
-    <p>Fecha: {{ rescate.ultimaFoto?.fecha_captura }}</p>
-    <p>Foto: {{ rescate.ultimaFoto?.url_foto }}</p>
-    <p>Ubicación: {{ rescate.ultimaFoto?.ubicacion }}</p>
-    <p><strong>ID Rescate:</strong> {{ getRescatePorIdFoto(rescate.ultimaFoto?.id) }}</p>
-  </ion-label>
-</ion-item> -->
-
-
-
-
 
   <ion-button expand="full" *ngIf="rescateId" (click)="resetRescateSeleccionadoId()" color="danger">
     Eliminar Seleccion
   </ion-button>
 
   <!-- Descripción -->
-  <ion-item>
+  <!-- <ion-item>
     <ion-label position="stacked">Rescate ID</ion-label>
     <ion-textarea [(ngModel)]="rescateId"></ion-textarea>
-  </ion-item>
+  </ion-item> -->
 
 
   <p>Rescate a editar: {{ rescateId }}</p>
