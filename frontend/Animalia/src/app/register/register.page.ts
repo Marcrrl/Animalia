@@ -38,7 +38,7 @@ export class RegisterPage implements OnInit {
     this.newUsuario.tipoUsuario = 'USER';
     //this.newUsuario.fecha_registro = new Date().toISOString().split('T')[0]; // Set default fecha_registro
     //console.log('Sending user data:', JSON.stringify(this.newUsuario)); // Log JSON data
-    this.http.post(`${environment.apiUrl}/auth/add`, this.newUsuario).subscribe(() => {
+    this.http.post('http://backend:9000/auth/add', this.newUsuario).subscribe(() => {
       this.errorMessage = '';
       this.newUsuario = {}; // Reset form
       this.presentToast('Usuario creado exitosamente');

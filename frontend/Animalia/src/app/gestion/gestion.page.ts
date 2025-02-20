@@ -85,7 +85,7 @@ export class GestionPage implements OnInit {
       'Authorization': `Bearer ${token}`
     });
 
-    this.http.post(`${environment.apiUrl}/auth/add`, this.newUsuario, { headers }).subscribe(() => {
+    this.http.post('http://backend:9000/auth/add', this.newUsuario, { headers }).subscribe(() => {
       this.getUsuarios();
       this.showForm = false;
       this.errorMessage = '';
