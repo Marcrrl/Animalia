@@ -17,6 +17,7 @@ import com.animalia.spring.entidades.Rescates;
 import com.animalia.spring.entidades.DTO.RescateDTO;
 import com.animalia.spring.entidades.DTO.RescateDetalleDTO;
 import com.animalia.spring.entidades.DTO.RescateCreacionDTO;
+import com.animalia.spring.entidades.DTO.RescateUbicacionEstadoDTO;
 import com.animalia.spring.entidades.converter.RescateDtoConverter;
 import com.animalia.spring.entidades.converter.RescateDetalleDtoConverter;
 import com.animalia.spring.entidades.converter.RescateCreacionDtoConverter;
@@ -167,6 +168,19 @@ public class RescatesController {
         Rescates rescate = rescatesServicio.obtenerRescatePorId(id);
         if (rescate != null) {
             rescate.setUbicacion(ubicacion);
+            return ResponseEntity.ok(rescatesServicio.guardarRescate(rescate));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/{id}/ubicacion-estado")
+    @Operation(summary = "Actualizar la ubicación y el estado del animal de un rescate", description = "Actualizar la ubicación y el estado del animal de un rescate en el sistema")
+    public ResponseEntity<Rescates> actualizarUbicacionYEstadoAnimalRescate(@PathVariable long id, @RequestBody RescateUbicacionEstadoDTO rescateUbicacionEstadoDTO) {
+        Rescates rescate = rescatesServicio.obtenerRescatePorId(id);
+        if (rescate != null) {
+            rescate.setUbicacion(rescateUbicacionEstadoDTO.getUbicacion());
+            rescate.setEstado_animal(rescateUbicacionEstadoDTO.getEstadoAnimal());
             return ResponseEntity.ok(rescatesServicio.guardarRescate(rescate));
         } else {
             return ResponseEntity.notFound().build();
