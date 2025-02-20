@@ -1,7 +1,14 @@
 package com.animalia.spring.controladores;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,8 +62,7 @@ public class FotosController {
         Long idFotos = f.getRescate().getId();
 
         return ResponseEntity.ok(idFotos);
-        
-        
+
     }
 
     @GetMapping("/{id}")
@@ -95,4 +101,35 @@ public class FotosController {
         return ResponseEntity.ok(fotosServicio.actualizarFoto(foto));
     }
 
+    @GetMapping("/usuario/{usuarioId}/base64")
+    @Operation(summary = "Obtener lista de fotos en base64 por ID de usuario", description = "Devuelve una lista de fotos en base64 asociadas a un usuario por su ID")
+    public ResponseEntity<List<Map<String, String>>> obtenerFotosBase64PorUsuarioId(@PathVariable long usuarioId) {
+
+        List<Fotos> fotos = fotosServicio.obtenerFotosPorUsuarioId(usuarioId);
+        List<Map<String, String>> imagenesBase64 = new ArrayList<>();
+
+        if (fotos.isEmpty()) {
+            throw new FotosNoEcontrada();
+        }
+        for (Fotos foto : fotos) {
+            try {
+                ClassPathResource imgFile = new ClassPathResource("/static/img/" + foto.getUrl_foto());
+                InputStream inputStream = imgFile.getInputStream();
+                byte[] imageBytes = inputStream.readAllBytes();
+                inputStream.close();
+
+                String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+
+                Map<String, String> imagenData = new HashMap<>();
+                imagenData.put("nombre", foto.getUrl_foto());
+                imagenData.put("base64", "data:image/jpeg;base64," + base64Image);
+
+                imagenesBase64.add(imagenData);
+            } catch (IOException e) {
+                return ResponseEntity.status(500).body(List.of(Map.of("error", "Error al cargar la imagen: " + foto.getUrl_foto())));
+            }
+        }
+
+        return ResponseEntity.ok(imagenesBase64);
+    }
 }
