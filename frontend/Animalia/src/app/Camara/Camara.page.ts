@@ -121,7 +121,7 @@ export class CamaraPage implements OnInit {
     this.fotosFiltradas = this.rescatesFiltrados.flatMap((rescate) =>
       rescate.fotos.map((foto: any) => ({
         ...foto,
-        url: this.fotosService.obtenerImagenUrl(foto.url_foto), // Guardamos la URL aquí
+        url: this.fotosService.obtenerImagenUrl(foto.url_foto),
       }))
     );
 
@@ -134,10 +134,10 @@ export class CamaraPage implements OnInit {
   }
 
   editarRescate() {
-    const token = sessionStorage.getItem('token'); // Obtener el token almacenado
+    const token = sessionStorage.getItem('token');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`, // Enviar el token en el header
+      Authorization: `Bearer ${token}`,
     });
     this.rescatesService
       .editarRescate(this.rescateId, this.ubicacion, headers)
@@ -191,26 +191,23 @@ export class CamaraPage implements OnInit {
             this.usuarioOriginal &&
             this.foto
           ) {
-            const token = sessionStorage.getItem('token'); // Obtener el token almacenado
+            const token = sessionStorage.getItem('token');
             const headers = new HttpHeaders({
               'Content-Type': 'application/json',
-              Authorization: `Bearer ${token}`, // Enviar el token en el header
+              Authorization: `Bearer ${token}`,
             });
             // Crear un nuevo rescate
             const nuevoRescate = {
-              animalId: this.animalSeleccionadoId, // Asegúrate de que el animal esté asignado correctamente
-              //estado_rescate: 'EN PROCESO',     // El estado inicial puede ser "EN PROCESO" o lo que prefieras
-              estadoAnimal: this.estadoAnimal, // Asigna el estado adecuado para el animal
-              //fecha_rescate: null,       // Usa la fecha actual
-              //fotos: [],                       // Agrega las fotos si es necesario
-              ubicacion: this.ubicacion, // Ubicación por defecto
-              usuarioId: this.usuarioOriginal.id, // Información de usuario
-              //empresa: null // Información de la empresa
+              animalId: this.animalSeleccionadoId,
+
+              estadoAnimal: this.estadoAnimal,
+              ubicacion: this.ubicacion,
+              usuarioId: this.usuarioOriginal.id,
             };
 
             this.rescatesService.añadirRescate(nuevoRescate, headers).subscribe({
               next:async (response) => {
-                this.rescateId = (response.body as any).id; // Aquí accedes al ID dentro del objeto completo
+                this.rescateId = (response.body as any).id;
                 console.log('Rescate agregado con ID:', this.rescateId);
 
                await this.subirImagen();
@@ -290,12 +287,12 @@ export class CamaraPage implements OnInit {
   async takePicture() {
     try {
       const photo = await Camera.getPhoto({
-        resultType: CameraResultType.Uri, // Obtener la foto como URI
-        source: CameraSource.Camera, // Usar la cámara
-        quality: 100, // Calidad de la foto
+        resultType: CameraResultType.Uri,
+        source: CameraSource.Camera,
+        quality: 100,
       });
 
-      this.foto = photo.webPath || ' '; // Usamos el URI para mostrar la foto
+      this.foto = photo.webPath || ' ';
 
       if (photo.webPath) {
         this.file = await this.convertToFile(photo.webPath);
@@ -345,7 +342,7 @@ export class CamaraPage implements OnInit {
                 console.log('Foto guardada con éxito', response);
 
                 try {
-                  await this.enviarAnimalRescate(); // Esperamos a que termine antes de continuar
+                  await this.enviarAnimalRescate();
                   resolve();
                 } catch (error) {
                   console.error('Error en enviarAnimalRescate:', error);
@@ -385,10 +382,10 @@ export class CamaraPage implements OnInit {
         this.descripcion,
         this.ubicacion
       );
-      const token = sessionStorage.getItem('token'); // Obtener el token almacenado
+      const token = sessionStorage.getItem('token');
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`, // Enviar el token en el header
+        Authorization: `Bearer ${token}`,
       });
       this.fotosService
         .añadirFoto(
