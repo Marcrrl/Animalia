@@ -149,7 +149,7 @@ export class MapaPage {
           });
 
         marker.on('click', () => {
-          this.router.navigate(['/detalles-animal', dato.id]);
+          this.router.navigate(['/detalles-animal', dato.id,"foto"]);
         });
       });
     } else if (this.tipo == 'empresas') {

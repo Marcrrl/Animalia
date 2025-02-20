@@ -120,7 +120,7 @@ export class AnimalesPage implements OnInit {
   }
 
   haciaDatosAnimal(id_animal: number) {
-    this.router.navigate(['/detalles-animal', id_animal]);
+    this.router.navigate(['/detalles-animal', id_animal,"animal"]);
     console.log('ID del animal:', id_animal);
   }
 
