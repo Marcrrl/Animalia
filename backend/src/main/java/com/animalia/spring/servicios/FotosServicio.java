@@ -67,4 +67,12 @@ public class FotosServicio {
         }
         return null;
     }
+
+    public List<Fotos> obtenerFotosPorUsuarioId(long usuarioId) {
+        Usuarios usuario = usuarioRepositorio.findById(usuarioId).orElse(null);
+        if (usuario != null) {
+            return fotosRepositorio.findByUsuarios(usuario);
+        }
+        return List.of();
+    }
 }
